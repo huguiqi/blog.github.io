@@ -1,0 +1,937 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>linux 守护进程与用&amp;结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="linux 守护进程与用&amp;结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客linux 命令 原 linux 守护进程与用&amp;结尾的后台运行程序有什么区别2017年12月29日 16:02:15pursuer211阅读数：3309更多 个人分类：Linux 默认情况下，进程是在前台运行的，这时就把shell给占据了，我们无法进行其它操作。对于那些没有交互的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux 守护进程与用&amp;结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/linux%20%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%94%A8&%E7%BB%93%E5%B0%BE%E7%9A%84%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%20-%20pursuer211%E7%9A%84%E4%B8%93%E6%A0%8F%20-%20CSDN%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="linux 守护进程与用&amp;结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客linux 命令 原 linux 守护进程与用&amp;结尾的后台运行程序有什么区别2017年12月29日 16:02:15pursuer211阅读数：3309更多 个人分类：Linux 默认情况下，进程是在前台运行的，这时就把shell给占据了，我们无法进行其它操作。对于那些没有交互的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/ext/a7c8e286f463.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/ext/9e12f1d3e499.svg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/ext/a7c8e286f463.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/ext/9e12f1d3e499.svg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-05-23T02:23:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="linux 命令">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/ext/a7c8e286f463.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/linux 守护进程与用&结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客/" title="linux 守护进程与用&amp;结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客" itemprop="url">linux 守护进程与用&amp;结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%94%A8-amp-%E7%BB%93%E5%B0%BE%E7%9A%84%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB-pursuer211%E7%9A%84%E4%B8%93%E6%A0%8F-CSDN%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.</span> <span class="toc-text">linux 守护进程与用&amp;结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%94%A8-amp-%E7%BB%93%E5%B0%BE%E7%9A%84%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">linux 守护进程与用&amp;结尾的后台运行程序有什么区别</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="linux-守护进程与用-amp-结尾的后台运行程序有什么区别-pursuer211的专栏-CSDN博客"><a title="linux 守护进程与用&amp;结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客" class="headerlink" href="#linux-守护进程与用-amp-结尾的后台运行程序有什么区别-pursuer211的专栏-CSDN博客"></a>linux 守护进程与用&amp;结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客</h1><p><code>linux 命令</code></p>
+<p>原</p>
+<h1 id="linux-守护进程与用-amp-结尾的后台运行程序有什么区别"><a title="linux 守护进程与用&amp;结尾的后台运行程序有什么区别" class="headerlink" href="#linux-守护进程与用-amp-结尾的后台运行程序有什么区别"></a>linux 守护进程与用&amp;结尾的后台运行程序有什么区别</h1><p>2017年12月29日 16:02:15<a target="_blank" rel="noopener" href="https://me.csdn.net/pursuer211">pursuer211</a>阅读数：3309更多</p>
+<p>个人分类：<a target="_blank" rel="noopener" href="https://blog.csdn.net/pursuer211/article/category/839423">Linux</a></p>
+<p>默认情况下，进程是在前台运行的，这时就把shell给占据了，我们无法进行其它操作。对于那些没有交互的进程，很多时候，我们希望将其在后台启动，可以在启动参数的时候加一个’&amp;’实现这个目的：</p>
+<p>1</p>
+<p>zsm@wilburUbun:~/application/zookeeper-3.4.8/bin$ ./zkServer.sh start &amp;</p>
+<p>2</p>
+<p>[1] 21304</p>
+<p>3</p>
+<p>zsm@wilburUbun:~/application/zookeeper-3.4.8/bin$ ZooKeeper JMX enabled by default</p>
+<p>4</p>
+<p>Using config: /home/zsm/application/zookeeper-3.4.8/bin/../conf/zoo.cfg</p>
+<p>5</p>
+<p>Starting zookeeper … STARTED</p>
+<p>6</p>
+<p>7</p>
+<p>[1]+ Done ./zkServer.sh start</p>
+<p>切换到后台的进程称为job。切换到后台时会输出相关job信息，以前面的输出[1] 21304为例：[1]表示job ID，21304表示进程ID是21304。 切换到后台的进程，仍然可以用ps命令查看，或通过jobs命令只查看所有job（后台进程）。</p>
+<p>后台进程会随着Shell的退出而结束。</p>
+<p>最大的区别有几点：</p>
+<p>(a)守护进程已经完全脱离终端控制台了，而后台程序并未完全脱离终端，在终端未关闭前还是会往终端输出结果</p>
+<p>(b)守护进程在关闭终端控制台时不会受影响，而后台程序会随用户退出而停止，需要在以nohup command &amp; 格式运行才能避免影响</p>
+<p>(c)守护进程的会话组和当前目录，文件描述符都是独立的。后台运行只是终端进行了一次fork，让程序在后台执行，这些都没改变。</p>
+<p>如何查看守护进程：</p>
+<p>[plain]&nbsp;<a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/daiyudong2020/article/details/50810564#">view plain</a>&nbsp;<a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/daiyudong2020/article/details/50810564#">copy</a></p>
+<p>&nbsp;<a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/1598598"><img loading="lazy" src="/images/notes/ext/a7c8e286f463.png"></a><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/1598598/fork"><img loading="lazy" src="/images/notes/ext/9e12f1d3e499.svg"></a></p>
+<ol>
+<li>ps&nbsp;-axj</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>-a表示显示由其他用户所拥有的进程的状态</p>
+<p>-x显示没有控制终端的进程状态</p>
+<p>-j显示与作业有关的信息：会话ID、进程组ID等</p>
+<p>如何编写守护进程：</p>
+<p>可参考<a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=%E3%80%8Aunix%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B&amp;tn=24004469_oem_dg&amp;rsv_dl=gh_pl_sl_csd">《unix环境高级编程》</a></p>
+<p>第13章 守护进程</p>
+<p>如何使普通进程达到守护进程的部分效果：</p>
+<p>[plain]&nbsp;<a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/daiyudong2020/article/details/50810564#">view plain</a>&nbsp;<a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/daiyudong2020/article/details/50810564#">copy</a></p>
+<p>&nbsp;<a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/1598598"><img loading="lazy" src="/images/notes/ext/a7c8e286f463.png"></a><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/1598598/fork"><img loading="lazy" src="/images/notes/ext/9e12f1d3e499.svg"></a></p>
+<ol>
+<li>nohup&nbsp;./a.out&nbsp;&amp;</li>
+</ol>
+<p> &nbsp;</p>
+<p>1.nohup</p>
+<p>用途：不挂断地运行命令，即使终端ssh关闭了也一直运行。</p>
+<p>语法：nohup Command [ Arg … ] [　&amp; ]</p>
+<p>　　　 例<strong>：nohup start.sh &amp;</strong></p>
+<p>　　无论是否将 nohup 命令的输出重定向到终端，输出都将附加到当前目录的 nohup.out 文件中。nohup.out相对于日志</p>
+<p>　　如果当前目录的 nohup.out 文件不可写，输出重定向到 $HOME/nohup.out 文件中。</p>
+<p>　　如果没有文件能创建或打开以用于追加，那么 Command 参数指定的命令不可调用。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>2.&amp;</p>
+<p>用途：在后台运行,当关闭了ssh终端，程序也会关闭</p>
+<p>一般这种程序使用 &amp; 结尾，但是如果终端关闭，那么程序也会被关闭。</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; 例：&nbsp;start.sh&nbsp;&amp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>3.ps -aux</p>
+<p>&nbsp; ps -aux&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;可以查看进程，</p>
+<p>&nbsp; kill -9&nbsp; 进程号&nbsp; &nbsp; &nbsp; &nbsp; 然后杀死此进程</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux%E4%B8%8E%E8%BF%90%E7%BB%B4/">Linux与运维</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/linux-命令/">linux 命令</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/linux%20%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%94%A8&%E7%BB%93%E5%B0%BE%E7%9A%84%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%20-%20pursuer211%E7%9A%84%E4%B8%93%E6%A0%8F%20-%20CSDN%E5%8D%9A%E5%AE%A2/" data-title="linux 守护进程与用&amp;结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/linux 查看 和 修改系统编码/" title="linux 查看 和 修改系统编码">
+  <strong>上一篇：</strong><br/>
+  <span>
+  linux 查看 和 修改系统编码</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/linux下svn 增加 ignore 属性_忽略文件的处理_/"  title="linux下svn 增加 ignore 属性(忽略文件的处理)">
+ <strong>下一篇：</strong><br/> 
+ <span>linux下svn 增加 ignore 属性(忽略文件的处理)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/linux 守护进程与用&结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客/" data-title="linux 守护进程与用&结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/linux%20%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%94%A8&%E7%BB%93%E5%B0%BE%E7%9A%84%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%20-%20pursuer211%E7%9A%84%E4%B8%93%E6%A0%8F%20-%20CSDN%E5%8D%9A%E5%AE%A2/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%94%A8-amp-%E7%BB%93%E5%B0%BE%E7%9A%84%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB-pursuer211%E7%9A%84%E4%B8%93%E6%A0%8F-CSDN%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.</span> <span class="toc-text">linux 守护进程与用&amp;结尾的后台运行程序有什么区别 - pursuer211的专栏 - CSDN博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%94%A8-amp-%E7%BB%93%E5%B0%BE%E7%9A%84%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">linux 守护进程与用&amp;结尾的后台运行程序有什么区别</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

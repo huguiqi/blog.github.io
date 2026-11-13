@@ -1,0 +1,1022 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>关于/proc/进程idpid/fd ,根据fd来查找连接 - youxin - 博客园 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="关于&#x2F;proc&#x2F;进程idpid&#x2F;fd ,根据fd来查找连接 - youxin - 博客园关于&#x2F;proc&#x2F;进程idpid&#x2F;fd ,根据fd来查找连接 2015-08-20 11:32&amp;nbsp;youxin&amp;nbsp; 阅读(26663)&amp;nbsp; 评论(0)&amp;nbsp;编辑&amp;nbsp;收藏&amp;nbsp;举报 当创建好epoll句柄后，它就是会占用一个fd值，在linux下如果查看&#x2F;proc&#x2F;进程i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于&#x2F;proc&#x2F;进程idpid&#x2F;fd ,根据fd来查找连接 - youxin - 博客园">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%85%B3%E4%BA%8E_proc_%E8%BF%9B%E7%A8%8Bidpid_fd%20,%E6%A0%B9%E6%8D%AEfd%E6%9D%A5%E6%9F%A5%E6%89%BE%E8%BF%9E%E6%8E%A5%20-%20youxin%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="关于&#x2F;proc&#x2F;进程idpid&#x2F;fd ,根据fd来查找连接 - youxin - 博客园关于&#x2F;proc&#x2F;进程idpid&#x2F;fd ,根据fd来查找连接 2015-08-20 11:32&amp;nbsp;youxin&amp;nbsp; 阅读(26663)&amp;nbsp; 评论(0)&amp;nbsp;编辑&amp;nbsp;收藏&amp;nbsp;举报 当创建好epoll句柄后，它就是会占用一个fd值，在linux下如果查看&#x2F;proc&#x2F;进程i">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-21T06:24:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/关于_proc_进程idpid_fd ,根据fd来查找连接 - youxin - 博客园/" title="关于/proc/进程idpid/fd ,根据fd来查找连接 - youxin - 博客园" itemprop="url">关于/proc/进程idpid/fd ,根据fd来查找连接 - youxin - 博客园</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-x2F-proc-x2F-%E8%BF%9B%E7%A8%8Bidpid-x2F-fd-%E6%A0%B9%E6%8D%AEfd%E6%9D%A5%E6%9F%A5%E6%89%BE%E8%BF%9E%E6%8E%A5-youxin-%E5%8D%9A%E5%AE%A2%E5%9B%AD"><span class="toc-number">1.</span> <span class="toc-text">关于&#x2F;proc&#x2F;进程idpid&#x2F;fd ,根据fd来查找连接 - youxin - 博客园</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-x2F-proc-x2F-%E8%BF%9B%E7%A8%8Bidpid-x2F-fd-%E6%A0%B9%E6%8D%AEfd%E6%9D%A5%E6%9F%A5%E6%89%BE%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.</span> <span class="toc-text">关于&#x2F;proc&#x2F;进程idpid&#x2F;fd ,根据fd来查找连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#netstat"><span class="toc-number">2.0.1.</span> <span class="toc-text">netstat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#netstat%E6%98%AF%E6%80%8E%E4%B9%88%E7%BB%9F%E8%AE%A1%E7%9A%84"><span class="toc-number">2.0.2.</span> <span class="toc-text">netstat是怎么统计的</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDnetstat%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">下载netstat的源代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#java%E5%92%8Cc%E7%89%88%E7%9A%84%E7%AE%80%E5%8D%95netstat%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">java和c版的简单netstat的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8starce%E8%B7%9F%E8%B8%AAnetstat"><span class="toc-number">2.0.2.3.</span> <span class="toc-text">用starce跟踪netstat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%AA%E4%BA%9Bsocket%E4%BC%9A%E6%B2%A1%E6%9C%89%E8%A2%ABnetstat%E7%BB%9F%E8%AE%A1%E5%88%B0%EF%BC%9F"><span class="toc-number">2.0.2.4.</span> <span class="toc-text">哪些socket会没有被netstat统计到？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8lsof%E6%9F%A5%E7%9C%8B"><span class="toc-number">2.0.2.5.</span> <span class="toc-text">用lsof查看</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91GC%EF%BC%8C%E5%9B%9E%E6%94%B6socket"><span class="toc-number">2.0.3.</span> <span class="toc-text">触发GC，回收socket</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E7%9A%84%E4%B8%9C%E4%B8%9C"><span class="toc-number">2.1.</span> <span class="toc-text">其它的东东</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#anon-inode-eventpoll"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">anon_inode:[eventpoll]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88tail-f-x2F-proc-x2F-pid-x2F-fd-x2F-1-%E4%B8%8D%E8%83%BD%E8%AF%BB%E5%8F%96%E5%88%B0stdout%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.0.2.</span> <span class="toc-text">为什么tail -f &#x2F;proc&#x2F;$pid&#x2F;fd&#x2F;1 不能读取到stdout的数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AEfd%E6%9D%A5%E6%9F%A5%E6%89%BE%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.3.</span> <span class="toc-text">根据fd来查找连接</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="关于-x2F-proc-x2F-进程idpid-x2F-fd-根据fd来查找连接-youxin-博客园"><a title="关于/proc/进程idpid/fd ,根据fd来查找连接 - youxin - 博客园" class="headerlink" href="#关于-x2F-proc-x2F-进程idpid-x2F-fd-根据fd来查找连接-youxin-博客园"></a>关于/proc/进程idpid/fd ,根据fd来查找连接 - youxin - 博客园</h1><h1 id="关于-x2F-proc-x2F-进程idpid-x2F-fd-根据fd来查找连接"><a title="关于/proc/进程idpid/fd ,根据fd来查找连接" class="headerlink" href="#关于-x2F-proc-x2F-进程idpid-x2F-fd-根据fd来查找连接"></a>关于/proc/进程idpid/fd ,根据fd来查找连接</h1><p> 2015-08-20 11:32&nbsp;<a target="_blank" rel="noopener" href="https://www.cnblogs.com/youxin/">youxin</a>&nbsp; 阅读(26663)&nbsp; 评论(0)&nbsp;<a target="_blank" rel="noopener" href="https://i.cnblogs.com/EditPosts.aspx?postid=4744652">编辑</a>&nbsp;<a href="">收藏</a>&nbsp;<a href="">举报</a> 当创建好epoll句柄后，它就是会占用一个fd值，在linux下如果查看/proc/进程id/fd/，是能够看到这个fd的，所以在使用完epoll后，必须调用close()关闭，否则可能导致fd被耗尽。</p>
+<p>epoll创建的fd是：</p>
+<p>lrwx—— 1 root root 64 Aug 20 11:04 3 -&gt; anon_inode:[eventpoll]</p>
+<p>这种类型的inode，是epoll创建的。</p>
+<p>lrwx—— 1 root root 64 Aug 20 11:04 4 -&gt; socket:[1126425]</p>
+<p>一篇文章：</p>
+<p>众所周知，在相应进程的/proc/$pid/fd 目录下存放了此进程所有打开的fd。当然有些可能不是本进程自己打开的，如通过fork()从父进程继承而来的。本文着着重讲述socket有关的内容。当我们在fd目录下使用 ls -l 命令查看时，会看到诸如下面的内容：&nbsp;</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 133 -&gt; /dev/sda1</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 134 -&gt; /dev/sdb1</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 136 -&gt; /dev/sdb1</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 137 -&gt; socket:[22460]</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 138 -&gt; socket:[7326842]</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 139 -&gt; socket:[7341066]</p>
+<p>那么这个socket:后面的一串数字是什么呢？其实是该socket的inode号。从linux内核代码net/socket.c 中可以看出，如下</p>
+<p>/*</p>
+<p>&nbsp;* sockfs_dname() is called from d_path().</p>
+<p>&nbsp;*/</p>
+<p>static char *sockfs_dname(struct dentry *dentry, char *buffer, int buflen)</p>
+<p>{</p>
+<p>return dynamic_dname(dentry, buffer, buflen, “socket:[%lu]”,</p>
+<p>dentry-&gt;d_inode-&gt;i_ino);</p>
+<p>}</p>
+<p>那么，知道了某个进程打开的socket的inode号后，我们可以做什么呢？这就涉及到/proc/net/tcp(udp对应/proc/net/udp)文件了，其中也列出了相应socket的inode号通过比对此字段，我们能在/proc/net/tcp下获得此套接口的其他信息，如对应的&lt;本地地址：端口号，远端地址：端口号&gt;对，窗口大小，状态等信息。具体字段含义详见net/ipv4/tcp_ipv4.c 中的&nbsp;tcp4_seq_show 函数。cat /proc/net/tcp 如下：</p>
+<p>sl &nbsp;local_address rem_address &nbsp; st tx_queue rx_queue tr tm-&gt;when retrnsmt &nbsp; uid &nbsp;timeout inode&nbsp;</p>
+<p>19: 0100007F:83B8 0100007F:A57D 01 00000000:00000000 00:00000000 00000000 &nbsp; &nbsp; 0 &nbsp; &nbsp; &nbsp; &nbsp;0 10879 1 f622edc0 20 4 31 3 -1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+<p>&nbsp; 20: 0100007F:0FA0 0100007F:AA06 01 00000000:00000000 00:00000000 00000000 &nbsp; &nbsp; 0 &nbsp; &nbsp; &nbsp;0&nbsp;7326842&nbsp;1 f5504dc0 20 4 11 5 -1&nbsp;</p>
+<p>注：本文中涉及的代码以linux 2.6.30.1为基准。</p>
+<p>另外一篇:</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/hengyunabc/article/details/43865693">netstat统计的tcp连接数与⁄proc⁄pid⁄fd下socket类型fd数量不一致的分析</a></p>
+<p>最近，线上一个应用，发现socket数缓慢增长，并且不回收，超过警告线之后，被运维监控自动重启了。</p>
+<p>首先到zabbix上观察JVM历史记录，发现JVM-Perm space最近两周没有数据，猜测是程序从JDK7切换到JDK8了。问过开发人员之后，程序已经很久没有重启了，最近才重新发布的。而在这期间，线上的Java运行环境已经从JDK7升级到JDK8了。</p>
+<p>因为jdk8里没有Perm space了，换成了Metaspace。</p>
+<h3 id="netstat"><a title="netstat" class="headerlink" href="#netstat"></a>netstat</h3><p>到线上服务器上，用netstat来统计进程的connection数量。</p>
+<pre><code>netstat -antp | grep pid | wc -l
+</code></pre>
+<p>发现比zabbix上的统计socket数量要少100多，netstat统计只有100多，而zabbix上监控数据有300多。</p>
+<p>于是到/proc/$pid/fd下统计socket类型的fd数量：</p>
+<pre><code>cd /proc/$pid/fd
+ls -al | grep socket | wc -l
+</code></pre>
+<p>发现数据和zabbix上的数据一致。</p>
+<h3 id="netstat是怎么统计的"><a title="netstat是怎么统计的" class="headerlink" href="#netstat是怎么统计的"></a>netstat是怎么统计的</h3><h4 id="下载netstat的源代码"><a title="下载netstat的源代码" class="headerlink" href="#下载netstat的源代码"></a>下载netstat的源代码</h4><p><a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/21503/source-code-of-netstat">http://unix.stackexchange.com/questions/21503/source-code-of-netstat</a></p>
+<pre><code>apt-get source net-tools
+</code></pre>
+<p>从netstat的代码里，大概可以看到是读取/proc/net/tcp里面的数据来获取统计信息的。</p>
+<h4 id="java和c版的简单netstat的实现"><a title="java和c版的简单netstat的实现" class="headerlink" href="#java和c版的简单netstat的实现"></a>java和c版的简单netstat的实现</h4><p>java版的</p>
+<p><a target="_blank" rel="noopener" href="http://www.cs.earlham.edu/~jeremiah/LinuxSocket.java">http://www.cs.earlham.edu/~jeremiah/LinuxSocket.java</a></p>
+<p>C版的：</p>
+<p><a target="_blank" rel="noopener" href="http://www.netmite.com/android/mydroid/system/core/toolbox/netstat.c">http://www.netmite.com/android/mydroid/system/core/toolbox/netstat.c</a></p>
+<h4 id="用starce跟踪netstat"><a title="用starce跟踪netstat" class="headerlink" href="#用starce跟踪netstat"></a>用starce跟踪netstat</h4><pre><code>strace netstat -antp 
+</code></pre>
+<p>可以发现netstat把/proc 下的很多数据都读取出来了。于是大致可以知道netstat是把/proc/pid/fd 下面的数据和/proc/net/下面的数据汇总，对照得到统计结果的。</p>
+<h4 id="哪些socket会没有被netstat统计到？"><a title="哪些socket会没有被netstat统计到？" class="headerlink" href="#哪些socket会没有被netstat统计到？"></a>哪些socket会没有被netstat统计到？</h4><p>又在网上找了下，发现这里有说到socket如果创建了，没有bind或者connect，就不会被netstat统计到。</p>
+<p><a target="_blank" rel="noopener" href="http://serverfault.com/questions/153983/sockets-found-by-lsof-but-not-by-netstat">http://serverfault.com/questions/153983/sockets-found-by-lsof-but-not-by-netstat</a></p>
+<p>实际上，也就是如果socket创建了，没有被使用，那么就只会在/proc/pid/fd下面有，而不会在/proc/net/下面有相关数据。</p>
+<p>简单测试了下，的确是这样：</p>
+<pre><code>int socket = socket(PF_INET,SOCK_STREAM,0); //不使用
+</code></pre>
+<p>另外，即使socket是使用过的，如果执行shutdown后，刚开始里，用netstat可以统计到socket的状态是FIN_WAIT1。过一段时间，netstat统计不到socket的信息的，但是在/proc/pid/fd下，还是可以找到。</p>
+<p>中间的时候，自己写了个程序，把/proc/pid/fd 下的inode和/proc/net/下面的数据比较，发现的确有些socket的inode不会出现在/proc/net/下。</p>
+<h4 id="用lsof查看"><a title="用lsof查看" class="headerlink" href="#用lsof查看"></a>用lsof查看</h4><p>用lsof查看socket inode：</p>
+<h3 id="触发GC，回收socket"><a title="触发GC，回收socket" class="headerlink" href="#触发GC，回收socket"></a>触发GC，回收socket</h3><p>于是尝试触发GC，看下socket会不会被回收：</p>
+<pre><code>jmap -histo:live &lt;pid&gt;
+</code></pre>
+<p>结果，发现socket都被回收了。</p>
+<p>再看下AbstractPlainSocketImpl的finalize方法：</p>
+<pre><code>    /**
+     * Cleans up if the user forgets to close it.
+     */
+    protected void finalize() throws IOException &#123;
+        close();
+    &#125;
+</code></pre>
+<p>可以看到socket是会在GC时，被close掉的。&nbsp;</p>
+<p>写个程序来测试下：</p>
+<pre><code>public class TestServer &#123;
+    public static void main(String[] args) throws IOException, InterruptedException &#123;
+        for(int i = 0; i &lt; 10; ++i)&#123;
+            ServerSocket socket = new ServerSocket(i + 10000);
+            System.err.println(socket);
+        &#125;
+        System.in.read();
+    &#125;
+&#125;
+</code></pre>
+<p>先执行，查看/proc/pid/fd，可以发现有相关的socket fd，再触发GC，可以发现socket被回收掉了。</p>
+<h2 id="其它的东东"><a title="其它的东东" class="headerlink" href="#其它的东东"></a>其它的东东</h2><h4 id="anon-inode-eventpoll"><a title="anon_inode:[eventpoll]" class="headerlink" href="#anon-inode-eventpoll"></a>anon_inode:[eventpoll]</h4><pre><code>ls -al /proc/pid/fd
+</code></pre>
+<ul>
+<li>1</li>
+</ul>
+<p>可以看到有像这样的输出：</p>
+<pre><code>661 -&gt; anon_inode:[eventpoll]
+</code></pre>
+<ul>
+<li>1</li>
+</ul>
+<p>这种类型的inode，是epoll创建的。</p>
+<p>再扯远一点，linux下java里的selector实现是epoll结合一个pipe来实现事件通知功能的。所以在NIO程序里，会有anon_inode:[eventpoll]和pipe类型的fd。</p>
+<h4 id="为什么tail-f-x2F-proc-x2F-pid-x2F-fd-x2F-1-不能读取到stdout的数据"><a title="为什么tail -f /proc/$pid/fd/1 不能读取到stdout的数据" class="headerlink" href="#为什么tail-f-x2F-proc-x2F-pid-x2F-fd-x2F-1-不能读取到stdout的数据"></a>为什么tail -f /proc/$pid/fd/1 不能读取到stdout的数据</h4><p><a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/152773/why-cant-i-tail-f-proc-pid-fd-1">http://unix.stackexchange.com/questions/152773/why-cant-i-tail-f-proc-pid-fd-1</a></p>
+<h2 id="总结"><a title="总结" class="headerlink" href="#总结"></a>总结</h2><p>原因是jdk升级之后，GC的工作方式有变化，FullGC执行的时间变长了，导致有些空闲的socket没有被回收。</p>
+<p>本文比较乱，记录下一些工具和技巧。</p>
+<h2 id="根据fd来查找连接"><a title="根据fd来查找连接" class="headerlink" href="#根据fd来查找连接"></a>根据fd来查找连接</h2><p>众所周知，在相应进程的/proc/$pid/fd 目录下存放了此进程所有打开的fd。当然有些可能不是本进程自己打开的，如通过fork()从父进程继承而来的。本文着着重讲述socket有关的内容。当我们在fd目录下使用 ls -l 命令查看时，会看到诸如下面的内容：&nbsp;</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 133 -&gt; /dev/sda1</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 134 -&gt; /dev/sdb1</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 136 -&gt; /dev/sdb1</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 137 -&gt; socket:[22460]</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 138 -&gt; socket:[7326842]</p>
+<p>lrwx—— 1 root root 64 Nov 21 09:44 139 -&gt; socket:[7341066]</p>
+<p>那么这个socket:后面的一串数字是什么呢？其实是该socket的inode号。从linux内核代码net/socket.c 中可以看出，如下</p>
+<p>/*</p>
+<p>&nbsp;* sockfs_dname() is called from d_path().</p>
+<p>&nbsp;*/</p>
+<p>static char *sockfs_dname(struct dentry *dentry, char *buffer, int buflen)</p>
+<p>{</p>
+<p>return dynamic_dname(dentry, buffer, buflen, “socket:[%lu]”,</p>
+<p>dentry-&gt;d_inode-&gt;i_ino);</p>
+<p>}</p>
+<p>那么，知道了某个进程打开的socket的inode号后，我们可以做什么呢？这就涉及到/proc/net/tcp(udp对应/proc/net/udp)文件了，其中也列出了相应socket的inode号通过比对此字段，我们能在/proc/net/tcp下获得此套接口的其他信息，如对应的&lt;本地地址：端口号，远端地址：端口号&gt;对，窗口大小，状态等信息。具体字段含义详见net/ipv4/tcp_ipv4.c 中的&nbsp;tcp4_seq_show 函数。cat /proc/net/tcp 如</p>
+<p>我们想查看101 Socket文件描述符的链接状态该怎么看呢？聪明的注意到后面有个数字【2305224138】，这个数字又是哪儿来的呢？看客请往下看。</p>
+<p>在/proc/net/tcp目录下面保存了所有TCP链接的状态信息。</p>
+<p>复制代码<br>代码如下:<br>[root@XXXXXXX_10_1_17_138 song_test]# cat /proc/net/tcp</p>
+<p>sl local_address rem_address st tx_queue rx_queue tr tm-&gt;when retrnsmt uid timeout inode&nbsp;</p>
+<p>0: 8A11010A:7DC8 00000000:0000 0A 00000000:00000000 00:00000000 00000000 0 0 764789417 1 ffff881051dfcb40 99 0 0 10 -1&nbsp;</p>
+<p>1: 8A11010A:0369 00000000:0000 0A 00000000:00000000 00:00000000 00000000 0 0 737748331 1 ffff88106af8f7c0 99 0 0 10 -1&nbsp;</p>
+<p>51: 8A11010A:FAF4 9C01010A:0CEA 06 00000000:00000000 03:00000938 00000000 0 0 0 2 ffff8810516c01c0&nbsp;</p>
+<p><span style="color:#ff0000;"> 52: 8A11010A:21CD 0964010A:2227 01 00000000:00000000 00:00000000 00000000 0 0 2305224138 2 ffff8801402f55c0 23 3 30 10 -1 </span>&nbsp;</p>
+<p>53: 8A11010A:FB8A 9C01010A:0CEA 06 00000000:00000000 03:000012A8 00000000 0 0 0 2 ffff8810516c04c0&nbsp;</p>
+<p>54: 8A11010A:73E5 4511010A:0050 06 00000000:00000000 03:00000EA8 00000000 0 0 0 2 ffff88106898a880&nbsp;</p>
+<p>55: 8A11010A:89AD F300010A:1F90 08 00000000:00000001 00:00000000 00000000 0 0 2305271480 1 ffff880869b59740 23 3 0 10 -1&nbsp;</p>
+<p>187: 8A11010A:0ACB 8811010A:1F90 06 00000000:00000000 03:0000028E 00000000 0 0 0 2 ffff881050e9ccc0&nbsp;</p>
+<p>188: 8A11010A:FB6C 9C01010A:0CEA 06 00000000:00000000 03:000010CB 00000000 0 0 0 2 ffff88104fd8dd80&nbsp;<br>看上数字【2305224138】没有，就是这儿来的，到此我们可以找出链接的IP、PORT链接四元组【8A11010A:21CD 0964010A:2227】这个地方是用十六进制保存的，换算成十进制方式【10.1.17.138:8653&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.1.100.9:8743】；</p>
+<p>去网络连接状态里面看一下：</p>
+<p>复制代码<br>代码如下:<br>[root@XXXXXXX_10_1_17_138 song_test]# netstat -ntp&nbsp;</p>
+<p>Active Internet connections (w/o servers)</p>
+<p>Proto Recv-Q Send-Q Local Address Foreign Address State PID/Program name&nbsp;</p>
+<p>tcp 0 0 10.1.17.138:64428 10.1.1.156:3306 TIME_WAIT -&nbsp;</p>
+<p>tcp 0 0 10.1.17.138:64244 10.1.1.156:3306 TIME_WAIT -&nbsp;</p>
+<p><span style="color:#ff0000;">tcp 0 166 10.1.17.138:8653 10.1.100.9:8743 ESTABLISHED 25465/./index_searc </span></p>
+<p>tcp 0 0 10.1.17.138:64394 10.1.1.156:3306 TIME_WAIT -&nbsp;</p>
+<p>tcp 0 0 10.1.17.138:29669 10.1.17.69:80 TIME_WAIT -&nbsp;</p>
+<p>tcp 0 0 10.1.17.138:46336 10.1.17.68:80 TIME_WAIT -&nbsp;</p>
+<p>tcp 0 0 ::ffff:10.1.17.138:8080 ::ffff:10.1.17.136:27247 TIME_WAIT -&nbsp;<br>回到开始的问题：101 Socket文件描述符代表的是本地【10.1.17.138:8653】到【10.1.100.9:8743】的一条TCP连接！</p>
+<p>或者netstat -apn 查找对应的端口。</p>
+<p>Based on your example “2045” is pid number of process and “294364529” is inode number of socket. In Linux sockets use normal file operations so this is why they have inode numbers.</p>
+<p>Example: Let assume that I have in system socket with inode number 4654214.</p>
+<p>Netstat:</p>
+<pre><code>netstat -alep | egrep -i "Inode|4654214"
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       User       Inode       PID/Program name
+tcp        0      0 *:9999                  *:*                     LISTEN      root       4654214     10619/nc
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gqtcgq/p/9070332.html">https://www.cnblogs.com/gqtcgq/p/9070332.html</a></p>
+<p>关于/proc/$pid/fd socket:[number]</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5d82a685b5b6">https://www.jianshu.com/p/5d82a685b5b6</a></p>
+<p>/proc/net/tcp中的内容由tcp4_seq_show()函数打印，该函数中有三种打印形式，我们这里这只列出状态是TCP_SEQ_STATE_LISTENING或TCP_SEQ_STATE_ESTABLISHED的情况，如下所示：</p>
+<p>我们编写网络程序经常用到netstat -anpt 查看链接信息，这些信息本质都市来源于/proc/net/tcp&nbsp; 以下是每一行的详解</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E4%B8%8EWeb%E6%9C%8D%E5%8A%A1/">网络与Web服务</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%85%B3%E4%BA%8E_proc_%E8%BF%9B%E7%A8%8Bidpid_fd%20,%E6%A0%B9%E6%8D%AEfd%E6%9D%A5%E6%9F%A5%E6%89%BE%E8%BF%9E%E6%8E%A5%20-%20youxin%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/" data-title="关于/proc/进程idpid/fd ,根据fd来查找连接 - youxin - 博客园 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/修改linux文件权限命令：chmod/" title="修改linux文件权限命令：chmod">
+  <strong>上一篇：</strong><br/>
+  <span>
+  修改linux文件权限命令：chmod</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/关于_Unexpected CFBundleExecutable Key_ iOS 提交错误 - Tapjoy Developers/"  title="关于&#34;Unexpected CFBundleExecutable Key&#34; iOS 提交错误 - Tapjoy Developers">
+ <strong>下一篇：</strong><br/> 
+ <span>关于&#34;Unexpected CFBundleExecutable Key&#34; iOS 提交错误 - Tapjoy Developers
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/关于_proc_进程idpid_fd ,根据fd来查找连接 - youxin - 博客园/" data-title="关于/proc/进程idpid/fd ,根据fd来查找连接 - youxin - 博客园" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%85%B3%E4%BA%8E_proc_%E8%BF%9B%E7%A8%8Bidpid_fd%20,%E6%A0%B9%E6%8D%AEfd%E6%9D%A5%E6%9F%A5%E6%89%BE%E8%BF%9E%E6%8E%A5%20-%20youxin%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-x2F-proc-x2F-%E8%BF%9B%E7%A8%8Bidpid-x2F-fd-%E6%A0%B9%E6%8D%AEfd%E6%9D%A5%E6%9F%A5%E6%89%BE%E8%BF%9E%E6%8E%A5-youxin-%E5%8D%9A%E5%AE%A2%E5%9B%AD"><span class="toc-number">1.</span> <span class="toc-text">关于&#x2F;proc&#x2F;进程idpid&#x2F;fd ,根据fd来查找连接 - youxin - 博客园</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-x2F-proc-x2F-%E8%BF%9B%E7%A8%8Bidpid-x2F-fd-%E6%A0%B9%E6%8D%AEfd%E6%9D%A5%E6%9F%A5%E6%89%BE%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.</span> <span class="toc-text">关于&#x2F;proc&#x2F;进程idpid&#x2F;fd ,根据fd来查找连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#netstat"><span class="toc-number">2.0.1.</span> <span class="toc-text">netstat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#netstat%E6%98%AF%E6%80%8E%E4%B9%88%E7%BB%9F%E8%AE%A1%E7%9A%84"><span class="toc-number">2.0.2.</span> <span class="toc-text">netstat是怎么统计的</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDnetstat%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">下载netstat的源代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#java%E5%92%8Cc%E7%89%88%E7%9A%84%E7%AE%80%E5%8D%95netstat%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">java和c版的简单netstat的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8starce%E8%B7%9F%E8%B8%AAnetstat"><span class="toc-number">2.0.2.3.</span> <span class="toc-text">用starce跟踪netstat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%AA%E4%BA%9Bsocket%E4%BC%9A%E6%B2%A1%E6%9C%89%E8%A2%ABnetstat%E7%BB%9F%E8%AE%A1%E5%88%B0%EF%BC%9F"><span class="toc-number">2.0.2.4.</span> <span class="toc-text">哪些socket会没有被netstat统计到？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8lsof%E6%9F%A5%E7%9C%8B"><span class="toc-number">2.0.2.5.</span> <span class="toc-text">用lsof查看</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91GC%EF%BC%8C%E5%9B%9E%E6%94%B6socket"><span class="toc-number">2.0.3.</span> <span class="toc-text">触发GC，回收socket</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E7%9A%84%E4%B8%9C%E4%B8%9C"><span class="toc-number">2.1.</span> <span class="toc-text">其它的东东</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#anon-inode-eventpoll"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">anon_inode:[eventpoll]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88tail-f-x2F-proc-x2F-pid-x2F-fd-x2F-1-%E4%B8%8D%E8%83%BD%E8%AF%BB%E5%8F%96%E5%88%B0stdout%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.0.2.</span> <span class="toc-text">为什么tail -f &#x2F;proc&#x2F;$pid&#x2F;fd&#x2F;1 不能读取到stdout的数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AEfd%E6%9D%A5%E6%9F%A5%E6%89%BE%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.3.</span> <span class="toc-text">根据fd来查找连接</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

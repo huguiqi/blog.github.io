@@ -1,0 +1,1131 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>（总结）CentOS Linux搭建SVN Server配置详解 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="（总结）CentOS Linux搭建SVN Server配置详解SVN(SubVersion) linux安装svn服务仓库 （总结）CentOS Linux搭建SVN Server配置详解PS：今天给开发的同事搭建一个公网的SVN Server，google一下，发现下面这篇最详细，就记录下来，重新排版一下。顺便根据自己的使用经验，补充了几个细节和总结。本文配置是基于CentOS 5.x的，但一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（总结）CentOS Linux搭建SVN Server配置详解">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89CentOS%20Linux%E6%90%AD%E5%BB%BASVN%20Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="（总结）CentOS Linux搭建SVN Server配置详解SVN(SubVersion) linux安装svn服务仓库 （总结）CentOS Linux搭建SVN Server配置详解PS：今天给开发的同事搭建一个公网的SVN Server，google一下，发现下面这篇最详细，就记录下来，重新排版一下。顺便根据自己的使用经验，补充了几个细节和总结。本文配置是基于CentOS 5.x的，但一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/237.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/238.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/239.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/240.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/241.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/242.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-04-06T09:09:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="SVN(SubVersion)">
+<meta property="article:tag" content="linux安装svn服务仓库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/237.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/（总结）CentOS Linux搭建SVN Server配置详解/" title="（总结）CentOS Linux搭建SVN Server配置详解" itemprop="url">（总结）CentOS Linux搭建SVN Server配置详解</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">（总结）CentOS Linux搭建SVN Server配置详解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3-1"><span class="toc-number">2.</span> <span class="toc-text">（总结）CentOS Linux搭建SVN Server配置详解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mkdir-x2F-home-x2F-svn"><span class="toc-number">3.</span> <span class="toc-text">mkdir &#x2F;home&#x2F;svn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svnadmin-create-x2F-home-x2F-svn-x2F-project"><span class="toc-number">4.</span> <span class="toc-text">svnadmin create &#x2F;home&#x2F;svn&#x2F;project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mkdir-project-project-x2F-server-project-x2F-client-project-x2F-test-%E5%BB%BA%E7%AB%8B%E4%B8%B4%E6%97%B6%E7%9B%AE%E5%BD%95"><span class="toc-number">5.</span> <span class="toc-text">mkdir project project&#x2F;server project&#x2F;client project&#x2F;test (建立临时目录)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-import-project-x2F-file-x2F-x2F-x2F-home-x2F-svn-x2F-project-m-%E2%80%9C%E5%88%9D%E5%A7%8B%E5%8C%96SVN%E7%9B%AE%E5%BD%95%E2%80%9D"><span class="toc-number">6.</span> <span class="toc-text">svn import project&#x2F; file:&#x2F;&#x2F;&#x2F;home&#x2F;svn&#x2F;project -m “初始化SVN目录”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rm-rf-project-%E5%88%A0%E9%99%A4%E4%B8%B4%E6%97%B6%E5%BB%BA%E7%AB%8B%E7%9A%84%E7%9B%AE%E5%BD%95"><span class="toc-number">7.</span> <span class="toc-text">rm -rf project (删除临时建立的目录)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#harry-x3D-harryssecret"><span class="toc-number">8.</span> <span class="toc-text">harry &#x3D; harryssecret</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sally-x3D-sallyssecret"><span class="toc-number">9.</span> <span class="toc-text">sally &#x3D; sallyssecret</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svnserve-d-r-x2F-home-x2F-svn"><span class="toc-number">10.</span> <span class="toc-text">svnserve -d -r &#x2F;home&#x2F;svn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ps-aux-grep-svnserve"><span class="toc-number">11.</span> <span class="toc-text">ps -aux|grep svnserve</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kill-9-ID%E5%8F%B7"><span class="toc-number">12.</span> <span class="toc-text">kill -9 ID号</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svnserve-d-r-x2F-home-x2F-svn-1"><span class="toc-number">13.</span> <span class="toc-text">svnserve -d -r &#x2F;home&#x2F;svn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-co-svn-x2F-x2F-192-168-60-10-x2F-project"><span class="toc-number">14.</span> <span class="toc-text">svn co svn:&#x2F;&#x2F;192.168.60.10&#x2F;project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-co-svn-x2F-x2F-192-168-60-10-x2F-project-1"><span class="toc-number">15.</span> <span class="toc-text">svn co svn:&#x2F;&#x2F;192.168.60.10&#x2F;project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-project-x2F-server"><span class="toc-number">16.</span> <span class="toc-text">cd project&#x2F;server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-main-c"><span class="toc-number">17.</span> <span class="toc-text">vim main.c</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-add-main-c"><span class="toc-number">18.</span> <span class="toc-text">svn add main.c</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-commit-main-c-m-%E2%80%9C%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B%E6%88%91%E7%9A%84C%E7%A8%8B%E5%BA%8F-%E7%9C%8B%E4%BB%80%E4%B9%88%E7%9C%8B-%E4%B8%8D%E8%A1%8C%E5%95%8A-%E2%80%9D"><span class="toc-number">19.</span> <span class="toc-text">svn commit main.c -m “测试一下我的C程序,看什么看,不行啊??”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-conf-x2F"><span class="toc-number">20.</span> <span class="toc-text">cd &#x2F;home&#x2F;svn&#x2F;project&#x2F;conf&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-PtoWP-pl"><span class="toc-number">21.</span> <span class="toc-text">vim PtoWP.pl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chmod-x-PtoWP-pl"><span class="toc-number">22.</span> <span class="toc-text">chmod +x PtoWP.pl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-PtoWP-pl"><span class="toc-number">23.</span> <span class="toc-text">.&#x2F;PtoWP.pl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-etc-x2F-init-d-x2F-httpd-restart"><span class="toc-number">24.</span> <span class="toc-text">&#x2F;etc&#x2F;init.d&#x2F;httpd restart</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-search-cpan-org-CPAN-authors-id-D-DA-DAGOLDEN-Module-Build-0-36-11-tar-gz"><span class="toc-number">25.</span> <span class="toc-text">wget http:&#x2F;&#x2F;search.cpan.org&#x2F;CPAN&#x2F;authors&#x2F;id&#x2F;D&#x2F;DA&#x2F;DAGOLDEN&#x2F;Module-Build-0.36_11.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-xvf-Module-Build-0-36-11-tar-gz"><span class="toc-number">26.</span> <span class="toc-text">tar xvf Module-Build-0.36_11.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-Module-Build-0-36-11"><span class="toc-number">27.</span> <span class="toc-text">cd Module-Build-0.36_11</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#perl-Build-PL"><span class="toc-number">28.</span> <span class="toc-text">perl Build.PL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build"><span class="toc-number">29.</span> <span class="toc-text">.&#x2F;Build</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build-test"><span class="toc-number">30.</span> <span class="toc-text">.&#x2F;Build test</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build-install"><span class="toc-number">31.</span> <span class="toc-text">.&#x2F;Build install</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd"><span class="toc-number">32.</span> <span class="toc-text">cd ..</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-search-cpan-org-CPAN-authors-id-G-GB-GBARR-Authen-SASL-2-15-tar-gz"><span class="toc-number">33.</span> <span class="toc-text">wget http:&#x2F;&#x2F;search.cpan.org&#x2F;CPAN&#x2F;authors&#x2F;id&#x2F;G&#x2F;GB&#x2F;GBARR&#x2F;Authen-SASL-2.15.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-xvf-Authen-SASL-2-15-tar-gz"><span class="toc-number">34.</span> <span class="toc-text">tar xvf Authen-SASL-2.15.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-Authen-SASL-2-15"><span class="toc-number">35.</span> <span class="toc-text">cd Authen-SASL-2.15</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#perl-Makefile-PL"><span class="toc-number">36.</span> <span class="toc-text">perl Makefile.PL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-test"><span class="toc-number">37.</span> <span class="toc-text">make test</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-install"><span class="toc-number">38.</span> <span class="toc-text">make install</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-1"><span class="toc-number">39.</span> <span class="toc-text">cd ..</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-search-cpan-org-CPAN-authors-id-A-AP-APLEINER-Net-SMTP-auth-0-08-tar-gz"><span class="toc-number">40.</span> <span class="toc-text">wget http:&#x2F;&#x2F;search.cpan.org&#x2F;CPAN&#x2F;authors&#x2F;id&#x2F;A&#x2F;AP&#x2F;APLEINER&#x2F;Net-SMTP_auth-0.08.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-xvf-Net-SMTP-auth-0-08-tar-gz"><span class="toc-number">41.</span> <span class="toc-text">tar xvf Net-SMTP_auth-0.08.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-Net-SMTP-auth-0-08"><span class="toc-number">42.</span> <span class="toc-text">cd Net-SMTP_auth-0.08</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#perl-Makefile-PL-1"><span class="toc-number">43.</span> <span class="toc-text">perl Makefile.PL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-test-1"><span class="toc-number">44.</span> <span class="toc-text">make test</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-install-1"><span class="toc-number">45.</span> <span class="toc-text">make install</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-2"><span class="toc-number">46.</span> <span class="toc-text">cd ..</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-search-cpan-org-CPAN-authors-id-D-DW-DWHEELER-SVN-Notify-2-80-tar-gz"><span class="toc-number">47.</span> <span class="toc-text">wget http:&#x2F;&#x2F;search.cpan.org&#x2F;CPAN&#x2F;authors&#x2F;id&#x2F;D&#x2F;DW&#x2F;DWHEELER&#x2F;SVN-Notify-2.80.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-xvf-SVN-Notify-2-80-tar-gz"><span class="toc-number">48.</span> <span class="toc-text">tar xvf SVN-Notify-2.80.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-SVN-Notify-2-80"><span class="toc-number">49.</span> <span class="toc-text">cd SVN-Notify-2.80</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#perl-Build-PL-1"><span class="toc-number">50.</span> <span class="toc-text">perl Build.PL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build-1"><span class="toc-number">51.</span> <span class="toc-text">.&#x2F;Build</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build-test-1"><span class="toc-number">52.</span> <span class="toc-text">.&#x2F;Build test</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build-install-1"><span class="toc-number">53.</span> <span class="toc-text">.&#x2F;Build install</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-3"><span class="toc-number">54.</span> <span class="toc-text">cd ..</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#service-sendmail-restart"><span class="toc-number">55.</span> <span class="toc-text">service sendmail restart</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F"><span class="toc-number">56.</span> <span class="toc-text">cd &#x2F;home&#x2F;svn&#x2F;project&#x2F;hooks&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-post-commit"><span class="toc-number">57.</span> <span class="toc-text">vim post-commit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chmod-x-post-commit"><span class="toc-number">58.</span> <span class="toc-text">chmod +x post-commit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F-1"><span class="toc-number">59.</span> <span class="toc-text">cd &#x2F;home&#x2F;svn&#x2F;project&#x2F;hooks&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-pre-commit"><span class="toc-number">60.</span> <span class="toc-text">vim pre-commit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F-2"><span class="toc-number">61.</span> <span class="toc-text">cd &#x2F;home&#x2F;svn&#x2F;project&#x2F;hooks&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-pre-revprop-change"><span class="toc-number">62.</span> <span class="toc-text">vim pre-revprop-change</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mkdir-x2F-opt-x2F-project-backup"><span class="toc-number">63.</span> <span class="toc-text">mkdir &#x2F;opt&#x2F;project_backup</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-home-x2F-svn-x2F"><span class="toc-number">64.</span> <span class="toc-text">cd &#x2F;home&#x2F;svn&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-project-backup-sh"><span class="toc-number">65.</span> <span class="toc-text">vim project_backup.sh</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#crontab-e"><span class="toc-number">66.</span> <span class="toc-text">crontab -e</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chmod-x-jre-6u20-linux-i586-rpm-bin"><span class="toc-number">67.</span> <span class="toc-text">chmod +x jre-6u20-linux-i586-rpm.bin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-jre-6u20-linux-i586-rpm-bin"><span class="toc-number">68.</span> <span class="toc-text">.&#x2F;jre-6u20-linux-i586-rpm.bin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-downloads-sourceforge-net-project-svnstat-svnstat-Release-1-0-SvnStat-1-0-zip-use-mirror-jaist"><span class="toc-number">69.</span> <span class="toc-text">wget http:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;svnstat&#x2F;svnstat&#x2F;Release-1.0&#x2F;SvnStat-1.0.zip?use_mirror&#x3D;jaist</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#unzip-SvnStat-1-0-zip"><span class="toc-number">70.</span> <span class="toc-text">unzip SvnStat-1.0.zip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pwd"><span class="toc-number">71.</span> <span class="toc-text">pwd</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-co-svn-x2F-x2F-192-168-60-10-x2F-project-2"><span class="toc-number">72.</span> <span class="toc-text">svn co svn:&#x2F;&#x2F;192.168.60.10&#x2F;project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-log-project-v-%E2%80%93xml-%E2%80%93non-interactive-gt-project-log"><span class="toc-number">73.</span> <span class="toc-text">svn log project -v –xml –non-interactive &gt; project.log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-SvnStat-1-0"><span class="toc-number">74.</span> <span class="toc-text">cd SvnStat-1.0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-classpath-SvnStat-all-jar-de-agentlab-svnstat-SvnStat-jar-SvnStat-all-jar-r-x2F-root-x2F-project-log-d-x2F-var-x2F-www-x2F-html-x2F"><span class="toc-number">75.</span> <span class="toc-text">java -classpath SvnStat-all.jar de.agentlab.svnstat.SvnStat -jar SvnStat-all.jar -r &#x2F;root&#x2F;project.log -d &#x2F;var&#x2F;www&#x2F;html&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-downloads-sourceforge-net-project-statsvn-statsvn-0-7-0-statsvn-0-7-0-zip-use-mirror-jaist"><span class="toc-number">76.</span> <span class="toc-text">wget http:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;statsvn&#x2F;statsvn&#x2F;0.7.0&#x2F;statsvn-0.7.0.zip?use_mirror&#x3D;jaist</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#unzip-statsvn-0-7-0-zip"><span class="toc-number">77.</span> <span class="toc-text">unzip statsvn-0.7.0.zip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-statsvn-0-7-0"><span class="toc-number">78.</span> <span class="toc-text">cd statsvn-0.7.0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mkdir-x2F-var-x2F-www-x2F-html-x2F-statsvn"><span class="toc-number">79.</span> <span class="toc-text">mkdir &#x2F;var&#x2F;www&#x2F;html&#x2F;statsvn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-jar-statsvn-jar-verbose-output-dir-x2F-var-x2F-www-x2F-html-x2F-statsvn-x2F-x2F-root-x2F-project-log-x2F-root-x2F-project"><span class="toc-number">80.</span> <span class="toc-text">java -jar statsvn.jar -verbose -output-dir &#x2F;var&#x2F;www&#x2F;html&#x2F;statsvn&#x2F; &#x2F;root&#x2F;project.log &#x2F;root&#x2F;project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#perl-MCPAN-e-%E2%80%98install-%E2%80%9CTemplate%E2%80%9D%E2%80%98"><span class="toc-number">81.</span> <span class="toc-text">perl -MCPAN -e ‘install “Template”‘</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-downloads-sourceforge-net-project-codestriker-codestriker-1-9-10-codestriker-1-9-10-tar-gz-use-mirror-jaist-amp-ts-1279246587"><span class="toc-number">82.</span> <span class="toc-text">wget http:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;codestriker&#x2F;codestriker&#x2F;1.9.10&#x2F;codestriker-1.9.10.tar.gz?use_mirror&#x3D;jaist&amp;ts&#x3D;1279246587</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mkdir-x2F-var-x2F-www-x2F-codestriker"><span class="toc-number">83.</span> <span class="toc-text">mkdir &#x2F;var&#x2F;www&#x2F;codestriker</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-var-x2F-www-x2F-codestriker"><span class="toc-number">84.</span> <span class="toc-text">cd &#x2F;var&#x2F;www&#x2F;codestriker</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-xvf-x2F-path-x2F-codestriker-1-9-10-tar-gz"><span class="toc-number">85.</span> <span class="toc-text">tar xvf &#x2F;path&#x2F;codestriker-1.9.10.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chown-R-apache-apache-codestriker-1-9-10"><span class="toc-number">86.</span> <span class="toc-text">chown -R apache.apache codestriker-1.9.10</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#service-mysqld-restart"><span class="toc-number">87.</span> <span class="toc-text">service mysqld restart</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql-uroot-mysql"><span class="toc-number">88.</span> <span class="toc-text">mysql -uroot mysql</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-codestriker-1-9-10-x2F"><span class="toc-number">89.</span> <span class="toc-text">cd codestriker-1.9.10&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-codestriker-conf"><span class="toc-number">90.</span> <span class="toc-text">vim codestriker.conf</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-bin-x2F"><span class="toc-number">91.</span> <span class="toc-text">cd bin&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-install-pl"><span class="toc-number">92.</span> <span class="toc-text">.&#x2F;install.pl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-x2F-etc-x2F-httpd-x2F-conf-x2F-httpd-conf"><span class="toc-number">93.</span> <span class="toc-text">vim &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#service-httpd-restart-96"><span class="toc-number">94.</span> <span class="toc-text">service httpd restart&#96;</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="（总结）CentOS-Linux搭建SVN-Server配置详解"><a title="（总结）CentOS Linux搭建SVN Server配置详解" class="headerlink" href="#（总结）CentOS-Linux搭建SVN-Server配置详解"></a>（总结）CentOS Linux搭建SVN Server配置详解</h1><p><code>SVN(SubVersion)</code> <code>linux安装svn服务仓库</code></p>
+<h1 id="（总结）CentOS-Linux搭建SVN-Server配置详解-1"><a title="（总结）CentOS Linux搭建SVN Server配置详解" class="headerlink" href="#（总结）CentOS-Linux搭建SVN-Server配置详解-1"></a>（总结）CentOS Linux搭建SVN Server配置详解</h1><p><strong>PS：今天给开发的同事搭建一个公网的SVN Server，<a target="_blank" rel="noopener" href="http://www.ha97.com/category/google">google</a>一下，发现下面这篇最详细，就记录下来，重新排版一下。顺便根据自己的使用经验，补充了几个细节和总结。本文配置是基于CentOS 5.x的，但一样适用于其他<a target="_blank" rel="noopener" href="http://www.ha97.com/category/linux">Linux</a>发行版！</strong></p>
+<p><strong>SVN简介和工作原理</strong></p>
+<p>subversion（简称svn）是近几年崛起的版本管理软件，是cvs的接班人，目前绝大多数开源软件都使用svn作为代码版本管理软件。Subversion支持<a target="_blank" rel="noopener" href="http://www.ha97.com/tag/linux">linux</a>和<a target="_blank" rel="noopener" href="http://www.ha97.com/category/microsoft/windows">windows</a>，但较多安装在linux下。</p>
+<p>svn服务器有两种运行方式：独立服务器和借助于<a target="_blank" rel="noopener" href="http://www.ha97.com/category/web-server/apache">apache</a>。 svn://或http://</p>
+<p>svn客户端tortoisesvn</p>
+<p>svn的基本工作原理： 在一台服务器上建立一个源代码库，库里可以存放许多不同项目的源程序。有源代码库管理员统一管理这些源程序。每个用户在使用源代码库之前，首先要把源代码库里德项目文件下载到本地，然后开发人员可以在本地修改，左后用svn命令进行提交，游源代码库统一管理修改。</p>
+<p>版本控制解决了：</p>
+<p>*代码管理混乱</p>
+<p>*解决代码冲突困难</p>
+<p>*在代码整合期间引发bug</p>
+<p>*无法对代码的拥有者进行权限控制</p>
+<p>*项目不同版本的发布困难</p>
+<p>SVN工作原理示意图：</p>
+<p><img loading="lazy" alt="-237.jpg" src="/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/237.jpg"></p>
+<p>subversion目录说明：</p>
+<p>*dav目录：是提供apache与mod_dav_svn使用的目录，让他们存储内部数据</p>
+<p>*db目录：就是所有版本控制的数据存放文件</p>
+<p>*hooks目录：放置hook脚本文件的目录</p>
+<p>*locks目录：用来放置subversion见艰苦锁定数据的目录，用来追踪存取文件库的客户端</p>
+<p>*format文件：是一个文本文件，里面只放了一个整数。表示当前文件库配置的版本号</p>
+<p>*conf目录：是这个仓库的配置文件（仓库的用户访问账号、权限等）</p>
+<p><strong>SVN Server详细配置手册</strong></p>
+<p>系统环境</p>
+<p>CentOS 5.8 最小化安装(关闭iptables和selinux) + ssh + yum</p>
+<p>一，安装必须的软件包.</p>
+<p><code>yum install subversion mysql-server httpd mod_dav_svn mod_perl sendmail wget gcc-c++ make unzip perl* ntsysv vim-enhanced</code></p>
+<p>说明：</p>
+<p>subversion (SVN服务器)</p>
+<p><a target="_blank" rel="noopener" href="http://www.ha97.com/tag/mysql">mysql</a>-server (用于codestriker)</p>
+<p>httpd mod_dav_svn mod_perl (用于支持WEB方式管理SVN服务器)</p>
+<p>sendmail (用于配置用户提交代码后发邮件提醒)</p>
+<p>wget gcc-c++ make unzip perl* (必备软件包)</p>
+<p>ntsysv vim-enhanced (可选)</p>
+<p>二，基本的SVN服务器配置</p>
+<p>1，新建一个目录用于存储SVN所有文件</p>
+<h1 id="mkdir-x2F-home-x2F-svn"><a title="mkdir /home/svn" class="headerlink" href="#mkdir-x2F-home-x2F-svn"></a>mkdir /home/svn</h1><p>2，新建一个版本仓库</p>
+<h1 id="svnadmin-create-x2F-home-x2F-svn-x2F-project"><a title="svnadmin create /home/svn/project" class="headerlink" href="#svnadmin-create-x2F-home-x2F-svn-x2F-project"></a>svnadmin create /home/svn/project</h1><p>3，初始化版本仓库中的目录</p>
+<h1 id="mkdir-project-project-x2F-server-project-x2F-client-project-x2F-test-建立临时目录"><a title="mkdir project project/server project/client project/test (建立临时目录)" class="headerlink" href="#mkdir-project-project-x2F-server-project-x2F-client-project-x2F-test-建立临时目录"></a>mkdir project project/server project/client project/test (建立临时目录)</h1><h1 id="svn-import-project-x2F-file-x2F-x2F-x2F-home-x2F-svn-x2F-project-m-“初始化SVN目录”"><a title="svn import project/ file:///home/svn/project -m “初始化SVN目录”" class="headerlink" href="#svn-import-project-x2F-file-x2F-x2F-x2F-home-x2F-svn-x2F-project-m-“初始化SVN目录”"></a>svn import project/ file:///home/svn/project -m “初始化SVN目录”</h1><h1 id="rm-rf-project-删除临时建立的目录"><a title="rm -rf project (删除临时建立的目录)" class="headerlink" href="#rm-rf-project-删除临时建立的目录"></a>rm -rf project (删除临时建立的目录)</h1><p>4，添加用户</p>
+<p>要添加SVN用户非常简单，只需在/home/svn/project/conf/passwd文件添加一个形如“username=password”的条目就可以了。为了测试，我添加了如下内容:</p>
+<p>`<br>[users]</p>
+<h1 id="harry-x3D-harryssecret"><a title="harry = harryssecret" class="headerlink" href="#harry-x3D-harryssecret"></a>harry = harryssecret</h1><h1 id="sally-x3D-sallyssecret"><a title="sally = sallyssecret" class="headerlink" href="#sally-x3D-sallyssecret"></a>sally = sallyssecret</h1><p>pm = pm_pw<br>server_group = server_pw<br>client_group = client_pw<br>test_group = test_pw<br>`</p>
+<p>5，修改用户访问策略</p>
+<p>/home/svn/project/conf/authz记录用户的访问策略，以下是参考:</p>
+<p><code>[groups] project_p = pm project_s = server1,server2,server3 project_c = client1,client2,client3 project_t = test1,test1,test1</code></p>
+<p>[project:/]</p>
+<p>@project_p = rw</p>
+<ul>
+<li>=</li>
+</ul>
+<p>[project:/server]</p>
+<p>@project_p = rw</p>
+<p>@project_s = rw</p>
+<ul>
+<li>=</li>
+</ul>
+<p>[project:/client]</p>
+<p>@project_p = rw</p>
+<p>@project_c = rw</p>
+<ul>
+<li>=</li>
+</ul>
+<p>[project:/doc]</p>
+<p>@project_p = rw</p>
+<p>@project_s = r</p>
+<p>@project_c = r</p>
+<p>@project_t = r</p>
+<ul>
+<li>=</li>
+</ul>
+<p><em><em>说明：以上信息表示，只有project_p用户组有根目录的读写权。r表示对该目录有读权限，w表示对该目录有写权限，rw表示对该目录有读写权限。最后一行的</em> =表示，除了上面设置了权限的用户组之外，其他任何人都被禁止访问本目录。这个很重要，一定要加上！</em>*</p>
+<p>6，修改svnserve.conf文件,让用户和策略配置升效.</p>
+<p>svnserve.conf内容如下:</p>
+<p><code>[general] anon-access = none auth-access = write password-db = /home/svn/project/conf/passwd authz-db = /home/svn/project/conf/authz</code></p>
+<p>7，启动服务器</p>
+<h1 id="svnserve-d-r-x2F-home-x2F-svn"><a title="svnserve -d -r /home/svn" class="headerlink" href="#svnserve-d-r-x2F-home-x2F-svn"></a>svnserve -d -r /home/svn</h1><p><strong>注意：如果修改了svn配置，需要重启svn服务，步骤如下：</strong></p>
+<p>`</p>
+<h1 id="ps-aux-grep-svnserve"><a title="ps -aux|grep svnserve" class="headerlink" href="#ps-aux-grep-svnserve"></a>ps -aux|grep svnserve</h1><h1 id="kill-9-ID号"><a title="kill -9 ID号" class="headerlink" href="#kill-9-ID号"></a>kill -9 ID号</h1><h1 id="svnserve-d-r-x2F-home-x2F-svn-1"><a title="svnserve -d -r /home/svn" class="headerlink" href="#svnserve-d-r-x2F-home-x2F-svn-1"></a>svnserve -d -r /home/svn</h1><p>`</p>
+<p>8，测试服务器</p>
+<p>`</p>
+<h1 id="svn-co-svn-x2F-x2F-192-168-60-10-x2F-project"><a title="svn co svn://192.168.60.10/project" class="headerlink" href="#svn-co-svn-x2F-x2F-192-168-60-10-x2F-project"></a>svn co svn://192.168.60.10/project</h1><p>Authentication realm: <a>svn://192.168.60.10:3690</a> 92731041-2dae-4c23-97fd-9e1ed7f0d18d<br>Password for ‘root’:<br>Authentication realm: <a>svn://192.168.60.10:3690</a> 92731041-2dae-4c23-97fd-9e1ed7f0d18d<br>Username: server_group<br>Password for ‘server_group’:<br>svn: Authorization failed ( server_group没用根目录的访问权 )`</p>
+<h1 id="svn-co-svn-x2F-x2F-192-168-60-10-x2F-project-1"><a title="svn co svn://192.168.60.10/project" class="headerlink" href="#svn-co-svn-x2F-x2F-192-168-60-10-x2F-project-1"></a>svn co svn://192.168.60.10/project</h1><p>Authentication realm: <a>svn://192.168.60.10:3690</a> 92731041-2dae-4c23-97fd-9e1ed7f0d18d</p>
+<p>Password for ‘root’:</p>
+<p>Authentication realm: <a>svn://192.168.60.10:3690</a> 92731041-2dae-4c23-97fd-9e1ed7f0d18d</p>
+<p>Username: pm</p>
+<p>Password for ‘pm’:</p>
+<p>A&nbsp;&nbsp;&nbsp; project/test</p>
+<p>A&nbsp;&nbsp;&nbsp; project/server</p>
+<p>A&nbsp;&nbsp;&nbsp; project/client</p>
+<p>Checked out revision 1.&nbsp; ( 测试提取成功 )</p>
+<h1 id="cd-project-x2F-server"><a title="cd project/server" class="headerlink" href="#cd-project-x2F-server"></a>cd project/server</h1><h1 id="vim-main-c"><a title="vim main.c" class="headerlink" href="#vim-main-c"></a>vim main.c</h1><h1 id="svn-add-main-c"><a title="svn add main.c" class="headerlink" href="#svn-add-main-c"></a>svn add main.c</h1><h1 id="svn-commit-main-c-m-“测试一下我的C程序-看什么看-不行啊-”"><a title="svn commit main.c -m “测试一下我的C程序,看什么看,不行啊??”" class="headerlink" href="#svn-commit-main-c-m-“测试一下我的C程序-看什么看-不行啊-”"></a>svn commit main.c -m “测试一下我的C程序,看什么看,不行啊??”</h1><p>Adding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; main.c</p>
+<p>Transmitting file data .</p>
+<p>Committed revision 2.&nbsp; ( 测试提交成功 )</p>
+<p>三，配置SVN服务器的HTTP支持</p>
+<p>1，转换SVN服务器的密码</p>
+<p>由于SVN服务器的密码是明文的，HTTP服务器不与支持，所以需要转换成HTTP支持的格式。我写了一个Perl脚本完成这个工作.</p>
+<p>脚本内容如下:</p>
+<h1 id="cd-x2F-home-x2F-svn-x2F-project-x2F-conf-x2F"><a title="cd /home/svn/project/conf/" class="headerlink" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-conf-x2F"></a>cd /home/svn/project/conf/</h1><h1 id="vim-PtoWP-pl"><a title="vim PtoWP.pl" class="headerlink" href="#vim-PtoWP-pl"></a>vim PtoWP.pl</h1><pre><code>#!/usr/bin/perl
+# write by huabo, 2009-11-20
+
+use warnings;
+use strict;
+
+#open the svn passwd file
+open (FILE, "passwd") or die ("Cannot open the passwd file!!!\n");
+
+#clear the apache passwd file
+open (OUT_FILE, "&gt;webpasswd") or die ("Cannot open the webpasswd file!!!\n");
+close (OUT_FILE);
+
+#begin
+foreach (&lt;FILE&gt;) &#123;
+if($_ =~ m/^[^#].*=/) &#123;
+$_ =~ s/=//;
+`htpasswd -b webpasswd $_`;
+&#125;
+&#125;
+</code></pre>
+<h1 id="chmod-x-PtoWP-pl"><a title="chmod +x PtoWP.pl" class="headerlink" href="#chmod-x-PtoWP-pl"></a>chmod +x PtoWP.pl</h1><h1 id="x2F-PtoWP-pl"><a title="./PtoWP.pl" class="headerlink" href="#x2F-PtoWP-pl"></a>./PtoWP.pl</h1><p>Adding password for user pm</p>
+<p>Adding password for user server_group</p>
+<p>Adding password for user client_group</p>
+<p>Adding password for user test_group</p>
+<p>现在目录下会多一个webpasswd文件。</p>
+<p>2，修改httpd.conf，添加关于SVN服务器的内容</p>
+<p>编辑/etc/httpd/conf/httpd.conf，在最后添加如下信息:</p>
+<p><code>&lt;Location /project&gt; DAV svn SVNPath /home/svn/project/ AuthType Basic AuthName "svn for project" AuthUserFile /home/svn/project/conf/webpasswd AuthzSVNAccessFile /home/svn/project/conf/authz Satisfy all Require valid-user &lt;/Location&gt;</code></p>
+<p>3，修改svn目录的属主为apache帐号：chown -R apache.apache /home/svn/project/</p>
+<p>（<strong>注意：原文少了这一步，会出权限问题。</strong>）</p>
+<p>4，重启Web服务器：</p>
+<h1 id="x2F-etc-x2F-init-d-x2F-httpd-restart"><a title="/etc/init.d/httpd restart" class="headerlink" href="#x2F-etc-x2F-init-d-x2F-httpd-restart"></a>/etc/init.d/httpd restart</h1><p>Stopping httpd: [FAILED]</p>
+<p>Starting httpd: [ OK ]</p>
+<p>5，用浏览器访问<a target="_blank" rel="noopener" href="http://192.168.60.10/project/server/%E6%B5%8B%E8%AF%95">http://192.168.60.10/project/server/测试</a></p>
+<p>测试结果如下图所示：</p>
+<p><img loading="lazy" alt="-238.jpg" src="/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/238.jpg"></p>
+<p>( 测试成功 )</p>
+<p>四，配置邮件提醒支持</p>
+<p>1，安装Perl模块Module::Build</p>
+<p>`</p>
+<h1 id="wget-http-search-cpan-org-CPAN-authors-id-D-DA-DAGOLDEN-Module-Build-0-36-11-tar-gz"><a title="wget http://search.cpan.org/CPAN/authors/id/D/DA/DAGOLDEN/Module-Build-0.36_11.tar.gz" class="headerlink" href="#wget-http-search-cpan-org-CPAN-authors-id-D-DA-DAGOLDEN-Module-Build-0-36-11-tar-gz"></a>wget <a target="_blank" rel="noopener" href="http://search.cpan.org/CPAN/authors/id/D/DA/DAGOLDEN/Module-Build-0.36_11.tar.gz">http://search.cpan.org/CPAN/authors/id/D/DA/DAGOLDEN/Module-Build-0.36_11.tar.gz</a></h1><h1 id="tar-xvf-Module-Build-0-36-11-tar-gz"><a title="tar xvf Module-Build-0.36_11.tar.gz" class="headerlink" href="#tar-xvf-Module-Build-0-36-11-tar-gz"></a>tar xvf Module-Build-0.36_11.tar.gz</h1><h1 id="cd-Module-Build-0-36-11"><a title="cd Module-Build-0.36_11" class="headerlink" href="#cd-Module-Build-0-36-11"></a>cd Module-Build-0.36_11</h1><h1 id="perl-Build-PL"><a title="perl Build.PL" class="headerlink" href="#perl-Build-PL"></a>perl Build.PL</h1><h1 id="x2F-Build"><a title="./Build" class="headerlink" href="#x2F-Build"></a>./Build</h1><h1 id="x2F-Build-test"><a title="./Build test" class="headerlink" href="#x2F-Build-test"></a>./Build test</h1><h1 id="x2F-Build-install"><a title="./Build install" class="headerlink" href="#x2F-Build-install"></a>./Build install</h1><h1 id="cd"><a title="cd .." class="headerlink" href="#cd"></a>cd ..</h1><p>`</p>
+<p>2，安装Perl模块Authen::SASL</p>
+<p>`</p>
+<h1 id="wget-http-search-cpan-org-CPAN-authors-id-G-GB-GBARR-Authen-SASL-2-15-tar-gz"><a title="wget http://search.cpan.org/CPAN/authors/id/G/GB/GBARR/Authen-SASL-2.15.tar.gz" class="headerlink" href="#wget-http-search-cpan-org-CPAN-authors-id-G-GB-GBARR-Authen-SASL-2-15-tar-gz"></a>wget <a target="_blank" rel="noopener" href="http://search.cpan.org/CPAN/authors/id/G/GB/GBARR/Authen-SASL-2.15.tar.gz">http://search.cpan.org/CPAN/authors/id/G/GB/GBARR/Authen-SASL-2.15.tar.gz</a></h1><h1 id="tar-xvf-Authen-SASL-2-15-tar-gz"><a title="tar xvf Authen-SASL-2.15.tar.gz" class="headerlink" href="#tar-xvf-Authen-SASL-2-15-tar-gz"></a>tar xvf Authen-SASL-2.15.tar.gz</h1><h1 id="cd-Authen-SASL-2-15"><a title="cd Authen-SASL-2.15" class="headerlink" href="#cd-Authen-SASL-2-15"></a>cd Authen-SASL-2.15</h1><h1 id="perl-Makefile-PL"><a title="perl Makefile.PL" class="headerlink" href="#perl-Makefile-PL"></a>perl Makefile.PL</h1><h1 id="make-test"><a title="make test" class="headerlink" href="#make-test"></a>make test</h1><h1 id="make-install"><a title="make install" class="headerlink" href="#make-install"></a>make install</h1><h1 id="cd-1"><a title="cd .." class="headerlink" href="#cd-1"></a>cd ..</h1><p>`</p>
+<p>3，安装Perl模块Net::SMTP_auth</p>
+<p>`</p>
+<h1 id="wget-http-search-cpan-org-CPAN-authors-id-A-AP-APLEINER-Net-SMTP-auth-0-08-tar-gz"><a title="wget http://search.cpan.org/CPAN/authors/id/A/AP/APLEINER/Net-SMTP_auth-0.08.tar.gz" class="headerlink" href="#wget-http-search-cpan-org-CPAN-authors-id-A-AP-APLEINER-Net-SMTP-auth-0-08-tar-gz"></a>wget <a target="_blank" rel="noopener" href="http://search.cpan.org/CPAN/authors/id/A/AP/APLEINER/Net-SMTP_auth-0.08.tar.gz">http://search.cpan.org/CPAN/authors/id/A/AP/APLEINER/Net-SMTP_auth-0.08.tar.gz</a></h1><h1 id="tar-xvf-Net-SMTP-auth-0-08-tar-gz"><a title="tar xvf Net-SMTP_auth-0.08.tar.gz" class="headerlink" href="#tar-xvf-Net-SMTP-auth-0-08-tar-gz"></a>tar xvf Net-SMTP_auth-0.08.tar.gz</h1><h1 id="cd-Net-SMTP-auth-0-08"><a title="cd Net-SMTP_auth-0.08" class="headerlink" href="#cd-Net-SMTP-auth-0-08"></a>cd Net-SMTP_auth-0.08</h1><h1 id="perl-Makefile-PL-1"><a title="perl Makefile.PL" class="headerlink" href="#perl-Makefile-PL-1"></a>perl Makefile.PL</h1><h1 id="make-test-1"><a title="make test" class="headerlink" href="#make-test-1"></a>make test</h1><h1 id="make-install-1"><a title="make install" class="headerlink" href="#make-install-1"></a>make install</h1><h1 id="cd-2"><a title="cd .." class="headerlink" href="#cd-2"></a>cd ..</h1><p>`</p>
+<p>4，安装Perl模块SVN::Notify</p>
+<p>`</p>
+<h1 id="wget-http-search-cpan-org-CPAN-authors-id-D-DW-DWHEELER-SVN-Notify-2-80-tar-gz"><a title="wget http://search.cpan.org/CPAN/authors/id/D/DW/DWHEELER/SVN-Notify-2.80.tar.gz" class="headerlink" href="#wget-http-search-cpan-org-CPAN-authors-id-D-DW-DWHEELER-SVN-Notify-2-80-tar-gz"></a>wget <a target="_blank" rel="noopener" href="http://search.cpan.org/CPAN/authors/id/D/DW/DWHEELER/SVN-Notify-2.80.tar.gz">http://search.cpan.org/CPAN/authors/id/D/DW/DWHEELER/SVN-Notify-2.80.tar.gz</a></h1><h1 id="tar-xvf-SVN-Notify-2-80-tar-gz"><a title="tar xvf SVN-Notify-2.80.tar.gz" class="headerlink" href="#tar-xvf-SVN-Notify-2-80-tar-gz"></a>tar xvf SVN-Notify-2.80.tar.gz</h1><h1 id="cd-SVN-Notify-2-80"><a title="cd SVN-Notify-2.80" class="headerlink" href="#cd-SVN-Notify-2-80"></a>cd SVN-Notify-2.80</h1><h1 id="perl-Build-PL-1"><a title="perl Build.PL" class="headerlink" href="#perl-Build-PL-1"></a>perl Build.PL</h1><h1 id="x2F-Build-1"><a title="./Build" class="headerlink" href="#x2F-Build-1"></a>./Build</h1><h1 id="x2F-Build-test-1"><a title="./Build test" class="headerlink" href="#x2F-Build-test-1"></a>./Build test</h1><h1 id="x2F-Build-install-1"><a title="./Build install" class="headerlink" href="#x2F-Build-install-1"></a>./Build install</h1><h1 id="cd-3"><a title="cd .." class="headerlink" href="#cd-3"></a>cd ..</h1><p>`</p>
+<p>5，启动邮件服务器</p>
+<h1 id="service-sendmail-restart"><a title="service sendmail restart" class="headerlink" href="#service-sendmail-restart"></a>service sendmail restart</h1><p>Shutting down sendmail:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [FAILED]</p>
+<p>Starting sendmail:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp; OK&nbsp; ]</p>
+<p>Starting sm-client:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp; OK&nbsp; ]</p>
+<p>6，配置自动发邮件脚本</p>
+<p>修改post-commit脚本,以支持邮件通知功能.</p>
+<h1 id="cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F"><a title="cd /home/svn/project/hooks/" class="headerlink" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F"></a>cd /home/svn/project/hooks/</h1><h1 id="vim-post-commit"><a title="vim post-commit" class="headerlink" href="#vim-post-commit"></a>vim post-commit</h1><p>内容如下:</p>
+<p><code> #!/bin/sh REPOS="$1" REV="$2"</code></p>
+<p>/usr/bin/svnnotify –repos-path “$1″ –revision “$2″ –to <a href="mailto:caodaijun@pica.com">caodaijun@pica.com</a> –from <a href="mailto:caodaijun@feinno.com">caodaijun@feinno.com</a> –handler “HTML::ColorDiff”&nbsp; –with-diff –smtp localhost –smtp-user root –smtp-pass 5201314318 -c “UTF-8″ -g zh_CN -o raw –svnlook /usr/bin/svnlook –subject-prefix ‘[SVN Update]‘</p>
+<p>(to参数代表接收邮件的地址，可以有多个，当你有多个老大的时候，这就很重要了，：）。from参数是虚拟的，代表你的发送地址，一般情况下，这个参数 不重要，但如果接收者的邮件服务器有反垃圾邮件的功能，需要判定源地址的话，这个参数是否合法就显得很重要了)</p>
+<p>再给该脚本添加可执行权限</p>
+<h1 id="chmod-x-post-commit"><a title="chmod +x post-commit" class="headerlink" href="#chmod-x-post-commit"></a>chmod +x post-commit</h1><p>7，再次提交时，就会给指定邮件地址发信了。</p>
+<p>如下图所示:</p>
+<p><img loading="lazy" alt="-239.jpg" src="/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/239.jpg"></p>
+<p>五，其它常用配置</p>
+<p>1，强制写log脚本</p>
+<p>配置pre-commit文件，要求用户每次更新文件都必须写log.</p>
+<h1 id="cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F-1"><a title="cd /home/svn/project/hooks/" class="headerlink" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F-1"></a>cd /home/svn/project/hooks/</h1><h1 id="vim-pre-commit"><a title="vim pre-commit" class="headerlink" href="#vim-pre-commit"></a>vim pre-commit</h1><p>文件内容如下:</p>
+<p><code> #!/bin/sh REPOS="$1" TXN="$2" SVNLOOK=/usr/bin/svnlook LOGMSG=</code>$SVNLOOK log -t “$TXN” “$REPOS” | grep “[a-zA-Z0-9]” | wc -c<code>if [ "$LOGMSG" -lt 5(要求的log长度，依实际需要修改) ]; then echo -e "\nEmpty log message not allowed. Commit aborted!" 1&gt;&amp;2 exit 1 fi</code></p>
+<p>配置完成后，给本件加上可执行权限。再提交代码时，就必须按要求写注释了，：）</p>
+<p>2，可修改log脚本</p>
+<p>配置pre-revprop-change文件，此文件在show log中修改log时会运行，得到修改的权限，否则会报错:DAV request failed; it’s possible that the repository’s pre-revprop-change hook either failed or is non-existent. At least one property change failed; repository is unchanged</p>
+<h1 id="cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F-2"><a title="cd /home/svn/project/hooks/" class="headerlink" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F-2"></a>cd /home/svn/project/hooks/</h1><h1 id="vim-pre-revprop-change"><a title="vim pre-revprop-change" class="headerlink" href="#vim-pre-revprop-change"></a>vim pre-revprop-change</h1><p>文件内容如下:</p>
+<p><code>REPOS="$1" REV="$2" USER="$3" PROPNAME="$4" if ["$PROPNAME" = "svn:log"];then exit 0;fi exit 1</code></p>
+<p>配置完后加可执行权限升效。</p>
+<p>六，备份管理</p>
+<p>svn服务器的定期备份是很重要的，最简单的方式是定时备份仓库目录。</p>
+<p>1，新建备份目录</p>
+<h1 id="mkdir-x2F-opt-x2F-project-backup"><a title="mkdir /opt/project_backup" class="headerlink" href="#mkdir-x2F-opt-x2F-project-backup"></a>mkdir /opt/project_backup</h1><p>2，编写备份脚本</p>
+<h1 id="cd-x2F-home-x2F-svn-x2F"><a title="cd /home/svn/" class="headerlink" href="#cd-x2F-home-x2F-svn-x2F"></a>cd /home/svn/</h1><h1 id="vim-project-backup-sh"><a title="vim project_backup.sh" class="headerlink" href="#vim-project-backup-sh"></a>vim project_backup.sh</h1><p>内容如下:</p>
+<p><code> #!/bin/bash #write by huabo, 2009-11-20</code></p>
+<p>cd /home/svn</p>
+<p>now=<code>/bin/date +%Y%m%d</code></p>
+<p>/bin/tar czvf “project_backup_$now.tar.gz” project/ &amp;&amp; rm -rf /opt/project_backup/* &amp;&amp; /bin/mv project_backup_*.tar.gz /opt/project_backup/</p>
+<p>if [ $? == 0 ]</p>
+<p>then</p>
+<p>result=”OK!!”</p>
+<p>else</p>
+<p>result=”False!!”</p>
+<p>fi</p>
+<p>#send mail to administrator</p>
+<p>/bin/mail <a href="mailto:caodaijun@pica.com">caodaijun@pica.com</a> -s “project_backup_$now” &lt;&lt;MESSAGE</p>
+<p>Result: <code>/bin/echo $result</code></p>
+<p>MESSAGE</p>
+<p>给该脚本添加可执行权限。</p>
+<p>3，设定每天定时执行该脚本.</p>
+<h1 id="crontab-e"><a title="crontab -e" class="headerlink" href="#crontab-e"></a>crontab -e</h1><p>输入如下内容:</p>
+<p>0 23 * * * /home/svn/project_backup.sh</p>
+<p>表示每天晚上23点运行此脚本。</p>
+<p>经过以上三步操作，就可以自动备份SVN资料了，且不论备份是否成功，都会给用户发送邮件信息。</p>
+<p>七，用svnstat分析SVN数据.</p>
+<p>1，安装JAVA</p>
+<p>svnstat是JAVA应用程序，需要先安装JAVA环境。</p>
+<p>下载jre，URL: <a target="_blank" rel="noopener" href="http://javadl.sun.com/webapps/download/AutoDL?BundleId=39484">http://javadl.sun.com/webapps/download/AutoDL?BundleId=39484</a></p>
+<p>安装:</p>
+<h1 id="chmod-x-jre-6u20-linux-i586-rpm-bin"><a title="chmod +x jre-6u20-linux-i586-rpm.bin" class="headerlink" href="#chmod-x-jre-6u20-linux-i586-rpm-bin"></a>chmod +x jre-6u20-linux-i586-rpm.bin</h1><h1 id="x2F-jre-6u20-linux-i586-rpm-bin"><a title="./jre-6u20-linux-i586-rpm.bin" class="headerlink" href="#x2F-jre-6u20-linux-i586-rpm-bin"></a>./jre-6u20-linux-i586-rpm.bin</h1><p>2，下载svnstat</p>
+<h1 id="wget-http-downloads-sourceforge-net-project-svnstat-svnstat-Release-1-0-SvnStat-1-0-zip-use-mirror-jaist"><a title="wget http://downloads.sourceforge.net/project/svnstat/svnstat/Release-1.0/SvnStat-1.0.zip?use_mirror=jaist" class="headerlink" href="#wget-http-downloads-sourceforge-net-project-svnstat-svnstat-Release-1-0-SvnStat-1-0-zip-use-mirror-jaist"></a>wget <a target="_blank" rel="noopener" href="http://downloads.sourceforge.net/project/svnstat/svnstat/Release-1.0/SvnStat-1.0.zip?use_mirror=jaist">http://downloads.sourceforge.net/project/svnstat/svnstat/Release-1.0/SvnStat-1.0.zip?use_mirror=jaist</a></h1><h1 id="unzip-SvnStat-1-0-zip"><a title="unzip SvnStat-1.0.zip" class="headerlink" href="#unzip-SvnStat-1-0-zip"></a>unzip SvnStat-1.0.zip</h1><p>3，更新代码</p>
+<h1 id="pwd"><a title="pwd" class="headerlink" href="#pwd"></a>pwd</h1><p>/root</p>
+<h1 id="svn-co-svn-x2F-x2F-192-168-60-10-x2F-project-2"><a title="svn co svn://192.168.60.10/project" class="headerlink" href="#svn-co-svn-x2F-x2F-192-168-60-10-x2F-project-2"></a>svn co svn://192.168.60.10/project</h1><p>A&nbsp;&nbsp;&nbsp; project/test</p>
+<p>A&nbsp;&nbsp;&nbsp; project/server</p>
+<p>A&nbsp;&nbsp;&nbsp; project/server/main.c</p>
+<p>A&nbsp;&nbsp;&nbsp; project/client</p>
+<p>Checked out revision 5.</p>
+<p>4，生成svnstat数据</p>
+<h1 id="svn-log-project-v-–xml-–non-interactive-gt-project-log"><a title="svn log project -v –xml –non-interactive > project.log" class="headerlink" href="#svn-log-project-v-–xml-–non-interactive-gt-project-log"></a>svn log project -v –xml –non-interactive &gt; project.log</h1><h1 id="cd-SvnStat-1-0"><a title="cd SvnStat-1.0" class="headerlink" href="#cd-SvnStat-1-0"></a>cd SvnStat-1.0</h1><h1 id="java-classpath-SvnStat-all-jar-de-agentlab-svnstat-SvnStat-jar-SvnStat-all-jar-r-x2F-root-x2F-project-log-d-x2F-var-x2F-www-x2F-html-x2F"><a title="java -classpath SvnStat-all.jar de.agentlab.svnstat.SvnStat -jar SvnStat-all.jar -r /root/project.log -d /var/www/html/" class="headerlink" href="#java-classpath-SvnStat-all-jar-de-agentlab-svnstat-SvnStat-jar-SvnStat-all-jar-r-x2F-root-x2F-project-log-d-x2F-var-x2F-www-x2F-html-x2F"></a>java -classpath SvnStat-all.jar de.agentlab.svnstat.SvnStat -jar SvnStat-all.jar -r /root/project.log -d /var/www/html/</h1><p>5，用浏览器登录即可看到许多统计出来的图表。大致如下图所示：</p>
+<p><img loading="lazy" alt="-240.jpg" src="/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/240.jpg"></p>
+<p>八，用statsvn分析SVN数据</p>
+<p>1，下载statsvn</p>
+<h1 id="wget-http-downloads-sourceforge-net-project-statsvn-statsvn-0-7-0-statsvn-0-7-0-zip-use-mirror-jaist"><a title="wget http://downloads.sourceforge.net/project/statsvn/statsvn/0.7.0/statsvn-0.7.0.zip?use_mirror=jaist" class="headerlink" href="#wget-http-downloads-sourceforge-net-project-statsvn-statsvn-0-7-0-statsvn-0-7-0-zip-use-mirror-jaist"></a>wget <a target="_blank" rel="noopener" href="http://downloads.sourceforge.net/project/statsvn/statsvn/0.7.0/statsvn-0.7.0.zip?use_mirror=jaist">http://downloads.sourceforge.net/project/statsvn/statsvn/0.7.0/statsvn-0.7.0.zip?use_mirror=jaist</a></h1><h1 id="unzip-statsvn-0-7-0-zip"><a title="unzip statsvn-0.7.0.zip" class="headerlink" href="#unzip-statsvn-0-7-0-zip"></a>unzip statsvn-0.7.0.zip</h1><h1 id="cd-statsvn-0-7-0"><a title="cd statsvn-0.7.0" class="headerlink" href="#cd-statsvn-0-7-0"></a>cd statsvn-0.7.0</h1><p>2，生成statsvn数据</p>
+<h1 id="mkdir-x2F-var-x2F-www-x2F-html-x2F-statsvn"><a title="mkdir /var/www/html/statsvn" class="headerlink" href="#mkdir-x2F-var-x2F-www-x2F-html-x2F-statsvn"></a>mkdir /var/www/html/statsvn</h1><h1 id="java-jar-statsvn-jar-verbose-output-dir-x2F-var-x2F-www-x2F-html-x2F-statsvn-x2F-x2F-root-x2F-project-log-x2F-root-x2F-project"><a title="java -jar statsvn.jar -verbose -output-dir /var/www/html/statsvn/ /root/project.log /root/project" class="headerlink" href="#java-jar-statsvn-jar-verbose-output-dir-x2F-var-x2F-www-x2F-html-x2F-statsvn-x2F-x2F-root-x2F-project-log-x2F-root-x2F-project"></a>java -jar statsvn.jar -verbose -output-dir /var/www/html/statsvn/ /root/project.log /root/project</h1><p>3，用浏览器测测试效果如下图：</p>
+<p><img loading="lazy" alt="-241.jpg" src="/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/241.jpg"></p>
+<p>九，配置codestriker.</p>
+<p>1.安装codestriker依赖的perl包.</p>
+<h1 id="perl-MCPAN-e-‘install-“Template”‘"><a title="perl -MCPAN -e ‘install “Template”‘" class="headerlink" href="#perl-MCPAN-e-‘install-“Template”‘"></a>perl -MCPAN -e ‘install “Template”‘</h1><p>2.下载codestriker</p>
+<h1 id="wget-http-downloads-sourceforge-net-project-codestriker-codestriker-1-9-10-codestriker-1-9-10-tar-gz-use-mirror-jaist-amp-ts-1279246587"><a title="wget http://downloads.sourceforge.net/project/codestriker/codestriker/1.9.10/codestriker-1.9.10.tar.gz?use_mirror=jaist&amp;ts=1279246587" class="headerlink" href="#wget-http-downloads-sourceforge-net-project-codestriker-codestriker-1-9-10-codestriker-1-9-10-tar-gz-use-mirror-jaist-amp-ts-1279246587"></a>wget <a target="_blank" rel="noopener" href="http://downloads.sourceforge.net/project/codestriker/codestriker/1.9.10/codestriker-1.9.10.tar.gz?use_mirror=jaist&amp;ts=1279246587">http://downloads.sourceforge.net/project/codestriker/codestriker/1.9.10/codestriker-1.9.10.tar.gz?use_mirror=jaist&amp;ts=1279246587</a></h1><h1 id="mkdir-x2F-var-x2F-www-x2F-codestriker"><a title="mkdir /var/www/codestriker" class="headerlink" href="#mkdir-x2F-var-x2F-www-x2F-codestriker"></a>mkdir /var/www/codestriker</h1><h1 id="cd-x2F-var-x2F-www-x2F-codestriker"><a title="cd /var/www/codestriker" class="headerlink" href="#cd-x2F-var-x2F-www-x2F-codestriker"></a>cd /var/www/codestriker</h1><h1 id="tar-xvf-x2F-path-x2F-codestriker-1-9-10-tar-gz"><a title="tar xvf /path/codestriker-1.9.10.tar.gz" class="headerlink" href="#tar-xvf-x2F-path-x2F-codestriker-1-9-10-tar-gz"></a>tar xvf /path/codestriker-1.9.10.tar.gz</h1><h1 id="chown-R-apache-apache-codestriker-1-9-10"><a title="chown -R apache.apache codestriker-1.9.10" class="headerlink" href="#chown-R-apache-apache-codestriker-1-9-10"></a>chown -R apache.apache codestriker-1.9.10</h1><p>3.配置数据库</p>
+<h1 id="service-mysqld-restart"><a title="service mysqld restart" class="headerlink" href="#service-mysqld-restart"></a>service mysqld restart</h1><h1 id="mysql-uroot-mysql"><a title="mysql -uroot mysql" class="headerlink" href="#mysql-uroot-mysql"></a>mysql -uroot mysql</h1><p>执行:</p>
+<p>CREATE <a target="_blank" rel="noopener" href="http://www.ha97.com/category/database">DATABASE</a> codestrikerdb CHARACTER SET utf8;</p>
+<p>GRANT SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,REFERENCES ON codestrikerdb.* TO codestriker@localhost IDENTIFIED BY ‘cspasswd’;</p>
+<p>FLUSH PRIVILEGES;</p>
+<p>quit</p>
+<p>4.配置codestriker</p>
+<h1 id="cd-codestriker-1-9-10-x2F"><a title="cd codestriker-1.9.10/" class="headerlink" href="#cd-codestriker-1-9-10-x2F"></a>cd codestriker-1.9.10/</h1><h1 id="vim-codestriker-conf"><a title="vim codestriker.conf" class="headerlink" href="#vim-codestriker-conf"></a>vim codestriker.conf</h1><p>注意以下几点(详细可查看codestriker的安装文档)</p>
+<p>a.数据库的用户名密码要配对</p>
+<p>b.svn的数据仓库要配对，我的如下：</p>
+<p>@valid_repositories =</p>
+<p>(</p>
+<p>‘svn:file:///home/svn/project’,</p>
+<p>)</p>
+<p>5.执行codestriker的安装脚本</p>
+<h1 id="cd-bin-x2F"><a title="cd bin/" class="headerlink" href="#cd-bin-x2F"></a>cd bin/</h1><h1 id="x2F-install-pl"><a title="./install.pl" class="headerlink" href="#x2F-install-pl"></a>./install.pl</h1><p>6.配置http支持</p>
+<h1 id="vim-x2F-etc-x2F-httpd-x2F-conf-x2F-httpd-conf"><a title="vim /etc/httpd/conf/httpd.conf" class="headerlink" href="#vim-x2F-etc-x2F-httpd-x2F-conf-x2F-httpd-conf"></a>vim /etc/httpd/conf/httpd.conf</h1><p>在最后面加上如下内容:</p>
+<p>Alias /codestriker/&nbsp; /var/www/codestriker/codestriker-1.9.10/cgi-bin/</p>
+<p>Alias /codestrikerhtml/&nbsp; /var/www/codestriker/codestriker-1.9.10/html/</p>
+<p>&lt;Directory “/var/www/codestriker/codestriker-1.9.10/cgi-bin/”&gt;</p>
+<p>SetHandler perl-script</p>
+<p>PerlHandler ModPerl::Registry</p>
+<p>Options +ExecCGI</p>
+
+
+<p>&lt;Directory “/var/www/codestriker/codestriker-1.9.10/html/”&gt;</p>
+<p>AllowOverride None</p>
+<p>Allow from all</p>
+
+
+<p>`<br>7.重启Web服务</p>
+<h1 id="service-httpd-restart-96"><a title="service httpd restart`" class="headerlink" href="#service-httpd-restart-96"></a>service httpd restart`</h1><p>8.在浏览器中输入<a target="_blank" rel="noopener" href="http://192.168.60.10/codestriker/codestriker.pl%E5%8D%B3%E5%8F%AF%E8%AE%BF%E9%97%AE%EF%BC%8C%E5%A6%82%E4%B8%8B%E5%9B%BE%EF%BC%9A">http://192.168.60.10/codestriker/codestriker.pl即可访问，如下图：</a></p>
+<p><img loading="lazy" alt="-242.jpg" src="/images/notes/%E6%80%BB%E7%BB%93-CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/242.jpg"></p>
+<p>参考：<a target="_blank" rel="noopener" href="http://wiki.centos.org/HowTos/Subversion">http://wiki.centos.org/HowTos/Subversion</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">版本控制</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/SVN-SubVersion/">SVN(SubVersion)</a><a href="/tags/linux安装svn服务仓库/">linux安装svn服务仓库</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89CentOS%20Linux%E6%90%AD%E5%BB%BASVN%20Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/" data-title="（总结）CentOS Linux搭建SVN Server配置详解 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/高效代码审查的十个经验/" title="高效代码审查的十个经验">
+  <strong>上一篇：</strong><br/>
+  <span>
+  高效代码审查的十个经验</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/黑客攻防技术宝典_第2版_/"  title="黑客攻防技术宝典(第2版)">
+ <strong>下一篇：</strong><br/> 
+ <span>黑客攻防技术宝典(第2版)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/（总结）CentOS Linux搭建SVN Server配置详解/" data-title="（总结）CentOS Linux搭建SVN Server配置详解" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89CentOS%20Linux%E6%90%AD%E5%BB%BASVN%20Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">（总结）CentOS Linux搭建SVN Server配置详解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89CentOS-Linux%E6%90%AD%E5%BB%BASVN-Server%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3-1"><span class="toc-number">2.</span> <span class="toc-text">（总结）CentOS Linux搭建SVN Server配置详解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mkdir-x2F-home-x2F-svn"><span class="toc-number">3.</span> <span class="toc-text">mkdir &#x2F;home&#x2F;svn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svnadmin-create-x2F-home-x2F-svn-x2F-project"><span class="toc-number">4.</span> <span class="toc-text">svnadmin create &#x2F;home&#x2F;svn&#x2F;project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mkdir-project-project-x2F-server-project-x2F-client-project-x2F-test-%E5%BB%BA%E7%AB%8B%E4%B8%B4%E6%97%B6%E7%9B%AE%E5%BD%95"><span class="toc-number">5.</span> <span class="toc-text">mkdir project project&#x2F;server project&#x2F;client project&#x2F;test (建立临时目录)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-import-project-x2F-file-x2F-x2F-x2F-home-x2F-svn-x2F-project-m-%E2%80%9C%E5%88%9D%E5%A7%8B%E5%8C%96SVN%E7%9B%AE%E5%BD%95%E2%80%9D"><span class="toc-number">6.</span> <span class="toc-text">svn import project&#x2F; file:&#x2F;&#x2F;&#x2F;home&#x2F;svn&#x2F;project -m “初始化SVN目录”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rm-rf-project-%E5%88%A0%E9%99%A4%E4%B8%B4%E6%97%B6%E5%BB%BA%E7%AB%8B%E7%9A%84%E7%9B%AE%E5%BD%95"><span class="toc-number">7.</span> <span class="toc-text">rm -rf project (删除临时建立的目录)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#harry-x3D-harryssecret"><span class="toc-number">8.</span> <span class="toc-text">harry &#x3D; harryssecret</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sally-x3D-sallyssecret"><span class="toc-number">9.</span> <span class="toc-text">sally &#x3D; sallyssecret</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svnserve-d-r-x2F-home-x2F-svn"><span class="toc-number">10.</span> <span class="toc-text">svnserve -d -r &#x2F;home&#x2F;svn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ps-aux-grep-svnserve"><span class="toc-number">11.</span> <span class="toc-text">ps -aux|grep svnserve</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kill-9-ID%E5%8F%B7"><span class="toc-number">12.</span> <span class="toc-text">kill -9 ID号</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svnserve-d-r-x2F-home-x2F-svn-1"><span class="toc-number">13.</span> <span class="toc-text">svnserve -d -r &#x2F;home&#x2F;svn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-co-svn-x2F-x2F-192-168-60-10-x2F-project"><span class="toc-number">14.</span> <span class="toc-text">svn co svn:&#x2F;&#x2F;192.168.60.10&#x2F;project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-co-svn-x2F-x2F-192-168-60-10-x2F-project-1"><span class="toc-number">15.</span> <span class="toc-text">svn co svn:&#x2F;&#x2F;192.168.60.10&#x2F;project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-project-x2F-server"><span class="toc-number">16.</span> <span class="toc-text">cd project&#x2F;server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-main-c"><span class="toc-number">17.</span> <span class="toc-text">vim main.c</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-add-main-c"><span class="toc-number">18.</span> <span class="toc-text">svn add main.c</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-commit-main-c-m-%E2%80%9C%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B%E6%88%91%E7%9A%84C%E7%A8%8B%E5%BA%8F-%E7%9C%8B%E4%BB%80%E4%B9%88%E7%9C%8B-%E4%B8%8D%E8%A1%8C%E5%95%8A-%E2%80%9D"><span class="toc-number">19.</span> <span class="toc-text">svn commit main.c -m “测试一下我的C程序,看什么看,不行啊??”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-conf-x2F"><span class="toc-number">20.</span> <span class="toc-text">cd &#x2F;home&#x2F;svn&#x2F;project&#x2F;conf&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-PtoWP-pl"><span class="toc-number">21.</span> <span class="toc-text">vim PtoWP.pl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chmod-x-PtoWP-pl"><span class="toc-number">22.</span> <span class="toc-text">chmod +x PtoWP.pl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-PtoWP-pl"><span class="toc-number">23.</span> <span class="toc-text">.&#x2F;PtoWP.pl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-etc-x2F-init-d-x2F-httpd-restart"><span class="toc-number">24.</span> <span class="toc-text">&#x2F;etc&#x2F;init.d&#x2F;httpd restart</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-search-cpan-org-CPAN-authors-id-D-DA-DAGOLDEN-Module-Build-0-36-11-tar-gz"><span class="toc-number">25.</span> <span class="toc-text">wget http:&#x2F;&#x2F;search.cpan.org&#x2F;CPAN&#x2F;authors&#x2F;id&#x2F;D&#x2F;DA&#x2F;DAGOLDEN&#x2F;Module-Build-0.36_11.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-xvf-Module-Build-0-36-11-tar-gz"><span class="toc-number">26.</span> <span class="toc-text">tar xvf Module-Build-0.36_11.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-Module-Build-0-36-11"><span class="toc-number">27.</span> <span class="toc-text">cd Module-Build-0.36_11</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#perl-Build-PL"><span class="toc-number">28.</span> <span class="toc-text">perl Build.PL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build"><span class="toc-number">29.</span> <span class="toc-text">.&#x2F;Build</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build-test"><span class="toc-number">30.</span> <span class="toc-text">.&#x2F;Build test</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build-install"><span class="toc-number">31.</span> <span class="toc-text">.&#x2F;Build install</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd"><span class="toc-number">32.</span> <span class="toc-text">cd ..</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-search-cpan-org-CPAN-authors-id-G-GB-GBARR-Authen-SASL-2-15-tar-gz"><span class="toc-number">33.</span> <span class="toc-text">wget http:&#x2F;&#x2F;search.cpan.org&#x2F;CPAN&#x2F;authors&#x2F;id&#x2F;G&#x2F;GB&#x2F;GBARR&#x2F;Authen-SASL-2.15.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-xvf-Authen-SASL-2-15-tar-gz"><span class="toc-number">34.</span> <span class="toc-text">tar xvf Authen-SASL-2.15.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-Authen-SASL-2-15"><span class="toc-number">35.</span> <span class="toc-text">cd Authen-SASL-2.15</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#perl-Makefile-PL"><span class="toc-number">36.</span> <span class="toc-text">perl Makefile.PL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-test"><span class="toc-number">37.</span> <span class="toc-text">make test</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-install"><span class="toc-number">38.</span> <span class="toc-text">make install</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-1"><span class="toc-number">39.</span> <span class="toc-text">cd ..</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-search-cpan-org-CPAN-authors-id-A-AP-APLEINER-Net-SMTP-auth-0-08-tar-gz"><span class="toc-number">40.</span> <span class="toc-text">wget http:&#x2F;&#x2F;search.cpan.org&#x2F;CPAN&#x2F;authors&#x2F;id&#x2F;A&#x2F;AP&#x2F;APLEINER&#x2F;Net-SMTP_auth-0.08.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-xvf-Net-SMTP-auth-0-08-tar-gz"><span class="toc-number">41.</span> <span class="toc-text">tar xvf Net-SMTP_auth-0.08.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-Net-SMTP-auth-0-08"><span class="toc-number">42.</span> <span class="toc-text">cd Net-SMTP_auth-0.08</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#perl-Makefile-PL-1"><span class="toc-number">43.</span> <span class="toc-text">perl Makefile.PL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-test-1"><span class="toc-number">44.</span> <span class="toc-text">make test</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-install-1"><span class="toc-number">45.</span> <span class="toc-text">make install</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-2"><span class="toc-number">46.</span> <span class="toc-text">cd ..</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-search-cpan-org-CPAN-authors-id-D-DW-DWHEELER-SVN-Notify-2-80-tar-gz"><span class="toc-number">47.</span> <span class="toc-text">wget http:&#x2F;&#x2F;search.cpan.org&#x2F;CPAN&#x2F;authors&#x2F;id&#x2F;D&#x2F;DW&#x2F;DWHEELER&#x2F;SVN-Notify-2.80.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-xvf-SVN-Notify-2-80-tar-gz"><span class="toc-number">48.</span> <span class="toc-text">tar xvf SVN-Notify-2.80.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-SVN-Notify-2-80"><span class="toc-number">49.</span> <span class="toc-text">cd SVN-Notify-2.80</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#perl-Build-PL-1"><span class="toc-number">50.</span> <span class="toc-text">perl Build.PL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build-1"><span class="toc-number">51.</span> <span class="toc-text">.&#x2F;Build</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build-test-1"><span class="toc-number">52.</span> <span class="toc-text">.&#x2F;Build test</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-Build-install-1"><span class="toc-number">53.</span> <span class="toc-text">.&#x2F;Build install</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-3"><span class="toc-number">54.</span> <span class="toc-text">cd ..</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#service-sendmail-restart"><span class="toc-number">55.</span> <span class="toc-text">service sendmail restart</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F"><span class="toc-number">56.</span> <span class="toc-text">cd &#x2F;home&#x2F;svn&#x2F;project&#x2F;hooks&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-post-commit"><span class="toc-number">57.</span> <span class="toc-text">vim post-commit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chmod-x-post-commit"><span class="toc-number">58.</span> <span class="toc-text">chmod +x post-commit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F-1"><span class="toc-number">59.</span> <span class="toc-text">cd &#x2F;home&#x2F;svn&#x2F;project&#x2F;hooks&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-pre-commit"><span class="toc-number">60.</span> <span class="toc-text">vim pre-commit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-home-x2F-svn-x2F-project-x2F-hooks-x2F-2"><span class="toc-number">61.</span> <span class="toc-text">cd &#x2F;home&#x2F;svn&#x2F;project&#x2F;hooks&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-pre-revprop-change"><span class="toc-number">62.</span> <span class="toc-text">vim pre-revprop-change</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mkdir-x2F-opt-x2F-project-backup"><span class="toc-number">63.</span> <span class="toc-text">mkdir &#x2F;opt&#x2F;project_backup</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-home-x2F-svn-x2F"><span class="toc-number">64.</span> <span class="toc-text">cd &#x2F;home&#x2F;svn&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-project-backup-sh"><span class="toc-number">65.</span> <span class="toc-text">vim project_backup.sh</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#crontab-e"><span class="toc-number">66.</span> <span class="toc-text">crontab -e</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chmod-x-jre-6u20-linux-i586-rpm-bin"><span class="toc-number">67.</span> <span class="toc-text">chmod +x jre-6u20-linux-i586-rpm.bin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-jre-6u20-linux-i586-rpm-bin"><span class="toc-number">68.</span> <span class="toc-text">.&#x2F;jre-6u20-linux-i586-rpm.bin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-downloads-sourceforge-net-project-svnstat-svnstat-Release-1-0-SvnStat-1-0-zip-use-mirror-jaist"><span class="toc-number">69.</span> <span class="toc-text">wget http:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;svnstat&#x2F;svnstat&#x2F;Release-1.0&#x2F;SvnStat-1.0.zip?use_mirror&#x3D;jaist</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#unzip-SvnStat-1-0-zip"><span class="toc-number">70.</span> <span class="toc-text">unzip SvnStat-1.0.zip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pwd"><span class="toc-number">71.</span> <span class="toc-text">pwd</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-co-svn-x2F-x2F-192-168-60-10-x2F-project-2"><span class="toc-number">72.</span> <span class="toc-text">svn co svn:&#x2F;&#x2F;192.168.60.10&#x2F;project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn-log-project-v-%E2%80%93xml-%E2%80%93non-interactive-gt-project-log"><span class="toc-number">73.</span> <span class="toc-text">svn log project -v –xml –non-interactive &gt; project.log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-SvnStat-1-0"><span class="toc-number">74.</span> <span class="toc-text">cd SvnStat-1.0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-classpath-SvnStat-all-jar-de-agentlab-svnstat-SvnStat-jar-SvnStat-all-jar-r-x2F-root-x2F-project-log-d-x2F-var-x2F-www-x2F-html-x2F"><span class="toc-number">75.</span> <span class="toc-text">java -classpath SvnStat-all.jar de.agentlab.svnstat.SvnStat -jar SvnStat-all.jar -r &#x2F;root&#x2F;project.log -d &#x2F;var&#x2F;www&#x2F;html&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-downloads-sourceforge-net-project-statsvn-statsvn-0-7-0-statsvn-0-7-0-zip-use-mirror-jaist"><span class="toc-number">76.</span> <span class="toc-text">wget http:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;statsvn&#x2F;statsvn&#x2F;0.7.0&#x2F;statsvn-0.7.0.zip?use_mirror&#x3D;jaist</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#unzip-statsvn-0-7-0-zip"><span class="toc-number">77.</span> <span class="toc-text">unzip statsvn-0.7.0.zip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-statsvn-0-7-0"><span class="toc-number">78.</span> <span class="toc-text">cd statsvn-0.7.0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mkdir-x2F-var-x2F-www-x2F-html-x2F-statsvn"><span class="toc-number">79.</span> <span class="toc-text">mkdir &#x2F;var&#x2F;www&#x2F;html&#x2F;statsvn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-jar-statsvn-jar-verbose-output-dir-x2F-var-x2F-www-x2F-html-x2F-statsvn-x2F-x2F-root-x2F-project-log-x2F-root-x2F-project"><span class="toc-number">80.</span> <span class="toc-text">java -jar statsvn.jar -verbose -output-dir &#x2F;var&#x2F;www&#x2F;html&#x2F;statsvn&#x2F; &#x2F;root&#x2F;project.log &#x2F;root&#x2F;project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#perl-MCPAN-e-%E2%80%98install-%E2%80%9CTemplate%E2%80%9D%E2%80%98"><span class="toc-number">81.</span> <span class="toc-text">perl -MCPAN -e ‘install “Template”‘</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wget-http-downloads-sourceforge-net-project-codestriker-codestriker-1-9-10-codestriker-1-9-10-tar-gz-use-mirror-jaist-amp-ts-1279246587"><span class="toc-number">82.</span> <span class="toc-text">wget http:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;codestriker&#x2F;codestriker&#x2F;1.9.10&#x2F;codestriker-1.9.10.tar.gz?use_mirror&#x3D;jaist&amp;ts&#x3D;1279246587</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mkdir-x2F-var-x2F-www-x2F-codestriker"><span class="toc-number">83.</span> <span class="toc-text">mkdir &#x2F;var&#x2F;www&#x2F;codestriker</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-x2F-var-x2F-www-x2F-codestriker"><span class="toc-number">84.</span> <span class="toc-text">cd &#x2F;var&#x2F;www&#x2F;codestriker</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-xvf-x2F-path-x2F-codestriker-1-9-10-tar-gz"><span class="toc-number">85.</span> <span class="toc-text">tar xvf &#x2F;path&#x2F;codestriker-1.9.10.tar.gz</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chown-R-apache-apache-codestriker-1-9-10"><span class="toc-number">86.</span> <span class="toc-text">chown -R apache.apache codestriker-1.9.10</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#service-mysqld-restart"><span class="toc-number">87.</span> <span class="toc-text">service mysqld restart</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql-uroot-mysql"><span class="toc-number">88.</span> <span class="toc-text">mysql -uroot mysql</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-codestriker-1-9-10-x2F"><span class="toc-number">89.</span> <span class="toc-text">cd codestriker-1.9.10&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-codestriker-conf"><span class="toc-number">90.</span> <span class="toc-text">vim codestriker.conf</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-bin-x2F"><span class="toc-number">91.</span> <span class="toc-text">cd bin&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x2F-install-pl"><span class="toc-number">92.</span> <span class="toc-text">.&#x2F;install.pl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-x2F-etc-x2F-httpd-x2F-conf-x2F-httpd-conf"><span class="toc-number">93.</span> <span class="toc-text">vim &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#service-httpd-restart-96"><span class="toc-number">94.</span> <span class="toc-text">service httpd restart&#96;</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

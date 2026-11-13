@@ -1,0 +1,1175 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>iOS开发教程：Storyboard全解析-第一部分02 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="iOS开发教程：Storyboard全解析-第一部分02storyBoard Ios技术文章收录  &amp;nbsp;iOS开发教程：Storyboard全解析-第一部分02 2012-04-22 20:40:05标签：表格&amp;nbsp;开发 &amp;nbsp; 原型表格单元&amp;nbsp; 你也许已经注意到了，自从我们加入了Table View Controller之后，Xcode便会现实下面这样一条警告。 &amp;n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发教程：Storyboard全解析-第一部分02">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B%EF%BC%9AStoryboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="iOS开发教程：Storyboard全解析-第一部分02storyBoard Ios技术文章收录  &amp;nbsp;iOS开发教程：Storyboard全解析-第一部分02 2012-04-22 20:40:05标签：表格&amp;nbsp;开发 &amp;nbsp; 原型表格单元&amp;nbsp; 你也许已经注意到了，自从我们加入了Table View Controller之后，Xcode便会现实下面这样一条警告。 &amp;n">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-Storyboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/195.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-Storyboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/196.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-Storyboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/197.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-Storyboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/198.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-Storyboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/199.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2012-12-08T08:34:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios技术文章收录">
+<meta property="article:tag" content="storyBoard">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-Storyboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/195.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/iOS开发教程：Storyboard全解析-第一部分02/" title="iOS开发教程：Storyboard全解析-第一部分02" itemprop="url">iOS开发教程：Storyboard全解析-第一部分02</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B%EF%BC%9AStoryboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602"><span class="toc-number">1.</span> <span class="toc-text">iOS开发教程：Storyboard全解析-第一部分02</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E8%A1%A8%E6%A0%BC%E5%8D%95%E5%85%83"><span class="toc-number">1.1.</span> <span class="toc-text">原型表格单元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-1"><span class="toc-number">1.3.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-2"><span class="toc-number">1.4.</span> <span class="toc-text"></span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="iOS开发教程：Storyboard全解析-第一部分02"><a title="iOS开发教程：Storyboard全解析-第一部分02" class="headerlink" href="#iOS开发教程：Storyboard全解析-第一部分02"></a>iOS开发教程：Storyboard全解析-第一部分02</h1><p><code>storyBoard</code> <code>Ios技术文章收录</code></p>
+<p><img loading="lazy" alt="-195.png" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-Storyboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/195.png"></p>
+<p>&nbsp;iOS开发教程：Storyboard全解析-第一部分02</p>
+<p>2012-04-22 20:40:05<br>标签：<a target="_blank" rel="noopener" href="http://blog.51cto.com/tagindex.php?keyword=%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD">表格</a>&nbsp;<a target="_blank" rel="noopener" href="http://blog.51cto.com/tagindex.php?keyword=%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD">开发</a>
+&nbsp;</p>
+<h2 id="原型表格单元"><a title="原型表格单元" class="headerlink" href="#原型表格单元"></a>原型表格单元</h2><h2 id=""><a title="" class="headerlink" href="#"></a></h2><p>&nbsp;</p>
+<h2 id="-1"><a title="" class="headerlink" href="#-1"></a></h2><p>你也许已经注意到了，自从我们加入了Table View Controller之后，Xcode便会现实下面这样一条警告。</p>
+<h2 id="-2"><a title="" class="headerlink" href="#-2"></a><a target="_blank" rel="noopener" href="http://www.dasheyin.com/wp-content/uploads/auto_save_image/2012/04/114100vTg.png"><img loading="lazy" alt="-196.png" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-Storyboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/196.png"></a></h2><p>&nbsp;</p>
+<p>这条警告是：“Unsupported Configuration: Prototype table cells must have reuse identifiers”意思是，原型表格单元必须有一个身份证（意译啦）</p>
+<p>原型单元格是另一个Storyboard的好特性之一。在之前，如果你想要自定义一个Table Cell，那么你就不得不用代码来实现，要么就要单独创建一个Nib文件来表示单元格内容，现在你也可以这样做，不过原型单元格可以帮你把这一过程大大的简化，你现在可以直接在Storyboard设计器中完成这一过程。</p>
+<p>&nbsp;</p>
+<p>Table View现在默认的会带有一个空白的原型单元格，选中他，在属性控制器中将他的Style改为subtitle，这样的话，每一格就会有两行字。</p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://d1xzuxjlafny7l.cloudfront.net/wp-content/uploads/2012/11/Prototype-cell.png"><img loading="lazy" alt="-197.png" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-Storyboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/197.png"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://d1xzuxjlafny7l.cloudfront.net/wp-content/uploads/2012/11/Table-view-controller-template.png"><img loading="lazy" alt="-198.png" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-Storyboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/198.png"></a></p>
+<p>将附件设置为Disclosure Indicator并且将这个原型单元格的Reuse Identifier 设置喂“PlayerCell”，这将会解决Xcode所警告的问题。</p>
+<p>试着运行一个，发现什么都没变，这并不奇怪，因为我们还没有给这个表格设置一个数据来源（DataSource），用以显示。</p>
+<p>&nbsp;</p>
+<p>新建一个文件，使用UIViewContoller模板，命名为 PlayersViewController ，设置喂UITableViewController的子类，不要勾选建立XIB文件。</p>
+<p>&nbsp;</p>
+<p>回到Storyboard编辑器，选择Table View Controller，在身份控制器中，把他的类设置为PlayerViewController，这对于把Storyboard中的场景和你自定义的子类挂钩是十分重要的。要是不这么做，你的子类根本没用。</p>
+<p><a target="_blank" rel="noopener" href="http://d1xzuxjlafny7l.cloudfront.net/wp-content/uploads/2012/11/Identity-Inspector-class.png"><img loading="lazy" alt="-199.png" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-Storyboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/199.png"></a></p>
+<p>&nbsp;</p>
+<p>现在起，当你运行这个应用时，table view controller其实是PlayersViewContoller的一个实例。</p>
+<p>在 PlayersViewController.h 中声明一个MutableArray（可变数组）</p>
+<p>&nbsp;</p>
+<p>|```<br>#import &lt;UIKit/UIKit.h&gt;</p>
+<p>@interface PlayersViewController : UITableViewController</p>
+<p>@property (nonatomic, strong) NSMutableArray *players;</p>
+<p>@end</p>
+<pre><code>
+|
+|-----------------------------------------------------------------------------------------------------------------------------------------------|
+
+这个数组将会包含我们的应用的主要数据模型。我们现在加一些东西到这个数组之中，新建一个使用Obj-c模板的文件，命名为player，设置喂NSObject的子类，这将会作为数组的数据容器。
+
+&nbsp;
+
+编写Player.h如下：
+
+|```
+@interface Player : NSObject
+
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *game;
+@property (nonatomic, assign) int rating;
+
+@end
+</code></pre>
+<p>|<br>|———————————————————————————————————————————————————————|</p>
+<p>编写Player.m如下：</p>
+<p>|```<br>#import “Player.h”</p>
+<p>@implementation Player</p>
+<p>@synthesize name;<br>@synthesize game;<br>@synthesize rating;</p>
+<p>@end</p>
+<pre><code>
+|
+|-------------------------------------------------------------------------------------------------------|
+
+这里没有什么复杂的，Player类只是一个容器罢了，包含三个内容：选手的名字、项目和他的评级。
+
+接下来我们在App Delegate中声明数组和一些Player对象，并把他们分配给PlayerViewController的players属性。
+
+在AppDelegate.m中，分别引入（import）Player和PlayerViewController这两个类，之后新增一个名叫players的可变数组。
+
+&nbsp;
+
+|```
+ 
+#import "AppDelegate.h"
+#import "Player.h"
+#import "PlayersViewController.h"
+
+@implementation AppDelegate &#123;
+        NSMutableArray *players;
+&#125;
+
+// Rest of file...
+</code></pre>
+<p>|<br>|—————————————————————————————————————————————————————–|</p>
+<p>修改didFinishLaunchingWithOptions方法如下：</p>
+<p>|```</p>
+<ul>
+<li>(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions<br>{<br>  players = [NSMutableArray arrayWithCapacity:20];<br>  Player *player = [[Player alloc] init];<br>  player.name = @”Bill Evans”;<br>  player.game = @”Tic-Tac-Toe”;<br>  player.rating = 4;<br>  [players addObject:player];<br>  player = [[Player alloc] init];<br>  player.name = @”Oscar Peterson”;<br>  player.game = @”Spin the Bottle”;<br>  player.rating = 5;<br>  [players addObject:player];<br>  player = [[Player alloc] init];<br>  player.name = @”Dave Brubeck”;<br>  player.game = @”Texas Hold’em Poker”;<br>  player.rating = 2;<br>  [players addObject:player];<br>  UITabBarController *tabBarController =<br>   (UITabBarController *)self.window.rootViewController;<br>  UINavigationController *navigationController =<br>   [[tabBarController viewControllers] objectAtIndex:0];<br>  PlayersViewController *playersViewController =<br>   [[navigationController viewControllers] objectAtIndex:0];<br>  playersViewController.players = players;<br>  return YES;<br>}</li>
+</ul>
+<pre><code>
+|
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+这将会创造一些Player对象并把他们加到数组中去。之后在加入：
+
+&nbsp;
+
+|```
+ 
+UITabBarController *tabBarController = (UITabBarController *)
+  self.window.rootViewController;
+UINavigationController *navigationController =
+  [[tabBarController viewControllers] objectAtIndex:0];
+PlayersViewController *playersViewController =
+  [[navigationController viewControllers] objectAtIndex:0];
+playersViewController.players = players;
+</code></pre>
+<p>|<br>|———————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|</p>
+<p>咦，这是什么？目前的情况是：我们希望能够将players数组连接到PlayersViewController的players属性之中以便让这个VC能够用做数据来源。但是app delegate根本不了解PlayerViewController究竟是什么，他将需要在storyboard中寻找它。</p>
+<p>&nbsp;</p>
+<p>这是一个我不是很喜欢storyboard特性，在IB中，你在MainWindow.xib中总是会有一个指向App delegate的选项，在那里你可以在顶级的ViewController中向Appdelegate设置输出口，但是在Storyboard中目前这还不可能，目前只能通过代码来做这样的事情。</p>
+<p>|```<br>UITabBarController *tabBarController = (UITabBarController *)<br>  self.window.rootViewController;</p>
+<pre><code>
+|
+|----------------------------------------------------------------------------------------------------|
+
+我们知道storyboard的起始场景是Tab Bar Controller，所以我们可以直接到这个场景的第一个子场景来设置数据源。
+
+&nbsp;
+
+PlayersViewController 在一个NavController的框架之中，所以我们先看一看UINavigationController类：
+
+|```
+UINavigationController *navigationController = [[tabBarController
+  viewControllers] objectAtIndex:0];
+</code></pre>
+<p>|<br>|———————————————————————————————————–|</p>
+<p>然后询问它的根试图控制器，哪一个是我们要找的PlayersViewController：</p>
+<p>|```<br>PlayersViewController *playersViewController =<br>  [[navigationController viewControllers] objectAtIndex:0];</p>
+<pre><code>
+|
+|---------------------------------------------------------------------------------------------------------------|
+
+但是，UIViewController根本就没有一个rootViewController属性，所以我们不能把数组加入进去，他又一个topViewController但是指向最上层的视图，与我们这里的意图没有关系。
+
+&nbsp;
+
+&nbsp;
+
+现在我们有了一个装在了players物体合集的数组，我们继续为PlayersViewController设置数据源。
+
+&nbsp;
+
+打开PlayersViewController.m，加入以下数据源方法：
+
+|```
+ 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+&#123;
+        return 1;
+&#125;
+
+- (NSInteger)tableView:(UITableView *)tableView
+  numberOfRowsInSection:(NSInteger)section
+&#123;
+        return [self.players count];
+&#125;
+</code></pre>
+<p>|<br>|————————————————————————————————————————————————————————————————————————–|</p>
+<p>真正起作用的代码在cellForRowAtIndexPath方法里，默认的模板是如下这样的：</p>
+<p>|```</p>
+<ul>
+<li><p>(UITableViewCell *)tableView:(UITableView *)tableView<br>cellForRowAtIndexPath:(NSIndexPath *)indexPath<br>{<br>  static NSString *CellIdentifier = @”Cell”;</p>
+<p>  UITableViewCell *cell = [tableView<br>dequeueReusableCellWithIdentifier:CellIdentifier];<br>  if (cell == nil) {<br>  cell = [[UITableViewCell alloc]<br>    initWithStyle:UITableViewCellStyleDefault<br>    reuseIdentifier:CellIdentifier];<br>  }</p>
+<p>  // Configure the cell…<br>  return cell;</p>
+</li>
+</ul>
+<p>}</p>
+<pre><code>
+|
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+无疑这就是以前设置一个表格视图的方法，不过现在已经革新了，把这些代码修改如下：
+
+|```
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+&#123;
+        UITableViewCell *cell = [tableView
+      dequeueReusableCellWithIdentifier:@"PlayerCell"];
+        Player *player = [self.players objectAtIndex:indexPath.row];
+        cell.textLabel.text = player.name;
+        cell.detailTextLabel.text = player.game;
+    return cell;
+&#125;
+</code></pre>
+<p>|<br>|———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p>这看上去简单多了，为了新建单元格，你只需使用如下代码：</p>
+<p>|```<br>UITableViewCell *cell = [tableView<br>  dequeueReusableCellWithIdentifier:@”PlayerCell”];</p>
+<pre><code>
+|
+|-------------------------------------------------------------------------------------------|
+
+如果没有现存的单元格可以回收，程序会自动创造一个原型单元格的复制品之后返回给你，你只需要提供你之前在Storyboard编辑视图中设置的身份证就可以的，在这里就是“PlayerCell”，如果不设置这个，这个程序就无法工作。
+
+&nbsp;
+
+由于这个类对于Player容器目前一无所知，所以我们需要在文件的开头加入一个引入来源
+
+&nbsp;
+
+|```
+#import "Player.h"
+</code></pre>
+<p>|<br>|————————|</p>
+<p>记得要创建synthesize语句哦亲</p>
+<p>|```<br>@synthesize players;</p>
+<pre><code>
+|
+|--------------------------|
+
+现在运行应用，会看到Table里有着players容器。
+
+[![-200.png](/images/notes/iOS开发教程-Storyboard全解析-第一部分02/200.png)](http://d1xzuxjlafny7l.cloudfront.net/wp-content/uploads/2012/11/Table-view-with-data.png)
+
+请注意：我们这里只使用一种单元格原型，如果你需要使用不同类型的单元格的话，只需要在storyboard中另外加入一个单元格原型就可以了，不过不要忘记给他们指派不同的身份证。
+
+&nbsp;
+
+## 设计自定义的原型单元格
+
+&nbsp;
+
+对于很多应用来说，使用默认的单元格风格就OK了，但是我偏偏要在每一个单元格的右边加上一个一个图片来表示选手的评级，但是添加图片对于默认类型的单元格来说并不支持，我们需要自定义一个设计。
+
+&nbsp;
+
+让我们转回MainStoryboard.storyboard，选中table view中的prototype cell，把它的Style attribute改为Custom，所有默认的标签都会消失。
+
+首先把单元格变得更高一些，你可以直接拉它，也可以在大小控制器中修改数字，我在这里使用55点的高度。
+
+&nbsp;
+
+从 Objects Library中拖出两个标签物体，按照之前的样式安插到单元格里，记得设置label的Highlighted颜色为白色，那样的话当单元格被选中的时候会看起来更好看一些。
+
+&nbsp;
+
+之后添加一个Image View对象，将它放置在单元格的右边，设置他的宽度为81点，高度并不重要，在属性检查器中设置模式为置中。
+
+我把标签设置为210点长以确保他不会和ImageView重合，最后整体的设计会看起来象下面这样：
+
+[![-201.png](/images/notes/iOS开发教程-Storyboard全解析-第一部分02/201.png)](http://www.dasheyin.com/wp-content/uploads/auto_save_image/2012/04/114101O9p.png)
+
+由于这是一个自定义的单元格，所以我们不能够使用UITableView默认的textLabel和detailLabel来设置数据，这些属性也不再指向我们的单元格了，我们使用标签（tags）来指定标签。
+
+&nbsp;
+
+将Name标签的tag设置为100，Game的设置喂101，image的设置喂102，在属性检查器里设置哦亲。
+
+&nbsp;
+
+之后打开 PlayersViewController.m ，在PlayersViewcontroller中将cellForRowatIndexPath修改为：
+
+&nbsp;
+
+|```
+- (UITableViewCell *)tableView:(UITableView *)tableView
+  cellForRowAtIndexPath:(NSIndexPath *)indexPath
+&#123;
+        UITableViewCell *cell = [tableView
+      dequeueReusableCellWithIdentifier:@"PlayerCell"];
+        Player *player = [self.players objectAtIndex:indexPath.row];
+        UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
+        nameLabel.text = player.name;
+        UILabel *gameLabel = (UILabel *)[cell viewWithTag:101];
+        gameLabel.text = player.name;
+        UIImageView * ratingImageView = (UIImageView *)
+      [cell viewWithTag:102];
+        ratingImageView.image = [self imageForRating:player.rating];
+    return cell;
+&#125;
+</code></pre>
+<p>|<br>|——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|</p>
+<p>这里是用了一个新的方法，叫做ImageRating，在 cellForRowAtIndexPath方法之前加入这个方法：</p>
+<p>|```</p>
+<ul>
+<li>(UIImage *)imageForRating:(int)rating<br>{<br>  switch (rating)<br>  {<br>          case 1: return [UIImage imageNamed:@”1StarSmall.png”];<br>          case 2: return [UIImage imageNamed:@”2StarsSmall.png”];<br>          case 3: return [UIImage imageNamed:@”3StarsSmall.png”];<br>          case 4: return [UIImage imageNamed:@”4StarsSmall.png”];<br>          case 5: return [UIImage imageNamed:@”5StarsSmall.png”];<br>  }<br>  return nil;</li>
+</ul>
+<p>}</p>
+<pre><code>
+|
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+这就完成了，运行看看：
+
+[![-169.jpg](/images/notes/iOS开发教程-Storyboard全解析-第一部分02/169.jpg)](http://www.dasheyin.com/wp-content/uploads/auto_save_image/2012/04/114101dst.png)
+
+这和我们想象的结果并不是很符合，我们修改了原型单元格的属性和高度，但是table view却没有考虑进去，有两种方法可以修复它，我们可以改变table view的行高或者加入 heightForRowAtIndexPath 方法来修改，地一种方法更简单，我们就用他。
+
+&nbsp;
+
+注意：在一下两种情况下，你应该使用 heightForRowAtIndexPath 方法：一是，你不能预先知道你的单元格的高度，二是不同的单元格会有不同的高度。
+
+&nbsp;
+
+回到MainStoryboard.storyboard,在大小检查器中将高度设置为55:
+
+[![-202.png](/images/notes/iOS开发教程-Storyboard全解析-第一部分02/202.png)](http://www.dasheyin.com/wp-content/uploads/auto_save_image/2012/04/114101e0s.png)
+
+通过这种方式的话，如果之前你是使用拖动而不是键入数值的方式改变高度的属性的话，则table view的数值也会自动改变。
+
+&nbsp;
+
+现在运行看看，好多了吧
+</code></pre>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios技术文章收录/">Ios技术文章收录</a><a href="/tags/storyBoard/">storyBoard</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B%EF%BC%9AStoryboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/" data-title="iOS开发教程：Storyboard全解析-第一部分02 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/iOS开发——加载、滑动翻阅大量图片解决方案详解/" title="iOS开发——加载、滑动翻阅大量图片解决方案详解">
+  <strong>上一篇：</strong><br/>
+  <span>
+  iOS开发——加载、滑动翻阅大量图片解决方案详解</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/iOS开发：小技巧积累/"  title="iOS开发：小技巧积累">
+ <strong>下一篇：</strong><br/> 
+ <span>iOS开发：小技巧积累
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/iOS开发教程：Storyboard全解析-第一部分02/" data-title="iOS开发教程：Storyboard全解析-第一部分02" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B%EF%BC%9AStoryboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B%EF%BC%9AStoryboard%E5%85%A8%E8%A7%A3%E6%9E%90-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%8602"><span class="toc-number">1.</span> <span class="toc-text">iOS开发教程：Storyboard全解析-第一部分02</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E8%A1%A8%E6%A0%BC%E5%8D%95%E5%85%83"><span class="toc-number">1.1.</span> <span class="toc-text">原型表格单元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-1"><span class="toc-number">1.3.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-2"><span class="toc-number">1.4.</span> <span class="toc-text"></span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

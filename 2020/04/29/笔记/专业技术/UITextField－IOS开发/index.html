@@ -1,0 +1,1184 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>UITextField－IOS开发 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="UITextField－IOS开发Ios基础语法 Ios-textField UITextField－IOS开发 &amp;nbsp;&#x2F;&#x2F;初始化textfield并设置位置及大小 &amp;nbsp; UITextField *text &#x3D; [[UITextField alloc]initWithFrame:CGRectMake(20, 20, 130, 30)]; &amp;nbsp; &#x2F;&#x2F;设置边框样式，只有设置了才会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UITextField－IOS开发">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/UITextField%EF%BC%8DIOS%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="UITextField－IOS开发Ios基础语法 Ios-textField UITextField－IOS开发 &amp;nbsp;&#x2F;&#x2F;初始化textfield并设置位置及大小 &amp;nbsp; UITextField *text &#x3D; [[UITextField alloc]initWithFrame:CGRectMake(20, 20, 130, 30)]; &amp;nbsp; &#x2F;&#x2F;设置边框样式，只有设置了才会">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UITextField-IOS%E5%BC%80%E5%8F%91/159.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UITextField-IOS%E5%BC%80%E5%8F%91/160.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2012-12-27T13:18:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios基础语法">
+<meta property="article:tag" content="Ios-textField">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/UITextField-IOS%E5%BC%80%E5%8F%91/159.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/UITextField－IOS开发/" title="UITextField－IOS开发" itemprop="url">UITextField－IOS开发</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UITextField%EF%BC%8DIOS%E5%BC%80%E5%8F%91"><span class="toc-number">1.</span> <span class="toc-text">UITextField－IOS开发</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UITextField%EF%BC%8DIOS%E5%BC%80%E5%8F%91-1"><span class="toc-number">2.</span> <span class="toc-text">UITextField－IOS开发</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="UITextField－IOS开发"><a title="UITextField－IOS开发" class="headerlink" href="#UITextField－IOS开发"></a>UITextField－IOS开发</h1><p><code>Ios基础语法</code> <code>Ios-textField</code></p>
+<h1 id="UITextField－IOS开发-1"><a title="UITextField－IOS开发" class="headerlink" href="#UITextField－IOS开发-1"></a>UITextField－IOS开发</h1><hr>
+<p>&nbsp;//初始化textfield并设置位置及大小</p>
+<p>&nbsp; UITextField *text = [[UITextField alloc]initWithFrame:CGRectMake(20, 20, 130, 30)];</p>
+<p>&nbsp;</p>
+<p>//设置边框样式，只有设置了才会显示边框样式&nbsp;&nbsp;</p>
+<p>&nbsp; text.borderStyle = UITextBorderStyleRoundedRect;</p>
+<p>&nbsp;&nbsp;typedef enum {</p>
+<p>&nbsp;&nbsp;&nbsp; UITextBorderStyleNone,&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; UITextBorderStyleLine,</p>
+<p>&nbsp;&nbsp;&nbsp; UITextBorderStyleBezel,</p>
+<p>&nbsp;&nbsp;&nbsp; UITextBorderStyleRoundedRect&nbsp;&nbsp;</p>
+<p>&nbsp; } UITextBorderStyle;</p>
+<p>&nbsp;&nbsp;</p>
+<p>//设置输入框的背景颜色，此时设置为白色&nbsp;如果使用了自定义的背景图片边框会被忽略掉&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp; text.backgroundColor = [UIColor whiteColor];</p>
+<p>&nbsp;</p>
+<p>//设置背景</p>
+<p>&nbsp; text.background = [UIImage imageNamed:@”dd.png”];</p>
+<p>&nbsp;</p>
+<p>//设置背景&nbsp;</p>
+<p>&nbsp; text.disabledBackground = [UIImage imageNamed:@”cc.png”];</p>
+<p>//当输入框没有内容时，水印提示&nbsp;提示内容为pass<a target="_blank" rel="noopener" href="http://www.myeducs.cn/chaxun/word/index.htm">word</a></p>
+<p>&nbsp; text.placeholder = @”password”;</p>
+<p>&nbsp;</p>
+<p>//设置输入框内容的字体样式和大小</p>
+<p>&nbsp; text.font = [UIFont fontWithName:@”Arial” size:20.0f];</p>
+<p>&nbsp;</p>
+<p>//设置字体颜色</p>
+<p>&nbsp; text.textColor = [UIColor redColor];</p>
+<p>&nbsp;</p>
+<p>//输入框中是否有个叉号，在什么时候显示，用于一次性删除输入框中的内容</p>
+<p>&nbsp; text.clearButtonMode = UITextFieldViewModeAlways;</p>
+<p>&nbsp;</p>
+<p>typedef enum {</p>
+<p>&nbsp;&nbsp;&nbsp; UITextFieldViewModeNever,&nbsp;&nbsp;重不出现</p>
+<p>&nbsp;&nbsp;&nbsp; UITextFieldViewModeWhileEditing,&nbsp;编辑时出现</p>
+<p>&nbsp;&nbsp;&nbsp; UITextFieldViewModeUnlessEditing,&nbsp;&nbsp;除了编辑外都出现</p>
+<p>&nbsp;&nbsp;&nbsp; UITextFieldViewModeAlways&nbsp;&nbsp;&nbsp;一直出现</p>
+<p>} UITextFieldViewMode;</p>
+<p>&nbsp;</p>
+<p>//输入框中一开始就有的文字</p>
+<p>&nbsp; text.text = @”一开始就在输入框的文字”;</p>
+<p>&nbsp;</p>
+<p>//每输入一个字符就变成点&nbsp;用语密码输入</p>
+<p>&nbsp; text.secureTextEntry = YES;</p>
+<p>&nbsp;</p>
+<p>//是否纠错</p>
+<p>&nbsp; text.autocorrectionType = UITextAutocorrectionTypeNo;</p>
+<p>&nbsp;</p>
+<p>typedef enum {</p>
+<p>&nbsp;&nbsp;&nbsp; UITextAutocorrectionTypeDefault,&nbsp;默认</p>
+<p>&nbsp;&nbsp;&nbsp; UITextAutocorrectionTypeNo,&nbsp;&nbsp;&nbsp;不自动纠错</p>
+<p>&nbsp;&nbsp;&nbsp; UITextAutocorrectionTypeYes,&nbsp;&nbsp;自动纠错</p>
+<p>} UITextAutocorrectionType;</p>
+<p>&nbsp;</p>
+<p>//再次编辑就清空</p>
+<p>&nbsp; text.clearsOnBeginEditing = YES;&nbsp;</p>
+<p>&nbsp;</p>
+<p>//内容对齐方式</p>
+<p>&nbsp; text.textAlignment = UITextAlignmentLeft;</p>
+<p>&nbsp;</p>
+<p>//内容的垂直对齐方式&nbsp; UITextField继承自UIControl,此类中有一个属性contentVerticalAlignment</p>
+<p>&nbsp; text.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;</p>
+<p>&nbsp;</p>
+<p>//设置为YES时文本会自动缩小以适应文本窗口大小.默认是保持原来大小,而让长文本滚动&nbsp;&nbsp;</p>
+<p>&nbsp; textFied.adjustsFontSizeToFitWidth = YES;</p>
+<p>&nbsp;</p>
+<p>//设置自动缩小显示的最小字体大小</p>
+<p>&nbsp; text.minimumFontSize = 20;</p>
+<p>&nbsp;</p>
+<p>//设置键盘的样式</p>
+<p>&nbsp; text.keyboardType = UIKeyboardTypeNumberPad;</p>
+<p>&nbsp;</p>
+<p>typedef enum {</p>
+<p>&nbsp;&nbsp;&nbsp; UIKeyboardTypeDefault,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认键盘，支持所有字符&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; UIKeyboardTypeASCIICapable,&nbsp;&nbsp;支持ASCII的默认键盘</p>
+<p>&nbsp;&nbsp;&nbsp; UIKeyboardTypeNumbersAndPunctuation,&nbsp;&nbsp;标准电话键盘，支持＋＊＃字符</p>
+<p>&nbsp;&nbsp;&nbsp; UIKeyboardTypeURL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; URL键盘，支持.com按钮&nbsp;只支持URL字符</p>
+<p>UIKeyboardTypeNumberPad,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数字键盘</p>
+<p>UIKeyboardTypePhonePad,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话键盘</p>
+<p>&nbsp;&nbsp;&nbsp; UIKeyboardTypeNamePhonePad,&nbsp;&nbsp;&nbsp;电话键盘，也支持输入人名</p>
+<p>UIKeyboardTypeEmailAddress,&nbsp;&nbsp;&nbsp;用于输入电子&nbsp;邮件地址的键盘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>UIKeyboardTypeDecimalPad,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数字键盘&nbsp;有数字和小数点</p>
+<p>&nbsp;&nbsp;&nbsp; UIKeyboardTypeTwitter,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;优化的键盘，方便输入@、#字符</p>
+<p>&nbsp;&nbsp;&nbsp; UIKeyboardTypeAlphabet = UIKeyboardTypeASCIICapable,&nbsp;</p>
+<p>} UIKeyboardType;</p>
+<p>&nbsp;</p>
+<p>//首字母是否大写</p>
+<p>&nbsp; text.autocapitalizationType = UITextAutocapitalizationTypeNone;</p>
+<p>&nbsp;</p>
+<p>typedef enum {</p>
+<p>&nbsp;&nbsp;&nbsp; UITextAutocapitalizationTypeNone,&nbsp;不自动大写</p>
+<p>&nbsp;&nbsp;&nbsp; UITextAutocapitalizationTypeWords,&nbsp;&nbsp;单词首字母大写</p>
+<p>&nbsp;&nbsp;&nbsp; UITextAutocapitalizationTypeSentences,&nbsp;&nbsp;句子的首字母大写</p>
+<p>&nbsp;&nbsp;&nbsp; UITextAutocapitalizationTypeAllCharacters,&nbsp;所有字母都大写</p>
+<p>} UITextAutocapitalizationType;</p>
+<p>&nbsp;</p>
+<p>//return键变成什么键</p>
+<p>&nbsp; text.returnKeyType =UIReturnKeyDone;</p>
+<p>&nbsp;</p>
+<p>typedef enum {</p>
+<p>&nbsp;&nbsp;&nbsp; UIReturnKeyDefault,&nbsp;默认&nbsp;灰色按钮，标有Return</p>
+<p>&nbsp;&nbsp;&nbsp; UIReturnKeyGo,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标有Go的蓝色按钮</p>
+<p>&nbsp;&nbsp;&nbsp; UIReturnKeyGoogle,标有Google的蓝色按钮，用语<a target="_blank" rel="noopener" href="http://www.myeducs.cn/chaxun/index.html">搜索</a></p>
+<p>&nbsp;&nbsp;&nbsp; UIReturnKeyJoin,标有Join的蓝色按钮</p>
+<p>&nbsp;&nbsp;&nbsp; UIReturnKeyNext,标有Next的蓝色按钮</p>
+<p>&nbsp;&nbsp;&nbsp; UIReturnKeyRoute,标有Route的蓝色按钮</p>
+<p>&nbsp;&nbsp;&nbsp; UIReturnKeySearch,标有Search的蓝色按钮</p>
+<p>&nbsp;&nbsp;&nbsp; UIReturnKeySend,标有Send的蓝色按钮</p>
+<p>&nbsp;&nbsp;&nbsp; UIReturnKeyYahoo,标有Yahoo的蓝色按钮</p>
+<p>&nbsp;&nbsp;&nbsp; UIReturnKeyYahoo,标有Yahoo的蓝色按钮</p>
+<p>&nbsp;&nbsp;&nbsp; UIReturnKeyEmergencyCall,&nbsp;紧急呼叫按钮</p>
+<p>} UIReturnKeyType;</p>
+<p>&nbsp;</p>
+<p>//键盘外观</p>
+<p>textView.keyboardAppearance=UIKeyboardAppearanceDefault；</p>
+<p>typedef enum {</p>
+<p>UIKeyboardAppearanceDefault，&nbsp;默认外观，浅灰色</p>
+<p>UIKeyboardAppearanceAlert，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;深灰&nbsp;石墨色</p>
+<p>&nbsp;</p>
+<p>} UIReturnKeyType;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>//设置代理&nbsp;用于实现协议</p>
+<p>&nbsp; text.delegate = self;</p>
+<p>&nbsp;</p>
+<p>//把textfield加到视图中</p>
+<p>&nbsp; [self.window addSubview:text];</p>
+<p>&nbsp;</p>
+<p>//最右侧加图片是以下代码&nbsp;&nbsp;&nbsp;左侧类似</p>
+<p>&nbsp;&nbsp;&nbsp; UIImageView *image=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@”right.png”]];</p>
+<p>&nbsp;&nbsp;&nbsp; text.rightView=image;</p>
+<p>&nbsp;&nbsp;&nbsp; text.rightViewMode = UITextFieldViewModeAlways;&nbsp;</p>
+<p>&nbsp;</p>
+<p>typedef enum {</p>
+<p>&nbsp;&nbsp;&nbsp; UITextFieldViewModeNever,</p>
+<p>&nbsp;&nbsp;&nbsp; UITextFieldViewModeWhileEditing,</p>
+<p>&nbsp;&nbsp;&nbsp; UITextFieldViewModeUnlessEditing,</p>
+<p>&nbsp;&nbsp;&nbsp; UITextFieldViewModeAlways</p>
+<p>} UITextFieldViewMode;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>//按return键键盘往下收&nbsp; becomeFirstResponder</p>
+<p>&nbsp;</p>
+<p>类要采用UITextFieldDelegate协议</p>
+<p>&nbsp;</p>
+<p>text.delegate = self;&nbsp;&nbsp;声明text的代理是我，我会去实现把键盘往下收的方法&nbsp;这个方法在UITextFieldDelegate里所以我们要采用UITextFieldDelegate这个协议</p>
+<p>&nbsp;</p>
+<ul>
+<li>(BOOL)textFieldShouldReturn:(UITextField *)textField</li>
+</ul>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp; [text resignFirstResponder];&nbsp;&nbsp;&nbsp; //主要是[receiver resignFirstResponder]在哪调用就能把receiver对应的键盘往下收</p>
+<p>&nbsp;&nbsp;&nbsp; return YES;</p>
+<p>}</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>重写绘制行为</p>
+<p>除了UITextField对象的风格选项，你还可以定制化UITextField对象，为他添加许多不同的重写方法，来改变文本字段的显示行为。这些方法都会返回一个CGRect结构，制定了文本字段每个部件的边界范围。以下方法都可以重写。</p>
+<p>&nbsp;</p>
+<p>–&nbsp;textRectForBounds:　　&nbsp;&nbsp;&nbsp;&nbsp;//重写来重置文字区域</p>
+<p>–&nbsp;drawTextInRect:　　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//改变绘文字属性.重写时调用super可以按默认图形属性绘制,若自己完全重写绘制函数，就不用调用super了.</p>
+<p>–&nbsp;placeholderRectForBounds:　　//重写来重置占位符区域</p>
+<p>–&nbsp;drawPlaceholderInRect:　　//重写改变绘制占位符属性.重写时调用super可以按默认图形属性绘制,若自己完全重写绘制函数，就不用调用super了.</p>
+<p>–&nbsp;borderRectForBounds:　　//重写来重置边缘区域</p>
+<p>–&nbsp;editingRectForBounds:　　//重写来重置编辑区域</p>
+<p>–&nbsp;clearButtonRectForBounds:　　//重写来重置clearButton位置,改变size可能导致button的图片失真</p>
+<p>–&nbsp;leftViewRectForBounds:</p>
+<p>–&nbsp;rightViewRectForBounds:</p>
+<p>&nbsp;</p>
+<p>委托方法</p>
+<p>&nbsp;</p>
+<p>-&nbsp;(BOOL)textFieldShouldBeginEditing:(UITextField&nbsp;*)textField{&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>//返回一个BOOL值，指定是否循序文本字段开始编辑&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; return&nbsp;YES;&nbsp;&nbsp;</p>
+<p>}&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>-&nbsp;(void)textFieldDidBeginEditing:(UITextField&nbsp;*)textField{&nbsp;&nbsp;</p>
+<p>&nbsp;//开始编辑时触发，文本字段将成为first&nbsp;responder&nbsp;&nbsp;</p>
+<p>}&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>-&nbsp;(BOOL)textFieldShouldEndEditing:(UITextField&nbsp;*)textField{&nbsp;&nbsp;</p>
+<p>//返回BOOL值，指定是否允许文本字段结束编辑，当编辑结束，文本字段会让出first&nbsp;responder&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;//要想在用户结束编辑时阻止文本字段消失，可以返回NO&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;//这对一些文本字段必须始终保持活跃状态的<a target="_blank" rel="noopener" href="http://www.myeducs.cn/chaxun/system/index.htm">程序</a>很有用，比如即时消息&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; return&nbsp;NO;&nbsp;&nbsp;</p>
+<p>}&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>-&nbsp;(BOOL)textField:(UITextField*)textField&nbsp;shouldChangeCharactersInRange:(NSRange)range&nbsp;replacementString:(NSString&nbsp;*)string{&nbsp;&nbsp;</p>
+<p>//当用户使用自动更正功能，把输入的文字修改为推荐的文字时，就会调用这个方法。&nbsp;&nbsp;</p>
+<p>//这对于想要加入撤销选项的应用程序特别有用&nbsp;&nbsp;</p>
+<p>//可以跟踪字段内所做的最后一次修改，也可以对所有编辑做日志记录,用作审计用途。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>//要防止文字被改变可以返回NO&nbsp;&nbsp;</p>
+<p>//这个方法的参数中有一个NSRange对象，指明了被改变文字的位置，建议修改的文本也在其中&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; return&nbsp;YES;&nbsp;&nbsp;</p>
+<p>}&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>-&nbsp;(BOOL)textFieldShouldClear:(UITextField&nbsp;*)textField{&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>//返回一个BOOL值指明是否允许根据用户请求清除内容&nbsp;&nbsp;</p>
+<p>//可以设置在特定条件下才允许清除内容&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; return&nbsp;YES;&nbsp;&nbsp;</p>
+<p>}&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>-(BOOL)textFieldShouldReturn:(UITextField&nbsp;*)textField{&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>//返回一个BOOL值，指明是否允许在按下回车键时结束编辑&nbsp;&nbsp;</p>
+<p>&nbsp;//如果允许要调用resignFirstResponder&nbsp;方法，这回导致结束编辑，而键盘会被收起[textField&nbsp;resignFirstResponder];</p>
+<p>//查一下resign这个单词的意思就明白这个方法了&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; return&nbsp;YES;&nbsp;&nbsp;</p>
+<p>}&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>通知</p>
+<p>UITextField派生自UIControl，所以UIControl类中的通知<a target="_blank" rel="noopener" href="http://www.myeducs.cn/chaxun/system/index.htm">系统</a>在文本字段中也可以使用。除了UIControl类的标准事件，你还可以使用下列UITextField类特有的事件</p>
+<p>&nbsp;</p>
+<p>UITextFieldTextDidBeginEditingNotification</p>
+<p>UITextFieldTextDidChangeNotification</p>
+<p>UITextFieldTextDidEndEditingNotification</p>
+<p>当文本字段退出编辑模式时触发。通知的object属性存储了最终文本。</p>
+<p>&nbsp;</p>
+<p>因为文本字段要使用键盘输入文字，所以下面这些事件发生时，也会发送动作通知</p>
+<p>&nbsp;</p>
+<p>UIKeyboardWillShowNotification&nbsp;&nbsp;&nbsp;//键盘显示之前发送</p>
+<p>UIKeyboardDidShowNotification&nbsp;&nbsp;&nbsp;&nbsp;//键盘显示之后发送</p>
+<p>UIKeyboardWillHideNotification&nbsp;&nbsp;&nbsp;//键盘隐藏之前发送</p>
+<p>UIKeyboardDidHideNotification&nbsp;&nbsp;&nbsp;&nbsp;//键盘隐藏之后发送</p>
+<p><img loading="lazy" alt="-159.png" src="/images/notes/UITextField-IOS%E5%BC%80%E5%8F%91/159.png"></p>
+<p>1、Text&nbsp;：设置文本框的默认文本。</p>
+<p>2、Placeholder&nbsp;：&nbsp;可以在文本框中显示灰色的字，用于提示用户应该在这个文本框输入什么内容。当这个文本框中输入了数据时，用于提示的灰色的字将会自动消失。</p>
+<p>3、Background&nbsp;：</p>
+<p>4、Disabled&nbsp;：&nbsp;若选中此项，用户将不能更改文本框内容。</p>
+<p>5、接下来是三个按钮，用来设置对齐方式。</p>
+<p>6、Border Style&nbsp;：&nbsp;选择边界风格。</p>
+<p>7、Clear Button&nbsp;：&nbsp;这是一个下拉菜单，你可以选择清除按钮什么时候出现，所谓清除按钮就是出一个现在文本框右边的小&nbsp;X&nbsp;，你可以有以下选择：</p>
+<p>&nbsp;&nbsp;&nbsp; 7.1 Never appears&nbsp;：&nbsp;从不出现</p>
+<p>&nbsp;&nbsp;&nbsp; 7.2 Appears while editing&nbsp;：&nbsp;编辑时出现</p>
+<p>&nbsp;&nbsp;&nbsp; 7.3 Appears unless editing&nbsp;：&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; 7.4 Is always visible&nbsp;：&nbsp;总是可见</p>
+<p>8、Clear when editing begins&nbsp;：&nbsp;若选中此项，则当开始编辑这个文本框时，文本框中之前的内容会被清除掉。比如，你现在这个文本框&nbsp;A&nbsp;中输入了&nbsp;“What”&nbsp;，之后去编辑文本框&nbsp;B，若再回来编辑文本框&nbsp;A&nbsp;，则其中的&nbsp;“What”&nbsp;会被立即清除。</p>
+<p>9、Text Color&nbsp;：&nbsp;设置文本框中文本的颜色。</p>
+<p>10、Font&nbsp;：&nbsp;设置文本的字体与字号。</p>
+<p>11、Min Font Size&nbsp;：&nbsp;设置文本框可以显示的最小字体（不过我感觉没什么用）</p>
+<p>12、Adjust To Fit&nbsp;：&nbsp;指定当文本框尺寸减小时，文本框中的文本是否也要缩小。选择它，可以使得全部文本都可见，即使文本很长。但是这个选项要跟&nbsp;Min Font Size&nbsp;配合使用，文本再缩小，也不会小于设定的&nbsp;Min Font Size&nbsp;。</p>
+<p>接下来的部分用于设置键盘如何显示。</p>
+<p>13、Captitalization&nbsp;：&nbsp;设置大写。下拉菜单中有四个选项：</p>
+<p>&nbsp;&nbsp;&nbsp; 13.1 None&nbsp;：&nbsp;不设置大写</p>
+<p>&nbsp;&nbsp;&nbsp; 13.2 Words&nbsp;：&nbsp;每个单词首字母大写，这里的单词指的是以空格分开的字符串</p>
+<p>&nbsp;&nbsp;&nbsp; 13.3 Sentances&nbsp;：&nbsp;每个句子的第一个字母大写，这里的句子是以句号加空格分开的字符串</p>
+<p>&nbsp;&nbsp;&nbsp; 13.4 All Characters&nbsp;：&nbsp;所以字母大写</p>
+<p>14、Correction&nbsp;：&nbsp;检查拼写，默认是&nbsp;YES&nbsp;。</p>
+<p>15、Keyboard&nbsp;：&nbsp;选择键盘类型，比如全数字、字母和数字等。</p>
+<p>16、Appearance：</p>
+<p>17、Return Key&nbsp;：&nbsp;选择返回键，可以选择&nbsp;Search&nbsp;、&nbsp;Return&nbsp;、&nbsp;Done&nbsp;等。</p>
+<p>18、Auto-enable Return Key&nbsp;：&nbsp;如选择此项，则只有至少在文本框输入一个字符后键盘的返回键才有效。</p>
+<p>19、Secure&nbsp;：&nbsp;当你的文本框用作密码输入框时，可以选择这个选项，此时，字符显示为星号。</p>
+<p><img loading="lazy" alt="-160.png" src="/images/notes/UITextField-IOS%E5%BC%80%E5%8F%91/160.png"></p>
+<p>1.Alignment Horizontal&nbsp;水平对齐方式</p>
+<p>2.Alignment Vertical&nbsp;垂直对齐方式</p>
+<p>3.用于返回一个BOOL值&nbsp;&nbsp;输入框是否&nbsp;Selected(选中) Enabled(可用) Highlighted(高亮)</p>
+<p>&nbsp;</p>
+<p>限制只能输入特定的字符</p>
+<p>&nbsp;</p>
+<p>(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{</p>
+<p>&nbsp;&nbsp;&nbsp; NSCharacterSet *cs;</p>
+<p>&nbsp;&nbsp;&nbsp; cs = [[NSCharacterSet characterSetWithCharactersInString:NUMBERS]invertedSet];</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs]componentsJoinedByString:@””];&nbsp;//按cs分离出数组,数组按@””分离出字符串</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; BOOL canChange = [string isEqualToString:filtered];</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; return canChange;</p>
+<p>}</p>
+<p>&nbsp;</p>
+<p>上面那个NUMBERS是一个宏，可以在文件顶部定义：</p>
+<p>#define NUMBERS @”0123456789\n”&nbsp;（这个代表可以输入数字和换行，请注意这个\n，如果不写这个，Done按键将不会触发，如果用在SearchBar中，将会不触发Search事件，因为你自己限制不让输入\n，好惨，我在项目中才发现的。）</p>
+<p>所以，如果你要限制输入英文和数字的话，就可以把这个定义为：</p>
+<p>#define kAlphaNum&nbsp;&nbsp; @”ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789″。</p>
+<p>当然，你还可以在以上方法return之前，做一提示的，比如提示用户只能输入数字之类的。如果你觉得有需要的话。</p>
+<p>&nbsp;</p>
+<p>限制只能输入一定长度的字符</p>
+<p>&nbsp;</p>
+<ul>
+<li>(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;</li>
+</ul>
+<p>&nbsp;</p>
+<p>{&nbsp;&nbsp;//string就是此时输入的那个字符&nbsp;textField就是此时正在输入的那个输入框&nbsp;返回YES就是可以改变输入框的值&nbsp;NO相反</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>if ([string isEqualToString:@”\n”])&nbsp;&nbsp;//按会车可以改变</p>
+<p>&nbsp;&nbsp;&nbsp; {&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return YES;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; }&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];&nbsp;//得到输入框的内容</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; if (self.myTextField == textField)&nbsp;&nbsp;//判断是否时我们想要限定的那个输入框</p>
+<p>&nbsp;&nbsp;&nbsp; {&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ([toBeString length] &gt; 20) {&nbsp;//如果输入框内容大于20则弹出警告</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; textField.text = [toBeString substringToIndex:20];&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:nil message:@”超过最大字数不能输入了” delegate:nil cancelButtonTitle:@”Ok” otherButtonTitles:nil, nil] autorelease];&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [alert show];&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NO;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; }&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; return YES;&nbsp;</p>
+<p>}</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios基础语法/">Ios基础语法</a><a href="/tags/Ios-textField/">Ios-textField</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/UITextField%EF%BC%8DIOS%E5%BC%80%E5%8F%91/" data-title="UITextField－IOS开发 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/UISearchBar与UISearchDisplayController结合使用时注意的事项/" title="UISearchBar与UISearchDisplayController结合使用时注意的事项">
+  <strong>上一篇：</strong><br/>
+  <span>
+  UISearchBar与UISearchDisplayController结合使用时注意的事项</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/UIViewController生命周期/"  title="UIViewController生命周期">
+ <strong>下一篇：</strong><br/> 
+ <span>UIViewController生命周期
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/UITextField－IOS开发/" data-title="UITextField－IOS开发" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/UITextField%EF%BC%8DIOS%E5%BC%80%E5%8F%91/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UITextField%EF%BC%8DIOS%E5%BC%80%E5%8F%91"><span class="toc-number">1.</span> <span class="toc-text">UITextField－IOS开发</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UITextField%EF%BC%8DIOS%E5%BC%80%E5%8F%91-1"><span class="toc-number">2.</span> <span class="toc-text">UITextField－IOS开发</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

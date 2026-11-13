@@ -1,0 +1,1051 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>Objective-C在LLVM 3.1中的新特性 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="Objective-C在LLVM 3.1中的新特性Ios基础语法 Ios技术文章收录 Objective-C在LLVM 3.1中的新特性2012-06-1309:34阅读数：3464 单独窗口打印放大字号缩小字号##  与C和C++不同，Objective-C中不是由一个标准组织控制的，它一开始完全被Stepstone公司掌控，然而现在却被Apple公司取代了。 原文来自：OSChina&amp;nbsp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C在LLVM 3.1中的新特性">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Objective-C%E5%9C%A8LLVM%203.1%E4%B8%AD%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="Objective-C在LLVM 3.1中的新特性Ios基础语法 Ios技术文章收录 Objective-C在LLVM 3.1中的新特性2012-06-1309:34阅读数：3464 单独窗口打印放大字号缩小字号##  与C和C++不同，Objective-C中不是由一个标准组织控制的，它一开始完全被Stepstone公司掌控，然而现在却被Apple公司取代了。 原文来自：OSChina&amp;nbsp">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2012-12-25T15:40:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios技术文章收录">
+<meta property="article:tag" content="Ios基础语法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/Objective-C在LLVM 3.1中的新特性/" title="Objective-C在LLVM 3.1中的新特性" itemprop="url">Objective-C在LLVM 3.1中的新特性</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Objective-C%E5%9C%A8LLVM-3-1%E4%B8%AD%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">Objective-C在LLVM 3.1中的新特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Objective-C%E5%9C%A8LLVM-3-1%E4%B8%AD%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7-1"><span class="toc-number">2.</span> <span class="toc-text">Objective-C在LLVM 3.1中的新特性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E7%8B%AC%E7%AA%97%E5%8F%A3%E6%89%93%E5%8D%B0%E6%94%BE%E5%A4%A7%E5%AD%97%E5%8F%B7%E7%BC%A9%E5%B0%8F%E5%AD%97%E5%8F%B7"><span class="toc-number">2.1.</span> <span class="toc-text">单独窗口打印放大字号缩小字号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.2.</span> <span class="toc-text"></span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="Objective-C在LLVM-3-1中的新特性"><a title="Objective-C在LLVM 3.1中的新特性" class="headerlink" href="#Objective-C在LLVM-3-1中的新特性"></a>Objective-C在LLVM 3.1中的新特性</h1><p><code>Ios基础语法</code> <code>Ios技术文章收录</code></p>
+<h1 id="Objective-C在LLVM-3-1中的新特性-1"><a title="Objective-C在LLVM 3.1中的新特性" class="headerlink" href="#Objective-C在LLVM-3-1中的新特性-1"></a>Objective-C在LLVM 3.1中的新特性</h1><p>2012-06-1309:34<br><a href="">阅读数：3464</a></p>
+<h2 id="单独窗口打印放大字号缩小字号"><a title="单独窗口打印放大字号缩小字号" class="headerlink" href="#单独窗口打印放大字号缩小字号"></a><a href=""><strong>单独窗口</strong></a><a href=""><strong>打印</strong></a><a href=""><strong>放大字号</strong></a><a href=""><strong>缩小字号</strong></a></h2><h2 id=""><a title="" class="headerlink" href="#"></a></h2><p><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">##</a> </p>
+<p><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">与C和C++不同，Objective-C中不是由一个标准组织控制的，它一开始完全被Stepstone公司掌控，然而现在却被Apple公司取代了。</a></p>
+<p><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">原文来自：OSChina</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">与C和C++不同，Objective-C中不是由一个标准组织控制的，它一开始完全被Stepstone公司掌控，然而现在却被Apple公司取代了。</a><br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">这种完全被一个公司掌控的模式可以算是一个优点和或者缺点。例如，C++规范的新版本的C + +11，历时13年完成。相比之下，Objective-C中可以发展地非常迅速，无需由委员会设计的问题所限制。但对应的缺点是在整个设计过程中，因为没有监督，所以基本上无法被标准化的程序语言所接纳。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">好了，让我们来看看 LLVM 3.1为 Objective-C 带来了哪些增强吧。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22"><strong>NSNumber 常量</strong></a><br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">有个Objective-C的问题我被别人问了几乎25年了，就是创建OC常量的语法。</a><br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">先让我们看看下面这行代码:</a></p>
+<table>
+<thead>
+<tr>
+<th><code>1</code></th>
+<th><code>id str = @``"This is a string"``;</code></th>
+</tr>
+</thead>
+</table>
+<p><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">它运行起来当然没什么问题 – 只是简单的创建一个静态的 NSConstantString 然后初始化变量值，并指派一个指针指向它。但是如果我们看看下面这一个呢？</a></p>
+<table>
+<thead>
+<tr>
+<th><code>1</code></th>
+<th><code>int</code>&nbsp;<code>x = 42;</code></th>
+</tr>
+</thead>
+</table>
+<p>&nbsp;</p>
+<p><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">这行代码也是存储常量值42到x中。按照开始说的，如果我们这么写.</a></p>
+<table>
+<thead>
+<tr>
+<th><code>1</code></th>
+<th><code>id x = @42;</code></th>
+</tr>
+</thead>
+</table>
+<p>&nbsp;</p>
+<p><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">结果看到以下报错</a></p>
+<table>
+<thead>
+<tr>
+<th><code>1</code></th>
+<th><code>lit.m:3:8: error: initializer element is not a compile-``time</code>&nbsp;<code>constant</code></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>2</code></th>
+<th><code>id x = @42;</code></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>3</code></th>
+<th><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``^~~</code></th>
+</tr>
+</thead>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">这到底是为什么？因为对于整数是不能像字符串那样处理的；这只是个让程序员方便的语法糖而已，能让我们创建一个 autoreleased 的NSNumber对象。在 Objective-C 11中，如果你定义下面这样的宏，代码如下：</a></p>
+<table>
+<thead>
+<tr>
+<th><code>1</code></th>
+<th><code>#define N(x) _Generic((x), \</code></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>2</code></th>
+<th><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``int``: [NSNumber numberWithInt: x], \</code></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>3</code></th>
+<th><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``float``: [NSNumber numberWithFloat: x], \</code></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>4</code></th>
+<th><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``double``: [NSNumber numberWithDouble: x])</code></th>
+</tr>
+</thead>
+</table>
+<p>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">这个例子接受一个数值参数然后返回一个NSNumber的对象，以下的代码都是等价的</a></p>
+<table>
+<thead>
+<tr>
+<th><code>01</code></th>
+<th><code>x = N(12);</code></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>02</code></th>
+<th></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>03</code></th>
+<th><code>x = &lt;a href=``"http://my.oschina.net/mutou4"</code>&nbsp;<code>class``=``"referer"``target=``"_blank"``&gt;@12&lt;/a&gt; ;</code></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>04</code></th>
+<th></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>05</code></th>
+<th><code>x = N(42.5);</code></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>06</code></th>
+<th></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>07</code></th>
+<th><code>x = @42.5;</code></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>08</code></th>
+<th></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>09</code></th>
+<th><code>x = N(42.5f);</code></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>10</code></th>
+<th></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>11</code></th>
+<th><code>x = @42.5f;</code></th>
+</tr>
+</thead>
+</table>
+<p>&nbsp;</p>
+<p><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">同理你也可以为long, longS以及long doubleS等等来扩展这样的宏。甚至是更加复杂的数据。</a><br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">这种宏定义的方式有两个好处，一时它可以以任何表达式的形式工作；第二就是它的表达意思的易理解性。</a><br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">这种宏定义实际上是一个非常有用的功能。不幸的是，它看起来像刚刚赶到在半成品状态。在未来的版本，希望这一问题将得到解决。</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios技术文章收录/">Ios技术文章收录</a><a href="/tags/Ios基础语法/">Ios基础语法</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Objective-C%E5%9C%A8LLVM%203.1%E4%B8%AD%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/" data-title="Objective-C在LLVM 3.1中的新特性 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/RBAC 模型初探/" title="RBAC 模型初探">
+  <strong>上一篇：</strong><br/>
+  <span>
+  RBAC 模型初探</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云/"  title="RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云">
+ <strong>下一篇：</strong><br/> 
+ <span>RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/Objective-C在LLVM 3.1中的新特性/" data-title="Objective-C在LLVM 3.1中的新特性" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Objective-C%E5%9C%A8LLVM%203.1%E4%B8%AD%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Objective-C%E5%9C%A8LLVM-3-1%E4%B8%AD%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">Objective-C在LLVM 3.1中的新特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Objective-C%E5%9C%A8LLVM-3-1%E4%B8%AD%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7-1"><span class="toc-number">2.</span> <span class="toc-text">Objective-C在LLVM 3.1中的新特性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E7%8B%AC%E7%AA%97%E5%8F%A3%E6%89%93%E5%8D%B0%E6%94%BE%E5%A4%A7%E5%AD%97%E5%8F%B7%E7%BC%A9%E5%B0%8F%E5%AD%97%E5%8F%B7"><span class="toc-number">2.1.</span> <span class="toc-text">单独窗口打印放大字号缩小字号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.2.</span> <span class="toc-text"></span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

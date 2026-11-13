@@ -1,0 +1,1025 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>用 Jenkins 搭建 iOS/Android 持续集成打包平台 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="用 Jenkins 搭建 iOS&#x2F;Android 持续集成打包平台iOS大全 微信 用&amp;nbsp;Jenkins 搭建 iOS&#x2F;Android 持续集成打包平台  2016-07-06 iOS大全  （点击上方公众号，可快速关注）  来源：伯乐在线专栏作者 - debugtalk   链接：http:&#x2F;&#x2F;blog.jobbole.com&#x2F;103048&#x2F; 点击 → 了解如何加入专栏作��  背景描述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 Jenkins 搭建 iOS&#x2F;Android 持续集成打包平台">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%BE%AE%E4%BF%A1/%E7%94%A8%20Jenkins%20%E6%90%AD%E5%BB%BA%20iOS_Android%20%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="用 Jenkins 搭建 iOS&#x2F;Android 持续集成打包平台iOS大全 微信 用&amp;nbsp;Jenkins 搭建 iOS&#x2F;Android 持续集成打包平台  2016-07-06 iOS大全  （点击上方公众号，可快速关注）  来源：伯乐在线专栏作者 - debugtalk   链接：http:&#x2F;&#x2F;blog.jobbole.com&#x2F;103048&#x2F; 点击 → 了解如何加入专栏作��  背景描述">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS_Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/640-5.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS_Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/640-6.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS_Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/0-23.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS_Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/0-8.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS_Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/0-24.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-07-07T00:44:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="iOS大全">
+<meta property="article:tag" content="微信">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS_Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/640-5.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/微信/用 Jenkins 搭建 iOS_Android 持续集成打包平台/" title="用 Jenkins 搭建 iOS/Android 持续集成打包平台" itemprop="url">用 Jenkins 搭建 iOS/Android 持续集成打包平台</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS-x2F-Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0"><span class="toc-number">1.</span> <span class="toc-text">用 Jenkins 搭建 iOS&#x2F;Android 持续集成打包平台</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS-x2F-Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0-1"><span class="toc-number">1.1.</span> <span class="toc-text">用 Jenkins 搭建 iOS&#x2F;Android 持续集成打包平台</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="用-Jenkins-搭建-iOS-x2F-Android-持续集成打包平台"><a title="用 Jenkins 搭建 iOS/Android 持续集成打包平台" class="headerlink" href="#用-Jenkins-搭建-iOS-x2F-Android-持续集成打包平台"></a>用 Jenkins 搭建 iOS/Android 持续集成打包平台</h1><p><code>iOS大全</code> <code>微信</code></p>
+<h2 id="用-Jenkins-搭建-iOS-x2F-Android-持续集成打包平台-1"><a title="用&nbsp;Jenkins 搭建 iOS/Android 持续集成打包平台" class="headerlink" href="#用-Jenkins-搭建-iOS-x2F-Android-持续集成打包平台-1"></a>用&nbsp;Jenkins 搭建 iOS/Android 持续集成打包平台</h2><p>  <em>2016-07-06</em> <a href="">iOS大全</a><br>  （点击上方公众号，可快速关注）</p>
+<blockquote>
+<p>来源：伯乐在线专栏作者 - debugtalk</p>
+</blockquote>
+<blockquote>
+<p>链接：<a target="_blank" rel="noopener" href="http://blog.jobbole.com/103048/">http://blog.jobbole.com/103048/</a></p>
+<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxMzE2Mjc2Ng==&amp;mid=404653819&amp;idx=1&amp;sn=2e0d0a8c0b9fbd07a52adecc6cea499e&amp;scene=21#wechat_redirect">点击 → 了解如何加入专栏作�</a>�</p>
+</blockquote>
+<p><strong>背景描述</strong></p>
+<p>根据项目需求，现要在团队内部搭建一个统一的打包平台，实现对iOS和Android项目的打包。而且为了方便团队内部的测试包分发，希望在打包完成后能生成一个二维码，体验用户（产品、运营、测试等人员）通过手机扫描二维码后就能直接安装测试包。</p>
+<p>该需求具有一定的普遍性，基本上所有开发APP的团队都可能会用到，因此我将整个需求实现的过程整理后形成此文，并且真正地做到了零基础上手，到手即飞、开箱即用，希望能对大家有所帮助。</p>
+<p>GitHub地址：<a target="_blank" rel="noopener" href="https://github.com/debugtalk/JenkinsTemplateForApp">https://github.com/debugtalk/JenkinsTemplateForApp</a></p>
+<p>首先，先给大家展示下平台建设完成后的整体效果：</p>
+<p><img loading="lazy" alt="640-5.jpg" src="/images/notes/%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS_Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/640-5.jpg"></p>
+<p><img loading="lazy" alt="640-6.jpg" src="/images/notes/%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS_Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/640-6.jpg"></p>
+<p>该平台主要实现的功能有3点：</p>
+<ul>
+<li>定期对GitHub仓库进行检测，若有更新则自动执行构建打包；</li>
+<li>构建成功后根据ipa/apk生成二维码，并可在历史构建列表中展示各个版本的二维码，通过手机扫描二维码可直接安装对应版本；</li>
+<li>在构建结果页面中展示当次构建的成果物（Artifact，如.ipa、.app、.apk、info.plist等文件），供有需要的用户进行下载。</li>
+</ul>
+<p>接下来，本文就开始对平台建设的完整实现过程进行详细介绍。</p>
+<p><strong>安装Jenkins</strong></p>
+<p>Jenkins依赖于Java运行环境，因此需要首先安装Java。</p>
+<p>安装Jenkins的方式有多种，可以运行对应系统类型的安装包，可以通过docker获取镜像，也可以直接运行war包。</p>
+<p>我个人倾向于直接运行war包的形式，只需下载jenkins.war后，运行如下命令即可启动Jenkins。</p>
+<blockquote>
+<p>$ nohup java -jar jenkins_located_path/jenkins.war –httpPort=88 &amp;</p>
+</blockquote>
+<p>如果不指定httpPort，Jenkins的默认端口为8080。</p>
+<p><strong>Jenkins插件</strong></p>
+<p>Jenkins有非常多的插件，可以实现各种功能的扩展。</p>
+<p>针对搭建的iOS/Android持续集成打包平台，我使用到了如下几个插件。</p>
+<ul>
+<li>GIT plugin</li>
+<li>SSH Credentials Plugin</li>
+<li>Git Changelog Plugin: 获取仓库提交的commit log</li>
+<li>build-name-setter：用于修改Build名称</li>
+<li>description setter plugin：用于在修改Build描述信息，在描述信息中增加显示QRCode（二维码）</li>
+<li>Post-Build Script Plug-in：在编译完成后通过执行脚本实现一些额外功能</li>
+<li>Xcode integration: iOS专用（可选）</li>
+<li>Gradle plugin: Android专用（可选）</li>
+</ul>
+<p>安装方式也比较简单，直接在Jenkins的插件管理页面搜索上述插件，点击安装即可。</p>
+<p><strong>创建项目（Job）</strong></p>
+<p>在Jenkins中，构建项目以Job的形式存在，因此需要针对每个项目创建一个Job。有时候，一个项目中可能有多个分支同时在进行开发，为了分别进行构建，也可以针对每个分支创建一个Job。</p>
+<p>创建Job的方式有多种，本次只需要创建Freestyle project类型的即可。</p>
+<blockquote>
+<p>Main page -&gt; New Item -&gt; Freestyle project</p>
+</blockquote>
+<p>对于一个持续集成打包平台，每次打包都由4步组成：触发构建、拉取代码、执行构建、构建后处理。对应的，在每个Job中也对应了这几项的配置。</p>
+<p><strong>配置Git代码仓库</strong></p>
+<p>要对项目进行构建，配置项目的代码仓库是必不可少的。由于当前我们的项目托管在GitHub私有仓库中，因此在此需要对Git进行配置。</p>
+<p>在【Source Code Management】配置栏目下，如果之前GIT plugin安装成功，则会出现Git选项。</p>
+<p>配置Git代码仓库时，有三项是必须配置的：仓库URL地址（Repository URL）、仓库权限校验方式（Credentials），以及当前Job需要构建的代码分支（Branches to build）。</p>
+<p>在配置Repository URL时，选择HTTPS URL或SSH URL均可。不过需要注意的是，Credentials要和Repository URL对应，也就是说：</p>
+<ul>
+<li>如果Repository URL是HTTPS URL形式的，那么Credentials就要采用GitHub用户名密码的校验方式；而且，如果在GitHub中开启了2FA（two-factor authentication），那么还需要在GitHub中创建一个Personal access token，输入密码时将这个Personal access token作为密码进行输入。</li>
+<li>如果Repository URL是SSH URL形式的，那么就需要先在Jenkins所在的服务器上创建一个SSH秘钥对，并将公钥添加到GitHub的SSH keys中，然后在填写Credentials时，选择SSH Username with private key的校验方式，填入GitHub Username、SSH私钥、以及创建SSH秘钥对时设置的Passphrase。</li>
+</ul>
+<p>如果对Git权限校验的概念还比较模糊，可以参考《深入浅出Git权限校验》。</p>
+<p>在配置Branches to build时，可以采用多种形式，包括分支名称（branchName）、tagName、commitId等。其中分支名称的形式用的最多，例如，若是构建master分支，则填写refs/heads/master，若是构建develop分支，则填写refs/heads/develop。</p>
+<p>除了以上关于Git的必填配置项，有时根据项目的实际情况，可能还需要对Jenkins的默认配置项进行修改。</p>
+<p>比较常见的一种情况就是对clone的配置进行修改。</p>
+<p>在Jenkins的默认配置中，clone代码时会拉取所有历史版本的代码，而且默认的超时时限只有10分钟。这就造成在某些项目中，由于代码量本身就比较大，历史版本也比较多，再加上网络环境不是特别好，Jenkins根本没法在10分钟之内拉取完所有代码，超时后任务就会被自动终止了（错误状态码143）。</p>
+<p>这种问题的解决方式也很简单，无非就是两种思路，要么少拉取点代码（不获取历史版本），要么提高超时时限。对应的配置在Advanced clone behaviours中：</p>
+<ul>
+<li>Shallow clone：勾选后不获取历史版本；</li>
+<li>Timeout (in minutes) for clone and fetch operation：配置后覆盖默认的超时时限。</li>
+</ul>
+<p><strong>配置构建触发器</strong></p>
+<p>代码仓库配置好了，意味着Jenkins具有了访问GitHub代码仓库的权限，可以成功地拉取代码。</p>
+<p>那Jenkins什么时候执行构建呢？</p>
+<p>这就需要配置构建触发策略，即构建触发器，配置项位于【Build Triggers】栏目。</p>
+<p>触发器支持多种类型，常用的有：</p>
+<ul>
+<li>定期进行构建（Build periodically）</li>
+<li>根据提交进行构建（Build when a change is pushed to GitHub）</li>
+<li>定期检测代码更新，如有更新则进行构建（Poll SCM）</li>
+</ul>
+<p>构建触发器的选择为复合选项，若选择多种类型，则任一类型满足构建条件时就会执行构建工作。如果所有类型都不选择，则该Jenkins Job不执行自动构建，但可通过手动点击【Build Now】触发构建。</p>
+<p>关于定时器（Schedule）的格式，简述如下：</p>
+<p>MINUTE HOUR DOM MONTH DOW</p>
+<ul>
+<li>MINUTE: Minutes within the hour (0-59)</li>
+<li>HOUR: The hour of the day (0-23)</li>
+<li>DOM: The day of the month (1-31)</li>
+<li>MONTH: The month (1-12)</li>
+<li>DOW: The day of the week (0-7) where 0 and 7 are Sunday.</li>
+</ul>
+<p>通常情况下需要指定多个值，这时可以采用如下operator（优先级从上到下）：</p>
+<ul>
+<li><em>适配所有有效的值，若不指定某一项，则以</em>占位；</li>
+<li>M-N适配值域范围，例如7-9代表7/8/9均满足；</li>
+<li>M-N/X或*/X：以X作为间隔；</li>
+<li>A,B,C：枚举多个值。</li>
+</ul>
+<p>另外，为了避免多个任务在同一时刻同时触发构建，在指定时间段时可以配合使用H字符。添加H字符后，Jenkins会在指定时间段内随机选择一个时间点作为起始时刻，然后加上设定的时间间隔，计算得到后续的时间点。直到下一个周期时，Jenkins又会重新随机选择一个时间点作为起始时刻，依次类推。</p>
+<p>为了便于理解，列举几个示例：</p>
+<ul>
+<li>H/15 * * * *：代表每隔15分钟，并且开始时间不确定，这个小时可能是:07,:22,:37,:52，下一个小时就可能是:03,:18,:33,:48；</li>
+<li>H(0-29)/10 * * * *：代表前半小时内每隔10分钟，并且开始时间不确定，这个小时可能是:04,:14,:24，下一个小时就可能是:09,:19,:29；</li>
+<li>H 23 * * 1-5：工作日每晚23:00至23:59之间的某一时刻；</li>
+</ul>
+<p><strong>配置构建方式</strong></p>
+<p>触发策略配置好之后，Jenkins就会按照设定的策略自动执行构建。但如何执行构建操作，这还需要我们通过配置构建方式来进行设定。</p>
+<p>常用的构建方式是根据构建对象的具体类型，安装对应的插件，然后采用相应的构建方式。例如，若是构建Android应用，安装Gradle plugin之后，就可以选择Invoke Gradle script，然后采用Gradle进行构建；若是构建iOS应用，安装Xcode integration插件之后，就可以选择Xcode，然后选择Xcode进行构建。</p>
+<p>该种方式的优势是操作简单，UI可视化，在场景不复杂的情况下可以快速满足需求。不过缺点就是依赖于插件已有的功能，如果场景较复杂时可能单个插件还无法满足需求，需要再安装其它插件。而且，有些插件可能还存在一些问题，例如对某些操作系统版本或XCode版本兼容不佳，出现问题时我们就会比较被动。</p>
+<p>我个人更倾向于另外一种方式，就是自己编写打包脚本，在脚本中自定义实现所有的构建功能，然后在Execute Shell中执行。这种方式的灵活度更高，各种场景的构建需求都能满足，出现问题后也能自行快速修复。</p>
+<p>另外，对于iOS应用的构建，还有一个需要额外关注的点，就是开发者证书的配置。</p>
+<p>如果是采用Xcode integration插件进行构建，配置会比较复杂，需要在Jenkins中导入开发证书，并填写多个配置项。不过，如果是采用打包脚本进行构建的话，情况就会简单许多。只要在Jenkins所运行的计算机中安装好开发者证书，打包命令在Shell中能正常工作，那么在Jenkins中执行打包脚本也不会有什么问题。</p>
+<p><strong>构建后处理</strong></p>
+<p>完成构建后，生成的编译成果物（ipa/apk）会位于指定的目录中。但是，如果要直接在手机中安装ipa/apk文件还比较麻烦，不仅在分发测试包时需要将好几十兆的安装包进行传送，体验用户在安装时也还需要通过数据线将手机与计算机进行连接，然后再使用PP助手或豌豆荚等工具进行安装。</p>
+<p>当前比较优雅的一种方式是借助蒲公英（pgyer）或fir.im等平台，将ipa/apk文件上传至平台后由平台生成二维码，然后只需要对二维码链接进行分发，体验用户通过手机扫描二维码后即可实现快速安装，效率得到了极大的提升。</p>
+<p><strong>上传安装包文件，生成二维码</strong></p>
+<p>不管是蒲公英还是fir.im，都有对应的Jenkins插件，安装插件后可以在Post-build中实现对安装包的上传。</p>
+<p>除了使用Jenkins插件，fir.im还支持命令上传的方式，蒲公英还支持HTTP Post接口上传的方式。</p>
+<p>我个人推荐采用命令或接口上传的方法，并在构建脚本中进行调用。灵活是一方面，更大的好处是如果上传失败后还能进行重试，这在网络环境不是很稳定的情况下极其必要。</p>
+<p>Jenkins成功完成安装包上传后，pgyer/fir.im平台会生成一个二维码图片，并在响应中将图片的URL链接地址进行返回。</p>
+<p><strong>展示二维码图片</strong></p>
+<p>二维码图片的URL链接有了，那要怎样才能将二维码图片展示在Jenkins项目的历史构建列表中呢？</p>
+<p>这里需要用到另外一个插件，description setter plugin。安装该插件后，在【Post-build Actions】栏目中会多出description setter功能，可以实现构建完成后设置当次build的描述信息。这个描述信息不仅会显示在build页面中，同时也会显示在历史构建列表中。</p>
+<p>有了这个前提，要将二维码图片展示在历史构建列表中貌似就可以实现了，能直观想到的方式就是采用HTML的img标签，将<img>写入到build描述信息中。</p>
+<p>这个方法的思路是正确的，不过这么做以后并不会实现我们预期的效果。</p>
+<p>这是因为Jenkins出于安全的考虑，所有描述信息的Markup Formatter默认都是采用Plain text模式，在这种模式下是不会对build描述信息中的HTML编码进行解析的。</p>
+<p>要改变也很容易，Manage Jenkins -&gt; Configure Global Security，将Markup Formatter的设置更改为Safe HTML即可。</p>
+<p>更改配置后，我们就可以在build描述信息中采用HTML的img标签插入图片了。</p>
+<p>另外还需要补充一个点。如果是使用蒲公英（pyger）平台，会发现每次上传安装包后返回的二维码图片是一个短链接，神奇的是这个短连接居然是固定的（对同一个账号而言）。这个短连接总是指向最近生成的二维码图片，但是对于二维码图片的唯一URL地址，平台并没有在响应中进行返回。在这种情况下，我们每次构建完成后保存二维码图片的URL链接就没有意义了。</p>
+<p>应对的做法是，每次上传完安装包后，通过返回的二维码图片短链接将二维码图片下载并保存到本地，然后在build描述信息中引用该图片的Jenkins地址即可。</p>
+<p><strong>收集编译成果物（Artifacts）</strong></p>
+<p>每次完成构建后，编译生成的文件较多，但是并不是所有的文件都是我们需要的。</p>
+<p>通常情况下，我们可能只需要其中的部分文件，例如.ipa/.app/.plist/.apk等，这时我们可以将这部分文件单独收集起来，并在构建页面中展示出来，以便在需要时进行下载。</p>
+<p>要实现这样一个功能，需要在【Post-build Actions】栏目中新增Archive the artifacts，然后在Files to archive中通过正则表达式指定成果物文件的路径。</p>
+<p>设置完毕后，每次构建完成后，Jenkins会在Console Output中采用设定的正则表达式进行搜索匹配，如果能成功匹配到文件，则会将文件收集起来。</p>
+<p><strong>总结</strong></p>
+<p>本文主要是对如何使用Jenkins搭建iOS/Android持续集成打包平台的基础概念和实施流程进行了介绍。对于其中涉及到的执行命令、构建脚本（build.py），以及Jenkins的详细配置，出于篇幅长度和阅读体验的考虑，并没有在文中进行详细展开。</p>
+<p>为了实现真正的开箱即用，我将Jenkins的配置文件和构建脚本抽离出来形成一套模板，只需要导入到Jenkins中，然后针对具体的项目修改少量配置信息，即可将这一套持续集成打包平台运行起来，实现和文章开头插图中完全相同的功能效果。</p>
+<p>详细内容请阅读《关于持续集成打包平台的Jenkins配置和构建脚本实现细节》。</p>
+<p>GitHub地址：<a target="_blank" rel="noopener" href="https://github.com/debugtalk/JenkinsTemplateForApp">https://github.com/debugtalk/JenkinsTemplateForApp</a></p>
+<p><strong><strong>专栏作者简介</strong></strong> （ <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxMzE2Mjc2Ng==&amp;mid=404653819&amp;idx=1&amp;sn=2e0d0a8c0b9fbd07a52adecc6cea499e&amp;scene=21#wechat_redirect">点击 → 加入专栏作�</a>�&nbsp;）</p>
+<hr>
+<p>debugtalk ：专注于软件测试领域和测试开发技术，个人微信公众号【debugtalk】。</p>
+<p><img loading="lazy" alt="0-23.jpg" src="/images/notes/%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS_Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/0-23.jpg"></p>
+<p><strong>打赏支持作者写出更多好文章，谢谢！</strong></p>
+<hr>
+<p>【今日微信公号推荐↓】</p>
+<p><img loading="lazy" alt="0-8.png" src="/images/notes/%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS_Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/0-8.png"></p>
+<p>更多推荐请看<strong>《</strong><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxMzE2Mjc2Ng==&amp;mid=403261234&amp;idx=2&amp;sn=9f111eeed8b17aff453aad4a1d0a6b81&amp;scene=21#wechat_redirect">值得关注的技术和设计公众号</a><strong>》</strong></p>
+<p>其中推荐了包括<strong>技术</strong>、<strong>设计</strong>、<strong>极客�</strong>�和&nbsp;<strong>IT相亲</strong>相关的热门公众号。技术涵盖：Python、Web前端、Java、安卓、iOS、PHP、C/C++、.NET、Linux、数据库、运维、大数据、算法、IT职场等。点击《<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxMzE2Mjc2Ng==&amp;mid=403261234&amp;idx=2&amp;sn=9f111eeed8b17aff453aad4a1d0a6b81&amp;scene=21#wechat_redirect">值得关注的技术和设计公众号</a>》，发现精彩！</p>
+<p><img loading="lazy" alt="0-24.jpg" src="/images/notes/%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS_Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/0-24.jpg"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/DevOps%E4%B8%8E%E6%9E%B6%E6%9E%84/">DevOps与架构</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/iOS大全/">iOS大全</a><a href="/tags/微信/">微信</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%BE%AE%E4%BF%A1/%E7%94%A8%20Jenkins%20%E6%90%AD%E5%BB%BA%20iOS_Android%20%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/" data-title="用 Jenkins 搭建 iOS/Android 持续集成打包平台 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/兴趣笔记/科学告诉你，男人喜欢什么样的女人 _kindle _dogear/" title="科学告诉你，男人喜欢什么样的女人 #kindle #dogear">
+  <strong>上一篇：</strong><br/>
+  <span>
+  科学告诉你，男人喜欢什么样的女人 #kindle #dogear</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/学习笔记/Node js 入门/"  title="Node js 入门">
+ <strong>下一篇：</strong><br/> 
+ <span>Node js 入门
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/微信/用 Jenkins 搭建 iOS_Android 持续集成打包平台/" data-title="用 Jenkins 搭建 iOS/Android 持续集成打包平台" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%BE%AE%E4%BF%A1/%E7%94%A8%20Jenkins%20%E6%90%AD%E5%BB%BA%20iOS_Android%20%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS-x2F-Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0"><span class="toc-number">1.</span> <span class="toc-text">用 Jenkins 搭建 iOS&#x2F;Android 持续集成打包平台</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8-Jenkins-%E6%90%AD%E5%BB%BA-iOS-x2F-Android-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0-1"><span class="toc-number">1.1.</span> <span class="toc-text">用 Jenkins 搭建 iOS&#x2F;Android 持续集成打包平台</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

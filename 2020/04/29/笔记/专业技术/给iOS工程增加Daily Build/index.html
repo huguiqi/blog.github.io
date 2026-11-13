@@ -1,0 +1,1061 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>给iOS工程增加Daily Build | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="给iOS工程增加Daily BuildIos技术文章收录 给iOS工程增加Daily BuildFEB 16TH, 2012 前言Daily Build是一件非常有意义的事情，也是敏捷开发中关于“持续集成”的一个实践。Daily Build对于开发来说有如下好处：  保证了每次check in的代码可用，不会造成整个工程编译失败。 进度跟进。产品经理可以每天看到最新的开发进度，并且试用产品，调整一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给iOS工程增加Daily Build">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily%20Build/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="给iOS工程增加Daily BuildIos技术文章收录 给iOS工程增加Daily BuildFEB 16TH, 2012 前言Daily Build是一件非常有意义的事情，也是敏捷开发中关于“持续集成”的一个实践。Daily Build对于开发来说有如下好处：  保证了每次check in的代码可用，不会造成整个工程编译失败。 进度跟进。产品经理可以每天看到最新的开发进度，并且试用产品，调整一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily-Build/218.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily-Build/403.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2014-05-26T16:21:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios技术文章收录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily-Build/218.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/给iOS工程增加Daily Build/" title="给iOS工程增加Daily Build" itemprop="url">给iOS工程增加Daily Build</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily-Build"><span class="toc-number">1.</span> <span class="toc-text">给iOS工程增加Daily Build</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily-Build-1"><span class="toc-number">2.</span> <span class="toc-text">给iOS工程增加Daily Build</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">2.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.2.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xcodebuild%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.1.</span> <span class="toc-text">xcodebuild命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90ipa%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.2.</span> <span class="toc-text">生成ipa文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.3.</span> <span class="toc-text">生成安装文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E8%BF%90%E8%A1%8C"><span class="toc-number">2.2.4.</span> <span class="toc-text">定时运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B1%E8%B4%A5%E6%8A%A5%E8%AD%A6"><span class="toc-number">2.2.5.</span> <span class="toc-text">失败报警</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0"><span class="toc-number">2.2.6.</span> <span class="toc-text">上传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.3.</span> <span class="toc-text">遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="给iOS工程增加Daily-Build"><a title="给iOS工程增加Daily Build" class="headerlink" href="#给iOS工程增加Daily-Build"></a>给iOS工程增加Daily Build</h1><p><code>Ios技术文章收录</code></p>
+<h1 id="给iOS工程增加Daily-Build-1"><a title="给iOS工程增加Daily Build" class="headerlink" href="#给iOS工程增加Daily-Build-1"></a>给iOS工程增加Daily Build</h1><p>FEB 16TH, 2012</p>
+<h2 id="前言"><a title="前言" class="headerlink" href="#前言"></a>前言</h2><p>Daily Build是一件非常有意义的事情，也是敏捷开发中关于“持续集成”的一个实践。Daily Build对于开发来说有如下好处：</p>
+<ul>
+<li>保证了每次check in的代码可用，不会造成整个工程编译失败。</li>
+<li>进度跟进。产品经理可以每天看到最新的开发进度，并且试用产品，调整一些细节。很多时候，一个新功能，你真正用了一下才能有体会好或不好，所以daily build也给产品经理更多时间来调理他的设计。</li>
+<li>需求确认。产品经理可以确认开发的功能细节是他的预期。因为我们的开发比较紧凑，所以都没有传统的需求说明文档，所以daily build也给产品经理用于尽早确认开发的功能细节是他的预期，我就遇到一次产品经理发现开发出的一个功能细节和他的预期不一致，但是因为有daily build，使得我可以尽早做修改，把修改的代价减小了。</li>
+<li>测试跟进。如果功能点是独立的话，测试同事完全可以根据daily build来进行一些早期的测试。越早的Bug反馈可以使得修改bug所需的时间越短。</li>
+</ul>
+<h2 id="步骤"><a title="步骤" class="headerlink" href="#步骤"></a>步骤</h2><h3 id="xcodebuild命令"><a title="xcodebuild命令" class="headerlink" href="#xcodebuild命令"></a>xcodebuild命令</h3><p>如何做daily build呢？其实Xcode就提供了命令行build的命令，这个命令是xcodebuild，用xcodebuild -usage 可以查看到所有的可用参数，如下所示：</p>
+<p>|```<br>1<br>2<br>3<br>4<br>5<br>6<br>7</p>
+<pre><code>
+|```
+[tangqiao ~]$xcodebuild -usage
+Usage: xcodebuild [-project &lt;projectname&gt;] [[-target &lt;targetname&gt;]...|-alltargets] [-configuration &lt;configurationname&gt;] [-arch &lt;architecture&gt;]... [-sdk [&lt;sdkname&gt;|&lt;sdkpath&gt;]] [&lt;buildsetting&gt;=&lt;value&gt;]... [&lt;buildaction&gt;]...
+       xcodebuild [-project &lt;projectname&gt;] -scheme &lt;schemeName&gt; [-configuration &lt;configurationname&gt;] [-arch &lt;architecture&gt;]... [-sdk [&lt;sdkname&gt;|&lt;sdkpath&gt;]] [&lt;buildsetting&gt;=&lt;value&gt;]... [&lt;buildaction&gt;]...
+       xcodebuild -workspace &lt;workspacename&gt; -scheme &lt;schemeName&gt; [-configuration &lt;configurationname&gt;] [-arch &lt;architecture&gt;]... [-sdk [&lt;sdkname&gt;|&lt;sdkpath&gt;]] [&lt;buildsetting&gt;=&lt;value&gt;]... [&lt;buildaction&gt;]...
+       xcodebuild -version [-sdk [&lt;sdkfullpath&gt;|&lt;sdkname&gt;] [&lt;infoitem&gt;] ]
+       xcodebuild -list [[-project &lt;projectname&gt;]|[-workspace &lt;workspacename&gt;]]
+       xcodebuild -showsdks
+</code></pre>
+<p>|<br>|————-|————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|</p>
+<p>一般情况下的命令使用如下:</p>
+<p>|```<br>1</p>
+<pre><code>
+|```
+xcodebuild -configuration Release -target "YourProduct"
+</code></pre>
+<p>|<br>|——-|————————————————————-|</p>
+<p>但在daily build中，用Release用为configuration其实不是特别好。因为Release的证书可能会被经常修改。我们可以基于Release的Configuation，建一个专门用于daily build的configuration。方法是：在工程详细页面中，选择Info一栏，在Configurations一栏的下方点击“+”号，然后选择”Duplicate Release Configuration”, 新建名为”DailyBuild”的Configuration, 如下图所示：</p>
+<p><img loading="lazy" alt="-218.jpg" src="/images/notes/%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily-Build/218.jpg"></p>
+<p>之后就可以用如下命令来做daily build了</p>
+<p>|```<br>1</p>
+<pre><code>
+|```
+xcodebuild -configuration DailyBuild -target "YourProduct"
+</code></pre>
+<p>|<br>|——-|—————————————————————-|</p>
+<p>执行完命令后，会在当前工程下的 build/DailyBuild-iphoneos/目录下生成一个名为： YourProduct.app的文件。这个就是我们Build成功之后的程序文件。</p>
+<h3 id="生成ipa文件"><a title="生成ipa文件" class="headerlink" href="#生成ipa文件"></a>生成ipa文件</h3><p>接下来我们需要生成ipa文件，在生成ipa文件这件事情上，xcode似乎没有提供什么工具，不过这个没什么影响，因为ipa文件实际上就是一个zip文件，我们使用系统的zip命令来生成ipa文件即可。需要注意的是，ipa文件并不是简单地将编辑好的app文件打成zip文件，它需要将app文件放在一个名为Payload的文件夹下，然后将整个Payload目录打包成为.ipa文件，命令如下：</p>
+<p>|```<br>1<br>2<br>3<br>4<br>5</p>
+<pre><code>
+|```
+cd $BUILD_PATH
+mkdir -p ipa/Payload
+cp -r ./DailyBuild-iphoneos/$PRODUCT_NAME ./ipa/Payload/
+cd ipa
+zip -r $FILE_NAME *
+</code></pre>
+<p>|<br>|———–|————————————————————————————————————————-|</p>
+<h3 id="生成安装文件"><a title="生成安装文件" class="headerlink" href="#生成安装文件"></a>生成安装文件</h3><p>苹果允许用itms-services协议来直接在iphone/ipad上安装应用程序，我们可以直接生成该协议需要的相关文件，这样产品经理和测试同学都可以直接在设备上安装新版的应用了。相关的参考资料可以见：<a target="_blank" rel="noopener" href="http://blog.encomiabile.it/2010/12/21/ios4-and-wireless-application-deploy/">这里</a>和&nbsp;<a target="_blank" rel="noopener" href="http://blog.s135.com/itms-services/">这里</a></p>
+<p>具体来说，就是需要生成一个带 itms-services 协议的链接的html文件，以及一个 plist 文件。</p>
+<p>生成html的示例代码如下：</p>
+<p>|```<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15</p>
+<pre><code>
+|```
+cat &lt;&lt; EOF &gt; install.html
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;title&gt;安装此软件&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;ul&gt;
+      &lt;li&gt;安装此软件:&lt;a href="itms-services://?action=download-manifest&amp;url=http%3A%2F%2Fwww.yourdomain.com%2Fynote.plist"&gt;$FILE_NAME&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+EOF
+</code></pre>
+<p>|<br>|—————————|——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————-|</p>
+<p>生成plist文件的代码如下，注意，需要将下面的涉及 <a target="_blank" rel="noopener" href="http://www.yourdomain.com的地方换成你线上服务器的地址,将productname换成你的app安装后的名字./">www.yourdomain.com的地方换成你线上服务器的地址，将ProductName换成你的app安装后的名字。</a></p>
+<p>|```<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52</p>
+<pre><code>
+|```
+cat &lt;&lt; EOF &gt; ynote.plist
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+   &lt;key&gt;items&lt;/key&gt;
+   &lt;array&gt;
+       &lt;dict&gt;
+           &lt;key&gt;assets&lt;/key&gt;
+           &lt;array&gt;
+               &lt;dict&gt;
+                   &lt;key&gt;kind&lt;/key&gt;
+                   &lt;string&gt;software-package&lt;/string&gt;
+                   &lt;key&gt;url&lt;/key&gt;
+                   &lt;string&gt;http://www.yourdomain.com/$FILE_NAME&lt;/string&gt;
+               &lt;/dict&gt;
+               &lt;dict&gt;
+                   &lt;key&gt;kind&lt;/key&gt;
+                   &lt;string&gt;display-image&lt;/string&gt;
+                   &lt;key&gt;needs-shine&lt;/key&gt;
+                   &lt;true/&gt;
+                   &lt;key&gt;url&lt;/key&gt;
+                   &lt;string&gt;http://www.yourdomain.com/icon.png&lt;/string&gt;
+               &lt;/dict&gt;
+           &lt;dict&gt;
+                   &lt;key&gt;kind&lt;/key&gt;
+                   &lt;string&gt;full-size-image&lt;/string&gt;
+                   &lt;key&gt;needs-shine&lt;/key&gt;
+                   &lt;true/&gt;
+                   &lt;key&gt;url&lt;/key&gt;
+                   &lt;string&gt;http://www.yourdomain.com/icon.png&lt;/string&gt;
+               &lt;/dict&gt;
+           &lt;/array&gt;&lt;key&gt;metadata&lt;/key&gt;
+           &lt;dict&gt;
+               &lt;key&gt;bundle-identifier&lt;/key&gt;
+               &lt;string&gt;com.yourdomain.productname&lt;/string&gt;
+               &lt;key&gt;bundle-version&lt;/key&gt;
+               &lt;string&gt;1.0.0&lt;/string&gt;
+               &lt;key&gt;kind&lt;/key&gt;
+               &lt;string&gt;software&lt;/string&gt;
+               &lt;key&gt;subtitle&lt;/key&gt;
+               &lt;string&gt;ProductName&lt;/string&gt;
+               &lt;key&gt;title&lt;/key&gt;
+               &lt;string&gt;ProductName&lt;/string&gt;
+           &lt;/dict&gt;
+       &lt;/dict&gt;
+   &lt;/array&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+
+EOF
+</code></pre>
+<p>|<br>|—————————————————————————————————–|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————-|</p>
+<h3 id="定时运行"><a title="定时运行" class="headerlink" href="#定时运行"></a>定时运行</h3><p>这一点非常简单，使用crontab -e命令即可。大家可以随意google一下crontab命令，可以找到很多相关文档。假如我们要每周1-5的早上9点钟执行daily build，则crontab的配置如下：</p>
+<p>|```<br>1</p>
+<pre><code>
+|```
+0 9 * * * 1-5 /Users/tangqiao/dailybuild.sh &gt;&gt; /Users/tangqiao/dailybuild.log 2&gt;&amp;1
+</code></pre>
+<p>|<br>|——-|—————————————————————————————-|</p>
+<h3 id="失败报警"><a title="失败报警" class="headerlink" href="#失败报警"></a>失败报警</h3><p>在daily build脚本运行失败时，最好能发报警邮件或者短信，以便能够尽早发现。发邮件可以用python的smtplib来写，示例如下：</p>
+<p>|```<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18</p>
+<pre><code>
+|```
+import smtplib
+
+sender = 'sender@devtang.com'
+receivers = ['receiver@devtang.com']
+
+message = """From: Alert &lt;sender@devtang.com&gt;
+To: Some one &lt;receiver@devtang.com&gt;
+Subject: SMTP email sample
+
+Hope you can get it.
+"""
+
+try:
+    obj = smtplib.SMTP('server.mail.devtang.com')
+    obj.sendmail(sender, receivers, message)
+    print 'OK: send mail succeed'
+except Exception:
+    print 'Error: unable to send mail'
+</code></pre>
+<p>|<br>|———————————|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<h3 id="上传"><a title="上传" class="headerlink" href="#上传"></a>上传</h3><p>daily build编译出来如果需要单独上传到另外一台web机器上，可以用ftp或者scp协议。如果web机器悲剧的是windows机器的话，可以在windows机器上开一个共享，然后用 mount -t smbfs来将这个共享mount到本地，相关的示例代码如下：</p>
+<p>|```<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14</p>
+<pre><code>
+|```
+mkdir upload
+mount -t smbfs //$SMB_USERNAME:$SMB_PASSWORD@$SMB_TARGET ./upload
+if [ "$?" -ne 0 ]; then
+    echo "Failed to mount smb directory"
+    exit 1
+fi
+mkdir ./upload/$FOLDER
+cp $FILE_NAME ./upload/$FOLDER/
+if [ "$?" -eq 0 ]; then
+    echo "[OK] $FILE_NAME is uploaded to $SMB_TARGET"
+else
+    echo "[ERROR] $FILE_NAME is FAILED to  uploaded to $SMB_TARGET"
+fi
+umount ./upload
+</code></pre>
+<p>|<br>|————————-|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<h2 id="遇到的问题"><a title="遇到的问题" class="headerlink" href="#遇到的问题"></a>遇到的问题</h2><p>本来我写的自动化脚本在Mac OS X 10.6下运行得很好。但是升级到lion后，脚本在手动执行时很正常，但是在用crontab启动时就会出现找不到开发者证书的错误。在网上搜了很久也没有找到解决办法。最后我试了一下在“钥匙串访问”中把开发者证书从“登录”那栏拖动到“系统”那栏，居然就解决了，如下图所示：</p>
+<p><img loading="lazy" alt="-403.png" src="/images/notes/%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily-Build/403.png"></p>
+<p>另外我搜到2个类似的问题的解决方案，虽然对我这个没起作用，也一并放在这儿，或许对遇到类似问题的人有帮助：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/7635143/cannot-build-xcode-project-from-command-line-but-can-from-xcode">http://stackoverflow.com/questions/7635143/cannot-build-xcode-project-from-command-line-but-can-from-xcode</a></li>
+<li><a target="_blank" rel="noopener" href="http://shappy1978.iteye.com/blog/765842">http://shappy1978.iteye.com/blog/765842</a></li>
+</ul>
+<h2 id="总结"><a title="总结" class="headerlink" href="#总结"></a>总结</h2><p>将以上各点结合起来，就可以用bash写出一个daily build脚本了。每天这一切都会自动完成，心情相当好。</p>
+<p>Posted by&nbsp;唐巧&nbsp;Feb 16th, 2012&nbsp;&nbsp;<a target="_blank" rel="noopener" href="http://blog.devtang.com/blog/categories/ios/">iOS</a></p>
+<p>原创文章，版权声明：自由转载-非商用-非衍生-保持署名 |&nbsp;<a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">Creative Commons BY-NC-ND 3.0</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios技术文章收录/">Ios技术文章收录</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily%20Build/" data-title="给iOS工程增加Daily Build | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/胡桂祁 软件工程师/" title="胡桂祁 软件工程师">
+  <strong>上一篇：</strong><br/>
+  <span>
+  胡桂祁 软件工程师</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/节日记录/"  title="节日记录">
+ <strong>下一篇：</strong><br/> 
+ <span>节日记录
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/给iOS工程增加Daily Build/" data-title="给iOS工程增加Daily Build" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily%20Build/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily-Build"><span class="toc-number">1.</span> <span class="toc-text">给iOS工程增加Daily Build</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%99iOS%E5%B7%A5%E7%A8%8B%E5%A2%9E%E5%8A%A0Daily-Build-1"><span class="toc-number">2.</span> <span class="toc-text">给iOS工程增加Daily Build</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">2.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.2.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xcodebuild%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.1.</span> <span class="toc-text">xcodebuild命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90ipa%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.2.</span> <span class="toc-text">生成ipa文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.3.</span> <span class="toc-text">生成安装文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E8%BF%90%E8%A1%8C"><span class="toc-number">2.2.4.</span> <span class="toc-text">定时运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B1%E8%B4%A5%E6%8A%A5%E8%AD%A6"><span class="toc-number">2.2.5.</span> <span class="toc-text">失败报警</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0"><span class="toc-number">2.2.6.</span> <span class="toc-text">上传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.3.</span> <span class="toc-text">遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,1033 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云RabbitMQ的消息确认ACK机制 2019-11-04阅读 1.1K0 1、什么是消息确认ACK。 　　答：如果在处理消息的过程中，消费者的服务器在处理消息的时候出现异常，那么可能这条正在处理的消息就没有完成消息消费，数据就会丢失。为了确保数据不会丢失，RabbitMQ支持消息确定-ACK。 2、ACK的消息确认机制。 　　答：AC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4ACK%E6%9C%BA%E5%88%B6%20-%20%E4%BA%91+%E7%A4%BE%E5%8C%BA%20-%20%E8%85%BE%E8%AE%AF%E4%BA%91/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云RabbitMQ的消息确认ACK机制 2019-11-04阅读 1.1K0 1、什么是消息确认ACK。 　　答：如果在处理消息的过程中，消费者的服务器在处理消息的时候出现异常，那么可能这条正在处理的消息就没有完成消息消费，数据就会丢失。为了确保数据不会丢失，RabbitMQ支持消息确定-ACK。 2、ACK的消息确认机制。 　　答：AC">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/ext/2a7a922a4081.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/ext/a74f49670b18.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/ext/5278c5816ecf.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/ext/890040c52fc0.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-09-30T02:32:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/ext/2a7a922a4081.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云/" title="RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云" itemprop="url">RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4ACK%E6%9C%BA%E5%88%B6-%E4%BA%91-%E7%A4%BE%E5%8C%BA-%E8%85%BE%E8%AE%AF%E4%BA%91"><span class="toc-number">1.</span> <span class="toc-text">RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4ACK%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">RabbitMQ的消息确认ACK机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E6%9D%A5%E8%AF%B4%E4%B8%A4%E5%8F%A5"><span class="toc-number">2.0.1.</span> <span class="toc-text">我来说两句</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="RabbitMQ的消息确认ACK机制-云-社区-腾讯云"><a title="RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云" class="headerlink" href="#RabbitMQ的消息确认ACK机制-云-社区-腾讯云"></a>RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云</h1><h1 id="RabbitMQ的消息确认ACK机制"><a title="RabbitMQ的消息确认ACK机制" class="headerlink" href="#RabbitMQ的消息确认ACK机制"></a>RabbitMQ的消息确认ACK机制</h1><p> 2019-11-04阅读 1.1K0</p>
+<p>1、什么是消息确认ACK。</p>
+<p>　　答：如果在处理消息的过程中，消费者的服务器在处理消息的时候出现异常，那么可能这条正在处理的消息就没有完成消息消费，数据就会丢失。为了确保数据不会丢失，RabbitMQ支持消息确定-ACK。</p>
+<p>2、ACK的消息确认机制。</p>
+<p>　　答：ACK机制是消费者从RabbitMQ收到消息并处理完成后，反馈给RabbitMQ，RabbitMQ收到反馈后才将此消息从队列中删除。</p>
+<p>　　　　如果一个消费者在处理消息出现了网络不稳定、服务器异常等现象，那么就不会有ACK反馈，RabbitMQ会认为这个消息没有正常消费，会将消息重新放入队列中。 　　　　如果在集群的情况下，RabbitMQ会立即将这个消息推送给这个在线的其他消费者。这种机制保证了在消费者服务端故障的时候，不丢失任何消息和任务。 　　　　消息永远不会从RabbitMQ中删除，只有当消费者正确发送ACK反馈，RabbitMQ确认收到后，消息才会从RabbitMQ服务器的数据中删除。 　　　　消息的ACK确认机制默认是打开的。</p>
+<p>3、ACK机制的开发注意事项。</p>
+<p>　　答：如果忘记了ACK，那么后果很严重。当Consumer退出时候，Message会一直重新分发。然后RabbitMQ会占用越来越多的内容，由于RabbitMQ会长时间运行，因此这个”内存泄漏”是致命的。 </p>
+<p>4、结合项目实例进行，理解一下ACK机制。之前写过RabbitMQ的交换器Exchange之direct（发布与订阅 完全匹配），这里借助这个进行消息持久化测试。生产者的代码不发生改变。控制层的触发生产者生产消息，这里只生产一条消息。方便观察现象。</p>
+<pre><code> 1 package com.example.bie.controller;
+ 2 
+ 3 import org.springframework.beans.factory.annotation.Autowired;
+ 4 import org.springframework.stereotype.Controller;
+ 5 import org.springframework.web.bind.annotation.RequestMapping;
+ 6 import org.springframework.web.bind.annotation.ResponseBody;
+ 7 
+ 8 import com.example.bie.provider.RabbitMqLogErrorProduce;
+ 9 import com.example.bie.provider.RabbitMqLogInfoProduce;
+10 
+11 /**
+12  * 
+13  * @author biehl
+14  *
+15  */
+16 @Controller
+17 public class RabbitmqController &#123;
+18 
+19     @Autowired
+20     private RabbitMqLogInfoProduce rabbitMqLogInfoProduce;
+21 
+22     @Autowired
+23     private RabbitMqLogErrorProduce rabbitMqLogErrorProduce;
+24 
+25     @RequestMapping(value = "/logInfo")
+26     @ResponseBody
+27     public String rabbitmqSendLogInfoMessage() &#123;
+28         String msg = "生产者===&gt;生者的LogInfo消息message: ";
+29         for (int i = 0; i &lt; 1; i++) &#123;
+30             rabbitMqLogInfoProduce.producer(msg + i);
+31         &#125;
+32         return "生产===&gt;  LogInfo消息message  ===&gt; success!!!";
+33     &#125;
+34 
+35     @RequestMapping(value = "/logError")
+36     @ResponseBody
+37     public String rabbitmqSendLogErrorMessage() &#123;
+38         String msg = "生产者===&gt;生者的LogError消息message: ";
+39         for (int i = 0; i &lt; 1; i++) &#123;
+40             rabbitMqLogErrorProduce.producer(msg + i);
+41         &#125;
+42         return "生产===&gt;  LogError消息message  ===&gt; success!!!";
+43     &#125;
+44 
+45 &#125;
+</code></pre>
+<p>消费者消费消息，打印输出后面手动抛出运行时异常，观察现象。</p>
+<pre><code> 1 package com.example.bie.consumer;
+ 2 
+ 3 import org.springframework.amqp.core.ExchangeTypes;
+ 4 import org.springframework.amqp.rabbit.annotation.Exchange;
+ 5 import org.springframework.amqp.rabbit.annotation.Queue;
+ 6 import org.springframework.amqp.rabbit.annotation.QueueBinding;
+ 7 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+ 8 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+ 9 import org.springframework.stereotype.Component;
+10 
+11 /**
+12  * 
+13  * @author biehl
+14  * 
+15  *         消息接收者
+16  * 
+17  *         1、@RabbitListener bindings:绑定队列
+18  * 
+19  *         2、@QueueBinding
+20  *         value:绑定队列的名称、exchange:配置交换器、key:路由键routing-key绑定队列和交换器
+21  * 
+22  *         3、@Queue value:配置队列名称、autoDelete:是否是一个可删除的临时队列
+23  * 
+24  *         4、@Exchange value:为交换器起个名称、type:指定具体的交换器类型
+25  * 
+26  * 
+27  */
+28 @Component
+29 @RabbitListener(bindings = @QueueBinding(
+30 
+31         value = @Queue(value = "$&#123;rabbitmq.config.queue.error&#125;", autoDelete = "true"),
+32 
+33         exchange = @Exchange(value = "$&#123;rabbitmq.config.exchange&#125;", type = ExchangeTypes.DIRECT),
+34 
+35         key = "$&#123;rabbitmq.config.queue.error.routing.key&#125;"))
+36 public class LogErrorConsumer &#123;
+37 
+38     /**
+39      * 接收消息的方法,采用消息队列监听机制.
+40      * 
+41      * @RabbitHandler意思是将注解@RabbitListener配置到类上面
+42      * 
+43      * @RabbitHandler是指定这个方法可以进行消息的接收并且消费.
+44      * 
+45      * @param msg
+46      */
+47     @RabbitHandler
+48     public void consumer(String msg) &#123;
+49         // 打印消息
+50         System.out.println("ERROR消费者===&gt;消费&lt;===消息message: " + msg);
+51         throw new RuntimeException();
+52     &#125;
+53 
+54 &#125;
+</code></pre>
+<p>观察现象，如下所示：</p>
+<p>在RabbitMQ的浏览器界面，可以看到一条消息未被进行ACK的消息确认机制，这条消息被锁定Unacked，所以一直在控制台进行报错。</p>
+<p><img loading="lazy" src="/images/notes/ext/2a7a922a4081.png"></p>
+<p>控制台效果如下所示，一直进行消息的发送，因为消费方一直没有返回ACK确认，RabbitMQ认为消息未进行正常的消费，会将消息再次放入到队列中，再次让你消费，但是还是没有返回ACK确认，依次循环，形成了死循环。</p>
+<p><img loading="lazy" src="/images/notes/ext/a74f49670b18.png"></p>
+<p>如何解决问题呢，如果消息发送的时候，程序出现异常，后果很严重的，会导致内存泄漏的，所以在程序处理中可以进行异常捕获，保证消费者的程序正常执行，这里不进行介绍了。第二种方式可以使用RabbitMQ的ack确认机制。开启重试，然后重试次数，默认为3次。这里设置为5次。</p>
+<pre><code> 1 # 给当前项目起名称.
+ 2 spring.application.name=rabbitmq-ack-direct-consumer
+ 3 
+ 4 # 配置端口号
+ 5 server.port=8080
+ 6 
+ 7 # 配置rabbitmq的参数.
+ 8 # rabbitmq服务器的ip地址.
+ 9 spring.rabbitmq.host=192.168.110.133
+10 # rabbitmq的端口号5672,区别于浏览器访问界面的15672端口号.
+11 spring.rabbitmq.port=5672
+12 # rabbitmq的账号.
+13 spring.rabbitmq.username=guest
+14 # rabbitmq的密码.
+15 spring.rabbitmq.password=guest
+16 
+17 # 设置交换器的名称,方便修改.
+18 # 路由键是将交换器和队列进行绑定的,队列通过路由键绑定到交换器.
+19 rabbitmq.config.exchange=log.exchange.direct
+20 
+21 # info级别的队列名称.
+22 rabbitmq.config.queue.info=log.info.queue
+23 # info的路由键.
+24 rabbitmq.config.queue.info.routing.key=log.info.routing.key
+25 
+26 # error级别的队列名称.
+27 rabbitmq.config.queue.error=log.error.queue
+28 # error的路由键.
+29 rabbitmq.config.queue.error.routing.key=log.error.routing.key
+30 
+31 # 开启重试
+32 spring.rabbitmq.listener.simple.retry.enabled=true
+33 # 重试次数,默认为3次
+34 spring.rabbitmq.listener.simple.retry.max-attempts=5
+</code></pre>
+<p>效果如下所示：</p>
+<p>可以看到控制台尝试了5次以后就不再进行重试了。</p>
+<p><img loading="lazy" src="/images/notes/ext/5278c5816ecf.png"></p>
+<p>RabbitMQ的界面可以看到，开始的效果和上面的一致，但是5次尝试以后，就变成了0条。RabbitMQ将这条消息丢弃了。</p>
+<p><img loading="lazy" src="/images/notes/ext/890040c52fc0.png"></p>
+<p>本文参与<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/support-plan">腾讯云自媒体分享计划</a>，欢迎正在阅读的你也加入，一起分享。</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/tag/10764?entry=article">RabbitMQ</a></p>
+<p><a href="#">举报</a></p>
+<h3 id="我来说两句"><a title="我来说两句" class="headerlink" href="#我来说两句"></a>我来说两句</h3><p>0 条评论</p>
+<p><a href="#">登录<span style="background-color: #ffaaaa">登录</span></a> 后参与评论<span style="background-color: #ffaaaa"> 后参与评论</span></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/DevOps%E4%B8%8E%E6%9E%B6%E6%9E%84/">DevOps与架构</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4ACK%E6%9C%BA%E5%88%B6%20-%20%E4%BA%91+%E7%A4%BE%E5%8C%BA%20-%20%E8%85%BE%E8%AE%AF%E4%BA%91/" data-title="RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/Objective-C在LLVM 3.1中的新特性/" title="Objective-C在LLVM 3.1中的新特性">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Objective-C在LLVM 3.1中的新特性</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/Redis 横向扩展案例 2/"  title="Redis 横向扩展案例">
+ <strong>下一篇：</strong><br/> 
+ <span>Redis 横向扩展案例
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云/" data-title="RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4ACK%E6%9C%BA%E5%88%B6%20-%20%E4%BA%91+%E7%A4%BE%E5%8C%BA%20-%20%E8%85%BE%E8%AE%AF%E4%BA%91/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4ACK%E6%9C%BA%E5%88%B6-%E4%BA%91-%E7%A4%BE%E5%8C%BA-%E8%85%BE%E8%AE%AF%E4%BA%91"><span class="toc-number">1.</span> <span class="toc-text">RabbitMQ的消息确认ACK机制 - 云+社区 - 腾讯云</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4ACK%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">RabbitMQ的消息确认ACK机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E6%9D%A5%E8%AF%B4%E4%B8%A4%E5%8F%A5"><span class="toc-number">2.0.1.</span> <span class="toc-text">我来说两句</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

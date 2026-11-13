@@ -1,0 +1,1341 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>数字证书格式 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="数字证书格式Iphone开发者 Iphone证书 Ios技术文章收录 数字证书格式&amp;nbsp;  (2012-10-15 10:43:06)[ 转载_▼_]() |标签：&amp;nbsp;### passkit &amp;nbsp;### passbook &amp;nbsp;### 证书格式 &amp;nbsp;### ios6 &amp;nbsp;### xcode4.5 |分类：&amp;nbsp;网络编程||—————————————">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字证书格式">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="数字证书格式Iphone开发者 Iphone证书 Ios技术文章收录 数字证书格式&amp;nbsp;  (2012-10-15 10:43:06)[ 转载_▼_]() |标签：&amp;nbsp;### passkit &amp;nbsp;### passbook &amp;nbsp;### 证书格式 &amp;nbsp;### ios6 &amp;nbsp;### xcode4.5 |分类：&amp;nbsp;网络编程||—————————————">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/42.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/43.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/44.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/44.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/44.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/45.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/45.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/45.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/46.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/47.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/48.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/49.gif">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2013-01-25T07:47:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios技术文章收录">
+<meta property="article:tag" content="Iphone开发者">
+<meta property="article:tag" content="Iphone证书">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/42.gif">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/数字证书格式/" title="数字证书格式" itemprop="url">数字证书格式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">数字证书格式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F-1"><span class="toc-number">1.1.</span> <span class="toc-text">数字证书格式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#You-can-keep-certificate-pem-and-key-pem-to-use-again-later-You-can-keep-certificate-pem-and-key-pem-to-use-again-later-You-can-keep-certificate-pem-and-key-pem-to-use-again-later"><span class="toc-number">2.</span> <span class="toc-text">You can keep certificate.pem and key.pem to use again later,# You can keep certificate.pem and key.pem to use again later,# You can keep certificate.pem and key.pem to use again later,</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#or-you-can-delete-them-after-signing-or-you-can-delete-them-after-signing-or-you-can-delete-them-after-signing"><span class="toc-number">3.</span> <span class="toc-text">or you can delete them after signing.# or you can delete them after signing.# or you can delete them after signing.</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="数字证书格式"><a title="数字证书格式" class="headerlink" href="#数字证书格式"></a>数字证书格式</h1><p><code>Iphone开发者</code> <code>Iphone证书</code> <code>Ios技术文章收录</code></p>
+<h2 id="数字证书格式-1"><a title="数字证书格式" class="headerlink" href="#数字证书格式-1"></a>数字证书格式</h2><p>&nbsp;<img loading="lazy" alt="-42.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/42.gif"></p>
+<p> (2012-10-15 10:43:06)[<img loading="lazy" alt="-43.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/43.gif"></p>
+<p>转载_▼_]()</p>
+<p>|标签：&nbsp;### <a target="_blank" rel="noopener" href="http://search.sina.com.cn/?c=blog&amp;q=passkit&amp;by=tag">passkit</a></p>
+<p>&nbsp;### <a target="_blank" rel="noopener" href="http://search.sina.com.cn/?c=blog&amp;q=passbook&amp;by=tag">passbook</a></p>
+<p>&nbsp;### <a target="_blank" rel="noopener" href="http://search.sina.com.cn/?c=blog&amp;q=%D6%A4%EF%BF%BD%EF%BF%BD%EF%BF%BD%CA%BD&amp;by=tag">证书格式</a></p>
+<p>&nbsp;### <a target="_blank" rel="noopener" href="http://search.sina.com.cn/?c=blog&amp;q=ios6&amp;by=tag">ios6</a></p>
+<p>&nbsp;### <a target="_blank" rel="noopener" href="http://search.sina.com.cn/?c=blog&amp;q=xcode4.5&amp;by=tag">xcode4.5</a></p>
+<p>|分类：&nbsp;<a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/articlelist_1517222451_4_1.html">网络编程</a>|<br>|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————-|—————————————————————————-|</p>
+<p><strong>最近因为在搞passkitpasskitpasskit，在macmacmac中</strong>获取和安装证书，制作签名，其实在<strong>passkitpasskitpasskit中</strong>签名是一个独立的PKCS#7PKCS#7PKCS#7签名清单。下面是关于数字证书的一些知识，整理如下，备记！</p>
+<p><strong>一、常见的数字证书格式</strong></p>
+<p>　　cercercer后缀的证书文件有两种编码–&gt;DER–&gt;DER–&gt;DER二进制编码或者BASE64BASE64BASE64编码(((也就是.pem).pem).pem)&nbsp;。</p>
+<p>p7bp7bp7b一般是证书链，里面包括111到多个证书。</p>
+<p>pfxpfxpfx是指以pkcs#12pkcs#12pkcs#12格式存储的证书和相应私钥。</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>在SecuritySecuritySecurity编程中，有几种典型的密码交换信息文件格式:</p>
+<p>:</p>
+<p>:</p>
+<p>　　DER-encoded certificate: .cer, .crt</p>
+<p>DER-encoded certificate: .cer, .crt</p>
+<p>DER-encoded certificate: .cer, .crt</p>
+<p>　　PEM-encoded message: .pem</p>
+<p>PEM-encoded message: .pem</p>
+<p>PEM-encoded message: .pem</p>
+<p>　　PKCS#12 Personal Information Exchange: .pfx, .p12</p>
+<p>PKCS#12 Personal Information Exchange: .pfx, .p12</p>
+<p>PKCS#12 Personal Information Exchange: .pfx, .p12</p>
+<p>　　PKCS#10 Certification Request: .p10</p>
+<p>PKCS#10 Certification Request: .p10</p>
+<p>PKCS#10 Certification Request: .p10</p>
+<p>　　PKCS#7 cert request response: .p7r</p>
+<p>PKCS#7 cert request response: .p7r</p>
+<p>PKCS#7 cert request response: .p7r</p>
+<p>　　PKCS#7 binary message: .p7b</p>
+<p>PKCS#7 binary message: .p7b</p>
+<p>PKCS#7 binary message: .p7b</p>
+<p>　　.cer/.crt.cer/.crt.cer/.crt是用于存放证书，它是222进制形式存放的，不含私钥。&nbsp;</p>
+<p>　　.pem.pem.pem跟crt/cercrt/cercrt/cer的区别是它以AsciiAsciiAscii来表示。&nbsp;</p>
+<p>　　pfx/p12pfx/p12pfx/p12用于存放个人证书///私钥，他通常包含保护密码，222进制方式&nbsp;</p>
+<p>　　p10p10p10是证书请求&nbsp;</p>
+<p>　　p7rp7rp7r是CACACA对证书请求的回复，只用于导入&nbsp;</p>
+<p>　　p7bp7bp7b以树状展示证书链(certificate chain)(certificate chain)(certificate chain)，同时也支持单个证书，不含私钥。</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p><strong>二、下面重点介绍：从p12/pfxp12/pfxp12/pfx文件中提取密钥对及其长度</strong><strong>:</strong></p>
+<p><strong>:</strong></p>
+<p><strong>:</strong></p>
+<p>　　111，首先，读取pfx/p12pfx/p12pfx/p12文件（需要提供保护密码）&nbsp;</p>
+<p>　　222，通过别名(Alias,(Alias,(Alias,注意，所有证书中的信息项都是通过AliasAliasAlias来提取的)))提取你想要分析的证书链&nbsp;</p>
+<p>　　333，再将其转换为一个以X509X509X509证书结构体&nbsp;</p>
+<p>　　444，提取里面的项，如果那你的证书项放在第一位（单一证书），直接读取&nbsp;x509Certs[0]x509Certs[0]x509Certs[0]（见下面的代码）这个X509CertificateX509CertificateX509Certificate对象&nbsp;</p>
+<p>　　555，X509CertificateX509CertificateX509Certificate对象有很多方法，tain198127tain198127tain198127网友希望读取RSARSARSA密钥（公私钥）及其长度（见　<a target="_blank" rel="noopener" href="http://www.matrix.org.cn/thread.shtml?topicId=43786&amp;forumId=55&amp;#reply">http://www.matrix.org.cn/thread.shtml?topicId=43786&amp;forumId=55&amp;#reply</a><a target="_blank" rel="noopener" href="http://www.matrix.org.cn/thread.shtml?topicId=43786&amp;forumId=55&amp;#reply">http://www.matrix.org.cn/thread.shtml?topicId=43786&amp;forumId=55&amp;#reply</a><a target="_blank" rel="noopener" href="http://www.matrix.org.cn/thread.shtml?topicId=43786&amp;forumId=55&amp;#reply">http://www.matrix.org.cn/thread.shtml?topicId=43786&amp;forumId=55&amp;#reply</a>），那真是太EasyEasyEasy了，&nbsp;</p>
+<p>　　&nbsp;X509Certificate keyPairCert = x509Certs[0];</p>
+<p>X509Certificate keyPairCert = x509Certs[0];</p>
+<p>X509Certificate keyPairCert = x509Certs[0];</p>
+<p>　　&nbsp;int iKeySize = X509CertUtil.getCertificateKeyLength(keyPairCert);</p>
+<p>int iKeySize = X509CertUtil.getCertificateKeyLength(keyPairCert);</p>
+<p>int iKeySize = X509CertUtil.getCertificateKeyLength(keyPairCert);</p>
+<p>　　&nbsp;System.out.println(“System.out.println(“System.out.println(“证书密钥算法=”+keyPairCert.getPublicKey().getAlgorithm());</p>
+<p>=”+keyPairCert.getPublicKey().getAlgorithm());</p>
+<p>=”+keyPairCert.getPublicKey().getAlgorithm());</p>
+<p>　　&nbsp;System.out.println(“System.out.println(“System.out.println(“证书密钥长度=”+iKeySize);</p>
+<p>=”+iKeySize);</p>
+<p>=”+iKeySize);</p>
+<p>　　提取了他所需要的信息。</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p><strong>X.509X.509X.509****定义了两种证书</strong>：公钥证书和属性证书&nbsp;</p>
+<p>　　&nbsp;PKCS#7PKCS#7PKCS#7和PKCS#12PKCS#12PKCS#12使用的都是公钥证书&nbsp;</p>
+<p>　　&nbsp;PKCSPKCSPKCS＃777的SignedDataSignedDataSignedData的一种退化形式可以分发公钥证书和CRL</p>
+<p>CRL</p>
+<p>CRL</p>
+<p>　　 一个SignedDataSignedDataSignedData可以包含多张公钥证书&nbsp;</p>
+<p>　　&nbsp;PKCSPKCSPKCS＃121212可以包含公钥证书及其私钥，也可包含整个证书链&nbsp;</p>
+<p>　</p>
+<p><strong>三、苹果系统中passkitpasskitpasskit的证书</strong></p>
+<p>111、制作ManifestManifestManifest</p>
+<p>&nbsp;manifest&nbsp;manifest&nbsp;manifest是一个JSONJSONJSON字典，命名为manifest.jsonmanifest.jsonmanifest.json。keykeykey是passpasspass包中的文件路径。每个keykeykey的值是那个文件内容的SHA-1SHA-1SHA-1哈希。例如，图2-12-12-1显示了一个passpasspass包的目录结构，而列表2-12-12-1显示了相应的manifestmanifestmanifest：</p>
+<p>&nbsp;&nbsp;&nbsp;图2-12-12-1&nbsp;一个passpasspass的目录结构</p>
+<p>&nbsp;&nbsp;<a target="_blank" rel="noopener" href="http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s15.sinaimg.cn/orignal/5a6efa33gcc102b45677e"><img loading="lazy" alt="-44.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/44.gif"></a></p>
+<p>&nbsp;&nbsp;<a target="_blank" rel="noopener" href="http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s15.sinaimg.cn/orignal/5a6efa33gcc102b45677e"><img loading="lazy" alt="-44.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/44.gif"></a></p>
+<p>&nbsp;&nbsp;<a target="_blank" rel="noopener" href="http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s15.sinaimg.cn/orignal/5a6efa33gcc102b45677e"><img loading="lazy" alt="-44.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/44.gif"></a></p>
+<p>&nbsp;&nbsp;&nbsp;列表2-1 manifest2-1 manifest2-1 manifest文件</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+}
+
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p><strong>关于SHA-1SHA-1SHA-1哈希校验码的字符串的获取方法是：</strong></p>
+<p>启动终端并输入以下命令：</p>
+<p>cd ~/Desktop/FreeHugCoupon //cd ~/Desktop/FreeHugCoupon //cd ~/Desktop/FreeHugCoupon //进入文件当前目录</p>
+<p>//////然后输入如下终端命令</p>
+<p>openssl sha1 pass.jsonopenssl sha1 pass.jsonopenssl sha1 pass.json</p>
+<p>//////如果正常则将显示</p>
+<p>SHA1(pass.json)= c24766ef5aa92197eace640fcc4fb584a505a733SHA1(pass.json)= c24766ef5aa92197eace640fcc4fb584a505a733SHA1(pass.json)= c24766ef5aa92197eace640fcc4fb584a505a733</p>
+<p>选择字母数字校验值，并在您的manifest.jsonmanifest.jsonmanifest.json文件替换“，”带校验码的字符串。保存该文件，你就大功告成了！</p>
+<p><strong>222、制作签名。（主要是对manifest.jsonmanifest.jsonmanifest.json文件进行签名）</strong></p>
+<p>&nbsp;&nbsp;&nbsp;签名是一个独立的PKCS#7PKCS#7PKCS#7签名清单。创建签名是建立在由你提供的passpasspass之上。这也提供了一个保护，即拒绝一个攻击者发布一个passpasspass，这个passpasspass看起来是来自你这里，由于攻击者没有使用你的passpasspass进行签名，所以可以为你提供一个保护的机制。　</p>
+<p><strong>a)a)a)获取和安装证书:::主要是两个</strong></p>
+<p>一是从“iDPiDPiDP”开发者帐号的证书上，通过钥匙串访问工具，提取“My PassKit Cert.p12My PassKit Cert.p12My PassKit Cert.p12”（名字可任取，但证书格式为.p12.p12.p12）。</p>
+<p>二是从“苹果全球开发者关系证书颁发机构”提取“WWDR.pemWWDR.pemWWDR.pem”（名字可任取，但证书格式为.pem.pem.pem）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>提取“My PassKit Cert.p12My PassKit Cert.p12My PassKit Cert.p12”具体方法：</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先你得从苹果网站上申请“iDPiDPiDP”开发者帐号的证书($99/($99/($99/年)))。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其次将它下载并导入到您的钥匙串访问工具中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面这两步是必须的前提条件，因为没有它，你不可能进行下面的操作！</p>
+<p>现在你要导出这个证书和密钥的PEMPEMPEM格式。方法是：</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;打开钥匙串访问，从左侧菜单中选择“证书”，（在“类别”下），点“通行证类型IDIDID：pass.com.yourdomain.couponfreehugpass.com.yourdomain.couponfreehugpass.com.yourdomain.couponfreehug”的证书。请确认您选择的项目“公有密钥”本身，而不是“私有密钥”。如下图</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;[<img loading="lazy" alt="-45.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/45.gif"></p>
+<p>�](<a target="_blank" rel="noopener" href="http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s16.sinaimg.cn/orignal/5a6efa33gcc102da7459f)%EF%BF%BD">http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s16.sinaimg.cn/orignal/5a6efa33gcc102da7459f)�</a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;[<img loading="lazy" alt="-45.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/45.gif"></p>
+<p>�](<a target="_blank" rel="noopener" href="http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s16.sinaimg.cn/orignal/5a6efa33gcc102da7459f)%EF%BF%BD">http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s16.sinaimg.cn/orignal/5a6efa33gcc102da7459f)�</a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;[<img loading="lazy" alt="-45.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/45.gif"></p>
+<p>�](<a target="_blank" rel="noopener" href="http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s16.sinaimg.cn/orignal/5a6efa33gcc102da7459f)%EF%BF%BD">http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s16.sinaimg.cn/orignal/5a6efa33gcc102da7459f)�</a></p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来用鼠标右键单击该证书和从弹出菜单出口的“““通行证类型IDIDID：pass.com.yourdomain.couponfreehug”pass.com.yourdomain.couponfreehug”pass.com.yourdomain.couponfreehug”</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;选择………保存导出的文件为您的工作通过文件夹内的“““Certificates.p12”Certificates.p12”Certificates.p12”。您将会看到一个对话框，选择一个密码：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;[<img loading="lazy" alt="-46.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/46.gif"></p>
+<p>�](<a target="_blank" rel="noopener" href="http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s5.sinaimg.cn/orignal/5a6efa33gcc10308b1384)%EF%BF%BD">http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s5.sinaimg.cn/orignal/5a6efa33gcc10308b1384)�</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了使这一过程更容易一点，只要按一下“““确定”””&nbsp;—&nbsp;，将导出的证书没有密码保护。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意：此时系统可能会提示你输入密码的登录钥匙串。如果你是，那么只需提供您的用户密码应该足够了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Certificates.p12</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Certificates.p12</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Certificates.p12文件包含的合格证和你的私人密钥。&nbsp;OpenSSLOpenSSLOpenSSL的需要在不同的文件中，所以现在你要提取他们.p12.p12.p12文件。</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输入以下命令：</p>
+<p>openssl pkcs12&nbsp;-in&nbsp;Certificates.p12&nbsp;-clcerts&nbsp;-nokeys&nbsp;-out&nbsp;passcertificate.pem&nbsp;-passinpass:openssl pkcs12&nbsp;-in&nbsp;Certificates.p12&nbsp;-clcerts&nbsp;-nokeys&nbsp;-out&nbsp;passcertificate.pem&nbsp;-passinpass:openssl pkcs12&nbsp;-in&nbsp;Certificates.p12&nbsp;-clcerts&nbsp;-nokeys&nbsp;-out&nbsp;passcertificate.pem&nbsp;-passinpass:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这将导出PEMPEMPEM格式的合格证书，并将其保存在同一个文件夹中为“““passcertificate.pem”passcertificate.pem”passcertificate.pem”。（如果操作成功，OpenSSLOpenSSLOpenSSL将会输出来的消息“MAC“MAC“MAC验证OK”OK”OK”）&nbsp;。</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;接下来，导出密钥作为一个单独的文件，用这个命令：</p>
+<p>openssl pkcs12&nbsp;-in&nbsp;Certificates.p12&nbsp;-nocerts&nbsp;-out&nbsp;passkey.pem&nbsp;-passin&nbsp;pass:&nbsp;-passoutpass:12345openssl pkcs12&nbsp;-in&nbsp;Certificates.p12&nbsp;-nocerts&nbsp;-out&nbsp;passkey.pem&nbsp;-passin&nbsp;pass:&nbsp;-passoutpass:12345openssl pkcs12&nbsp;-in&nbsp;Certificates.p12&nbsp;-nocerts&nbsp;-out&nbsp;passkey.pem&nbsp;-passin&nbsp;pass:&nbsp;-passoutpass:12345</p>
+<p>请注意，这时候，你需要提供密码才能导出密钥的文件。在这种情况下，只需要使用“12345”“12345”“12345”&nbsp;—&nbsp;很明显，在生产环境中使用一个强大的的密码（doh!doh!doh!）&nbsp;—&nbsp;这是明智的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>提取“WWDR.pemWWDR.pemWWDR.pem”方法</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要登录你的密码包，你还需要一个证书WWDRWWDRWWDR中级证书，这苹果授权发行人自己的证书。它可能已经安装在您的钥匙串中。打开钥匙串访问“““选择”””证书“““Certificates”Certificates”Certificates”，“苹果全球开发者关系证书颁发机构”（是的，这的确是一个很长的名字）。如图：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" rel="noopener" href="http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s10.sinaimg.cn/orignal/5a6efa33gcc1033b5d289"><img loading="lazy" alt="-47.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/47.gif"></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：如果你还没有导入这个证书，可以打开您的浏览器，输入此网页：<a target="_blank" rel="noopener" href="http://www.apple.com/certificateauthority/">http://www.apple.com/certificateauthority/</a><a target="_blank" rel="noopener" href="http://www.apple.com/certificateauthority/">http://www.apple.com/certificateauthority/</a><a target="_blank" rel="noopener" href="http://www.apple.com/certificateauthority/">http://www.apple.com/certificateauthority/</a>。在这里，你可以自由下载苹果的一些重要的证书。但我们只要找到WWDRWWDRWWDR证书，然后下载它，在钥匙串中将下载.cer.cer.cer文件将其导入。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" rel="noopener" href="http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s1.sinaimg.cn/orignal/5a6efa33gcc1035b4d470"><img loading="lazy" alt="-48.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/48.gif"></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>下面是导出WWDR.pemWWDR.pemWWDR.pem证书。</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在钥匙串访问右键单击“““证书上的名称，在弹出的菜单中选择ExportExportExport选项：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;[<img loading="lazy" alt="-49.gif" src="/images/notes/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/49.gif"></p>
+<p>�](<a target="_blank" rel="noopener" href="http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s10.sinaimg.cn/orignal/5a6efa33gcc10385b3f29)%EF%BF%BD">http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s10.sinaimg.cn/orignal/5a6efa33gcc10385b3f29)�</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;在“““另存为…”…”…”对话找到的文件格式“““下拉框，然后选择增强保密邮件（PEMPEMPEM）选项：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;[%!(EXTRA markdown.ResourceType=, string=, string=)</p>
+<p>�](<a target="_blank" rel="noopener" href="http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s11.sinaimg.cn/orignal/5a6efa33gcc103a02710a)%EF%BF%BD">http://photo.blog.sina.com.cn/showpic.html#blogid=5a6efa330101dsvf&amp;url=http://s11.sinaimg.cn/orignal/5a6efa33gcc103a02710a)�</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在文本字段在上面的对话，给该文件命名为“““WWDR.pem”WWDR.pem”WWDR.pem”，选择你的工作目标目录，并点击“““保存”””按钮，完成出导出。</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你准备创建签名。输入以下命令：</p>
+<p>openssl smime&nbsp;-binary&nbsp;-sign&nbsp;-certfile&nbsp;WWDR.pem&nbsp;-signer&nbsp;passcertificate.pem&nbsp;-inkeypasskey.pem&nbsp;-in&nbsp;manifest.json&nbsp;-out&nbsp;signature&nbsp;-outform&nbsp;DER&nbsp;-passin&nbsp;pass:12345openssl smime&nbsp;-binary&nbsp;-sign&nbsp;-certfile&nbsp;WWDR.pem&nbsp;-signer&nbsp;passcertificate.pem&nbsp;-inkeypasskey.pem&nbsp;-in&nbsp;manifest.json&nbsp;-out&nbsp;signature&nbsp;-outform&nbsp;DER&nbsp;-passin&nbsp;pass:12345openssl smime&nbsp;-binary&nbsp;-sign&nbsp;-certfile&nbsp;WWDR.pem&nbsp;-signer&nbsp;passcertificate.pem&nbsp;-inkeypasskey.pem&nbsp;-in&nbsp;manifest.json&nbsp;-out&nbsp;signature&nbsp;-outform&nbsp;DER&nbsp;-passin&nbsp;pass:12345</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以上是再次通过命令行工具，这是很容易理解的所有参数。签名者是你的合格证的参数文件名;&nbsp;INKEY;&nbsp;INKEY;&nbsp;INKEY签署manifest.jsonmanifest.jsonmanifest.json使用的密钥文件，在输入文件名的是输出文件的名称;&nbsp;outform;&nbsp;outform;&nbsp;outform是创建一个输出格式（需要“DER”“DER”“DER”分离的签名），最后，passinpassinpassin的密钥文件的密码。</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;现在你的签名几乎是完整的。</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>生成压缩�</strong>�</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;剩下的最后一步是将各种文件压缩成.pkpass.pkpass.pkpass文件。在终端输入下面的命令：</p>
+<p><strong>zipzipzip</strong>&nbsp;-r&nbsp;freehugcoupon.pkpass manifest.json pass.json signature logo.png logo**@<strong>2x.png icon.png icon</strong>@**2x.png strip.png&nbsp;**strip@<strong>2x.png-r&nbsp;freehugcoupon.pkpass manifest.json pass.json signature logo.png logo</strong>@<strong>2x.png icon.png icon</strong>@**2x.png strip.png&nbsp;**strip@<strong>2x.png-r&nbsp;freehugcoupon.pkpass manifest.json pass.json signature logo.png logo</strong>@<strong>2x.png icon.png icon</strong>@**2x.png strip.png&nbsp;**strip@**2x.png</p>
+<p>通过使用shellshellshell命令，你创建了一个ZIPZIPZIP的格式文件，文件名称为freehugcoupon.pkpassfreehugcoupon.pkpassfreehugcoupon.pkpass，此存档文件将包含列表中的所有文件。</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;<strong>下面列表是通过终端命令来创建签名</strong></p>
+<p>openssl pkcs12 -in “My PassKit Cert.p12” -clcerts -nokeys -out certificate.pemopenssl pkcs12 -in “My PassKit Cert.p12” -clcerts -nokeys -out certificate.pemopenssl pkcs12 -in “My PassKit Cert.p12” -clcerts -nokeys -out certificate.pem</p>
+<p>openssl pkcs12 -in “My PassKit Cert.p12” -nocerts -out key.pemopenssl pkcs12 -in “My PassKit Cert.p12” -nocerts -out key.pemopenssl pkcs12 -in “My PassKit Cert.p12” -nocerts -out key.pem</p>
+<h1 id="You-can-keep-certificate-pem-and-key-pem-to-use-again-later-You-can-keep-certificate-pem-and-key-pem-to-use-again-later-You-can-keep-certificate-pem-and-key-pem-to-use-again-later"><a title="You can keep certificate.pem and key.pem to use again later,# You can keep certificate.pem and key.pem to use again later,# You can keep certificate.pem and key.pem to use again later," class="headerlink" href="#You-can-keep-certificate-pem-and-key-pem-to-use-again-later-You-can-keep-certificate-pem-and-key-pem-to-use-again-later-You-can-keep-certificate-pem-and-key-pem-to-use-again-later"></a>You can keep certificate.pem and key.pem to use again later,# You can keep certificate.pem and key.pem to use again later,# You can keep certificate.pem and key.pem to use again later,</h1><h1 id="or-you-can-delete-them-after-signing-or-you-can-delete-them-after-signing-or-you-can-delete-them-after-signing"><a title="or you can delete them after signing.# or you can delete them after signing.# or you can delete them after signing." class="headerlink" href="#or-you-can-delete-them-after-signing-or-you-can-delete-them-after-signing-or-you-can-delete-them-after-signing"></a>or you can delete them after signing.# or you can delete them after signing.# or you can delete them after signing.</h1><p>openssl smime -binary -sign \openssl smime -binary -sign \openssl smime -binary -sign \</p>
+<p>-signer certificate.pem -inkey key.pem -signer certificate.pem -inkey key.pem -signer certificate.pem -inkey key.pem \</p>
+<p>-in manifest.json -out signature -in manifest.json -out signature -in manifest.json -out signature \</p>
+<p>-outform DER-outform DER-outform DER</p>
+<p>&nbsp;&nbsp;&nbsp;　</p>
+<p>　　<strong>简介</strong>&nbsp;</p>
+<p>　　JavaJavaJava自带的keytoolkeytoolkeytool工具是个密钥和证书管理工具。它使用户能够管理自己的公钥///私钥对及相关证书，用于（通过数字签名）自我认证（用户向别的用户///服务认证自己）或数据完整性以及认证服务。它还允许用户储存他们的通信对等者的公钥（以证书形式）。keytoolkeytoolkeytool&nbsp;将密钥和证书储存在一个所谓的密钥仓库（keystorekeystorekeystore）中。缺省的密钥仓库实现将密钥仓库实现为一个文件。它用口令来保护私钥。</p>
+<p><strong>Java KeyStoreJava KeyStoreJava KeyStore****的类型</strong>&nbsp;</p>
+<p>　　JKSJKSJKS和JCEKSJCEKSJCEKS是JavaJavaJava密钥库(KeyStore)(KeyStore)(KeyStore)的两种比较常见类型(((我所知道的共有555种，JKS, JCEKS, PKCS12, BKSJKS, JCEKS, PKCS12, BKSJKS, JCEKS, PKCS12, BKS，UBER)UBER)UBER)。</p>
+<p>　　JKSJKSJKS的ProviderProviderProvider是SUNSUNSUN，在每个版本的JDKJDKJDK中都有，JCEKSJCEKSJCEKS的ProviderProviderProvider是SUNJCESUNJCESUNJCE，1.41.41.4后我们都能够直接使用它。</p>
+<p>JCEKSJCEKSJCEKS在安全级别上要比JKSJKSJKS强，使用的ProviderProviderProvider是JCEKS(JCEKS(JCEKS(推荐)))，尤其在保护KeyStoreKeyStoreKeyStore中的私钥上（使用TripleDesTripleDesTripleDes）。&nbsp;</p>
+<p>　　PKCS#12PKCS#12PKCS#12是公钥加密标准，它规定了可包含所有私钥、公钥和证书。其以二进制格式存储，也称为&nbsp;PFXPFXPFX&nbsp;文件，在</p>
+<p>　　windowswindowswindows中可以直接导入到密钥区，注意，PKCS#12PKCS#12PKCS#12的密钥库保护密码同时也用于保护KeyKeyKey。</p>
+<p>　　BKSBKSBKS&nbsp;来自BouncyCastle ProviderBouncyCastle ProviderBouncyCastle Provider，它使用的也是TripleDESTripleDESTripleDES来保护密钥库中的KeyKeyKey，它能够防止证书库被不小心修改（KeystoreKeystoreKeystore的keyentrykeyentrykeyentry改掉111个&nbsp;bitbitbit都会产生错误），BKSBKSBKS能够跟JKSJKSJKS互操作，读者可以用KeytoolKeytoolKeytool去TryTryTryTryTryTry。UBERUBERUBER比较特别，当密码是通过命令行提供的时候，它只能跟keytoolkeytoolkeytool交互。整个keystorekeystorekeystore是通过PBE/SHA1/TwofishPBE/SHA1/TwofishPBE/SHA1/Twofish加密，因此keystorekeystorekeystore能够防止被误改、察看以及校验。以前，Sun JDK(Sun JDK(Sun JDK(提供者为SUN)SUN)SUN)允许你在不提供密码的情况下直接加载一个KeystoreKeystoreKeystore，类似cacertscacertscacerts，UBERUBERUBER不允许这种情况。&nbsp;</p>
+<p>　　</p>
+<p>　　<strong>证书导入</strong>&nbsp;</p>
+<p>　　Der/CerDer/CerDer/Cer证书导入：&nbsp;</p>
+<p>　　要从某个文件中导入某个证书，使用keytoolkeytoolkeytool工具的-import-import-import命令：&nbsp;</p>
+<p>　　keytool -import -file mycert.der -keystore mykeystore.jks</p>
+<p>keytool -import -file mycert.der -keystore mykeystore.jks</p>
+<p>keytool -import -file mycert.der -keystore mykeystore.jks</p>
+<p>　　如果在&nbsp;-keystore-keystore-keystore&nbsp;选项中指定了一个并不存在的密钥仓库，则该密钥仓库将被创建。如果不指定&nbsp;-keystore-keystore-keystore&nbsp;选项，则缺省密钥仓库将是宿主目录中名为&nbsp;.keystore.keystore.keystore&nbsp;的文件。如果该文件并不存在，则它将被创建。创建密钥仓库时会要求输入访问口令，以后需要使用此口令来访问。可使用-list-list-list命令来查看密钥仓库里的内容：</p>
+<p>keytool -list -rfc -keystore mykeystore.jks</p>
+<p>keytool -list -rfc -keystore mykeystore.jks</p>
+<p>keytool -list -rfc -keystore mykeystore.jks</p>
+<p>　　</p>
+<p><strong>P12P12P12****格式证书导入</strong>：&nbsp;</p>
+<p>　　keytoolkeytoolkeytool无法直接导入PKCS12PKCS12PKCS12文件。&nbsp;</p>
+<p>　　第一种方法是使用IEIEIE将pfxpfxpfx证书导入，再导出为certcertcert格式文件。使用上面介绍的方法将其导入到密钥仓库中。这样的话仓库里面只包含了证书信息，没有私钥内容。&nbsp;</p>
+<p>　　第二种方法是将pfxpfxpfx文件导入到IEIEIE浏览器中，再导出为pfxpfxpfx文件。&nbsp;</p>
+<p>　　 新生成的pfxpfxpfx不能被导入到keystorekeystorekeystore中，报错：keytoolkeytoolkeytool错误：&nbsp;java.lang.Exception:java.lang.Exception:java.lang.Exception:&nbsp;所输入的不是一个&nbsp;</p>
+<p>　　X.509X.509X.509&nbsp;认证。新生成的pfxpfxpfx文件可以被当作keystorekeystorekeystore使用。但会报个错误as unknown attr1.3.6.1.4.1.311.17.1,</p>
+<p>as unknown attr1.3.6.1.4.1.311.17.1,</p>
+<p>as unknown attr1.3.6.1.4.1.311.17.1,</p>
+<p>　　查了下资料,,,说IEIEIE导出的就会这样,,,使用NetscapeNetscapeNetscape就不会有这个错误.</p>
+<p>.</p>
+<p>.</p>
+<p>　　第三种方法是将pfxpfxpfx文件当作一个keystorekeystorekeystore使用。但是通过微软的证书管理控制台生成的pfxpfxpfx文件不能直接使用。</p>
+<p>　　keytoolkeytoolkeytool不认此格式，报keytoolkeytoolkeytool错误：&nbsp;java.io.IOException: failed to decrypt safe contents entryjava.io.IOException: failed to decrypt safe contents entryjava.io.IOException: failed to decrypt safe contents entry。</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>需要通过OpenSSLOpenSSLOpenSSL转换一下：&nbsp;</p>
+<p>　　111）openssl pkcs12 -in mycerts.pfx -out mycerts.pem</p>
+<p>openssl pkcs12 -in mycerts.pfx -out mycerts.pem</p>
+<p>openssl pkcs12 -in mycerts.pfx -out mycerts.pem</p>
+<p>　　222）openssl pkcs12 -export -in mycerts.pem -out mykeystore.p12</p>
+<p>openssl pkcs12 -export -in mycerts.pem -out mykeystore.p12</p>
+<p>openssl pkcs12 -export -in mycerts.pem -out mykeystore.p12</p>
+<p>　　</p>
+<p>通过keytoolkeytoolkeytool的-list-list-list命令可检查下密钥仓库中的内容：&nbsp;</p>
+<p>　　keytool -rfc -list -keystore mykeystore.p12 -storetype pkcs12</p>
+<p>keytool -rfc -list -keystore mykeystore.p12 -storetype pkcs12</p>
+<p>keytool -rfc -list -keystore mykeystore.p12 -storetype pkcs12</p>
+<p>　　这里需要指明仓库类型为pkcs12pkcs12pkcs12，因为缺省的类型为jksjksjks。这样此密钥仓库就即包含证书信息也包含私钥信息。&nbsp;</p>
+<p>　　</p>
+<p>P7BP7BP7B格式证书导入：&nbsp;</p>
+<p>　　keytoolkeytoolkeytool无法直接导入p7bp7bp7b文件。&nbsp;</p>
+<p>　　需要将证书链RootServer.p7bRootServer.p7bRootServer.p7b（包含根证书）导出为根rootca.cerrootca.cerrootca.cer和子rootcaserver.cerrootcaserver.cerrootcaserver.cer&nbsp;。&nbsp;</p>
+<p>　　将这两个证书导入到可信任的密钥仓库中。&nbsp;</p>
+<p>　　keytool -import -alias rootca -trustcacerts -file rootca.cer -keystore testkeytrust.jks</p>
+<p>keytool -import -alias rootca -trustcacerts -file rootca.cer -keystore testkeytrust.jks</p>
+<p>keytool -import -alias rootca -trustcacerts -file rootca.cer -keystore testkeytrust.jks</p>
+<p>　　遇到是否信任该证书提示时，输入y</p>
+<p>y</p>
+<p>y</p>
+<p>　　keytool -import -alias rootcaserver -trustcacerts -file rootcaserver.cer -keystore testkeytrust.jks</p>
+<p>keytool -import -alias rootcaserver -trustcacerts -file rootcaserver.cer -keystore testkeytrust.jks</p>
+<p>keytool -import -alias rootcaserver -trustcacerts -file rootcaserver.cer -keystore testkeytrust.jks</p>
+<p>　　</p>
+<p>　　<strong>总结:::</strong>&nbsp;</p>
+<p>　　1)P121)P121)P12格式的证书是不能使用keytoolkeytoolkeytool工具导入到keystorekeystorekeystore中的&nbsp;</p>
+<p>　　2)The Sun’s PKCS12 Keystore2)The Sun’s PKCS12 Keystore2)The Sun’s PKCS12 Keystore对从IEIEIE和其他的windowswindowswindows程序生成的pfxpfxpfx格式的证书支持不太好.</p>
+<p>.</p>
+<p>.</p>
+<p>　　3)P7B3)P7B3)P7B证书链不能直接导入到keystorekeystorekeystore，需要将里面的证书导出成cercercer格式，再分别导入到keystorekeystorekeystore。&nbsp;</p>
+<p>　　</p>
+<p>　　**************************************</p>
+<hr>
+<hr>
+<p>　　　　</p>
+<p>　　<strong>数字证书文件格式（cercercer和pfxpfxpfx）的区别</strong></p>
+<p>　　</p>
+<p>　　作为文件形式存在的证书一般有这几种格式：&nbsp;</p>
+<p>　　1.1.1.带有私钥的证书&nbsp;</p>
+<p>　　由Public Key Cryptography Standards #12Public Key Cryptography Standards #12Public Key Cryptography Standards #12，PKCS#12PKCS#12PKCS#12标准定义，包含了公钥和私钥的二进制格式的证书形式，以</p>
+<p>　　pfxpfxpfx作为证书文件后缀名。&nbsp;</p>
+<p>　　</p>
+<p>　　2.2.2.二进制编码的证书&nbsp;</p>
+<p>　　证书中没有私钥，DERDERDER&nbsp;编码二进制格式的证书文件，以cercercer作为证书文件后缀名。&nbsp;</p>
+<p>　　</p>
+<p>　　3.Base643.Base643.Base64编码的证书&nbsp;</p>
+<p>　　证书中没有私钥，BASE64BASE64BASE64&nbsp;编码格式的证书文件，也是以cercercer作为证书文件后缀名。　由定义可以看出，只有pfxpfxpfx格式的数字证书是包含有私钥的，cercercer格式的数字证书里面只有公钥没有私钥。在pfxpfxpfx证书的导入过程中有一项是“““标志此密钥是可导出的。这将您在稍候备份或传输密钥”””。一般是不选中的，如果选中，别人就有机会备份你的密钥了。如果是不选中，其实密钥也导入了，只是不能再次被导出。这就保证了密钥的安全。</p>
+<p>　如果导入过程中没有选中这一项，做证书备份时“““导出私钥”””这一项是灰色的，不能选。只能导出cercercer格式的公钥。</p>
+<p>　　如果导入时选中该项，则在导出时“““导出私钥”””这一项就是可选的。</p>
+<p>　　如果要导出私钥（pfx),pfx),pfx),是需要输入密码的，这个密码就是对私钥再次加密，这样就保证了私钥的安全，别人即使拿到了你的证书备份（pfx),pfx),pfx),不知道加密私钥的密码，也是无法导入证书的。相反，如果只是导入导出cercercer格式的证书，是不会提示你输入密码的。因为公钥一般来说是对外公开的，不用加密</p>
+<p>　　　　</p>
+<p>　　*************************</p>
+<hr>
+<hr>
+<p>　　</p>
+<p>　　<strong>SSLSSLSSL证书类型和转换</strong></p>
+<p>　　</p>
+<p>　　PKCSPKCSPKCS&nbsp;全称是&nbsp;Public-Key Cryptography StandardsPublic-Key Cryptography StandardsPublic-Key Cryptography Standards&nbsp;，是由&nbsp;RSARSARSA&nbsp;实验室与其它安全系统开发商为促进公钥密码的发展而制订的一系列标准，PKCSPKCSPKCS&nbsp;目前共发布过&nbsp;151515&nbsp;个标准。 常用的有：</p>
+<p>　　PKCS#7 Cryptographic Message Syntax Standard</p>
+<p>PKCS#7 Cryptographic Message Syntax Standard</p>
+<p>PKCS#7 Cryptographic Message Syntax Standard</p>
+<p>　　PKCS#10 Certification Request Standard</p>
+<p>PKCS#10 Certification Request Standard</p>
+<p>PKCS#10 Certification Request Standard</p>
+<p>　　PKCS#12 Personal Information Exchange Syntax Standard</p>
+<p>PKCS#12 Personal Information Exchange Syntax Standard</p>
+<p>PKCS#12 Personal Information Exchange Syntax Standard</p>
+<p>　　X.509X.509X.509是常见通用的证书格式。所有的证书都符合为Public Key Infrastructure (PKI)Public Key Infrastructure (PKI)Public Key Infrastructure (PKI)&nbsp;制定的&nbsp;ITU-T X509ITU-T X509ITU-T X509&nbsp;国际标准。</p>
+<p>　　PKCS#7PKCS#7PKCS#7&nbsp;常用的后缀是：&nbsp;.P7B .P7C .SPC</p>
+<p>.P7B .P7C .SPC</p>
+<p>.P7B .P7C .SPC</p>
+<p>　　PKCS#12PKCS#12PKCS#12&nbsp;常用的后缀有：&nbsp;.P12 .PFX</p>
+<p>.P12 .PFX</p>
+<p>.P12 .PFX</p>
+<p>　　X.509 DERX.509 DERX.509 DER&nbsp;编码(ASCII)(ASCII)(ASCII)的后缀是：&nbsp;.DER .CER .CRT</p>
+<p>.DER .CER .CRT</p>
+<p>.DER .CER .CRT</p>
+<p>　　X.509 PAMX.509 PAMX.509 PAM&nbsp;编码(Base64)(Base64)(Base64)的后缀是：&nbsp;.PEM .CER .CRT</p>
+<p>.PEM .CER .CRT</p>
+<p>.PEM .CER .CRT</p>
+<p>　　.cer/.crt.cer/.crt.cer/.crt是用于存放证书，它是222进制形式存放的，不含私钥。</p>
+<p>　　.pem.pem.pem跟crt/cercrt/cercrt/cer的区别是它以AsciiAsciiAscii来表示。</p>
+<p>　　pfx/p12pfx/p12pfx/p12用于存放个人证书///私钥，他通常包含保护密码，222进制方式</p>
+<p>　　p10p10p10是证书请求</p>
+<p>　　p7rp7rp7r是CACACA对证书请求的回复，只用于导入</p>
+<p>　　p7bp7bp7b以树状展示证书链(certificate chain)(certificate chain)(certificate chain)，同时也支持单个证书，不含私钥。</p>
+<p>1.1.1.&nbsp;生成私钥&nbsp;Generate the private key</p>
+<p>Generate the private key</p>
+<p>Generate the private key</p>
+<p>　　请使用以下命令来生成私钥&nbsp;</p>
+<p>　　openssl genrsa –des3 –out [url]<a href="http://www.mydomain.com.key[/url]">www.mydomain.com.key[/url]</a> 1024</p>
+<p>openssl genrsa –des3 –out [url]<a href="http://www.mydomain.com.key[/url]">www.mydomain.com.key[/url]</a> 1024</p>
+<p>openssl genrsa –des3 –out [url]<a href="http://www.mydomain.com.key[/url]">www.mydomain.com.key[/url]</a> 1024</p>
+<p>　　如上图所示，此命令将生成102410241024位的RSARSARSA私钥，私钥文件名为：[url]<a href="http://www.mydomain.com.key[/url][url]www.mydomain.com.key[/url][url]www.mydomain.com.key[/url]，会提示您设">www.mydomain.com.key[/url][url]www.mydomain.com.key[/url][url]www.mydomain.com.key[/url]，会提示您设</a></p>
+<p>　　定私钥密码，请设置密码，并牢记！&nbsp;</p>
+<p>　　2.2.2.&nbsp;生成CSRCSRCSR文件&nbsp;Generate the CSR</p>
+<p>Generate the CSR</p>
+<p>Generate the CSR</p>
+<p>　　请使用以下命令来生成CSR</p>
+<p>CSR</p>
+<p>CSR</p>
+<p>　　openssl req –new –key [url]<a href="http://www.mydomain.com.key[/url]">www.mydomain.com.key[/url]</a> –out [url]<a href="http://www.mydomain.com.csr[/url]">www.mydomain.com.csr[/url]</a></p>
+<p>openssl req –new –key [url]<a href="http://www.mydomain.com.key[/url]">www.mydomain.com.key[/url]</a> –out [url]<a href="http://www.mydomain.com.csr[/url]">www.mydomain.com.csr[/url]</a></p>
+<p>openssl req –new –key [url]<a href="http://www.mydomain.com.key[/url]">www.mydomain.com.key[/url]</a> –out [url]<a href="http://www.mydomain.com.csr[/url]">www.mydomain.com.csr[/url]</a></p>
+<p>　　此命令将提示您输入X.509X.509X.509证书所要求的字段信息，包括国家(((中国添CN)CN)CN)、省份、所在城市、单位名称、单位部门</p>
+<p>　　名称(((可以不填直接回车)))。请注意： 除国家缩写必须填CNCNCN外，其余都可以是英文或中文。&nbsp;</p>
+<p>　　请输入您要申请SSLSSLSSL证书的域名，如果您需要为[url]<a href="http://www.domain.com[/url][url]www.domain.com[/url][url]www.domain.com[/url]申请SSLSSLSSL证书就不能只输入[domain.com](http://domain.com)">www.domain.com[/url][url]www.domain.com[/url][url]www.domain.com[/url]申请SSLSSLSSL证书就不能只输入[domain.com](http://domain.com)</a></p>
+<p><a target="_blank" rel="noopener" href="http://domain.com/">domain.com</a></p>
+<p><a target="_blank" rel="noopener" href="http://domain.com/">domain.com</a></p>
+<p>　　。SSLSSLSSL证书是严格绑定域名的。&nbsp;</p>
+<p>　　请不要输入EmailEmailEmail、口令(challenge password)(challenge password)(challenge password)和可选的公司名称，直接打回车即可。&nbsp;</p>
+<p>　　您现在已经成功生成了密钥对，私钥文件：[url]<a href="http://www.mydomain.com.key[/url][url]www.mydomain.com.key[/url][url]www.mydomain.com.key[/url]">www.mydomain.com.key[/url][url]www.mydomain.com.key[/url][url]www.mydomain.com.key[/url]</a>&nbsp;保存在您的服务器中，请把CSRCSRCSR文</p>
+<p>　　</p>
+<p>　　件：[url]<a href="http://www.mydomain.com.csr[/url][url]www.mydomain.com.csr[/url][url]www.mydomain.com.csr[/url]">www.mydomain.com.csr[/url][url]www.mydomain.com.csr[/url][url]www.mydomain.com.csr[/url]</a>&nbsp;发给WoTrust/ThawteWoTrust/ThawteWoTrust/Thawte即可，CSRCSRCSR文件格式如下图所示。&nbsp;</p>
+<p>　　</p>
+<p>　　3.3.3.&nbsp;备份私钥文件&nbsp;Backup your private key</p>
+<p>Backup your private key</p>
+<p>Backup your private key</p>
+<p>　　请备份您的私钥文件并记下私钥密码。最好是把私钥文件备份到软盘或光盘中。</p>
+<p>　　</p>
+<p>　　4.4.4.&nbsp;测试CSRCSRCSR</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>　　生成CSRCSRCSR后，建议您自己测试一下生成的CSRCSRCSR文件是否正确，</p>
+<p>　　</p>
+<p>　　一 用opensslopensslopenssl创建CACACA证书的RSARSARSA密钥(PEM(PEM(PEM格式)))：</p>
+<p>　　openssl genrsa -des3 -out ca.key 1024</p>
+<p>openssl genrsa -des3 -out ca.key 1024</p>
+<p>openssl genrsa -des3 -out ca.key 1024</p>
+<p>　　二用opensslopensslopenssl创建CACACA证书(PEM(PEM(PEM格式,,,假如有效期为一年)))：</p>
+<p>　　openssl req -new -x509 -days 365 -key ca.key -out ca.crt -config openssl.cnf</p>
+<p>openssl req -new -x509 -days 365 -key ca.key -out ca.crt -config openssl.cnf</p>
+<p>openssl req -new -x509 -days 365 -key ca.key -out ca.crt -config openssl.cnf</p>
+<p>　　opensslopensslopenssl是可以生成DERDERDER格式的CACACA证书的，最好用IEIEIE将PEMPEMPEM格式的CACACA证书转换成DERDERDER格式的CACACA证书。&nbsp;</p>
+<p>　　三&nbsp;x509x509x509到pfx</p>
+<p>pfx</p>
+<p>pfx</p>
+<p>　　openssl pkcs12 -export -out server.pfx -inkey server.key -in server.crt</p>
+<p>openssl pkcs12 -export -out server.pfx -inkey server.key -in server.crt</p>
+<p>openssl pkcs12 -export -out server.pfx -inkey server.key -in server.crt</p>
+<p>　　四&nbsp;PEMPEMPEM格式的ca.keyca.keyca.key转换为MicrosoftMicrosoftMicrosoft可以识别的pvkpvkpvk格式。</p>
+<p>　　&nbsp;pvk -in ca.key -out ca.pvk -nocrypt -topvk</p>
+<p>pvk -in ca.key -out ca.pvk -nocrypt -topvk</p>
+<p>pvk -in ca.key -out ca.pvk -nocrypt -topvk</p>
+<p>　　五&nbsp;PKCS#12PKCS#12PKCS#12&nbsp;到&nbsp;PEMPEMPEM&nbsp;的转换</p>
+<p>　　openssl pkcs12 -nocerts -nodes -in cert.p12 -out private.pem</p>
+<p>openssl pkcs12 -nocerts -nodes -in cert.p12 -out private.pem</p>
+<p>openssl pkcs12 -nocerts -nodes -in cert.p12 -out private.pem</p>
+<p>　　验证&nbsp;openssl pkcs12 -clcerts -nokeys -in cert.p12 -out cert.pem</p>
+<p>openssl pkcs12 -clcerts -nokeys -in cert.p12 -out cert.pem</p>
+<p>openssl pkcs12 -clcerts -nokeys -in cert.p12 -out cert.pem</p>
+<p>　　六 从&nbsp;PFXPFXPFX&nbsp;格式文件中提取私钥格式文件&nbsp;(.key)</p>
+<p>(.key)</p>
+<p>(.key)</p>
+<p>　　openssl pkcs12 -in mycert.pfx -nocerts -nodes -out mycert.key</p>
+<p>openssl pkcs12 -in mycert.pfx -nocerts -nodes -out mycert.key</p>
+<p>openssl pkcs12 -in mycert.pfx -nocerts -nodes -out mycert.key</p>
+<p>　　七 转换&nbsp;pempempem&nbsp;到到&nbsp;spc</p>
+<p>spc</p>
+<p>spc</p>
+<p>　　openssl crl2pkcs7 -nocrl -certfile venus.pem -outform DER -out venus.spc</p>
+<p>openssl crl2pkcs7 -nocrl -certfile venus.pem -outform DER -out venus.spc</p>
+<p>openssl crl2pkcs7 -nocrl -certfile venus.pem -outform DER -out venus.spc</p>
+<p>　　用&nbsp;-outform -inform-outform -inform-outform -inform&nbsp;指定&nbsp;DERDERDER&nbsp;还是&nbsp;PAMPAMPAM&nbsp;格式。例如：</p>
+<p>　　openssl x509 -in Cert.pem -inform PEM -out cert.der -outform DER</p>
+<p>openssl x509 -in Cert.pem -inform PEM -out cert.der -outform DER</p>
+<p>openssl x509 -in Cert.pem -inform PEM -out cert.der -outform DER</p>
+<p>　　八&nbsp;PEMPEMPEM&nbsp;到&nbsp;PKCS#12PKCS#12PKCS#12&nbsp;的转换，</p>
+<p>　　openssl pkcs12 -export -in Cert.pem -out Cert.p12 -inkey key.pem</p>
+<p>openssl pkcs12 -export -in Cert.pem -out Cert.p12 -inkey key.pem</p>
+<p>openssl pkcs12 -export -in Cert.pem -out Cert.p12 -inkey key.pem</p>
+<p>　　</p>
+<p>　　cd c:\opensslcd c:\opensslcd c:\openssl&nbsp;set OPENSSL_CONF=openssl.cnfset OPENSSL_CONF=openssl.cnfset OPENSSL_CONF=openssl.cnf&nbsp;openssl pkcs12 -</p>
+<p>openssl pkcs12 -</p>
+<p>openssl pkcs12 -</p>
+<p>　　</p>
+<p>　　export -out server.pfx -inkey server.key -in server.crtexport -out server.pfx -inkey server.key -in server.crtexport -out server.pfx -inkey server.key -in server.crt&nbsp;(server.key(server.key(server.key和server.crtserver.crtserver.crt文</p>
+<p>　　</p>
+<p>　　件是ApacheApacheApache的证书文件，生成的server.pfxserver.pfxserver.pfx用于导入IIS)</p>
+<p>IIS)</p>
+<p>IIS)</p>
+<p>　　　</p>
+<p>　　*********************</p>
+<hr>
+<hr>
+<p>　　</p>
+<p>　　<strong>公钥和私钥的区别</strong></p>
+<p>　　　　</p>
+<p>　　公钥密码体制的核心思想是：加密和解密采用不同的密钥。这是公钥密码体制和传统的对称密码体制最大的区别。对于传统对称密码而言，密文的安全性完全依赖于密钥的保密性，一旦密钥泄漏，将毫无保密性可言。但是公钥密码体制彻底改变了这一状况。在公钥密码体制中，公钥是公开的，只有私钥是需要保密的。知道公钥和密码算法要推测出私钥在计算上是不可行的。这样，只要私钥是安全的，那么加密就是可信的。</p>
+<p>　　</p>
+<p>　　显然，对称密码和公钥密码都需要保证密钥的安全，不同之处在于密钥的管理和分发上面。在对称密码中，必须要有一种可靠的手段将加密密钥（同时也是解密密钥）告诉给解密方；而在公钥密码体制中，这是不需要的。解密方只需要保证自己的私钥的保密性即可，对于公钥，无论是对加密方而言还是对密码分析者而言都是公开的，故无需考虑采用可靠的通道进行密码分发。这使得密钥管理和密钥分发的难度大大降低了。&nbsp;</p>
+<p>　　　</p>
+<p>　　<strong>加密和解密</strong>:::发送方利用接收方的公钥对要发送的明文进行加密,,,接受方利用自己的&nbsp;</p>
+<p>　　私钥进行解密,,,其中公钥和私钥匙相对的,,,任何一个作为公钥,,,则另一个&nbsp;</p>
+<p>　　就为私钥…但是因为非对称加密技术的速度比较慢,,,所以,,,一般采用对称&nbsp;</p>
+<p>　　加密技术加密明文,,,然后用非对称加密技术加密对称密钥,,,即数字信封 技术.</p>
+<p>.</p>
+<p>.</p>
+<p>　　签名和验证:::发送方用特殊的hashhashhash算法，由明文中产生固定长度的摘要，然后利用&nbsp;</p>
+<p>　　自己的私钥对形成的摘要进行加密，这个过程就叫签名。接受方利用&nbsp;</p>
+<p>　　发送方的公钥解密被加密的摘要得到结果AAA，然后对明文也进行hashhashhash操&nbsp;</p>
+<p>　　作产生摘要B.B.B.最后,,,把AAA和BBB作比较。此方式既可以保证发送方的身份不&nbsp;</p>
+<p>　　可抵赖，又可以保证数据在传输过程中不会被篡改。</p>
+<p>　　　</p>
+<p>　　 首先要分清它们的<strong>概念</strong>:</p>
+<p>:</p>
+<p>:</p>
+<p>　　</p>
+<p>　　<strong>加密和认证</strong></p>
+<p>　　首先我们需要区分加密和认证这两个基本概念。</p>
+<p>加密是将数据资料加密，使得非法用户即使取得加密过的资料，也无法获取正确的资料内容，所以数据加密可以保护数据，防止监听攻击。其重点在于数据的安全性。身份认证是用来判断某个身份的真实性，确认身份后，系统才可以依不同的身份给予不同的权限。其重点在于用户的真实性。两者的侧重点是不同的。</p>
+<p><strong>公钥和私钥</strong></p>
+<p>　　其次我们还要了解公钥和私钥的概念和作用。</p>
+<p>　　</p>
+<p>　　在现代密码体制中加密和解密是采用不同的密钥（公开密钥），也就是非对称密钥密码系统，每个通信方均需要两个密钥，即公钥和私钥，这两把密钥可以互为加解密。公钥是公开的，不需要保密，而私钥是由个人自己持有，并且必须妥善保管和注意保密。</p>
+<p>　　</p>
+<p><strong>公钥私钥的原则</strong>：&nbsp;</p>
+<p>　　一个公钥对应一个私钥。&nbsp;</p>
+<p>　　密钥对中，让大家都知道的是公钥，不告诉大家，只有自己知道的，是私钥。&nbsp;</p>
+<p>　　如果用其中一个密钥加密数据，则只有对应的那个密钥才可以解密。&nbsp;</p>
+<p>　　如果用其中一个密钥可以进行解密数据，则该数据必然是对应的那个密钥进行的加密。&nbsp;</p>
+<p>　　非对称密钥密码的主要应用就是公钥加密和公钥认证，而公钥加密的过程和公钥认证的过程是不一样的，下面我就详细讲解一下两者的区别。&nbsp;</p>
+<p>　　</p>
+<p>　　**事例说明下:</p>
+<p>:</p>
+<p>:**</p>
+<p>　　</p>
+<p>　　例如:::比如有两个用户AliceAliceAlice和BobBobBob，AliceAliceAlice想把一段明文通过双钥加密的技术发送给BobBobBob，BobBobBob有一对公钥和私钥，那么加密解密的过程如下：&nbsp;</p>
+<p>　　</p>
+<p>　　BobBobBob将他的公开密钥传送给AliceAliceAlice。&nbsp;</p>
+<p>　　AliceAliceAlice用BobBobBob的公开密钥加密她的消息，然后传送给BobBobBob。&nbsp;</p>
+<p>　　BobBobBob用他的私人密钥解密AliceAliceAlice的消息。&nbsp;</p>
+<p>　　那么BobBobBob怎么可以辨认AliceAliceAlice是不是真人还是冒充的…我们只要和上面的例子方法相反就可以了.</p>
+<p>.</p>
+<p>.</p>
+<p>　　</p>
+<p>　　AliceAliceAlice用她的私人密钥对文件加密，从而对文件签名。&nbsp;</p>
+<p>　　AliceAliceAlice将签名的文件传送给BobBobBob。&nbsp;</p>
+<p>　　BobBobBob用AliceAliceAlice的公钥解密文件，从而验证签名。&nbsp;</p>
+<p>　　通过例子大家应该有所了解吧!!!</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios技术文章收录/">Ios技术文章收录</a><a href="/tags/Iphone开发者/">Iphone开发者</a><a href="/tags/Iphone证书/">Iphone证书</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/" data-title="数字证书格式 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/效果图贝塞尔曲线知识讲解效果图开始本文之前先查看一下目标效果是如何的。weibo这个动画的来源是优秀网页设计的一个微博，看到这个效果感觉下面的圆的动画十分的赞，于是就打算模仿这个效果。然后接下来看我/" title="效果图贝塞尔曲线知识讲解效果图开始本文之前先查看一下目标效果是如何的。weibo这个动画的来源是优秀网页设计的一个微博，看到这个效果感觉下面的圆的动画十分的赞，于是就打算模仿这个效果。然后接下来看我...">
+  <strong>上一篇：</strong><br/>
+  <span>
+  效果图贝塞尔曲线知识讲解效果图开始本文之前先查看一下目标效果是如何的。weibo这个动画的来源是优秀网页设计的一个微博，看到这个效果感觉下面的圆的动画十分的赞，于是就打算模仿这个效果。然后接下来看我...</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/改了svn地址后的Subversion “checksum mismatch” error by editing .svn_entries file error/"  title="改了svn地址后的Subversion “checksum mismatch” error by editing .svn/entries file error">
+ <strong>下一篇：</strong><br/> 
+ <span>改了svn地址后的Subversion “checksum mismatch” error by editing .svn/entries file error
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/数字证书格式/" data-title="数字证书格式" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">数字证书格式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F-1"><span class="toc-number">1.1.</span> <span class="toc-text">数字证书格式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#You-can-keep-certificate-pem-and-key-pem-to-use-again-later-You-can-keep-certificate-pem-and-key-pem-to-use-again-later-You-can-keep-certificate-pem-and-key-pem-to-use-again-later"><span class="toc-number">2.</span> <span class="toc-text">You can keep certificate.pem and key.pem to use again later,# You can keep certificate.pem and key.pem to use again later,# You can keep certificate.pem and key.pem to use again later,</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#or-you-can-delete-them-after-signing-or-you-can-delete-them-after-signing-or-you-can-delete-them-after-signing"><span class="toc-number">3.</span> <span class="toc-text">or you can delete them after signing.# or you can delete them after signing.# or you can delete them after signing.</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

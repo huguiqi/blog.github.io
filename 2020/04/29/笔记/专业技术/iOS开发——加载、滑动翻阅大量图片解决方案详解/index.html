@@ -1,0 +1,954 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>iOS开发——加载、滑动翻阅大量图片解决方案详解 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="iOS开发——加载、滑动翻阅大量图片解决方案详解滑动图片 Ios技术文章收录 iOS开发——加载、滑动翻阅大量图片解决方案详解分类：&amp;nbsp;iOS应用程序开发2012-12-03 17:35&amp;nbsp;1983人阅读1983人阅读&amp;nbsp;评论(26)评论(26)&amp;nbsp;收藏&amp;nbsp;举报ios相册多线程照片优化目录(?)[+] 加载、滑动翻阅大量图片解决方案详解 今天分享一下私人相册">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发——加载、滑动翻阅大量图片解决方案详解">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E5%8A%A0%E8%BD%BD%E3%80%81%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="iOS开发——加载、滑动翻阅大量图片解决方案详解滑动图片 Ios技术文章收录 iOS开发——加载、滑动翻阅大量图片解决方案详解分类：&amp;nbsp;iOS应用程序开发2012-12-03 17:35&amp;nbsp;1983人阅读1983人阅读&amp;nbsp;评论(26)评论(26)&amp;nbsp;收藏&amp;nbsp;举报ios相册多线程照片优化目录(?)[+] 加载、滑动翻阅大量图片解决方案详解 今天分享一下私人相册">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/190.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/168.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/191.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/192.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/193.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/194.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2012-12-07T15:56:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios技术文章收录">
+<meta property="article:tag" content="滑动图片">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/190.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/iOS开发——加载、滑动翻阅大量图片解决方案详解/" title="iOS开发——加载、滑动翻阅大量图片解决方案详解" itemprop="url">iOS开发——加载、滑动翻阅大量图片解决方案详解</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E5%8A%A0%E8%BD%BD%E3%80%81%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">iOS开发——加载、滑动翻阅大量图片解决方案详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E5%8A%A0%E8%BD%BD%E3%80%81%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3-1"><span class="toc-number">1.0.1.</span> <span class="toc-text">iOS开发——加载、滑动翻阅大量图片解决方案详解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E6%80%9D%E8%B7%AF%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">常规思路流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BD%8E%E5%88%86%E8%BE%A8%E7%8E%87%E5%9B%BE"><span class="toc-number">1.2.</span> <span class="toc-text">使用低分辨率图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.3.</span> <span class="toc-text">多线程任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%BF%AB%E9%80%9F%E7%BF%BB%E9%98%85%E4%BD%93%E9%AA%8C"><span class="toc-number">1.4.</span> <span class="toc-text">优化快速翻阅体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E8%BF%98%E4%B8%80%E4%B8%AA%E7%A0%8D%E5%84%BF"><span class="toc-number">1.5.</span> <span class="toc-text">最后还一个砍儿</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="iOS开发——加载、滑动翻阅大量图片解决方案详解"><a title="iOS开发——加载、滑动翻阅大量图片解决方案详解" class="headerlink" href="#iOS开发——加载、滑动翻阅大量图片解决方案详解"></a>iOS开发——加载、滑动翻阅大量图片解决方案详解</h1><p><code>滑动图片</code> <code>Ios技术文章收录</code></p>
+<h3 id="iOS开发——加载、滑动翻阅大量图片解决方案详解-1"><a title="iOS开发——加载、滑动翻阅大量图片解决方案详解" class="headerlink" href="#iOS开发——加载、滑动翻阅大量图片解决方案详解-1"></a><a target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400">iOS开发——加载、滑动翻阅大量图片解决方案详解</a></h3><p>分类：&nbsp;<a target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/category/1088832">iOS应用程序开发</a>2012-12-03 17:35&nbsp;1983人阅读1983人阅读&nbsp;<a target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#comments">评论</a>(26)<a target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#comments">评论</a>(26)&nbsp;<a href="%22%E6%94%B6%E8%97%8F%22">收藏</a>&nbsp;<a title="举报" target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#report">举报</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/tag/details.html?tag=ios">ios</a><a target="_blank" rel="noopener" href="http://blog.csdn.net/tag/details.html?tag=%E7%9B%B8%E5%86%8C">相册</a><a target="_blank" rel="noopener" href="http://blog.csdn.net/tag/details.html?tag=%E5%A4%9A%E7%BA%BF%E7%A8%8B">多线程</a><a target="_blank" rel="noopener" href="http://blog.csdn.net/tag/details.html?tag=%E7%85%A7%E7%89%87">照片</a><a target="_blank" rel="noopener" href="http://blog.csdn.net/tag/details.html?tag=%E4%BC%98%E5%8C%96">优化</a><br>目录<a title="系统根据文章中H1到H6标签自动生成文章目录" target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#">(?)</a><a title="展开" target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#">[+]</a></p>
+<p><strong>加载、滑动翻阅大量图片解决方案详解</strong></p>
+<p>今天分享一下私人相册中，读取加载、滑动翻阅大量图片解决方案，我想强调的是，编程思想无关乎平台限制。<br>我要详细说一下，在缩略图界面点击任意小缩略图后，进入高清大图全屏浏览界面的这短暂的1秒内（和后续的几秒），都发生了什么。<br><img loading="lazy" alt="-190.png" src="/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/190.png"></p>
+<h2 id="常规思路流程"><a title="常规思路流程" class="headerlink" href="#常规思路流程"></a><a href="">常规思路流程</a></h2><p><a href="">点击任意小图后，</a><br><a href="">1.首先制作scrollview框架：大小2个scrollview，小的用于手势缩放单一图片，大的横向依次加载全部照片</a><br><a href="">2.制作好scrollview框架后，加载照片</a><br><a href="">3.一切准备就绪跳转页面呈现给用户选择的大图</a></p>
+<p><a href="">加载图片这一步，若相册内就10几张照片，那么毫无技术挑战，但是如果是300张照片呢？直接崩溃？还是让用户等待加载？ 时间紧任务重,这一步需要拆分和优化.</a></p>
+<p><a href=""><img loading="lazy" alt="-168.jpg" src="/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/168.jpg"></a></p>
+<p><a href="">scrollview框架需要了解下API，然后动动脑子了，这里有个小窍门，很多人都问我照片与照片间的黑边间距怎么实现，呵呵，贴下代码：</a><br><a href="">**[cpp]**�</a>�<a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#">view plain</a><a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#">copy</a><a title="print" target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#">print</a><a title="?" target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#">?</a></p>
+<ol>
+<li>#define&nbsp;PADDING&nbsp;&nbsp;20&nbsp;&nbsp;</li>
+<li>-&nbsp;(NSInteger)loadPhotos&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;//清理之前照片&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>for</strong>&nbsp;(UIView&nbsp;*v&nbsp;in&nbsp;[_scrollView&nbsp;subviews])&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[v&nbsp;removeFromSuperview];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;workingFrame&nbsp;=&nbsp;[[UIScreen&nbsp;mainScreen]bounds];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;workingFrame.origin.x&nbsp;=&nbsp;PADDING;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>for</strong>&nbsp;(<strong>int</strong>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;int_total;&nbsp;i++)&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CGRect&nbsp;frame&nbsp;=&nbsp;workingFrame;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WQPhoto&nbsp;*photoView&nbsp;=&nbsp;[[WQPhoto&nbsp;alloc]&nbsp;initWithFrame:frame];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[photoView&nbsp;setScroller:self];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[photoView&nbsp;setIndex:i];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WQAlbumPhoto&nbsp;*photo&nbsp;=&nbsp;[albumObject._photos&nbsp;objectAtIndex:i];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[photo&nbsp;cleanThumbnail];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>if</strong>&nbsp;(i&nbsp;==&nbsp;int_current)&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;//加载原图&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[photoView&nbsp;setImage:photo.oriImage];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[photoView&nbsp;setIsLoad:YES];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<strong>else</strong>&nbsp;<strong>if</strong>&nbsp;(int_current&nbsp;-&nbsp;10&nbsp;&lt;&nbsp;i&nbsp;&amp;&amp;&nbsp;i&nbsp;&lt;&nbsp;int_current&nbsp;+&nbsp;10){&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;//加载左右临近的缩略图&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[photoView&nbsp;setImage:photo.thumbnail4view];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[_scrollView&nbsp;addSubview:photoView];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;workingFrame.origin.x&nbsp;=&nbsp;workingFrame.origin.x&nbsp;+&nbsp;2&nbsp;*&nbsp;PADDING&nbsp;&nbsp;&nbsp;</li>
+<li>+&nbsp;workingFrame.size.width;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;//实现可滚动&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[_scrollView&nbsp;setContentSize:CGSizeMake(workingFrame.origin.x,&nbsp;workingFrame.size.height&nbsp;/&nbsp;2)];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[_scrollView&nbsp;setContentOffset:CGPointMake(360&nbsp;*&nbsp;int_current,&nbsp;0)];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;//加载其余缩略图&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;loadThread&nbsp;=&nbsp;[[NSThread&nbsp;alloc]initWithTarget:self&nbsp;selector:@selector(loadImages)&nbsp;object:nil];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;0;&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<h2 id="使用低分辨率图"><a title="使用低分辨率图" class="headerlink" href="#使用低分辨率图"></a><a href="">使用低分辨率图</a></h2><p><a href="">仔细想想，其实没有必要第一时间加载全部图片的高清原图，事先存好每张图配套的低分辨率图，用空间换时间。</a><br><a href="">先加载所有的图片的低分辨率图, 当用户翻阅到某一张图片时, 即时的加载原始尺寸的高清无码大图. 过程优化为：</a></p>
+<p><a href=""><img loading="lazy" alt="-191.png" src="/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/191.png"></a></p>
+<h2 id="多线程任务"><a title="多线程任务" class="headerlink" href="#多线程任务"></a><a href="">多线程任务</a></h2><p><a href="">即使是这样，当照片数量达到一定量时，需要消耗的时间也并非毫秒级，体验无法领人满意,&nbsp;&nbsp;页面跳转时仍然会出现卡顿现象。</a><br><a href="">于是考虑使用多线程来进一步拆分任务， 执行跳转的同时再后台执行加载低分辨率图的步骤.</a></p>
+<p><a href=""><img loading="lazy" alt="-192.png" src="/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/192.png"></a></p>
+<h2 id="优化快速翻阅体验"><a title="优化快速翻阅体验" class="headerlink" href="#优化快速翻阅体验"></a><a href="">优化快速翻阅体验</a></h2><p>[通过这样的拆分，可以实现立即跳转，体验满意。但是翻阅浏览时，当用户很快左右滑动时, 出现黑屏的几率很高, 因为加载低分辨率图任务的线程可能还在进行大量IO操作，不能及时跟上。 为了完善它，要把加载低分辨率图的步骤再次分解，精益求精。&nbsp;</p>
+<p>在页面跳转时间允许的范围内，加载用户选定的那张图片的高清原图的同时，尽可能多的加载几张左右临近的图片的低分辨率图。]()</p>
+<p><a href=""><img loading="lazy" alt="-193.png" src="/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/193.png"></a></p>
+<p><a href="">如何加载其余的低分辨率图？</a><br><a href="">以用户点击选定的那张图为中心向两边加载, 直接想应该是两个线程一左一右的加载，再想想左右一起加载其实可以是一个循环, 免了再开线程的那些耗费了。</a></p>
+<p><a href="">**[cpp]**�</a>�<a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#">view plain</a><a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#">copy</a><a title="print" target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#">print</a><a title="?" target="_blank" rel="noopener" href="http://blog.csdn.net/yiyaaixuexi/article/details/8252400#">?</a></p>
+<ol>
+<li>-(<strong>BOOL</strong>)loadImages&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>for</strong>&nbsp;(<strong>int</strong>&nbsp;i&nbsp;=&nbsp;int_current&nbsp;-&nbsp;10,&nbsp;j&nbsp;=&nbsp;int_current&nbsp;+&nbsp;10&nbsp;;&nbsp;!(&nbsp;i&nbsp;&lt;&nbsp;0&nbsp;&amp;&amp;&nbsp;&nbsp;int_total&nbsp;-&nbsp;1&nbsp;&lt;&nbsp;j);&nbsp;–i,&nbsp;++j)&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>if</strong>&nbsp;(!(i&nbsp;&lt;&nbsp;0))&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WQPhoto&nbsp;*photo_pre&nbsp;=&nbsp;[_scrollView.subviews&nbsp;objectAtIndex:i];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WQAlbumPhoto&nbsp;*photoPre&nbsp;=&nbsp;[albumObject._photos&nbsp;objectAtIndex:i];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[photo_pre&nbsp;setImage:photoPre.thumbnail4view];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>if</strong>&nbsp;(!(int_total&nbsp;-&nbsp;1&nbsp;&lt;&nbsp;j))&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WQPhoto&nbsp;*photo_next&nbsp;=&nbsp;[_scrollView.subviews&nbsp;objectAtIndex:j];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WQAlbumPhoto&nbsp;*photoNext&nbsp;=&nbsp;[albumObject._photos&nbsp;objectAtIndex:j];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[photo_next&nbsp;setImage:photoNext.thumbnail4view];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;YES;&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<h2 id="最后还一个砍儿"><a title="最后还一个砍儿" class="headerlink" href="#最后还一个砍儿"></a><a href="">最后还一个砍儿</a></h2><p><a href="">尽量减少内存占用.&nbsp;&nbsp;因为原始图片要比低分辨率图大很多, 所以当用户从一张图片翻阅到另一张图片时,&nbsp;&nbsp;当前图片加载为原始尺寸的高清大图, 而原来那张就被替换为低分辨率图了。 虽然读写次数增多了, 但内存确实省了不少。</a></p>
+<p><a href="">实话说，市场上不少相册类的app， 翻阅时都会有卡顿的跳跃感，呵呵……</a></p>
+<p><a href=""><strong>P.S.�</strong>�&nbsp;下次总结讨论下，独立开发者如何不花一分钱的推广，最终实现盈利：</a></p>
+<p><a href=""><img loading="lazy" alt="-194.png" src="/images/notes/iOS%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD-%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/194.png"></a></p>
+<p><a href="">欢迎交流</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios技术文章收录/">Ios技术文章收录</a><a href="/tags/滑动图片/">滑动图片</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E5%8A%A0%E8%BD%BD%E3%80%81%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/" data-title="iOS开发——加载、滑动翻阅大量图片解决方案详解 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/iOS开发-由浅至深学习block/" title="iOS开发-由浅至深学习block">
+  <strong>上一篇：</strong><br/>
+  <span>
+  iOS开发-由浅至深学习block</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/iOS开发教程：Storyboard全解析-第一部分02/"  title="iOS开发教程：Storyboard全解析-第一部分02">
+ <strong>下一篇：</strong><br/> 
+ <span>iOS开发教程：Storyboard全解析-第一部分02
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/iOS开发——加载、滑动翻阅大量图片解决方案详解/" data-title="iOS开发——加载、滑动翻阅大量图片解决方案详解" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E5%8A%A0%E8%BD%BD%E3%80%81%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E5%8A%A0%E8%BD%BD%E3%80%81%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">iOS开发——加载、滑动翻阅大量图片解决方案详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E5%8A%A0%E8%BD%BD%E3%80%81%E6%BB%91%E5%8A%A8%E7%BF%BB%E9%98%85%E5%A4%A7%E9%87%8F%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3-1"><span class="toc-number">1.0.1.</span> <span class="toc-text">iOS开发——加载、滑动翻阅大量图片解决方案详解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E6%80%9D%E8%B7%AF%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">常规思路流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BD%8E%E5%88%86%E8%BE%A8%E7%8E%87%E5%9B%BE"><span class="toc-number">1.2.</span> <span class="toc-text">使用低分辨率图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.3.</span> <span class="toc-text">多线程任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%BF%AB%E9%80%9F%E7%BF%BB%E9%98%85%E4%BD%93%E9%AA%8C"><span class="toc-number">1.4.</span> <span class="toc-text">优化快速翻阅体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E8%BF%98%E4%B8%80%E4%B8%AA%E7%A0%8D%E5%84%BF"><span class="toc-number">1.5.</span> <span class="toc-text">最后还一个砍儿</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,1016 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>HttpClient|HttpClient请求详解 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="HttpClient|HttpClient请求详解Rest HpptClient HttpClient|HttpClient请求详解HttpClient 是 Apache Jakarta Common 下的子项目，可以用来提供高效的、最新的、功能丰富的支持 HTTP 协议的客户端编程工具包，并且它支持 HTTP 协议最新的版本和建议。本文首先介绍 HTTPClient，然后根据作者实际工作经验给出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HttpClient|HttpClient请求详解">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/HttpClient_HttpClient%E8%AF%B7%E6%B1%82%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="HttpClient|HttpClient请求详解Rest HpptClient HttpClient|HttpClient请求详解HttpClient 是 Apache Jakarta Common 下的子项目，可以用来提供高效的、最新的、功能丰富的支持 HTTP 协议的客户端编程工具包，并且它支持 HTTP 协议最新的版本和建议。本文首先介绍 HTTPClient，然后根据作者实际工作经验给出">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2011-12-20T02:44:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Rest HpptClient">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/HttpClient_HttpClient请求详解/" title="HttpClient|HttpClient请求详解" itemprop="url">HttpClient|HttpClient请求详解</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HttpClient-HttpClient%E8%AF%B7%E6%B1%82%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">HttpClient|HttpClient请求详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HttpClient-HttpClient%E8%AF%B7%E6%B1%82%E8%AF%A6%E8%A7%A3-1"><span class="toc-number">1.0.1.</span> <span class="toc-text">HttpClient|HttpClient请求详解</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="HttpClient-HttpClient请求详解"><a title="HttpClient|HttpClient请求详解" class="headerlink" href="#HttpClient-HttpClient请求详解"></a>HttpClient|HttpClient请求详解</h1><p><code>Rest HpptClient</code></p>
+<h3 id="HttpClient-HttpClient请求详解-1"><a title="HttpClient|HttpClient请求详解" class="headerlink" href="#HttpClient-HttpClient请求详解-1"></a>HttpClient|HttpClient请求详解</h3><p>HttpClient 是 Apache Jakarta Common 下的子项目，可以用来提供高效的、最新的、功能丰富的支持 HTTP 协议的客户端编程工具包，并且它支持 HTTP 协议最新的版本和建议。本文首先介绍 HTTPClient，然后根据作者实际工作经验给出了一些常见问题的解决方法。HTTP 协议可能是现在 Internet 上使用得最多、最重要的协议了，越来越多的 Java 应用程序需要直接通过 HTTP 协议来访问网络资源。虽然在 JDK 的 java.net 包中已经提供了访问 HTTP 协议的基本功能，但是对于大部分应用程序来说，JDK 库本身提供的功能还不够丰富和灵活。HttpClient 是 Apache Jakarta Common 下的子项目，用来提供高效的、最新的、功能丰富的支持 HTTP 协议的客户端编程工具包，并且它支持 HTTP 协议最新的版本和建议。HttpClient 已经应用在很多的项目中，比如 Apache Jakarta 上很著名的另外两个开源项目 Cactus 和 HTMLUnit 都使用了 HttpClient。现在HttpClient最新版本为 HttpClient 4.0-beta2</p>
+<p>2.HttpClient 功能介绍</p>
+<p>　　以下列出的是 HttpClient 提供的主要的功能，要知道更多详细的功能可以参见 HttpClient 的主页。</p>
+<p>　　（1）实现了所有 HTTP 的方法（GET,POST,PUT,HEAD 等）&nbsp;</p>
+<p>　　（2）支持自动转向&nbsp;</p>
+<p>　　（3）支持 HTTPS 协议&nbsp;</p>
+<p>　　（4）支持代理服务器等</p>
+<p>3.HttpClient 基本功能的使用</p>
+<p>　　(1) GET方法</p>
+<p>　　使用 HttpClient 需要以下 6 个步骤：</p>
+<p>　　1. 创建 HttpClient 的实例</p>
+<p>　　2. 创建某种连接方法的实例，在这里是 GetMethod。在 GetMethod 的构造函数中传入待连接的地址</p>
+<p>　　3. 调用第一步中创建好的实例的 execute 方法来执行第二步中创建好的 method 实例</p>
+<p>　　4. 读 response</p>
+<p>　　5. 释放连接。无论执行方法是否成功，都必须释放连接</p>
+<p>　　6. 对得到后的内容进行处理</p>
+<p>　　根据以上步骤，我们来编写用GET方法来取得某网页内容的代码。</p>
+<p>　　大部分情况下 HttpClient 默认的构造函数已经足够使用。 HttpClient httpClient = new HttpClient();</p>
+<p>　　创建GET方法的实例。在GET方法的构造函数中传入待连接的地址即可。用GetMethod将会自动处理转发过程，如果想要把自动处理转发过程去掉的话，可以调用方法setFollowRedirects(false)。 GetMethod getMethod = new GetMethod(“…..”);</p>
+<p>　　调用实例httpClient的executeMethod方法来执行getMethod。由于是执行在网络上的程序，在运行executeMethod方法的时候，需要处理两个异常，分别是HttpException和IOException。引起第一种异常的原因主要可能是在构造getMethod的时候传入的协议不对，比如不小心将”http”写成”htp”，或者服务器端返回的内容不正常等，并且该异常发生是不可恢复的；第二种异常一般是由于网络原因引起的异常，对于这种异常 （IOException），HttpClient会根据你指定的恢复策略自动试着重新执行executeMethod方法。HttpClient的恢复策略可以自定义（通过实现接口HttpMethodRetryHandler来实现）。通过httpClient的方法setParameter设置你实现的恢复策略，本文中使用的是系统提供的默认恢复策略，该策略在碰到第二类异常的时候将自动重试3次。executeMethod返回值是一个整数，表示了执行该方法后服务器返回的状态码，该状态码能表示出该方法执行是否成功、需要认证或者页面发生了跳转（默认状态下GetMethod的实例是自动处理跳转的）等。 //设置成了默认的恢复策略，在发生异常时候将自动重试3次，在这里你也可以设置成自定义的恢复策略</p>
+<p>　　getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,&nbsp;</p>
+<p>　　new DefaultHttpMethodRetryHandler());&nbsp;</p>
+<p>　　//执行getMethod</p>
+<p>　　int statusCode = client.executeMethod(getMethod);</p>
+<p>　　if (statusCode != HttpStatus.SC_OK) {</p>
+<p>　　System.err.println(“Method failed: “ + getMethod.getStatusLine());</p>
+<p>　　}</p>
+<p>　　在返回的状态码正确后，即可取得内容。取得目标地址的内容有三种方法：第一种，getResponseBody，该方法返回的是目标的二进制的byte流；第二种，getResponseBodyAsString，这个方法返回的是String类型，值得注意的是该方法返回的String的编码是根据系统默认的编码方式，所以返回的String值可能编码类型有误，在本文的”字符编码”部分中将对此做详细介绍；第三种，getResponseBodyAsStream，这个方法对于目标地址中有大量数据需要传输是最佳的。在这里我们使用了最简单的getResponseBody方法。 byte[] responseBody = method.getResponseBody();</p>
+<p>　　释放连接。无论执行方法是否成功，都必须释放连接。 method.releaseConnection();</p>
+<p>　　处理内容。在这一步中根据你的需要处理内容，在例子中只是简单的将内容打印到控制台。 System.out.println(new String(responseBody));</p>
+<p>　　下面是程序的完整代码，这些代码也可在附件中的test.GetSample中找到。</p>
+<p>　　package test;</p>
+<p>　　import java.io.IOException;</p>
+<p>　　import org.apache.commons.httpclient.*;</p>
+<p>　　import org.apache.commons.httpclient.methods.GetMethod;</p>
+<p>　　import org.apache.commons.httpclient.params.HttpMethodParams;</p>
+<p>　　public class GetSample{</p>
+<p>　　public static void main(String[] args) {</p>
+<p>　　//构造HttpClient的实例</p>
+<p>　　HttpClient httpClient = new HttpClient();</p>
+<p>　　//创建GET方法的实例</p>
+<p>　　GetMethod getMethod = new GetMethod(“…”);</p>
+<p>　　//使用系统提供的默认的恢复策略</p>
+<p>　　getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,</p>
+<p>　　new DefaultHttpMethodRetryHandler());</p>
+<p>　　try {</p>
+<p>　　//执行getMethod</p>
+<p>　　int statusCode = httpClient.executeMethod(getMethod);</p>
+<p>　　if (statusCode != HttpStatus.SC_OK) {</p>
+<p>　　System.err.println(“Method failed: “</p>
+<p>　　+ getMethod.getStatusLine());</p>
+<p>　　}</p>
+<p>　　//读取内容&nbsp;</p>
+<p>　　byte[] responseBody = getMethod.getResponseBody();</p>
+<p>　　//处理内容</p>
+<p>　　System.out.println(new String(responseBody));</p>
+<p>　　} catch (HttpException e) {</p>
+<p>　　//发生致命的异常，可能是协议不对或者返回的内容有问题</p>
+<p>　　System.out.println(“Please check your provided http address!”);</p>
+<p>　　e.printStackTrace();</p>
+<p>　　} catch (IOException e) {</p>
+<p>　　//发生网络异常</p>
+<p>　　e.printStackTrace();</p>
+<p>　　} finally {</p>
+<p>　　//释放连接</p>
+<p>　　getMethod.releaseConnection();</p>
+<p>　　}</p>
+<p>　　}</p>
+<p>　　}</p>
+<p>（2）POST方法</p>
+<p>　　根据RFC2616，对POST的解释如下：POST方法用来向目的服务器发出请求，要求它接受被附在请求后的实体，并把它当作请求队列（Request-Line）中请求URI所指定资源的附加新子项。POST被设计成用统一的方法实现下列功能：</p>
+<p>　　对现有资源的注释（Annotation of existing resources）&nbsp;</p>
+<p>　　向电子公告栏、新闻组，邮件列表或类似讨论组发送消息&nbsp;</p>
+<p>　　提交数据块，如将表单的结果提交给数据处理过程&nbsp;</p>
+<p>　　通过附加操作来扩展数据库&nbsp;</p>
+<p>　　调用HttpClient中的PostMethod与GetMethod类似，除了设置PostMethod的实例与GetMethod有些不同之外，剩下的步骤都差不多。在下面的例子中，省去了与GetMethod相同的步骤，只说明与上面不同的地方，并以登录清华大学BBS为例子进行说明。</p>
+<p>　　构造PostMethod之前的步骤都相同，与GetMethod一样，构造PostMethod也需要一个URI参数。在创建了PostMethod的实例之后，需要给method实例填充表单的值，在BBS的登录表单中需要有两个域，第一个是用户名（域名叫id），第二个是密码（域名叫passwd）。表单中的域用类NameValuePair来表示，该类的构造函数第一个参数是域名，第二参数是该域的值；将表单所有的值设置到PostMethod中用方法setRequestBody。另外由于BBS登录成功后会转向另外一个页面，但是HttpClient对于要求接受后继服务的请求，比如POST和PUT，不支持自动转发，因此需要自己对页面转向做处理。具体的页面转向处理请参见下面的”自动转向”部分。代码如下：</p>
+<p>　　String url = “….”;</p>
+<p>　　PostMethod postMethod = new PostMethod(url);</p>
+<p>　　// 填入各个表单域的值</p>
+<p>　　NameValuePair[] data = { new NameValuePair(“id”, “youUserName”),&nbsp;</p>
+<p>　　new NameValuePair(“passwd”, “yourPwd”) };</p>
+<p>　　// 将表单的值放入postMethod中</p>
+<p>　　postMethod.setRequestBody(data);</p>
+<p>　　// 执行postMethod</p>
+<p>　　int statusCode = httpClient.executeMethod(postMethod);</p>
+<p>　　// HttpClient对于要求接受后继服务的请求，象POST和PUT等不能自动处理转发</p>
+<p>　　// 301或者302</p>
+<p>　　if (statusCode == HttpStatus.SC_MOVED_PERMANENTLY ||&nbsp;</p>
+<p>　　statusCode == HttpStatus.SC_MOVED_TEMPORARILY) {</p>
+<p>　　// 从头中取出转向的地址</p>
+<p>　　Header locationHeader = postMethod.getResponseHeader(“location”);</p>
+<p>　　String location = null;</p>
+<p>　　if (locationHeader != null) {</p>
+<p>　　location = locationHeader.getValue();</p>
+<p>　　System.out.println(“The page was redirected to:” + location);</p>
+<p>　　} else {</p>
+<p>　　System.err.println(“Location field value is null.”);</p>
+<p>　　}</p>
+<p>　　return;</p>
+<p>　　}</p>
+<p>4 使用HttpClient过程中常见的一些问题</p>
+<p>　　下面介绍在使用HttpClient过程中常见的一些问题。</p>
+<p>　　字符编码</p>
+<p>　　某目标页的编码可能出现在两个地方，第一个地方是服务器返回的http头中，另外一个地方是得到的html/xml页面中。</p>
+<p>　　在http头的Content-Type字段可能会包含字符编码信息。例如可能返回的头会包含这样子的信息：Content-Type: text/html; charset=UTF-8。这个头信息表明该页的编码是UTF-8，但是服务器返回的头信息未必与内容能匹配上。比如对于一些双字节语言国家，可能服务器返回的编码类型是UTF-8，但真正的内容却不是UTF-8编码的，因此需要在另外的地方去得到页面的编码信息；但是如果服务器返回的编码不是UTF-8，而是具体的一些编码，比如gb2312等，那服务器返回的可能是正确的编码信息。通过method对象的getResponseCharSet()方法就可以得到http头中的编码信息。&nbsp;</p>
+<p>　　对于象xml或者html这样的文件，允许作者在页面中直接指定编码类型。比如在html中会有这样的标签；或者在xml中会有这样的标签，在这些情况下，可能与http头中返回的编码信息冲突，需要用户自己判断到底那种编码类型应该是真正的编码。&nbsp;</p>
+<p>　　自动转向</p>
+<p>　　根据RFC2616中对自动转向的定义，主要有两种：301和302。301表示永久的移走（Moved Permanently），当返回的是301，则表示请求的资源已经被移到一个固定的新地方，任何向该地址发起请求都会被转到新的地址上。302表示暂时的转向，比如在服务器端的servlet程序调用了sendRedirect方法，则在客户端就会得到一个302的代码，这时服务器返回的头信息中location的值就是sendRedirect转向的目标地址。</p>
+<p>　　HttpClient支持自动转向处理，但是象POST和PUT方式这种要求接受后继服务的请求方式，暂时不支持自动转向，因此如果碰到POST方式提交后返回的是301或者302的话需要自己处理。就像刚才在POSTMethod中举的例子：如果想进入登录BBS后的页面，必须重新发起登录的请求，请求的地址可以在头字段location中得到。不过需要注意的是，有时候location返回的可能是相对路径，因此需要对location返回的值做一些处理才可以发起向新地址的请求。</p>
+<p>　　另外除了在头中包含的信息可能使页面发生重定向外，在页面中也有可能会发生页面的重定向。引起页面自动转发的标签是：。如果你想在程序中也处理这种情况的话得自己分析页面来实现转向。需要注意的是，在上面那个标签中url的值也可以是一个相对地址，如果是这样的话，需要对它做一些处理后才可以转发。</p>
+<p>　　处理HTTPS协议</p>
+<p>　　HttpClient提供了对SSL的支持，在使用SSL之前必须安装JSSE。在Sun提供的1.4以后的版本中，JSSE已经集成到JDK中，如果你使用的是JDK1.4以前的版本则必须安装JSSE。JSSE不同的厂家有不同的实现。下面介绍怎么使用HttpClient来打开Https连接。这里有两种方法可以打开https连接，第一种就是得到服务器颁发的证书，然后导入到本地的keystore中；另外一种办法就是通过扩展HttpClient的类来实现自动接受证书。</p>
+<p>　　方法1，取得证书，并导入本地的keystore：</p>
+<p>　　安装JSSE （如果你使用的JDK版本是1.4或者1.4以上就可以跳过这一步）。本文以IBM的JSSE为例子说明。先到IBM网站上下载JSSE的安装包。然后解压开之后将ibmjsse.jar包拷贝到\lib\ext\目录下。&nbsp;</p>
+<p>　　取得并且导入证书。证书可以通过IE来获得：&nbsp;</p>
+<p>　　1． 用IE打开需要连接的https网址，会弹出如下对话框：</p>
+<p>　　2． 单击”View Certificate”，在弹出的对话框中选择”Details”，然后再单击”Copy to File”，根据提供的向导生成待访问网页的证书文件</p>
+<p>　　3． 向导第一步，欢迎界面，直接单击”Next”，</p>
+<p>　　4． 向导第二步，选择导出的文件格式，默认，单击”Next”，</p>
+<p>　　5． 向导第三步，输入导出的文件名，输入后，单击”Next”，</p>
+<p>　　6． 向导第四步，单击”Finish”，完成向导</p>
+<p>　　7． 最后弹出一个对话框，显示导出成功</p>
+<p>　　用keytool工具把刚才导出的证书倒入本地keystore。Keytool命令在\bin\下，打开命令行窗口，并到\lib\security\目录下，运行下面的命令：</p>
+<p>　　keytool -import -noprompt -keystore cacerts -storepass changeit -alias yourEntry1 -file your.cer</p>
+<p>　　其中参数alias后跟的值是当前证书在keystore中的唯一标识符，但是大小写不区分；参数file后跟的是刚才通过IE导出的证书所在的路径和文件名；如果你想删除刚才导入到keystore的证书，可以用命令：</p>
+<p>　　keytool -delete -keystore cacerts -storepass changeit -alias yourEntry1</p>
+<p>　　写程序访问https地址。如果想测试是否能连上https，只需要稍改一下GetSample例子，把请求的目标变成一个https地址。&nbsp;</p>
+<p>　　GetMethod getMethod = new GetMethod(“your url”);</p>
+<p>　　运行该程序可能出现的问题：</p>
+<p>　　1. 抛出异常java.net.SocketException: Algorithm SSL not available。出现这个异常可能是因为没有加JSSEProvider，如果用的是IBM的JSSE Provider，在程序中加入这样的一行：</p>
+<p>　　if(Security.getProvider(“com.ibm.jsse.IBMJSSEProvider”) == null)</p>
+<p>　　Security.addProvider(new IBMJSSEProvider());</p>
+<p>　　或者也可以打开\lib\security\java.security，在行</p>
+<p>　　security.provider.1=sun.security.provider.Sun</p>
+<p>　　security.provider.2=com.ibm.crypto.provider.IBMJCE</p>
+<p>　　后面加入security.provider.3=com.ibm.jsse.IBMJSSEProvider</p>
+<p>　　2. 抛出异常java.net.SocketException: SSL implementation not available。出现这个异常可能是你没有把ibmjsse.jar拷贝到\lib\ext\目录下。</p>
+<p>　　3. 抛出异常javax.net.ssl.SSLHandshakeException: unknown certificate。出现这个异常表明你的JSSE应该已经安装正确，但是可能因为你没有把证书导入到当前运行JRE的keystore中，请按照前面介绍的步骤来导入你的证书。</p>
+<p>　　方法２，扩展HttpClient类实现自动接受证书</p>
+<p>　　因为这种方法自动接收所有证书，因此存在一定的安全问题，所以在使用这种方法前请仔细考虑您的系统的安全需求。具体的步骤如下：</p>
+<p>　　提供一个自定义的socket factory（test.MySecureProtocolSocketFactory）。这个自定义的类必须实现接口org.apache.commons.httpclient.protocol.SecureProtocolSocketFactory，在实现接口的类中调用自定义的X509TrustManager(test.MyX509TrustManager)，这两个类可以在随本文带的附件中得到&nbsp;</p>
+<p>　　创建一个org.apache.commons.httpclient.protocol.Protocol的实例，指定协议名称和默认的端口号 Protocol myhttps = new Protocol(“https”, new MySecureProtocolSocketFactory (), 443);</p>
+<p>　　注册刚才创建的https协议对象 Protocol.registerProtocol(“https “, myhttps);</p>
+<p>　　然后按照普通编程方式打开https的目标地址，代码请参见test.NoCertificationHttpsGetSample</p>
+<p>5 处理代理服务器</p>
+<p>　　HttpClient中使用代理服务器非常简单，调用HttpClient中setProxy方法就可以，方法的第一个参数是代理服务器地址，第二个参数是端口号。另外HttpClient也支持SOCKS代理。</p>
+<p>　　httpClient.getHostConfiguration().setProxy(hostName,port);</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E4%B8%8EWeb%E6%9C%8D%E5%8A%A1/">网络与Web服务</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Rest-HpptClient/">Rest HpptClient</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/HttpClient_HttpClient%E8%AF%B7%E6%B1%82%E8%AF%A6%E8%A7%A3/" data-title="HttpClient|HttpClient请求详解 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/How to Automatically Resolve Git Merge Conflicts in Favor of Any Side/" title="How to Automatically Resolve Git Merge Conflicts in Favor of Any Side">
+  <strong>上一篇：</strong><br/>
+  <span>
+  How to Automatically Resolve Git Merge Conflicts in Favor of Any Side</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/How to grant super privilege to the user_/"  title="How to grant super privilege to the user?">
+ <strong>下一篇：</strong><br/> 
+ <span>How to grant super privilege to the user?
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/HttpClient_HttpClient请求详解/" data-title="HttpClient|HttpClient请求详解" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/HttpClient_HttpClient%E8%AF%B7%E6%B1%82%E8%AF%A6%E8%A7%A3/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HttpClient-HttpClient%E8%AF%B7%E6%B1%82%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">HttpClient|HttpClient请求详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HttpClient-HttpClient%E8%AF%B7%E6%B1%82%E8%AF%A6%E8%A7%A3-1"><span class="toc-number">1.0.1.</span> <span class="toc-text">HttpClient|HttpClient请求详解</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

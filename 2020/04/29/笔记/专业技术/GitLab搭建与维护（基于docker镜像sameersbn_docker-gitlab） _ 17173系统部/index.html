@@ -1,0 +1,1157 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>GitLab搭建与维护（基于docker镜像sameersbn/docker-gitlab） | 17173系统部 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="GitLab搭建与维护（基于docker镜像sameersbn&#x2F;docker-gitlab） | 17173系统部docker gitlab 1. 阅读本文基础 熟悉git使用 熟悉docker  2. GitLab简介2.1. 概述 GitLab 是一个用于仓库管理系统的开源项目。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。Github是公共的git仓库，而Gitlab适合于搭">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitLab搭建与维护（基于docker镜像sameersbn&#x2F;docker-gitlab） | 17173系统部">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4%EF%BC%88%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn_docker-gitlab%EF%BC%89%20_%2017173%E7%B3%BB%E7%BB%9F%E9%83%A8/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="GitLab搭建与维护（基于docker镜像sameersbn&#x2F;docker-gitlab） | 17173系统部docker gitlab 1. 阅读本文基础 熟悉git使用 熟悉docker  2. GitLab简介2.1. 概述 GitLab 是一个用于仓库管理系统的开源项目。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。Github是公共的git仓库，而Gitlab适合于搭">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4-%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn_docker-gitlab-_-17173%E7%B3%BB%E7%BB%9F%E9%83%A8/47.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4-%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn_docker-gitlab-_-17173%E7%B3%BB%E7%BB%9F%E9%83%A8/48.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4-%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn_docker-gitlab-_-17173%E7%B3%BB%E7%BB%9F%E9%83%A8/28.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-04-08T07:17:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="gitlab">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4-%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn_docker-gitlab-_-17173%E7%B3%BB%E7%BB%9F%E9%83%A8/47.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/GitLab搭建与维护（基于docker镜像sameersbn_docker-gitlab） _ 17173系统部/" title="GitLab搭建与维护（基于docker镜像sameersbn/docker-gitlab） | 17173系统部" itemprop="url">GitLab搭建与维护（基于docker镜像sameersbn/docker-gitlab） | 17173系统部</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4%EF%BC%88%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn-x2F-docker-gitlab%EF%BC%89-17173%E7%B3%BB%E7%BB%9F%E9%83%A8"><span class="toc-number">1.</span> <span class="toc-text">GitLab搭建与维护（基于docker镜像sameersbn&#x2F;docker-gitlab） | 17173系统部</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E9%98%85%E8%AF%BB%E6%9C%AC%E6%96%87%E5%9F%BA%E7%A1%80"><span class="toc-number">2.</span> <span class="toc-text">1. 阅读本文基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-GitLab%E7%AE%80%E4%BB%8B"><span class="toc-number">3.</span> <span class="toc-text">2. GitLab简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%A6%82%E8%BF%B0"><span class="toc-number">3.1.</span> <span class="toc-text">2.1. 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">2.2. 架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E7%BB%84%E4%BB%B6"><span class="toc-number">3.3.</span> <span class="toc-text">2.3. 组件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-GitLab%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="toc-number">4.</span> <span class="toc-text">3. GitLab安装部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%AE%98%E6%96%B9%E6%94%AF%E6%8C%81%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">4.1.</span> <span class="toc-text">3.1. 官方支持的方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E9%87%87%E7%94%A8docker%E9%95%9C%E5%83%8F%E5%AE%89%E8%A3%85GitLab"><span class="toc-number">4.2.</span> <span class="toc-text">3.2. 采用docker镜像安装GitLab</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-%E7%AE%80%E4%BB%8B"><span class="toc-number">4.2.1.</span> <span class="toc-text">3.2.1. 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-%E6%9E%B6%E6%9E%84%E5%9B%BE"><span class="toc-number">4.2.2.</span> <span class="toc-text">3.2.2. 架构图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F"><span class="toc-number">4.2.3.</span> <span class="toc-text">3.2.3. 下载镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-4-%E5%AE%89%E8%A3%85"><span class="toc-number">4.2.4.</span> <span class="toc-text">3.2.4. 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-1-%E5%90%AF%E5%8A%A8redis"><span class="toc-number">4.2.4.1.</span> <span class="toc-text">3.2.4.1. 启动redis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-2-%E5%90%AF%E5%8A%A8mysql"><span class="toc-number">4.2.4.2.</span> <span class="toc-text">3.2.4.2. 启动mysql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-3-%E5%90%AF%E5%8A%A8gitlab"><span class="toc-number">4.2.4.3.</span> <span class="toc-text">3.2.4.3. 启动gitlab</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-4-%E7%BB%99gitlab%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AEIP"><span class="toc-number">4.2.4.4.</span> <span class="toc-text">3.2.4.4. 给gitlab容器配置IP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-5-%E5%AE%89%E8%A3%85%E5%B7%B2%E5%AE%8C%E6%88%90%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%89%93%E5%BC%80%E9%A1%B5%E9%9D%A2"><span class="toc-number">4.2.4.5.</span> <span class="toc-text">3.2.4.5. 安装已完成，可以打开页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-6-%E5%8A%A0%E5%85%A5%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8"><span class="toc-number">4.2.4.6.</span> <span class="toc-text">3.2.4.6. 加入开机启动</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-GitLab-API-wrappers"><span class="toc-number">5.</span> <span class="toc-text">4. GitLab API wrappers</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-GitLab%E4%BD%BF%E7%94%A8%E7%9A%84FAQ"><span class="toc-number">6.</span> <span class="toc-text">5. GitLab使用的FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-git%E4%BB%A3%E7%A0%81%E5%8F%91%E5%B8%83%E6%94%AF%E6%8C%812%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9Assh%E5%92%8Chttp-s"><span class="toc-number">6.1.</span> <span class="toc-text">5.1. git代码发布支持2种方法：ssh和http(s)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E9%99%90%E5%88%B6git%E4%B8%8A%E4%BC%A0%E7%9A%84%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F"><span class="toc-number">6.2.</span> <span class="toc-text">5.2. 限制git上传的单个文件大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E9%80%9A%E8%BF%87API%E8%BF%9B%E8%A1%8C%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C%E4%BE%8B%E5%A6%82%E5%88%9B%E5%BB%BAProject%EF%BC%8C%E5%BE%97%E5%88%B0%E6%88%90%E5%8A%9F%E7%9A%84%E5%93%8D%E5%BA%94%EF%BC%8C%E4%BD%86%E5%8D%B4%E6%B2%A1%E6%9C%89%E7%AB%8B%E5%8D%B3%E7%94%9F%E6%95%88%EF%BC%8C%E8%BF%87%E4%BA%86%E5%87%A0%E7%A7%92%E6%89%8D%E7%94%9F%E6%95%88"><span class="toc-number">6.3.</span> <span class="toc-text">5.3. 通过API进行一些操作例如创建Project，得到成功的响应，但却没有立即生效，过了几秒才生效</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%E9%A1%B5%E9%9D%A2%E4%B8%8A%E2%80%9DProfile-settings-gt-SSH-Keys%E2%80%9D%E4%B8%8E%E2%80%9DProject-Settings%E9%87%8CDeploy-Keys%E2%80%9D%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">6.4.</span> <span class="toc-text">5.4. 页面上”Profile settings-&gt;SSH Keys”与”Project Settings里Deploy Keys”的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-gitlab%E9%BB%98%E8%AE%A4%E6%97%B6%E5%8C%BA%E6%98%AFUTC"><span class="toc-number">6.5.</span> <span class="toc-text">5.5. gitlab默认时区是UTC</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-GitLab%E7%BB%B4%E6%8A%A4"><span class="toc-number">7.</span> <span class="toc-text">6. GitLab维护</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E6%95%B0%E6%8D%AE%E8%B7%AF%E5%BE%84%E3%80%81%E6%97%A5%E5%BF%97%E8%B7%AF%E5%BE%84"><span class="toc-number">7.1.</span> <span class="toc-text">6.1. 数据路径、日志路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="toc-number">7.2.</span> <span class="toc-text">6.2. 高可用</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="GitLab搭建与维护（基于docker镜像sameersbn-x2F-docker-gitlab）-17173系统部"><a title="GitLab搭建与维护（基于docker镜像sameersbn/docker-gitlab） | 17173系统部" class="headerlink" href="#GitLab搭建与维护（基于docker镜像sameersbn-x2F-docker-gitlab）-17173系统部"></a>GitLab搭建与维护（基于docker镜像sameersbn/docker-gitlab） | 17173系统部</h1><p><code>docker</code> <code>gitlab</code></p>
+<h1 id="1-阅读本文基础"><a title="1. 阅读本文基础" class="headerlink" href="#1-阅读本文基础"></a>1. 阅读本文基础</h1><ul>
+<li>熟悉git使用</li>
+<li>熟悉docker</li>
+</ul>
+<h1 id="2-GitLab简介"><a title="2. GitLab简介" class="headerlink" href="#2-GitLab简介"></a>2. GitLab简介</h1><h2 id="2-1-概述"><a title="2.1. 概述" class="headerlink" href="#2-1-概述"></a>2.1. 概述</h2><ul>
+<li>GitLab 是一个用于仓库管理系统的开源项目。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。Github是公共的git仓库，而Gitlab适合于搭建企业内部私有git仓库</li>
+<li>官网：<pre><code>https://about.gitlab.com/
+https://github.com/gitlabhq/gitlabhq
+</code></pre>
+</li>
+<li>GIT与SVN的比较：<pre><code>http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001374027586935cf69c53637d8458c9aec27dd546a6cd6000
+http://www.oschina.net/news/12542/git-and-svn
+</code></pre>
+</li>
+<li>截止本文创建时间，GitLab最新版本为v7.4.3</li>
+</ul>
+<h2 id="2-2-架构"><a title="2.2. 架构" class="headerlink" href="#2-2-架构"></a>2.2. 架构</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://17173ops.com/wp-content/uploads/2014/11/gitlab_arch.png"><img loading="lazy" alt="-47.png" src="/images/notes/GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4-%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn_docker-gitlab-_-17173%E7%B3%BB%E7%BB%9F%E9%83%A8/47.png"></a></li>
+</ul>
+<h2 id="2-3-组件"><a title="2.3. 组件" class="headerlink" href="#2-3-组件"></a>2.3. 组件</h2><ul>
+<li>前端：Nginx，用于页面及Git tool走http或https协议</li>
+<li>后端：Gitlab服务，采用Ruby on Rails框架，通过unicorn实现后台服务及多进程</li>
+<li>SSHD：开启sshd服务，用于用户上传ssh key进行版本克隆及上传。注：用户上传的ssh key是保存到git账户中</li>
+<li>数据库：目前仅支持MySQL和PostgreSQL</li>
+<li>Redis：用于存储用户session和任务，任务包括新建仓库、发送邮件等等</li>
+<li>Sidekiq：Rails框架自带的，订阅redis中的任务并执行</li>
+</ul>
+<h1 id="3-GitLab安装部署"><a title="3. GitLab安装部署" class="headerlink" href="#3-GitLab安装部署"></a>3. GitLab安装部署</h1><h2 id="3-1-官方支持的方式"><a title="3.1. 官方支持的方式" class="headerlink" href="#3-1-官方支持的方式"></a>3.1. 官方支持的方式</h2><ul>
+<li>包含一切的RPM包：<a target="_blank" rel="noopener" href="https://about.gitlab.com/downloads/">https://about.gitlab.com/downloads/</a>（官方推荐）<pre><code>个人不推荐，因为RPM包容量太大，200多M，适合于Linux初学者，未尝试过
+</code></pre>
+</li>
+<li>手动安装：<a target="_blank" rel="noopener" href="https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/install/installation.md">https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/install/installation.md</a>（深入了解）<pre><code>可以最大程度了解GitLab的组件之间架构，但对于入门并不适合
+</code></pre>
+</li>
+<li>第三方docker镜像：<a target="_blank" rel="noopener" href="https://github.com/sameersbn/docker-gitlab">https://github.com/sameersbn/docker-gitlab</a>（笔者推荐）<pre><code>镜像可以快速实现部署并使用，适合于熟悉Docker的人使用，入门很快。而且使用Docker镜像就使用户不用过多了解内部细节，通过启动容器带上环境变量参数即可实现GitLab参数的配置
+</code></pre>
+</li>
+</ul>
+<h2 id="3-2-采用docker镜像安装GitLab"><a title="3.2. 采用docker镜像安装GitLab" class="headerlink" href="#3-2-采用docker镜像安装GitLab"></a>3.2. 采用docker镜像安装GitLab</h2><h3 id="3-2-1-简介"><a title="3.2.1. 简介" class="headerlink" href="#3-2-1-简介"></a>3.2.1. 简介</h3><ul>
+<li>官网：<a target="_blank" rel="noopener" href="https://github.com/sameersbn/docker-gitlab">https://github.com/sameersbn/docker-gitlab</a></li>
+<li>7.4.3之前版本，镜像里包含所有组件，7.4.3版本镜像里只包含核心组件：nginx、sshd、ruby on rails、sidekiq</li>
+</ul>
+<h3 id="3-2-2-架构图"><a title="3.2.2. 架构图" class="headerlink" href="#3-2-2-架构图"></a>3.2.2. 架构图</h3><p><a target="_blank" rel="noopener" href="http://17173ops.com/wp-content/uploads/2014/11/docker_gitlab_arch.png"><img loading="lazy" alt="-48.png" src="/images/notes/GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4-%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn_docker-gitlab-_-17173%E7%B3%BB%E7%BB%9F%E9%83%A8/48.png"></a></p>
+<h3 id="3-2-3-下载镜像"><a title="3.2.3. 下载镜像" class="headerlink" href="#3-2-3-下载镜像"></a>3.2.3. 下载镜像</h3><ul>
+<li>docker pull sameersbn/gitlab:7.4.3 # 下载gitlab镜像</li>
+<li>docker pull sameersbn/mysql:latest # 下载gitlab所用到的mysql镜像</li>
+<li>docker pull sameersbn/redis:latest # 下载gitlab所用到的redis镜像</li>
+</ul>
+<h3 id="3-2-4-安装"><a title="3.2.4. 安装" class="headerlink" href="#3-2-4-安装"></a>3.2.4. 安装</h3><h4 id="3-2-4-1-启动redis"><a title="3.2.4.1. 启动redis" class="headerlink" href="#3-2-4-1-启动redis"></a>3.2.4.1. 启动redis</h4><ul>
+<li>命令：<pre><code>docker run \
+    --name=gitlab_redis \
+    -tid \
+    sameersbn/redis:latest
+</code></pre>
+</li>
+</ul>
+<h4 id="3-2-4-2-启动mysql"><a title="3.2.4.2. 启动mysql" class="headerlink" href="#3-2-4-2-启动mysql"></a>3.2.4.2. 启动mysql</h4><ul>
+<li>mkdir -p /opt/gitlab/mysql</li>
+<li>命令：<pre><code>docker run \
+    --name=gitlab_mysql \
+    -tid \
+    -e 'DB_NAME=gitlabhq_production' \
+    -e 'DB_USER=gitlab' \
+    -e 'DB_PASS=password' \
+    -v /opt/gitlab/mysql:/var/lib/mysql \
+    sameersbn/mysql:latest
+</code></pre>
+</li>
+</ul>
+<h4 id="3-2-4-3-启动gitlab"><a title="3.2.4.3. 启动gitlab" class="headerlink" href="#3-2-4-3-启动gitlab"></a>3.2.4.3. 启动gitlab</h4><ul>
+<li>mkdir -p /opt/gitlab/data /opt/gitlab/log</li>
+<li>命令：<pre><code>docker run \
+    --name='gitlab' \
+    -itd \
+    --link gitlab_mysql:mysql \
+    --link gitlab_redis:redisio \
+    -e 'GITLAB_PORT=80' \
+    -e 'GITLAB_SSH_PORT=22' \
+    -e 'GITLAB_HOST=gitlab.example.com' \
+    -v /var/run/docker.sock:/run/docker.sock \
+    -v $(which docker):/bin/docker \
+    -v /opt/gitlab/data:/home/git/data \
+    -v /opt/gitlab/log:/var/log/gitlab \
+    sameersbn/gitlab:7.4.3
+上述是开启一个基本gitlab。
+完整（包含LDAP、EMAIL）：
+docker run \
+    --name='gitlab' \
+    -itd \
+    --link gitlab_mysql:mysql \
+    --link gitlab_redis:redisio \
+    -e 'GITLAB_PORT=80' \
+    -e 'GITLAB_SSH_PORT=22' \
+    -e 'LDAP_ENABLED=true' \
+    -e 'LDAP_HOST=192.168.1.1' \
+    -e 'LDAP_PORT=389' \
+    -e 'LDAP_UID=sAMAccountName' \
+    -e 'LDAP_METHOD=plain' \
+    -e 'LDAP_BIND_DN=test@example.com' \
+    -e 'LDAP_PASS=passwd' \
+    -e 'LDAP_BASE=OU=example_users,DC=example-family,DC=com' \
+    -e 'LDAP_ACTIVE_DIRECTORY=true' \
+    -e 'LDAP_ALLOW_USERNAME_OR_EMAIL_LOGIN=false' \
+    -e 'GITLAB_HOST=gitlab.example.com' \
+    -e 'SMTP_ENABLED=true' \
+    -e 'SMTP_DOMAIN=example.com' \
+    -e 'SMTP_HOST=192.168.1.2' \
+    -e 'SMTP_PORT=25' \
+    -e 'SMTP_STARTTLS=false' \
+    -v /var/run/docker.sock:/run/docker.sock \
+    -v $(which docker):/bin/docker \
+    -v /opt/gitlab/data:/home/git/data \
+    -v /opt/gitlab/log:/var/log/gitlab \
+    sameersbn/gitlab:7.4.3
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>这一步骤会耗时几分钟，因为这一步会做一些初始化操作，例如导入数据表结构等。可以通过docker logs gitlab来查看安装过程。同理，mysql、redis容器也可以通过docker logs gitlab_mysql和docker logs gitlab_redis来查看启动信息。</p>
+</blockquote>
+<blockquote>
+<p>注意：上面创建的3个容器必须位于同一台宿主上，因为–link gitlab_mysql:mysql –link gitlab_redis:redisio就是将同个宿主上的容器做链接</p>
+</blockquote>
+<ul>
+<li>当然，redis和mysql也支持使用ip+端口，不用–link，带上环境变量即可，方法是：<pre><code>完整：
+docker run \
+    --name='gitlab' \
+    -itd \
+    --net=none \
+    --hostname='gitlab.example.com' \
+    -e 'DB_TYPE=mysql' \
+    -e 'DB_HOST=192.168.3.1' \
+    -e 'DB_PORT=3356' \
+    -e 'DB_NAME=gitlabhq_production' \
+    -e 'DB_USER=gitlab' \
+    -e 'DB_PASS=passwd' \
+    -e 'REDIS_HOST=192.168.3.2' \
+    -e 'REDIS_PORT=6402' \
+    -e 'UNICORN_WORKERS=20' \
+    -e 'GITLAB_PORT=80' \
+    -e 'GITLAB_SSH_PORT=22' \
+    -e 'LDAP_ENABLED=true' \
+    -e 'LDAP_HOST=192.168.3.3' \
+    -e 'LDAP_PORT=389' \
+    -e 'LDAP_UID=sAMAccountName' \
+    -e 'LDAP_METHOD=plain' \
+    -e 'LDAP_BIND_DN=test@example.com' \
+    -e 'LDAP_PASS=passwd' \
+    -e 'LDAP_BASE=OU=example_users,DC=example-family,DC=com' \
+    -e 'LDAP_ACTIVE_DIRECTORY=true' \
+    -e 'LDAP_ALLOW_USERNAME_OR_EMAIL_LOGIN=false' \
+    -e 'GITLAB_HOST=gitlab.example.com' \
+    -e 'SMTP_ENABLED=true' \
+    -e 'SMTP_DOMAIN=example.com' \
+    -e 'SMTP_HOST=192.168.3.4' \
+    -e 'SMTP_PORT=25' \
+    -e 'SMTP_STARTTLS=false' \
+    -v /var/run/docker.sock:/run/docker.sock \
+    -v $(which docker):/bin/docker \
+    -v /opt/gitlab/data:/home/git/data \
+    -v /opt/gitlab/log:/var/log/gitlab \
+    sameersbn/gitlab:7.4.3
+sameersbn/gitlab:7.4.3不支持redis的任何验证，只能无密码使用
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>目前发现sameersbn/gitlab:7.4.3有一个非常坑的地方：容器启动可能连不上数据库，是因为容器启动时会探测数据库是否可用，而探测的方法是mysqladmin连接DB_HOST的3306端口，而不是DB_PORT指定的端口，已提交issue给作者。</p>
+</blockquote>
+<h4 id="3-2-4-4-给gitlab容器配置IP"><a title="3.2.4.4. 给gitlab容器配置IP" class="headerlink" href="#3-2-4-4-给gitlab容器配置IP"></a>3.2.4.4. 给gitlab容器配置IP</h4><ul>
+<li>pipework br1 gitlab 192.168.1.1/<a href="mailto:24@192.168.1.254">24@192.168.1.254</a></li>
+</ul>
+<blockquote>
+<p>在gitlab容器启动（docker run）时可以加上-p参数来将容器里的端口映射到宿主上，但个人比较倾向给容器配置一个独立IP，因此上述命令没有采用-p来做端口映射，但是-e ‘GITLAB_PORT=80’ -e ‘GITLAB_SSH_PORT=22’ -e ‘GITLAB_HOST=gitlab.example.com’依然要指定，否则gitlab无法使用</p>
+</blockquote>
+<h4 id="3-2-4-5-安装已完成，可以打开页面"><a title="3.2.4.5. 安装已完成，可以打开页面" class="headerlink" href="#3-2-4-5-安装已完成，可以打开页面"></a>3.2.4.5. 安装已完成，可以打开页面</h4><ul>
+<li>url: gitlab.example.com<pre><code>账户：root
+密码：5iveL!fe
+</code></pre>
+</li>
+<li>效果：<a target="_blank" rel="noopener" href="http://17173ops.com/wp-content/uploads/2014/11/gitlab_example.jpg"><img loading="lazy" alt="-28.jpg" src="/images/notes/GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4-%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn_docker-gitlab-_-17173%E7%B3%BB%E7%BB%9F%E9%83%A8/28.jpg"></a></li>
+</ul>
+<h4 id="3-2-4-6-加入开机启动"><a title="3.2.4.6. 加入开机启动" class="headerlink" href="#3-2-4-6-加入开机启动"></a>3.2.4.6. 加入开机启动</h4><ul>
+<li>加入/etc/rc.local<pre><code>echo 'docker start gitlab_redis' &gt;&gt; /etc/rc.local
+echo 'docker start gitlab_mysql' &gt;&gt; /etc/rc.local
+echo 'docker start gitlab' &gt;&gt; /etc/rc.local
+echo 'pipework br1 gitlab 192.168.1.1/24@192.168.1.254' &gt;&gt; /etc/rc.local
+</code></pre>
+</li>
+</ul>
+<h1 id="4-GitLab-API-wrappers"><a title="4. GitLab API wrappers" class="headerlink" href="#4-GitLab-API-wrappers"></a>4. GitLab API wrappers</h1><ul>
+<li>官方推荐：<a target="_blank" rel="noopener" href="https://about.gitlab.com/applications/">https://about.gitlab.com/applications/</a></li>
+<li>python：pyapi-gitlab<pre><code>基本使用：
+pip install pyapi-gitlab
+import gitlab
+git = gitlab.Gitlab("http://gitlab.example.com", token="EHBLkwhr_WYzn-sXNnNs")		# token即在页面上Profile settings-&gt;Account里能看到自动生成好的Private token
+git.getusers()
+</code></pre>
+</li>
+<li>顺便推荐个Git本身的python api模块：<a target="_blank" rel="noopener" href="https://github.com/FriendCode/gittle">https://github.com/FriendCode/gittle</a></li>
+</ul>
+<blockquote>
+<p>其他很多git库的实现都太底层了，和linux的git命令完全不一样，一点也不友好。但目前发现这个模块上传下载代码只支持SSH，不支持HTTP，因此我还是更喜欢使用linux git命令</p>
+</blockquote>
+<h1 id="5-GitLab使用的FAQ"><a title="5. GitLab使用的FAQ" class="headerlink" href="#5-GitLab使用的FAQ"></a>5. GitLab使用的FAQ</h1><h2 id="5-1-git代码发布支持2种方法：ssh和http-s"><a title="5.1. git代码发布支持2种方法：ssh和http(s)" class="headerlink" href="#5-1-git代码发布支持2种方法：ssh和http-s"></a>5.1. git代码发布支持2种方法：ssh和http(s)</h2><ul>
+<li>ssh：必须添加ssh key才能发布</li>
+<li>http：使用用户名、密码，若接入了LDAP，就是LDAP中的账户密码</li>
+<li>https：暂未测试过</li>
+</ul>
+<h2 id="5-2-限制git上传的单个文件大小"><a title="5.2. 限制git上传的单个文件大小" class="headerlink" href="#5-2-限制git上传的单个文件大小"></a>5.2. 限制git上传的单个文件大小</h2><ul>
+<li>若gitlab是通过sameersbn/gitlab:7.4.3镜像创建的，那么可以通过环境变量NGINX_MAX_UPLOAD_SIZE进行限制</li>
+</ul>
+<h2 id="5-3-通过API进行一些操作例如创建Project，得到成功的响应，但却没有立即生效，过了几秒才生效"><a title="5.3. 通过API进行一些操作例如创建Project，得到成功的响应，但却没有立即生效，过了几秒才生效" class="headerlink" href="#5-3-通过API进行一些操作例如创建Project，得到成功的响应，但却没有立即生效，过了几秒才生效"></a>5.3. 通过API进行一些操作例如创建Project，得到成功的响应，但却没有立即生效，过了几秒才生效</h2><ul>
+<li>由于GitLab为异步架构，Ruby on Rails收到创建Project请求后将该任务推送到Redis中，但是没有等待执行完毕，而是直接返回成功。后台Sidekiq从Redis订阅任务并实时执行，但由于执行需要时间，而API返回很快，因此会造成这种情况发生。目前没有其他解决办法，只能在自己程序逻辑里sleep几秒进行重试</li>
+</ul>
+<h2 id="5-4-页面上”Profile-settings-gt-SSH-Keys”与”Project-Settings里Deploy-Keys”的区别"><a title="5.4. 页面上”Profile settings->SSH Keys”与”Project Settings里Deploy Keys”的区别" class="headerlink" href="#5-4-页面上”Profile-settings-gt-SSH-Keys”与”Project-Settings里Deploy-Keys”的区别"></a>5.4. 页面上”Profile settings-&gt;SSH Keys”与”Project Settings里Deploy Keys”的区别</h2><ul>
+<li>Profile settings-&gt;SSH Keys：是用户全局的Key，具有对该用户所有项目仓库进行上传下载（push、clone）的权限</li>
+<li>Project Settings里Deploy Keys：针对某个项目，具有下载（clone）的权限，而不具备上传（push）的权限</li>
+</ul>
+<h2 id="5-5-gitlab默认时区是UTC"><a title="5.5. gitlab默认时区是UTC" class="headerlink" href="#5-5-gitlab默认时区是UTC"></a>5.5. gitlab默认时区是UTC</h2><ul>
+<li>sameersbn/gitlab:7.4.3镜像无法对时区进行修改，若是手动安装的gitlab，可以通过修改一个.rb文件来生效，具体没有测试过，有需要的可以自行百度搜下。</li>
+</ul>
+<blockquote>
+<p>时区是UTC主要影响的是数据库里关于时间字段的值（created_at、updated_at等），对用户git仓库是不影响的，因为git仓库的创建、代码更新都是用户通过git工具自行操作，因此是用户自己的时区。</p>
+</blockquote>
+<h1 id="6-GitLab维护"><a title="6. GitLab维护" class="headerlink" href="#6-GitLab维护"></a>6. GitLab维护</h1><h2 id="6-1-数据路径、日志路径"><a title="6.1. 数据路径、日志路径" class="headerlink" href="#6-1-数据路径、日志路径"></a>6.1. 数据路径、日志路径</h2><ul>
+<li>由于gitlab容器在启动时已将宿主/opt/gitlab/data、/opt/gitlab/log目录挂载到容器里，因此可以在宿主上进入这2个目录中查看，另外可以通过docker logs查看。</li>
+</ul>
+<h2 id="6-2-高可用"><a title="6.2. 高可用" class="headerlink" href="#6-2-高可用"></a>6.2. 高可用</h2><ul>
+<li>官方有篇关于GitLab高可用的文章：<a target="_blank" rel="noopener" href="https://about.gitlab.com/high-availability/">https://about.gitlab.com/high-availability/</a><pre><code>有1/3都在讲述高可用的利弊以及不同程度的高可用带来的收益及可能引发的更多问题，说的挺有道理的。由于笔者也才刚开始使用GitLab，因此暂不测试多机load balance或failover。
+</code></pre>
+</li>
+<li>2种备份恢复方式<pre><code>1. 备份配置、仓库、数据库。
+2. 给文件系统做快照。
+官方认为第二种方法比起第一种更快，因为可以省去人为介入restore的麻烦
+XFS文件系统支持快照
+有2篇文章可以拜读下：
+http://www.icicletech.com/blog/gitlab-backup-made-easy 数据库数据备份到本地
+http://doc.gitlab.com/ce/raketasks/backup_restore.html 官方的，和上述其实一样
+</code></pre>
+</li>
+<li>我的备份方案：<pre><code>一. 简介：每天固定时间备份数据（仅备份MySQL和GitLab仓库重要文件，其他不备份）。若数据丢失，需要恢复，则将最近备份的数据用来恢复，会将所有数据，包括本地文件（仓库等文件）、数据库一同还原回备份时刻。
+二. 具体操作：
+    1. 备份：
+docker run \
+    --name='gitlab_backup' \
+    -it \
+    --rm \
+    --link gitlab_mysql:mysql \
+    --link gitlab_redis:redisio \
+    -v /var/run/docker.sock:/run/docker.sock \
+    -v $(which docker):/bin/docker \
+    -v /opt/gitlab/data:/home/git/data \
+    -v /opt/gitlab/log:/var/log/gitlab \
+    sameersbn/gitlab:7.4.3 app:rake gitlab:backup:create
+       过程能在屏幕上看到，备份会自动打成tar包放入/opt/gitlab/data/backups里。可以自行对该tar包做压缩，例如gzip 时间戳_gitlab_backup.tar。
+       若$?=0表示备份成功，然后将生成的文件使用gzip压缩为.tar.gz，然后rsync推到存储上
+       通过rsync命令传到一台备份存储上
+    2. 恢复：
+docker run \
+    --name='gitlab_restore' \
+    -it \
+    --rm \
+    --link gitlab_mysql:mysql \
+    --link gitlab_redis:redisio \
+    -v /var/run/docker.sock:/run/docker.sock \
+    -v $(which docker):/bin/docker \
+    -v /opt/gitlab/data:/home/git/data \
+    -v /opt/gitlab/log:/var/log/gitlab \
+    sameersbn/gitlab:7.4.3 app:rake gitlab:backup:restore
+       屏幕上会将/opt/gitlab/data/backups中的所有文件和目录列出来，复制粘贴要恢复的tar包文件名，敲入回车即开始恢复。
+       注意：恢复时会将当前数据库中的所有表先删掉再导入备份tar包的里sql文件，因此此步要小心。
+       若redis、mysql是使用环境变量带入gitlab容器的，备份和恢复命令也类似，将启动gitlab的命令复制过来，修改下--name，添加一个--rm，CMD改为gitlab:backup:create或gitlab:backup:restore即可
+三. 注意：
+    1. 用户配置的key（即data/.ssh）是保存在数据库里，在gitlab服务启动时候会从数据库里加载并导入到.ssh里，被gitlab-shell管理
+    2. 由于ssh目录（保存着服务器sshd服务启动时自己生成的ssh_key）不备份，因此还原时候若这个目录里有文件，则不去重新生成ssh_key，若不存在，则重新生成。若重新生成，用户使用ssh协议进行git push，会报错告知不合法的认证
+    3. 备份只会备份3个目录：repositories、db、uploads，然后会额外生成一个backup_information.yml文件
+    4. gitlab-satellites和tmp都是临时目录，因此不参与备份
+    5. docker run --rm不会影响容器退出状态的输出
+    6. 还原时候会将数据库里的表先DROP表再创建，因为sql文件在INSERT之前会drop table if exists
+    7. 还原时候，若存在要恢复的目录，则会将原来的目录mv成.old.时间戳
+</code></pre>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">版本控制</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/docker/">docker</a><a href="/tags/yinxiang/">yinxiang</a><a href="/tags/gitlab/">gitlab</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4%EF%BC%88%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn_docker-gitlab%EF%BC%89%20_%2017173%E7%B3%BB%E7%BB%9F%E9%83%A8/" data-title="GitLab搭建与维护（基于docker镜像sameersbn/docker-gitlab） | 17173系统部 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/GCD（Grand Central Dispatch）和Block 使用-浅析/" title="GCD（Grand Central Dispatch）和Block 使用-浅析">
+  <strong>上一篇：</strong><br/>
+  <span>
+  GCD（Grand Central Dispatch）和Block 使用-浅析</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/Git_ Delete a branch _local or remote_ - makandra dev/"  title="Git: Delete a branch (local or remote) - makandra dev">
+ <strong>下一篇：</strong><br/> 
+ <span>Git: Delete a branch (local or remote) - makandra dev
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/GitLab搭建与维护（基于docker镜像sameersbn_docker-gitlab） _ 17173系统部/" data-title="GitLab搭建与维护（基于docker镜像sameersbn/docker-gitlab） | 17173系统部" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4%EF%BC%88%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn_docker-gitlab%EF%BC%89%20_%2017173%E7%B3%BB%E7%BB%9F%E9%83%A8/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#GitLab%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4%EF%BC%88%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8Fsameersbn-x2F-docker-gitlab%EF%BC%89-17173%E7%B3%BB%E7%BB%9F%E9%83%A8"><span class="toc-number">1.</span> <span class="toc-text">GitLab搭建与维护（基于docker镜像sameersbn&#x2F;docker-gitlab） | 17173系统部</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E9%98%85%E8%AF%BB%E6%9C%AC%E6%96%87%E5%9F%BA%E7%A1%80"><span class="toc-number">2.</span> <span class="toc-text">1. 阅读本文基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-GitLab%E7%AE%80%E4%BB%8B"><span class="toc-number">3.</span> <span class="toc-text">2. GitLab简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%A6%82%E8%BF%B0"><span class="toc-number">3.1.</span> <span class="toc-text">2.1. 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">2.2. 架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E7%BB%84%E4%BB%B6"><span class="toc-number">3.3.</span> <span class="toc-text">2.3. 组件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-GitLab%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="toc-number">4.</span> <span class="toc-text">3. GitLab安装部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%AE%98%E6%96%B9%E6%94%AF%E6%8C%81%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">4.1.</span> <span class="toc-text">3.1. 官方支持的方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E9%87%87%E7%94%A8docker%E9%95%9C%E5%83%8F%E5%AE%89%E8%A3%85GitLab"><span class="toc-number">4.2.</span> <span class="toc-text">3.2. 采用docker镜像安装GitLab</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-%E7%AE%80%E4%BB%8B"><span class="toc-number">4.2.1.</span> <span class="toc-text">3.2.1. 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-%E6%9E%B6%E6%9E%84%E5%9B%BE"><span class="toc-number">4.2.2.</span> <span class="toc-text">3.2.2. 架构图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F"><span class="toc-number">4.2.3.</span> <span class="toc-text">3.2.3. 下载镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-4-%E5%AE%89%E8%A3%85"><span class="toc-number">4.2.4.</span> <span class="toc-text">3.2.4. 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-1-%E5%90%AF%E5%8A%A8redis"><span class="toc-number">4.2.4.1.</span> <span class="toc-text">3.2.4.1. 启动redis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-2-%E5%90%AF%E5%8A%A8mysql"><span class="toc-number">4.2.4.2.</span> <span class="toc-text">3.2.4.2. 启动mysql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-3-%E5%90%AF%E5%8A%A8gitlab"><span class="toc-number">4.2.4.3.</span> <span class="toc-text">3.2.4.3. 启动gitlab</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-4-%E7%BB%99gitlab%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AEIP"><span class="toc-number">4.2.4.4.</span> <span class="toc-text">3.2.4.4. 给gitlab容器配置IP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-5-%E5%AE%89%E8%A3%85%E5%B7%B2%E5%AE%8C%E6%88%90%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%89%93%E5%BC%80%E9%A1%B5%E9%9D%A2"><span class="toc-number">4.2.4.5.</span> <span class="toc-text">3.2.4.5. 安装已完成，可以打开页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-6-%E5%8A%A0%E5%85%A5%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8"><span class="toc-number">4.2.4.6.</span> <span class="toc-text">3.2.4.6. 加入开机启动</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-GitLab-API-wrappers"><span class="toc-number">5.</span> <span class="toc-text">4. GitLab API wrappers</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-GitLab%E4%BD%BF%E7%94%A8%E7%9A%84FAQ"><span class="toc-number">6.</span> <span class="toc-text">5. GitLab使用的FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-git%E4%BB%A3%E7%A0%81%E5%8F%91%E5%B8%83%E6%94%AF%E6%8C%812%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9Assh%E5%92%8Chttp-s"><span class="toc-number">6.1.</span> <span class="toc-text">5.1. git代码发布支持2种方法：ssh和http(s)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E9%99%90%E5%88%B6git%E4%B8%8A%E4%BC%A0%E7%9A%84%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F"><span class="toc-number">6.2.</span> <span class="toc-text">5.2. 限制git上传的单个文件大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E9%80%9A%E8%BF%87API%E8%BF%9B%E8%A1%8C%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C%E4%BE%8B%E5%A6%82%E5%88%9B%E5%BB%BAProject%EF%BC%8C%E5%BE%97%E5%88%B0%E6%88%90%E5%8A%9F%E7%9A%84%E5%93%8D%E5%BA%94%EF%BC%8C%E4%BD%86%E5%8D%B4%E6%B2%A1%E6%9C%89%E7%AB%8B%E5%8D%B3%E7%94%9F%E6%95%88%EF%BC%8C%E8%BF%87%E4%BA%86%E5%87%A0%E7%A7%92%E6%89%8D%E7%94%9F%E6%95%88"><span class="toc-number">6.3.</span> <span class="toc-text">5.3. 通过API进行一些操作例如创建Project，得到成功的响应，但却没有立即生效，过了几秒才生效</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%E9%A1%B5%E9%9D%A2%E4%B8%8A%E2%80%9DProfile-settings-gt-SSH-Keys%E2%80%9D%E4%B8%8E%E2%80%9DProject-Settings%E9%87%8CDeploy-Keys%E2%80%9D%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">6.4.</span> <span class="toc-text">5.4. 页面上”Profile settings-&gt;SSH Keys”与”Project Settings里Deploy Keys”的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-gitlab%E9%BB%98%E8%AE%A4%E6%97%B6%E5%8C%BA%E6%98%AFUTC"><span class="toc-number">6.5.</span> <span class="toc-text">5.5. gitlab默认时区是UTC</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-GitLab%E7%BB%B4%E6%8A%A4"><span class="toc-number">7.</span> <span class="toc-text">6. GitLab维护</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E6%95%B0%E6%8D%AE%E8%B7%AF%E5%BE%84%E3%80%81%E6%97%A5%E5%BF%97%E8%B7%AF%E5%BE%84"><span class="toc-number">7.1.</span> <span class="toc-text">6.1. 数据路径、日志路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="toc-number">7.2.</span> <span class="toc-text">6.2. 高可用</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

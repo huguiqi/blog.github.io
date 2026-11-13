@@ -1,0 +1,979 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>10个常见的Node.js面试题 - WEB开发者 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="10个常见的Node.js面试题 - WEB开发者nodejs 面试题 10个常见的Node.js面试题��　　如果你希望找一份有关Node.js的工作，但又不知道从哪里入手评测自己对Node.js的掌握程度。 本文就为你罗列了10个常见的Node.js面试题，分别考察了Node.js编程相关的几个主要方面。 　　在进入正文之前，需要提前声明两点：  这些问题只是Node.js知识体系的一个局部，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10个常见的Node.js面试题 - WEB开发者">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98%20-%20WEB%E5%BC%80%E5%8F%91%E8%80%85/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="10个常见的Node.js面试题 - WEB开发者nodejs 面试题 10个常见的Node.js面试题��　　如果你希望找一份有关Node.js的工作，但又不知道从哪里入手评测自己对Node.js的掌握程度。 本文就为你罗列了10个常见的Node.js面试题，分别考察了Node.js编程相关的几个主要方面。 　　在进入正文之前，需要提前声明两点：  这些问题只是Node.js知识体系的一个局部，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98-WEB%E5%BC%80%E5%8F%91%E8%80%85/5.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98-WEB%E5%BC%80%E5%8F%91%E8%80%85/6.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98-WEB%E5%BC%80%E5%8F%91%E8%80%85/7.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98-WEB%E5%BC%80%E5%8F%91%E8%80%85/8.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-04-20T03:13:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="nodejs">
+<meta property="article:tag" content="面试题">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98-WEB%E5%BC%80%E5%8F%91%E8%80%85/5.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/10个常见的Node.js面试题 - WEB开发者/" title="10个常见的Node.js面试题 - WEB开发者" itemprop="url">10个常见的Node.js面试题 - WEB开发者</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node-js%E9%9D%A2%E8%AF%95%E9%A2%98-WEB%E5%BC%80%E5%8F%91%E8%80%85"><span class="toc-number">1.</span> <span class="toc-text">10个常见的Node.js面试题 - WEB开发者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-js%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%97%E8%A1%A8"><span class="toc-number">1.1.</span> <span class="toc-text">Node.js面试题列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%94%99%E8%AF%AF%E4%BC%98%E5%85%88%E7%9A%84%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">什么是错误优先的回调函数？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1"><span class="toc-number">1.1.2.</span> <span class="toc-text">如何避免回调地狱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%94%A8Node%E7%9B%91%E5%90%AC80%E7%AB%AF%E5%8F%A3"><span class="toc-number">1.1.3.</span> <span class="toc-text">如何用Node监听80端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.1.4.</span> <span class="toc-text">什么是事件循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%AA%E4%BA%9B%E5%B7%A5%E5%85%B7%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E4%BF%9D%E8%AF%81%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC"><span class="toc-number">1.1.5.</span> <span class="toc-text">哪些工具可以用来保证一致性的代码风格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E9%94%99%E8%AF%AF%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E9%94%99%E8%AF%AF%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.6.</span> <span class="toc-text">运算错误与程序员错误的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8NPM%E6%9C%89%E5%93%AA%E4%BA%9B%E5%A5%BD%E5%A4%84%EF%BC%9F"><span class="toc-number">1.1.7.</span> <span class="toc-text">使用NPM有哪些好处？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFStub%EF%BC%9F%E4%B8%BE%E4%B8%AA%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.1.8.</span> <span class="toc-text">什么是Stub？举个使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B5%8B%E8%AF%95%E9%87%91%E5%AD%97%E5%A1%94%EF%BC%9F"><span class="toc-number">1.1.9.</span> <span class="toc-text">什么是测试金字塔？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%A0%E6%9C%80%E5%96%9C%E6%AC%A2%E7%9A%84HTTP%E6%A1%86%E6%9E%B6%E4%BB%A5%E5%8F%8A%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.1.10.</span> <span class="toc-text">你最喜欢的HTTP框架以及原因</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="10个常见的Node-js面试题-WEB开发者"><a title="10个常见的Node.js面试题 - WEB开发者" class="headerlink" href="#10个常见的Node-js面试题-WEB开发者"></a>10个常见的Node.js面试题 - WEB开发者</h1><p><code>nodejs</code> <code>面试题</code></p>
+<p><strong>10个常见的Node.js面试题�</strong>�<br>　　如果你希望找一份有关Node.js的工作，但又不知道从哪里入手评测自己对Node.js的掌握程度。 本文就为你罗列了10个常见的Node.js面试题，分别考察了Node.js编程相关的几个主要方面。</p>
+<p>　　在进入正文之前，需要提前声明两点：</p>
+<ol>
+<li>这些问题只是Node.js知识体系的一个局部，并不能完全考察被面试者的实际开发能力。</li>
+<li>对现实世界开发中遇到的问题，需要的是随机应变与团队合作，所以你可以尝试结对编程。</li>
+</ol>
+<h2 id="Node-js面试题列表"><a title="Node.js面试题列表" class="headerlink" href="#Node-js面试题列表"></a>Node.js面试题列表</h2><ul>
+<li>什么是错误优先的回调函数？</li>
+<li>如何避免回调地狱？</li>
+<li>如何用Node来监听80端口？</li>
+<li>什么是事件循环？</li>
+<li>哪些工具可以用来保证一致的编程风格？</li>
+<li>运算错误与程序员错误的区别？</li>
+<li>使用NPM有哪些好处？</li>
+<li>什么是stub？举个使用场景？</li>
+<li>什么是测试金字塔？对于HTTP API，如何利用测试金字塔？</li>
+<li>你最喜欢的HTTP框架，并说明原因？</li>
+</ul>
+<p>　　现在，我们依次来解答这些问题吧。</p>
+<h3 id="什么是错误优先的回调函数？"><a title="什么是错误优先的回调函数？" class="headerlink" href="#什么是错误优先的回调函数？"></a>什么是错误优先的回调函数？</h3><p>　　错误优先的回调函数用于传递错误和数据。第一个参数始终应该是一个错误对象， 用于检查程序是否发生了错误。其余的参数用于传递数据。例如：</p>
+<pre><code>fs.readFile(filePath, function(err, data) &#123;  
+        if (err) &#123;
+                //handle the error
+        &#125;
+        // use the data object
+&#125;);
+</code></pre>
+<p>　　解析：这个题目的主要作用在于检查被面试者对于Node中异步操作的一些基本知识的掌握。</p>
+<h3 id="如何避免回调地狱"><a title="如何避免回调地狱" class="headerlink" href="#如何避免回调地狱"></a>如何避免回调地狱</h3><p>　　你可以有如下几个方法：</p>
+<ul>
+<li>模块化：将回调函数分割为独立的函数</li>
+<li>使用Promises</li>
+<li>使用yield来计算生成器或Promise</li>
+</ul>
+<p>　　解析：这个问题有很多种答案，取决你使用的场景，例如ES6, ES7，或者一些控制流库。</p>
+<h3 id="如何用Node监听80端口"><a title="如何用Node监听80端口" class="headerlink" href="#如何用Node监听80端口"></a>如何用Node监听80端口</h3><p>　　这题有陷阱！在类Unix系统中你不应该尝试去监听80端口，因为这需要超级用户权限。 因此不推荐让你的应用直接监听这个端口。</p>
+<p>　　目前，如果你一定要让你的应用监听80端口的话，你可以有通过在Node应用的前方再增加一层反向代理 （例如<a target="_blank" rel="noopener" href="http://nginx.org/">nginx</a>）来实现，如下图所示。否则，建议你直接监听大于1024的端口。</p>
+<p><img loading="lazy" alt="-5.png" src="/images/notes/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98-WEB%E5%BC%80%E5%8F%91%E8%80%85/5.png"></p>
+<blockquote>
+<p>方向代理指的是以代理服务器来接收Internet上的连接请求，然后将请求转发给内部网络上的服务器， 并且将服务器返回的结果发送给客户端。</p>
+</blockquote>
+<p>　　关于反向代理的更多内容，建议你阅读<a target="_blank" rel="noopener" href="http://www.cnblogs.com/edisonchou/p/4126742.html">这篇文�</a>�。</p>
+<p>　　解释：这个问题用于检查被面试者是否有实际运行Node应用的经验。</p>
+<h3 id="什么是事件循环"><a title="什么是事件循环" class="headerlink" href="#什么是事件循环"></a>什么是事件循环</h3><p>　　Node采用的是单线程的处理机制（所有的I/O请求都采用非阻塞的工作方式），至少从Node.js开发者的角度是这样的。 而在底层，Node.js借助<a target="_blank" rel="noopener" href="https://github.com/libuv/libuv">libuv</a>来作为抽象封装层， 从而屏蔽不同操作系统的差异，Node可以借助livuv来来实现多线程。下图表示了Node和libuv的关系。</p>
+<p><img loading="lazy" alt="-6.png" src="/images/notes/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98-WEB%E5%BC%80%E5%8F%91%E8%80%85/6.png"></p>
+<p>　　Libuv库负责Node API的执行。它将不同的任务分配给不同的线程，形成一个事件循环， 以异步的方式将任务的执行结果返回给V8引擎。可以简单用下面这张图来表示。</p>
+<p><img loading="lazy" alt="-7.png" src="/images/notes/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98-WEB%E5%BC%80%E5%8F%91%E8%80%85/7.png"></p>
+<p>　　每一个I/O都需要一个回调函数——一旦执行完便推到事件循环上用于执行。 如果你需要更多详细的解释，可以参考<a target="_blank" rel="noopener" href="https://www.youtube.com/embed/8aGhZQkoFbQ">这个视频</a>。 你也可以参考<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html">这篇文�</a>�。</p>
+<p>　　解释：这用于检查Node.js的底层知识，例如什么是libuv，它的作用是什么。</p>
+<h3 id="哪些工具可以用来保证一致性的代码风格"><a title="哪些工具可以用来保证一致性的代码风格" class="headerlink" href="#哪些工具可以用来保证一致性的代码风格"></a>哪些工具可以用来保证一致性的代码风格</h3><p>　　你可以选择如下的工具：</p>
+<p>　　在团队开发中，这些工具对于编写代码非常的有帮助，能够帮助团队开发者强制执行规定的风格指南， 还能够通过静态分析捕获常见的错误。</p>
+<p>　　解析：用于检查被面试者是否有大型项目开发经验。</p>
+<h3 id="运算错误与程序员错误的区别"><a title="运算错误与程序员错误的区别" class="headerlink" href="#运算错误与程序员错误的区别"></a>运算错误与程序员错误的区别</h3><p>　　运算错误并不是bug，这是和系统相关的问题，例如请求超时或者硬件故障。而程序员错误就是所谓的bug。</p>
+<p>　　解析：这个题目和Node关系并不大，用于考察面试者的基础知识。</p>
+<h3 id="使用NPM有哪些好处？"><a title="使用NPM有哪些好处？" class="headerlink" href="#使用NPM有哪些好处？"></a>使用NPM有哪些好处？</h3><p>　　通过NPM，你可以安装和管理项目的依赖，并且能够指明依赖项的具体版本号。 对于Node应用开发而言，你可以通过package.json文件来管理项目信息，配置脚本， 以及指明项目依赖的具体版本。</p>
+<p>　　关于NPM的更多信息，你可以参考<a target="_blank" rel="noopener" href="https://docs.npmjs.com/files/package.json">官方文档</a>。</p>
+<p>　　解析：它能考察面试者使用npm命令的基础知识和Node.js开发的实际经验。</p>
+<h3 id="什么是Stub？举个使用场景"><a title="什么是Stub？举个使用场景" class="headerlink" href="#什么是Stub？举个使用场景"></a>什么是Stub？举个使用场景</h3><p>　　Stub是用于模拟一个组件或模块的函数或程序。在测试用例中， 简单的说，你可以用Stub去模拟一个方法，从而避免调用真实的方法， 使用Stub你还可以返回虚构的结果。你可以配合断言使用Stub。</p>
+<p>　　举个例子，在一个读取文件的场景中，当你不想读取一个真正的文件时：</p>
+<pre><code>var fs = require('fs');
+
+var readFileStub = sinon.stub(fs, 'readFile', function (path, cb) &#123;  
+        return cb(null, 'filecontent');
+&#125;);
+
+expect(readFileStub).to.be.called;  
+readFileStub.restore(); 
+</code></pre>
+<blockquote>
+<p>在单元测试中：Stub是完全模拟一个外部依赖，而Mock常用来判断测试通过还是失败。</p>
+</blockquote>
+<p>　　有关Node.js的单元测试小结，你可以参考<a target="_blank" rel="noopener" href="http://segmentfault.com/a/1190000002921481">这个链接</a>。</p>
+<p>　　解析：用于测试被面试者是否有测试的经验。如果被面试者知道什么是Stub， 那么可以继续问他是如何做单元测试的。</p>
+<h3 id="什么是测试金字塔？"><a title="什么是测试金字塔？" class="headerlink" href="#什么是测试金字塔？"></a>什么是测试金字塔？</h3><p>　　<a target="_blank" rel="noopener" href="http://zyzhang.github.io/blog/2013/04/28/test-pyramid/">测试金字塔</a>指的是： 当我们在编写测试用例时，底层的单元测试应该远比上层的端到端测试要多。</p>
+<p><img loading="lazy" alt="-8.png" src="/images/notes/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98-WEB%E5%BC%80%E5%8F%91%E8%80%85/8.png"></p>
+<p>　　当我们谈到HTTP API时，我们可能会涉及到：</p>
+<ul>
+<li>有很多针对模型的底层单元测试</li>
+<li>但你需要测试模型间如何交互时，需要减少集成测试</li>
+</ul>
+<p>　　解析：本文主要考察被面试者的在测试方面的经验。</p>
+<h3 id="你最喜欢的HTTP框架以及原因"><a title="你最喜欢的HTTP框架以及原因" class="headerlink" href="#你最喜欢的HTTP框架以及原因"></a>你最喜欢的HTTP框架以及原因</h3><p>　　这题没有唯一的答案。本题主要考察被面试者对于他所使用的Node框架的理解程度， 考察他是否能够给出选择该框架的理由，优缺点等。常用的HTTP框架你可以参考<a target="_blank" rel="noopener" href="http://nodeframework.com/index.html">这个网站</a>。</p>
+<ol>
+<li>高级点的<ul>
+<li>对mysql，mongodb，redis，服务器，运维知识要达到什么程度？</li>
+</ul>
+</li>
+<li>要到一个 后端工程师都有的程度吧, 这就相当于 js要求高 + mysql，mongodb，redis，服务器，运维</li>
+<li>ES6有哪些新特性</li>
+<li>javascript高级话题(面向对象，作用域，闭包，设计模式等)</li>
+<li>js里边的this指的是什么?</li>
+<li>css2与css3的区别，增加了哪些新特性？</li>
+<li>apply, call和bind有什么区别?</li>
+<li>caller, callee和arguments分别是什么?</li>
+<li>什么是闭包，闭包有哪些用处?</li>
+<li><ol>
+<li>Html5有哪些比较实用新功能</li>
+</ol>
+</li>
+<li>参考答案: File API支持本地文件操作; Canvans/SVG支持绘图; 拖拽功能支持; 本地存储支持; 表单多属性验证支持; 原生音频视频支持等</li>
+<li>怎样调试node程序?</li>
+<li>什么是Stream?什么时候用？是否遇到过问题？</li>
+<li>怎么读取json配置文件</li>
+<li>js常用设计模式的实现思路，单例，工厂，代理，装饰，观察者模式等？分别举例说明</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF%E4%B8%8ENode-js/">前端与Node.js</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/nodejs/">nodejs</a><a href="/tags/面试题/">面试题</a><a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98%20-%20WEB%E5%BC%80%E5%8F%91%E8%80%85/" data-title="10个常见的Node.js面试题 - WEB开发者 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/新浪微博/如何在英文版 Chrome 登录印象笔记剪藏插件？ - Google Chrome - 知乎/" title="如何在英文版 Chrome 登录印象笔记剪藏插件？ - Google Chrome - 知乎">
+  <strong>上一篇：</strong><br/>
+  <span>
+  如何在英文版 Chrome 登录印象笔记剪藏插件？ - Google Chrome - 知乎</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/2016.1_JetBrains注册与破解/"  title="2016.1_JetBrains注册与破解">
+ <strong>下一篇：</strong><br/> 
+ <span>2016.1_JetBrains注册与破解
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/10个常见的Node.js面试题 - WEB开发者/" data-title="10个常见的Node.js面试题 - WEB开发者" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node.js%E9%9D%A2%E8%AF%95%E9%A2%98%20-%20WEB%E5%BC%80%E5%8F%91%E8%80%85/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#10%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84Node-js%E9%9D%A2%E8%AF%95%E9%A2%98-WEB%E5%BC%80%E5%8F%91%E8%80%85"><span class="toc-number">1.</span> <span class="toc-text">10个常见的Node.js面试题 - WEB开发者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-js%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%97%E8%A1%A8"><span class="toc-number">1.1.</span> <span class="toc-text">Node.js面试题列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%94%99%E8%AF%AF%E4%BC%98%E5%85%88%E7%9A%84%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">什么是错误优先的回调函数？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1"><span class="toc-number">1.1.2.</span> <span class="toc-text">如何避免回调地狱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%94%A8Node%E7%9B%91%E5%90%AC80%E7%AB%AF%E5%8F%A3"><span class="toc-number">1.1.3.</span> <span class="toc-text">如何用Node监听80端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.1.4.</span> <span class="toc-text">什么是事件循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%AA%E4%BA%9B%E5%B7%A5%E5%85%B7%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E4%BF%9D%E8%AF%81%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC"><span class="toc-number">1.1.5.</span> <span class="toc-text">哪些工具可以用来保证一致性的代码风格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E9%94%99%E8%AF%AF%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E9%94%99%E8%AF%AF%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.6.</span> <span class="toc-text">运算错误与程序员错误的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8NPM%E6%9C%89%E5%93%AA%E4%BA%9B%E5%A5%BD%E5%A4%84%EF%BC%9F"><span class="toc-number">1.1.7.</span> <span class="toc-text">使用NPM有哪些好处？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFStub%EF%BC%9F%E4%B8%BE%E4%B8%AA%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.1.8.</span> <span class="toc-text">什么是Stub？举个使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B5%8B%E8%AF%95%E9%87%91%E5%AD%97%E5%A1%94%EF%BC%9F"><span class="toc-number">1.1.9.</span> <span class="toc-text">什么是测试金字塔？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%A0%E6%9C%80%E5%96%9C%E6%AC%A2%E7%9A%84HTTP%E6%A1%86%E6%9E%B6%E4%BB%A5%E5%8F%8A%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.1.10.</span> <span class="toc-text">你最喜欢的HTTP框架以及原因</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

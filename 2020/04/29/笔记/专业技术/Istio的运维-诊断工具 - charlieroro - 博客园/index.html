@@ -1,0 +1,1638 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>Istio的运维-诊断工具 - charlieroro - 博客园 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="Istio的运维-诊断工具 - charlieroro - 博客园Istio的运维-诊断工具涵盖官方文档的诊断工具章节 使用istioctl命令行工具首先可以通过日志或Introspection检查各个组件，如果不足以支持问题定位，可以参考如下操作： istioctl是一个可以用于调试和诊断istio服务网格的工具。Istio项目为Bash和ZSH运行下的istioctl提供了自动补全功能。  建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Istio的运维-诊断工具 - charlieroro - 博客园">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Istio%E7%9A%84%E8%BF%90%E7%BB%B4-%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7%20-%20charlieroro%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="Istio的运维-诊断工具 - charlieroro - 博客园Istio的运维-诊断工具涵盖官方文档的诊断工具章节 使用istioctl命令行工具首先可以通过日志或Introspection检查各个组件，如果不足以支持问题定位，可以参考如下操作： istioctl是一个可以用于调试和诊断istio服务网格的工具。Istio项目为Bash和ZSH运行下的istioctl提供了自动补全功能。  建">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-25T02:17:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/Istio的运维-诊断工具 - charlieroro - 博客园/" title="Istio的运维-诊断工具 - charlieroro - 博客园" itemprop="url">Istio的运维-诊断工具 - charlieroro - 博客园</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Istio%E7%9A%84%E8%BF%90%E7%BB%B4-%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7-charlieroro-%E5%8D%9A%E5%AE%A2%E5%9B%AD"><span class="toc-number">1.</span> <span class="toc-text">Istio的运维-诊断工具 - charlieroro - 博客园</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Istio%E7%9A%84%E8%BF%90%E7%BB%B4-%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7"><span class="toc-number">2.</span> <span class="toc-text">Istio的运维-诊断工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8istioctl%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-number">2.1.</span> <span class="toc-text">使用istioctl命令行工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#istioctl%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text">istioctl自动补全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BD%91%E6%A0%BC%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-number">2.1.2.</span> <span class="toc-text">查看网格的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE"><span class="toc-number">2.1.3.</span> <span class="toc-text">获取代理配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95Envoy%E5%92%8Cistiod"><span class="toc-number">2.2.</span> <span class="toc-text">调试Envoy和istiod</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E7%BD%91%E6%A0%BC%E6%A6%82%E5%86%B5"><span class="toc-number">2.2.1.</span> <span class="toc-text">获取网格概况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E7%B4%A2Envoy%E5%92%8Cistiod%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="toc-number">2.2.2.</span> <span class="toc-text">检索Envoy和istiod的差异</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%A9%B6Envoy%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.3.</span> <span class="toc-text">深入探究Envoy配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5bootstrap%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.4.</span> <span class="toc-text">检查bootstrap配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E5%88%B0istiod%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">2.2.5.</span> <span class="toc-text">校验到istiod的连通性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87istioctl%E7%9A%84%E8%BE%93%E5%87%BA%E7%90%86%E8%A7%A3%E7%BD%91%E6%A0%BC"><span class="toc-number">2.3.</span> <span class="toc-text">通过istioctl的输出理解网格</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8Cpod%E6%98%AF%E5%90%A6%E5%9C%A8%E7%BD%91%E6%A0%BC%E4%B8%AD"><span class="toc-number">2.3.1.</span> <span class="toc-text">校验pod是否在网格中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8Cdestination-rule%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.2.</span> <span class="toc-text">校验destination rule配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8Cvirtual-service%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.3.</span> <span class="toc-text">校验virtual service配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1"><span class="toc-number">2.3.4.</span> <span class="toc-text">校验流量路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5strict-mutual-TLS-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E5%BE%85%E6%9B%B4%E6%96%B0"><span class="toc-number">2.3.5.</span> <span class="toc-text">检查strict mutual TLS(官方文档待更新)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD"><span class="toc-number">2.3.6.</span> <span class="toc-text">卸载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8istioctl-analyse%E8%AF%8A%E6%96%AD%E9%85%8D%E7%BD%AE"><span class="toc-number">2.4.</span> <span class="toc-text">使用istioctl analyse诊断配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E7%8E%B0%E6%9C%89%E7%9A%84%E9%9B%86%E7%BE%A4-x2F-%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E6%88%96%E4%BA%8C%E8%80%85"><span class="toc-number">2.4.1.</span> <span class="toc-text">分析现有的集群&#x2F;本地文件或二者</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%86%85%E7%9C%81"><span class="toc-number">2.5.</span> <span class="toc-text">组件内省</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E6%97%A5%E5%BF%97"><span class="toc-number">2.6.</span> <span class="toc-text">组件日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">2.6.1.</span> <span class="toc-text">日志作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E8%BE%93%E5%87%BA"><span class="toc-number">2.6.2.</span> <span class="toc-text">控制输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E6%BB%9A%E5%8A%A8"><span class="toc-number">2.6.3.</span> <span class="toc-text">日志滚动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E8%B0%83%E8%AF%95"><span class="toc-number">2.6.4.</span> <span class="toc-text">组件调试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">2.6.5.</span> <span class="toc-text">参考</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="Istio的运维-诊断工具-charlieroro-博客园"><a title="Istio的运维-诊断工具 - charlieroro - 博客园" class="headerlink" href="#Istio的运维-诊断工具-charlieroro-博客园"></a>Istio的运维-诊断工具 - charlieroro - 博客园</h1><h1 id="Istio的运维-诊断工具"><a title="Istio的运维-诊断工具" class="headerlink" href="#Istio的运维-诊断工具"></a>Istio的运维-诊断工具</h1><p>涵盖官方文档的<a target="_blank" rel="noopener" href="https://istio.io/docs/ops/diagnostic-tools/">诊断工具</a>章节</p>
+<h2 id="使用istioctl命令行工具"><a title="使用istioctl命令行工具" class="headerlink" href="#使用istioctl命令行工具"></a>使用istioctl命令行工具</h2><p>首先可以通过<a target="_blank" rel="noopener" href="https://istio.io/docs/ops/diagnostic-tools/component-logging/">日志</a>或<a target="_blank" rel="noopener" href="https://istio.io/docs/ops/diagnostic-tools/controlz/">Introspection</a>检查各个组件，如果不足以支持问题定位，可以参考如下操作：</p>
+<p><a target="_blank" rel="noopener" href="https://istio.io/docs/reference/commands/istioctl">istioctl</a>是一个可以用于调试和诊断istio服务网格的工具。Istio项目为Bash和ZSH运行下的<code>istioctl</code>提供了自动补全功能。</p>
+<blockquote>
+<p>建议安装对应istio版本的<code>istioctl</code>。</p>
+</blockquote>
+<h3 id="istioctl自动补全"><a title="istioctl自动补全" class="headerlink" href="#istioctl自动补全"></a>istioctl自动补全</h3><ul>
+<li>将如下内容添加到 <code>~/.bash_profile</code> 文件中<pre><code>[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] &amp;&amp; . "/usr/local/etc/profile.d/bash_completion.sh"
+</code></pre>
+</li>
+<li>使用bash时，将在<code>tools</code>命令中的<code>istioctl.bash</code>文件拷贝到<code>$HOME</code>目录下，然后执行如下操作即可<pre><code>$ source ~/istioctl.bash
+</code></pre>
+</li>
+</ul>
+<h3 id="查看网格的状态"><a title="查看网格的状态" class="headerlink" href="#查看网格的状态"></a>查看网格的状态</h3><p>可以使用<code>istioctl proxy-status</code>或<code>istioctl ps</code>命令查看网格的状态。如果输出结果中缺少某个代理，说明该代理当前没有连接到Pilot实例，因而无法接收到任何配置。如果状态为<code>stale</code>，表示当前存在网络故障，或Pilot需要扩容。</p>
+<h3 id="获取代理配置"><a title="获取代理配置" class="headerlink" href="#获取代理配置"></a>获取代理配置</h3><p>可以使用<code>istioctl proxy-config</code>或<code>istioctl pc</code>检索代理配置信息。</p>
+<p>例如，使用如下方式可以检索特定pod中的Envoy实例的集群配置信息。</p>
+<pre><code>$ istioctl proxy-config cluster &lt;pod-name&gt; [flags]
+</code></pre>
+<p>使用如下方式可以检索特定pod中的Envoy实例的bootstrap配置信息。</p>
+<pre><code>$ istioctl proxy-config bootstrap &lt;pod-name&gt; [flags]
+</code></pre>
+<p>使用如下方式可以检索特定pod中的Envoy实例的listener(监听器)配置信息。</p>
+<pre><code>$ istioctl proxy-config listener &lt;pod-name&gt; [flags]
+</code></pre>
+<p>使用如下方式可以检索特定pod中的Envoy实例的route(路由)配置信息。</p>
+<pre><code>$ istioctl proxy-config route &lt;pod-name&gt; [flags]
+</code></pre>
+<p>使用如下方式可以检索特定pod中的Envoy实例的endpoint (后端)配置信息。</p>
+<pre><code>$ istioctl proxy-config endpoints &lt;pod-name&gt; [flags]
+</code></pre>
+<p>更多参见下一节<a target="_blank" rel="noopener" href="https://istio.io/docs/ops/diagnostic-tools/proxy-cmd/">调试Envoy和istiod</a></p>
+<blockquote>
+<p>istio的listener，route，cluster和endpoint与Envoy中的<a target="_blank" rel="noopener" href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/intro/terminology#:~:text=Listener%3A%20A%20listener%20is%20a,hosts%20that%20Envoy%20connects%20to.">概念</a>类似。</p>
+<ul>
+<li>Cluster：在Envoy中，Cluster是一个服务集群，Cluster中包含一个到多个endpoint，每个endpoint都可以提供服务，Envoy根据负载均衡算法将请求发送到这些endpoint中。cluster分为inbound和outbound两种，前者对应Envoy所在节点上的服务；后者占了绝大多数，对应Envoy所在节点的外部服务。可以使用如下方式分别查看inbound和outbound的cluster：</li>
+</ul>
+<pre><code># istioctl pc cluster productpage-v1-64794f5db4-4h8c8.default --direction inbound -ojson
+# istioctl pc cluster productpage-v1-64794f5db4-4h8c8.default --direction outbound -ojson
+</code></pre>
+<ul>
+<li>Listeners：Envoy采用listener来接收并处理downstream发过来的请求。更多监听端口参见下文</li>
+<li>Routes：配置Envoy的路由规则。Istio下发的缺省路由规则中对每个端口(服务)设置了一个路由规则，根据host来对请求进行路由分发，routes的目的为其他服务的cluster</li>
+<li>Endpoint：cludter对应的后端服务，可以通过istio pc endpoint查看inbound和outbound对应的endpoint信息</li>
+</ul>
+</blockquote>
+<h2 id="调试Envoy和istiod"><a title="调试Envoy和istiod" class="headerlink" href="#调试Envoy和istiod"></a>调试Envoy和istiod</h2><p>istio提供了两个非常有用的命令来诊断流量管理配置问题：<a target="_blank" rel="noopener" href="https://istio.io/docs/reference/commands/istioctl/#istioctl-proxy-status">proxy-status</a> 和<a target="_blank" rel="noopener" href="https://istio.io/docs/reference/commands/istioctl/#istioctl-proxy-config">proxy-config</a>。<code>proxy-status</code>可以获取网格的概述并确定导致问题的代理。<code>proxy-config</code>可以检查Envoy配置并诊断该问题。</p>
+<p>如果要尝试如下命令，可以：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://istio.io/docs/examples/bookinfo/#deploying-the-application">安装Bookinfo</a></li>
+<li>使用kubernetes集群中部署类似应用</li>
+</ul>
+<h3 id="获取网格概况"><a title="获取网格概况" class="headerlink" href="#获取网格概况"></a>获取网格概况</h3><p>通过<code>proxy-status</code>命令可以查看网格的概况，了解是否有sidecar无法接收配置或无法保持同步。</p>
+<p>如果某个代理没有出现在输出列表中，则说明该代理没有连接到istiod实例，因此也无法接收任何配置信息。状态信息如下：</p>
+<ul>
+<li><code>SYNCED</code>：表示Envoy确认了istiod发过来的配置</li>
+<li><code>NOT SENT</code>：表示istiod还没有发送配置到Envoy。通常时因为istiod当前没有需要发送的配置信息</li>
+<li><code>STALE</code>：表示istiod发送了一个更新到Envoy，但没有接收到确认。通常表示Envoy和istiod之间的网络出现了问题，或istio本身出现了bug。</li>
+</ul>
+<pre><code>$ istioctl ps                                                                               
+NAME                                                  CDS      LDS       EDS       RDS        PILOT                     VERSION
+details-v1-78d78fbddf-psnmk.default                   SYNCED   SYNCED    SYNCED    SYNCED     istiod-788cf6c878-4pq5g   1.6.0
+istio-ingressgateway-569669bb67-dsd5h.istio-system    SYNCED   SYNCED    SYNCED    NOT SENT   istiod-788cf6c878-4pq5g   1.6.0
+productpage-v1-85b9bf9cd7-d8hm8.default               SYNCED   SYNCED    SYNCED    SYNCED     istiod-788cf6c878-4pq5g   1.6.0
+prometheus-79878ff5fd-tjdxx.istio-system              SYNCED   SYNCED    SYNCED    SYNCED     istiod-788cf6c878-4pq5g   1.6.0
+ratings-v1-6c9dbf6b45-xlf2q.default                   SYNCED   SYNCED    SYNCED    SYNCED     istiod-788cf6c878-4pq5g   1.6.0
+reviews-v1-564b97f875-q5l9r.default                   SYNCED   SYNCED    SYNCED    SYNCED     istiod-788cf6c878-4pq5g   1.6.0
+reviews-v2-568c7c9d8f-vcd94.default                   SYNCED   SYNCED    SYNCED    SYNCED     istiod-788cf6c878-4pq5g   1.6.0
+reviews-v3-67b4988599-psllq.default                   SYNCED   SYNCED    SYNCED    SYNCED     istiod-788cf6c878-4pq5g   1.6.0
+sleep-78484c89dd-fmxbc.default                        SYNCED   SYNCED    SYNCED    SYNCED     istiod-788cf6c878-4pq5g   1.6.0
+</code></pre>
+<h3 id="检索Envoy和istiod的差异"><a title="检索Envoy和istiod的差异" class="headerlink" href="#检索Envoy和istiod的差异"></a>检索Envoy和istiod的差异</h3><p><code>proxy-status</code>加上proxy ID可以检索Envoy加载的配置和istiod发送的配置之间的差异，通过这种方式可以确定哪部分内容没有被同步，并确定可能存在的问题。</p>
+<p>下面的例子可以看到ingressgateway的listeners和routers配置都与istiod发过来的配置匹配，但clusters不匹配。</p>
+<pre><code>$ istioctl proxy-status details-v1-6dcc6fbb9d-wsjz4.default
+--- Istiod Clusters
++++ Envoy Clusters
+@@ -374,36 +374,14 @@
+             "edsClusterConfig": &#123;
+                "edsConfig": &#123;
+                   "ads": &#123;
+
+                   &#125;
+                &#125;,
+                "serviceName": "outbound|443||public-cr0bdc785ce3f14722918080a97e1f26be-alb1.kube-system.svc.cluster.local"
+-            &#125;,
+-            "connectTimeout": "1.000s",
+-            "circuitBreakers": &#123;
+-               "thresholds": [
+-                  &#123;
+-
+-                  &#125;
+-               ]
+-            &#125;
+-         &#125;
+-      &#125;,
+-      &#123;
+-         "cluster": &#123;
+-            "name": "outbound|53||kube-dns.kube-system.svc.cluster.local",
+-            "type": "EDS",
+-            "edsClusterConfig": &#123;
+-               "edsConfig": &#123;
+-                  "ads": &#123;
+-
+-                  &#125;
+-               &#125;,
+-               "serviceName": "outbound|53||kube-dns.kube-system.svc.cluster.local"
+             &#125;,
+             "connectTimeout": "1.000s",
+             "circuitBreakers": &#123;
+                "thresholds": [
+                   &#123;
+
+                   &#125;
+
+Listeners Match
+Routes Match
+</code></pre>
+<h3 id="深入探究Envoy配置"><a title="深入探究Envoy配置" class="headerlink" href="#深入探究Envoy配置"></a>深入探究Envoy配置</h3><p><code>proxy-config</code>命令可以查看一个Envoy实例的配置，用于定位无法通过查看istio配置和用户资源发现的问题。例如，使用如下命令可以获取特定pod的clusters，listeners或routes概要。<em>注：首先通过istioctl ps查看出不匹配的代理，然后使用istioctl pc查看具体的不匹配的信息。</em></p>
+<pre><code>$ istioctl proxy-config cluster -n istio-system istio-ingressgateway-7d6874b48f-qxhn5
+SERVICE FQDN                                           PORT    SUBSET  DIRECTION  TYPE
+BlackHoleCluster                                       -       -       -          STATIC
+agent                                                  -       -       -          STATIC
+details.default.svc.cluster.local                      9080    -       outbound   EDS
+istio-ingressgateway.istio-system.svc.cluster.local    80      -       outbound   EDS
+istio-ingressgateway.istio-system.svc.cluster.local    443     -       outbound   EDS
+istio-ingressgateway.istio-system.svc.cluster.local    15021   -       outbound   EDS
+istio-ingressgateway.istio-system.svc.cluster.local    15443   -       outbound   EDS
+istiod.istio-system.svc.cluster.local                  443     -       outbound   EDS
+istiod.istio-system.svc.cluster.local                  853     -       outbound   EDS
+istiod.istio-system.svc.cluster.local                  15010   -       outbound   EDS
+istiod.istio-system.svc.cluster.local                  15012   -       outbound   EDS
+istiod.istio-system.svc.cluster.local                  15014   -       outbound   EDS
+kube-dns.kube-system.svc.cluster.local                 53      -       outbound   EDS
+kube-dns.kube-system.svc.cluster.local                 9153    -       outbound   EDS
+kubernetes.default.svc.cluster.local                   443     -       outbound   EDS
+...                                                                               
+productpage.default.svc.cluster.local                  9080    -       outbound   EDS
+prometheus.istio-system.svc.cluster.local              9090    -       outbound   EDS
+prometheus_stats                                       -       -       -          STATIC
+ratings.default.svc.cluster.local                      9080    -       outbound   EDS
+reviews.default.svc.cluster.local                      9080    -       outbound   EDS
+sds-grpc                                               -       -       -          STATIC
+xds-grpc                                               -       -       -          STRICT_DNS
+zipkin                                                 -       -       -          STRICT_DNS
+</code></pre>
+<p>为了调试Envoy，首先需要理解Envoy的clusters/listeners/routes/endpoints，以及它们之间是如何交互的。下面将使用带有<code>-o json</code>和筛选标志的<code>proxy config</code>命令来跟踪Envoy，因为它决定在哪里将请求从<code>productpage</code> pod发送到<code>reviews</code> pod的 <code>reviews:9080</code></p>
+<ol>
+<li>如果请求了一个pod的listener概要，可以看到istio生成了如下listeners：<ul>
+<li>一个<code>0.0.0.0:15006</code>的listener，用于接收到pod的入站流量；以及一个 <code>0.0.0.0:15001</code>的listener，用于接收所有到pod的出站流量，然后将请求交给一个 virtual listener。</li>
+<li>每个kubernetes service IP都对应一个virtual listener，非HTTP的listener用于出站的TCP/HTTPS流量</li>
+<li>pod IP中的virtual listener暴露了接收入站流量的端口</li>
+<li>0.0.0.0的HTTP类型的virtual listener，用于出站的HTTP流量<br> Istio使用的<a target="_blank" rel="noopener" href="https://istio.io/docs/ops/deployment/requirements/#ports-used-by-istio">端口</a>信息如下：<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocol</th>
+<th>Used by</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>15000</td>
+<td>TCP</td>
+<td>Envoy</td>
+<td>Envoy admin port (commands/diagnostics)</td>
+</tr>
+<tr>
+<td>15001</td>
+<td>TCP</td>
+<td>Envoy</td>
+<td>Envoy Outbound</td>
+</tr>
+<tr>
+<td>15006</td>
+<td>TCP</td>
+<td>Envoy</td>
+<td>Envoy Inbound</td>
+</tr>
+<tr>
+<td>15008</td>
+<td>TCP</td>
+<td>Envoy</td>
+<td>Envoy Tunnel port (Inbound)</td>
+</tr>
+<tr>
+<td>15020</td>
+<td>HTTP</td>
+<td>Envoy</td>
+<td>Istio agent Prometheus telemetry</td>
+</tr>
+<tr>
+<td>15021</td>
+<td>HTTP</td>
+<td>Envoy</td>
+<td>Health checks</td>
+</tr>
+<tr>
+<td>15090</td>
+<td>HTTP</td>
+<td>Envoy</td>
+<td>Envoy Prometheus telemetry</td>
+</tr>
+<tr>
+<td>15010</td>
+<td>GRPC</td>
+<td>Istiod</td>
+<td>XDS and CA services (plaintext)</td>
+</tr>
+<tr>
+<td>15012</td>
+<td>GRPC</td>
+<td>Istiod</td>
+<td>XDS and CA services (TLS)</td>
+</tr>
+<tr>
+<td>8080</td>
+<td>HTTP</td>
+<td>Istiod</td>
+<td>Debug interface</td>
+</tr>
+<tr>
+<td>443</td>
+<td>HTTPS</td>
+<td>Istiod</td>
+<td>Webhooks</td>
+</tr>
+<tr>
+<td>15014</td>
+<td>HTTP</td>
+<td>Mixer, Istiod</td>
+<td>Control plane monitoring</td>
+</tr>
+<tr>
+<td>15443</td>
+<td>TLS</td>
+<td>Ingress and Egress Gateways</td>
+<td>SNI</td>
+</tr>
+<tr>
+<td>9090</td>
+<td>HTTP</td>
+<td>Prometheus</td>
+<td>Prometheus</td>
+</tr>
+<tr>
+<td>42422</td>
+<td>TCP</td>
+<td>Mixer</td>
+<td>Telemetry - Prometheus</td>
+</tr>
+<tr>
+<td>15004</td>
+<td>HTTP</td>
+<td>Mixer, Pilot</td>
+<td>Policy/Telemetry - <code>mTLS</code></td>
+</tr>
+<tr>
+<td>9091</td>
+<td>HTTP</td>
+<td>Mixer</td>
+<td>Policy/Telemetry</td>
+</tr>
+<tr>
+<td>可以看到<code>TYPE</code>字段是没有<code>HTTPS</code>的，<code>HTTPS</code>作为<code>TCP</code>类型。下面是<code>productpage</code>的listeners，删减了部分信息。<code>10.84</code>开头的是各个kubernetes service的<code>CLUSTER-IP</code>，以<code>172.20</code>开头的是kubernetes的node IP，以nodePort方式暴露服务。</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code>$ istioctl proxy-config listeners productpage-v1-85b9bf9cd7-d8hm8.default
+ADDRESS          PORT     TYPE    
+0.0.0.0          443      TCP     &lt;--+
+10.84.71.37      443      TCP        |
+10.84.223.189    443      TCP        |
+10.84.100.226    15443    TCP        |
+10.84.121.154    443      TCP        |
+10.84.142.44     443      TCP        | #从0.0.0.0_15001相关IP:PORT上接收出站的non-HTTP流量
+10.84.155.219    443      TCP        |
+172.20.127.212   9100     TCP        |
+10.84.205.103    443      TCP        | 
+10.84.167.116    443      TCP        |
+172.20.127.211   9100     TCP     &lt;--+
+10.84.113.197    9979     HTTP+TCP&lt;--+
+0.0.0.0          9091     HTTP+TCP   |
+10.84.30.227     9092     HTTP+TCP   |
+10.84.108.37     8080     HTTP+TCP   |
+10.84.158.64     8443     HTTP+TCP   |
+10.84.202.185    8080     HTTP+TCP   |
+10.84.21.252     8443     HTTP+TCP   |
+10.84.215.56     8443     HTTP+TCP   |
+0.0.0.0          60000    HTTP+TCP   | # 从0.0.0.0_15001的相关端口上接收出站的HTTP+TCP流量
+10.84.126.74     8778     HTTP+TCP   |
+10.84.126.74     8080     HTTP+TCP   |
+10.84.123.207    8080     HTTP+TCP   |
+10.84.30.227     9091     HTTP+TCP   |
+10.84.229.5      8080     HTTP+TCP&lt;--+
+0.0.0.0          9080     HTTP+TCP     # 从 0.0.0.0_15006 上接收所有到9080的入站流量
+0.0.0.0          15001    TCP          # 从IP tables接收pod的所有出站流量，并移交给虚拟侦听器
+0.0.0.0          15006    HTTP+TCP     # Envoy 入站
+0.0.0.0          15090    HTTP         # Envoy Prometheus 遥测
+0.0.0.0          15021    HTTP         # 健康检查
+</code></pre>
+<p> 下面是<code>productpage</code> Pod中实际监听的端口信息，与上述对应。</p>
+<pre><code>$ ss -ntpl                                 
+State          Recv-Q        Send-Q        Local Address:Port          Peer Address:Port
+LISTEN         0             128                 0.0.0.0:15090              0.0.0.0:*
+LISTEN         0             128               127.0.0.1:15000              0.0.0.0:*
+LISTEN         0             128                 0.0.0.0:9080               0.0.0.0:*
+LISTEN         0             128                 0.0.0.0:15001              0.0.0.0:*
+LISTEN         0             128                 0.0.0.0:15006              0.0.0.0:*
+LISTEN         0             128                 0.0.0.0:15021              0.0.0.0:*
+LISTEN         0             128                       *:15020                    *:* 
+</code></pre>
+</li>
+<li>从上述输出概要中可以看到每个sidecar都有一个绑定到 <code>0.0.0.0:15006</code>的listener，IP tables会将所有入站的Pod流量导入该listener；以及一个绑定到 <code>0.0.0.0:15001</code>的listener，IP tables会将所有出站流量导入该listener，该listener有一个字段<code>useOriginalDst</code>设置为true，表示会使用最佳匹配原始目的地的方式将请求分发到virtual listener，如果没有找到任何virtual listener，将会直接发送到连接目的地的<code>PassthroughCluster</code>。<pre><code>$ istioctl pc listener productpage-v1-85b9bf9cd7-d8hm8.default --port 15001 -o json
+[
+    &#123;
+        "name": "virtualOutbound",
+        "address": &#123;
+            "socketAddress": &#123;
+                "address": "0.0.0.0",
+                "portValue": 15001
+            &#125;
+        &#125;,
+        "filterChains": [
+            &#123;
+                "filters": [
+                    &#123;
+                        "name": "istio.stats",
+                        "typedConfig": &#123;
+                            "@type": "type.googleapis.com/udpa.type.v1.TypedStruct",
+                            "typeUrl": "type.googleapis.com/envoy.extensions.filters.network.wasm.v3.Wasm",
+                            "value": &#123;
+                                "config": &#123;
+                                    "configuration": "&#123;\n  \"debug\": \"false\",\n  \"stat_prefix\": \"istio\"\n&#125;\n",
+                                    "root_id": "stats_outbound",
+                                    "vm_config": &#123;
+                                        "code": &#123;
+                                            "local": &#123;
+                                                "inline_string": "envoy.wasm.stats"
+                                            &#125;
+                                        &#125;,
+                                        "runtime": "envoy.wasm.runtime.null",
+                                        "vm_id": "tcp_stats_outbound"
+                                    &#125;
+                                &#125;
+                            &#125;
+                        &#125;
+                    &#125;,
+                    &#123;
+                        "name": "envoy.tcp_proxy",
+                        "typedConfig": &#123;
+                            "@type": "type.googleapis.com/envoy.config.filter.network.tcp_proxy.v2.TcpProxy",
+                            "statPrefix": "PassthroughCluster",
+                            "cluster": "PassthroughCluster",
+                            "accessLog": [
+                                &#123;
+                                    "name": "envoy.file_access_log",
+                                    "typedConfig": &#123;
+                                        "@type": "type.googleapis.com/envoy.config.accesslog.v2.FileAccessLog",
+                                        "path": "/dev/stdout",
+                                        "format": "[%START_TIME%] \"%REQ(:METHOD)% %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)% %PROTOCOL%\" %RESPONSE_CODE% %RESPONSE_FLAGS% \"%DYNAMIC_METADATA(istio.mixer:status)%\" \"%UPSTREAM_TRANSPORT_FAILURE_REASON%\" %BYTES_RECEIVED% %BYTES_SENT% %DURATION% %RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)% \"%REQ(X-FORWARDED-FOR)%\" \"%REQ(USER-AGENT)%\" \"%REQ(X-REQUEST-ID)%\" \"%REQ(:AUTHORITY)%\" \"%UPSTREAM_HOST%\" %UPSTREAM_CLUSTER% %UPSTREAM_LOCAL_ADDRESS% %DOWNSTREAM_LOCAL_ADDRESS% %DOWNSTREAM_REMOTE_ADDRESS% %REQUESTED_SERVER_NAME% %ROUTE_NAME%\n"
+                                    &#125;
+                                &#125;
+                            ]
+                        &#125;
+                    &#125;
+                ],
+                "name": "virtualOutbound-catchall-tcp"
+            &#125;
+        ],
+        "useOriginalDst": true,
+        "trafficDirection": "OUTBOUND"
+    &#125;
+]
+</code></pre>
+</li>
+<li>应用的请求为一个出站HTTP请求，会到达<code>9080</code>端口，这意味着请求将传递给<code>0.0.0.0:9080</code> virtual listener。该listener会查看其RDS中配置的路由。这种情况下会查找istiod配置的RDS的<code>9080</code>路由<pre><code>$ istioctl pc listener productpage-v1-85b9bf9cd7-d8hm8.default  -o json --address 0.0.0.0 --port 9080
+[
+    &#123;
+        "name": "0.0.0.0_9080",
+        "address": &#123;
+            "socketAddress": &#123;
+                "address": "0.0.0.0",
+                "portValue": 9080
+            &#125;
+        &#125;,
+        "filterChains": [
+            &#123;
+                "filterChainMatch": &#123;
+                    "applicationProtocols": [
+                        "http/1.0",
+                        "http/1.1",
+                        "h2c"
+                    ]
+                &#125;,
+                "filters": [
+                    &#123;
+                        "name": "envoy.http_connection_manager",
+                        "typedConfig": &#123;
+                            "@type": "type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager",
+                            "statPrefix": "outbound_0.0.0.0_9080",
+                            "rds": &#123;
+                                "configSource": &#123;
+                                    "ads": &#123;&#125;
+                                &#125;,
+                                "routeConfigName": "9080"
+                            &#125;,
+...
+]
+</code></pre>
+</li>
+<li>9080的路由配置中每个服务只有一个virtual host。由于应用的请求会传递到reviews服务，因此Envoy会选择请求与域相匹配的virtual host。一旦匹配到域，Envoy会查看匹配请求的第一个路由。下面场景中，由于没有配置任何高级路由，因此只有一条可以匹配的路由，该路由告诉Envoy将请求发送到 <code>outbound|9080||reviews.default.svc.cluster.local</code>集群。<pre><code>$ istioctl proxy-config routes productpage-v1-85b9bf9cd7-d8hm8.default  --name 9080 -o json
+[
+    &#123;
+        "name": "9080",
+        "virtualHosts": [
+...
+            &#123;
+                "name": "reviews.default.svc.cluster.local:9080", 
+                "domains": [
+                    "reviews.default.svc.cluster.local",
+                    "reviews.default.svc.cluster.local:9080",
+                    "reviews",
+                    "reviews:9080",
+                    "reviews.default.svc.cluster",
+                    "reviews.default.svc.cluster:9080",
+                    "reviews.default.svc",
+                    "reviews.default.svc:9080",
+                    "reviews.default",
+                    "reviews.default:9080",
+                    "10.84.110.152",
+                    "10.84.110.152:9080"
+                ],
+                "routes": [
+                    &#123;
+                        "name": "default",
+                        "match": &#123;
+                            "prefix": "/"
+                        &#125;,
+                        "route": &#123;
+                            "cluster": "outbound|9080||reviews.default.svc.cluster.local",
+                            "timeout": "0s",
+                            "retryPolicy": &#123;
+                                "retryOn": "connect-failure,refused-stream,unavailable,cancelled,retriable-status-codes",
+                                "numRetries": 2,
+                                "retryHostPredicate": [
+                                    &#123;
+                                        "name": "envoy.retry_host_predicates.previous_hosts"
+                                    &#125;
+                                ],
+                                "hostSelectionRetryMaxAttempts": "5",
+                                "retriableStatusCodes": [
+                                    503
+                                ]
+                            &#125;,
+                            "maxGrpcTimeout": "0s"
+                        &#125;,
+                        "decorator": &#123;
+                            "operation": "reviews.default.svc.cluster.local:9080/*"
+                        &#125;
+                    &#125;
+                ],
+                "includeRequestAttemptCount": true
+            &#125;
+        ],
+        "validateClusters": false
+    &#125;
+]
+</code></pre>
+</li>
+<li>cluster的配置用于从istiod中检索后端。Envoy会使用<code>serviceName</code>作为key在Endpoints列表中进行查找，并将请求传递到这些后端。<pre><code>$  istioctl pc cluster productpage-v1-85b9bf9cd7-d8hm8.default  --fqdn reviews.default.svc.cluster.local -o json
+[
+    &#123;
+       ...
+        "name": "outbound|9080||reviews.default.svc.cluster.local",
+        "type": "EDS",
+        "edsClusterConfig": &#123;
+            "edsConfig": &#123;
+                "ads": &#123;&#125;
+            &#125;,
+            "serviceName": "outbound|9080||reviews.default.svc.cluster.local"
+        &#125;,
+        "connectTimeout": "10s",
+        "circuitBreakers": &#123;
+            "thresholds": [
+                &#123;
+                    "maxConnections": 4294967295,
+                    "maxPendingRequests": 4294967295,
+                    "maxRequests": 4294967295,
+                    "maxRetries": 4294967295
+                &#125;
+            ]
+        &#125;,
+        "filters": [
+            &#123;
+                "name": "istio.metadata_exchange",
+                "typedConfig": &#123;
+                    "@type": "type.googleapis.com/udpa.type.v1.TypedStruct",
+                    "typeUrl": "type.googleapis.com/envoy.tcp.metadataexchange.config.MetadataExchange",
+                    "value": &#123;
+                        "protocol": "istio-peer-exchange"
+                    &#125;
+                &#125;
+            &#125;
+        ]
+    &#125;
+]
+</code></pre>
+</li>
+<li>使用<code>proxy-config endpoint</code>命令查看本集群中当前可用的后端，也可以直接指定端口查看<code>--port</code><pre><code>$ istioctl pc endpoint productpage-v1-85b9bf9cd7-d8hm8.default --cluster "outbound|9080||reviews.default.svc.cluster.local"
+ENDPOINT            STATUS      OUTLIER CHECK     CLUSTER
+10.80.3.55:9080     HEALTHY     OK                outbound|9080||reviews.default.svc.cluster.local
+10.80.3.56:9080     HEALTHY     OK                outbound|9080||reviews.default.svc.cluster.local
+10.80.3.58:9080     HEALTHY     OK                outbound|9080||reviews.default.svc.cluster.local
+</code></pre>
+</li>
+</ol>
+<p>流量方向为：listener(应用出站port)-&gt;route(<code>routeConfigName</code>)-&gt;cluster(domain)-&gt;endpoint(serviceName)</p>
+<h3 id="检查bootstrap配置"><a title="检查bootstrap配置" class="headerlink" href="#检查bootstrap配置"></a>检查bootstrap配置</h3><p>到目前为止已经查看了istiod的大部分配置，然而，Envoy需要一些如哪里可以发现istiod的bootstrap配置，使用如下方式查看：</p>
+<pre><code>$ istioctl proxy-config bootstrap -n istio-system istio-ingressgateway-569669bb67-dsd5h.istio-system
+&#123;
+    "bootstrap": &#123;
+        "node": &#123;
+            "id": "router~10.83.0.14~istio-ingressgateway-569669bb67-dsd5h.istio-system~istio-system.svc.cluster.local",
+            "cluster": "istio-ingressgateway",
+            "metadata": &#123;
+                    "CLUSTER_ID": "Kubernetes",
+                    "CONFIG_NAMESPACE": "istio-system",
+                    "EXCHANGE_KEYS": "NAME,NAMESPACE,INSTANCE_IPS,LABELS,OWNER,PLATFORM_METADATA,WORKLOAD_NAME,MESH_ID,SERVICE_ACCOUNT,CLUSTER_ID",
+                    "INSTANCE_IPS": "10.83.0.14,fe80::6871:95ff:fe5b:9e3e",
+                    "ISTIO_PROXY_SHA": "istio-proxy:12cfbda324320f99e0e39d7c393109fcd824591f",
+                    "ISTIO_VERSION": "1.6.0",
+                    "LABELS": &#123;
+                                "app": "istio-ingressgateway",
+                                "chart": "gateways",
+                                "heritage": "Tiller",
+                                "istio": "ingressgateway",
+                                "pod-template-hash": "569669bb67",
+                                "release": "istio",
+                                "service.istio.io/canonical-name": "istio-ingressgateway",
+                                "service.istio.io/canonical-revision": "latest"
+                            &#125;,
+                    "MESH_ID": "cluster.local",
+                    "NAME": "istio-ingressgateway-569669bb67-dsd5h",
+                    "NAMESPACE": "istio-system",
+                    "OWNER": "kubernetes://apis/apps/v1/namespaces/istio-system/deployments/istio-ingressgateway",
+...
+                    "ROUTER_MODE": "sni-dnat",
+                    "SDS": "true",
+                    "SERVICE_ACCOUNT": "istio-ingressgateway-service-account",
+                    "TRUSTJWT": "true",
+                    "WORKLOAD_NAME": "istio-ingressgateway"
+                &#125;,
+...
+&#125;
+</code></pre>
+<h3 id="校验到istiod的连通性"><a title="校验到istiod的连通性" class="headerlink" href="#校验到istiod的连通性"></a>校验到istiod的连通性</h3><p>服务网格中的所有Envoy代理容器都应该连接到istiod，使用如下步骤测试：</p>
+<ol>
+<li>创建一个<code>sleep</code> pod<pre><code>$ kubectl create namespace foo
+$ kubectl apply -f &lt;(istioctl kube-inject -f samples/sleep/sleep.yaml) -n foo
+</code></pre>
+</li>
+<li>使用curl测试到istiod的连通性。下面调用v1注册API，使用默认的istiod配置参数，并启用双向TLS认证<pre><code>$ kubectl exec $(kubectl get pod -l app=sleep -n foo -o jsonpath=&#123;.items..metadata.name&#125;) -c sleep -n foo -- curl -sS istiod.istio-system:15014/debug/endpointz
+</code></pre>
+</li>
+</ol>
+<h2 id="通过istioctl的输出理解网格"><a title="通过istioctl的输出理解网格" class="headerlink" href="#通过istioctl的输出理解网格"></a>通过istioctl的输出理解网格</h2><blockquote>
+<p>如下内容是一个实验特性，仅用于评估</p>
+</blockquote>
+<p>istio 1.3中包含一个<a target="_blank" rel="noopener" href="https://istio.io/docs/reference/commands/istioctl/#istioctl-experimental-describe-pod">istioctl experimental describe</a>命令。该CLI命令提供了解影响pod的配置所需的信息。本节展示如何使用该experimental 子命令查看一个pod是否在网格中，以及检查该pod的配置。该命令的基本使用方式为：</p>
+<pre><code>$ istioctl experimental describe pod &lt;pod-name&gt;[.&lt;namespace&gt;] #或
+$ istioctl experimental describe pod &lt;pod-name&gt; -n &lt;namespace&gt; 
+</code></pre>
+<h3 id="校验pod是否在网格中"><a title="校验pod是否在网格中" class="headerlink" href="#校验pod是否在网格中"></a>校验pod是否在网格中</h3><p>如果一个pod不在网格中，<code>istioctl describe</code>会显示一个告警信息，此外，如果pod缺少<a target="_blank" rel="noopener" href="https://istio.io/docs/ops/deployment/requirements/">istio需要的配置</a>时也会给出告警信息。</p>
+<pre><code>$ istioctl experimental describe pod  mutatepodimages-7575797d95-qn7p5
+Pod: mutatepodimages-7575797d95-qn7p5
+   Pod does not expose ports
+WARNING: mutatepodimages-7575797d95-qn7p5 is not part of mesh; no Istio sidecar
+--------------------
+Error: failed to execute command on sidecar: error 'execing into mutatepodimages-7575797d95-qn7p5/default istio-proxy container: container istio-proxy is not valid for pod mutatepodimages-7575797d95-qn7p5
+</code></pre>
+<p>如果一个pod在网格中，则不会产生告警。</p>
+<pre><code>$ istioctl x describe pod ratings-v1-6c9dbf6b45-xlf2q
+Pod: ratings-v1-6c9dbf6b45-xlf2q
+   Pod Ports: 9080 (details), 15090 (istio-proxy)
+--------------------
+Service: details
+   Port: http 9080/HTTP targets pod port 9080
+Pilot reports that pod enforces HTTP/mTLS and clients speak HTTP
+</code></pre>
+<p>输出为：</p>
+<ul>
+<li>pod的服务容器端口，上述为<code>ratings</code>的9080端口</li>
+<li>pod中的istio-proxy端口，15090</li>
+<li>pod服务使用的协议，9080端口的http协议</li>
+<li>pod设置的mutual TLS</li>
+</ul>
+<h3 id="校验destination-rule配置"><a title="校验destination rule配置" class="headerlink" href="#校验destination-rule配置"></a>校验destination rule配置</h3><p>可以使用<code>istioctl describe</code>检查应用到一个pod的destination rule。例如执行如下命令部署destination rule</p>
+<pre><code>$ kubectl apply -f samples/bookinfo/networking/destination-rule-all-mtls.yaml
+</code></pre>
+<p>查看<code>ratings</code> pod</p>
+<pre><code>$ export RATINGS_POD=$(kubectl get pod -l app=ratings -o jsonpath='&#123;.items[0].metadata.name&#125;')
+$ istioctl x describe pod $RATINGS_POD
+Pod: ratings-v1-6c9dbf6b45-xlf2q
+   Pod Ports: 9080 (ratings), 15090 (istio-proxy)
+--------------------
+Service: ratings
+   Port: http 9080/HTTP targets pod port 9080
+DestinationRule: ratings for "ratings"
+   Matching subsets: v1
+      (Non-matching subsets v2,v2-mysql,v2-mysql-vm)
+   Traffic Policy TLS Mode: ISTIO_MUTUAL
+Pilot reports that pod enforces HTTP/mTLS and clients speak mTLS
+</code></pre>
+<p>输出为：</p>
+<ul>
+<li>应用到<code>ratings</code> 服务的<code>ratings</code> destination rule</li>
+<li>匹配pod的<code>ratings</code> destination rule，上述为<code>v1</code></li>
+<li>destination rule定义的其他subset</li>
+<li>pod接收HTTP或mutual TLS，但客户端使用mutual TLS</li>
+</ul>
+<h3 id="校验virtual-service配置"><a title="校验virtual service配置" class="headerlink" href="#校验virtual-service配置"></a>校验virtual service配置</h3><p>部署如下virtual service</p>
+<pre><code>$ kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+</code></pre>
+<p>查看<code>v1</code>版本的<code>reviews</code>服务：</p>
+<pre><code>$ export REVIEWS_V1_POD=$(kubectl get pod -l app=reviews,version=v1 -o jsonpath='&#123;.items[0].metadata.name&#125;')
+istioctl x describe pod $REVIEWS_V1_POD
+$ istioctl x describe pod $REVIEWS_V1_POD
+Pod: reviews-v1-564b97f875-q5l9r
+   Pod Ports: 9080 (reviews), 15090 (istio-proxy)
+--------------------
+Service: reviews
+   Port: http 9080/HTTP targets pod port 9080
+DestinationRule: reviews for "reviews"
+   Matching subsets: v1
+      (Non-matching subsets v2,v3)
+   Traffic Policy TLS Mode: ISTIO_MUTUAL
+VirtualService: reviews
+   1 HTTP route(s)
+</code></pre>
+<p>输出结果与前面的<code>ratings</code> pod类型，但多了到pod的virtual service路由。</p>
+<p><code>istioctl describe</code>命令不仅仅显示了影响pod的virtual service。如果一个virtual service配置的host为一个pod，但流量不可达，会输出告警信息，这种请求可能发生在当一个virtual service如果没有可达的pod subset时。例如：</p>
+<pre><code>$ export REVIEWS_V2_POD=$(kubectl get pod -l app=reviews,version=v2 -o jsonpath='&#123;.items[0].metadata.name&#125;')
+istioctl x describe pod $REVIEWS_V2_POD
+[root@bastion istio-1.6.0]# istioctl x describe pod $REVIEWS_V2_POD
+Pod: reviews-v2-568c7c9d8f-vcd94
+...
+VirtualService: reviews
+   WARNING: No destinations match pod subsets (checked 1 HTTP routes)
+      Route to non-matching subset v1 for (everything)
+</code></pre>
+<p>告警信息给出导致问题的原因，检查的路由数目，以及其他路由信息。例如，由于virtual service将所有的流量到导入了<code>v1</code> subset，因此<code>v2</code> pod无法接收到任何流量。</p>
+<p>如果删除如下destination rule：</p>
+<pre><code>$ kubectl delete -f samples/bookinfo/networking/destination-rule-all-mtls.yaml
+</code></pre>
+<p>可以看到如下信息：</p>
+<pre><code>$ istioctl x describe pod $REVIEWS_V1_POD
+Pod: reviews-v1-564b97f875-q5l9r
+   Pod Ports: 9080 (reviews), 15090 (istio-proxy)
+--------------------
+Service: reviews
+   Port: http 9080/HTTP targets pod port 9080
+VirtualService: reviews
+   WARNING: No destinations match pod subsets (checked 1 HTTP routes)
+      Warning: Route to subset v1 but NO DESTINATION RULE defining subsets!
+</code></pre>
+<p>输出展示了已删除destination rule，但没有删除依赖它的virtual service。该virtual service将流量路由到<code>v1</code> subset，但没有定义<code>v1</code> subset的destination rule。因此流量无法分发到<code>v1</code>版本的pod。</p>
+<p>恢复环境：</p>
+<pre><code>$ kubectl apply -f samples/bookinfo/networking/destination-rule-all-mtls.yaml
+</code></pre>
+<h3 id="校验流量路由"><a title="校验流量路由" class="headerlink" href="#校验流量路由"></a>校验流量路由</h3><p><code>istioctl describe</code>也可以展示流量权重。如理如下命令会将90%的流量导入<code>reviews</code>服务的<code>v1</code> subset，将10%的流量导入<code>reviews</code>服务的<code>v2</code> subset。</p>
+<pre><code>$ kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-90-10.yaml
+</code></pre>
+<p>查看reviews v1` pod：</p>
+<pre><code>$ istioctl x describe pod $REVIEWS_V1_POD
+...
+VirtualService: reviews
+   Weight 90%
+</code></pre>
+<p>输出显示90%的<code>reviews</code>服务的流量导入到了<code>v1</code> subset中。</p>
+<p>部署其他类型的路由，如部署指定HTTP首部的路由：</p>
+<pre><code>$ kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-jason-v2-v3.yaml
+</code></pre>
+<p>再次查看pod：</p>
+<pre><code>$ istioctl x describe pod $REVIEWS_V1_POD
+...
+VirtualService: reviews
+   WARNING: No destinations match pod subsets (checked 2 HTTP routes)
+      Route to non-matching subset v2 for (when headers are end-user=jason)
+      Route to non-matching subset v3 for (everything)
+</code></pre>
+<p>由于查看了位于<code>v1</code> subset的pod，而virtual service将包含 <code>end-user=jason</code> 的流量分发给<code>v2</code> subset，其他流量分发给<code>v3</code> subset，<code>v1</code> subset没有任何流量导入，此时会输出告警信息。</p>
+<h3 id="检查strict-mutual-TLS-官方文档待更新"><a title="检查strict mutual TLS(官方文档待更新)" class="headerlink" href="#检查strict-mutual-TLS-官方文档待更新"></a>检查strict mutual TLS(官方文档待更新)</h3><p>根据<a target="_blank" rel="noopener" href="https://istio.io/docs/tasks/security/authentication/mtls-migration/">mutual TLS迁移指南</a>，可以给ratings服务启用strict mutual TLS。</p>
+<pre><code>$ kubectl apply -f - &lt;&lt;EOF
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: ratings-strict
+spec:
+  selector:
+    matchLabels:
+      app: ratings
+  mtls:
+    mode: STRICT
+EOF
+</code></pre>
+<p>执行如下命令查看<code>ratings</code> pod，输出显示<code>ratings</code> pod已经使用mutual TLS防护。</p>
+<pre><code>$ istioctl x describe pod $RATINGS_POD
+Pilot reports that pod enforces mTLS and clients speak mTLS
+</code></pre>
+<p>有时，将mutual TLS切换位<code>STRICT</code>模式时会对部署的组件造成影响，通常是因为destination rule不匹配新配置造成的。例如，如果配置Bookinfo客户端不使用mutualTLS，而使用<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/istio/istio/release-1.6/samples/bookinfo/networking/destination-rule-all.yaml">明文的HTTP destination rules</a>:</p>
+<pre><code>$ kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
+</code></pre>
+<p>如果在浏览器傻瓜打开Bookinfo，会显示<code>Ratings service is currently unavailable</code>，使用如下命令查看原因：</p>
+<pre><code>$ istioctl x describe pod $RATINGS_POD
+...
+WARNING Pilot predicts TLS Conflict on ratings-v1-f745cf57b-qrxl2 port 9080 (pod enforces mTLS, clients speak HTTP)
+  Check DestinationRule ratings/default and AuthenticationPolicy ratings-strict/default
+</code></pre>
+<p>输出中有一个描述destination rule和authentication policy冲突的告警信息。</p>
+<p>使用如下方式恢复：</p>
+<pre><code>$ kubectl apply -f samples/bookinfo/networking/destination-rule-all-mtls.yaml
+</code></pre>
+<h3 id="卸载"><a title="卸载" class="headerlink" href="#卸载"></a>卸载</h3><pre><code>$ kubectl delete -f samples/bookinfo/platform/kube/bookinfo.yaml
+$ kubectl delete -f samples/bookinfo/networking/bookinfo-gateway.yaml
+$ kubectl delete -f samples/bookinfo/networking/destination-rule-all-mtls.yaml
+$ kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+</code></pre>
+<h2 id="使用istioctl-analyse诊断配置"><a title="使用istioctl analyse诊断配置" class="headerlink" href="#使用istioctl-analyse诊断配置"></a>使用istioctl analyse诊断配置</h2><p><code>istioctl analyze</code>是一个可以探测istio配置中潜在错误的诊断工具，它可以诊断现有的集群或一组本地配置文件，会同时诊断这两者。</p>
+<p>可以使用如下方式诊断当前的kubernetes：</p>
+<pre><code>$ istioctl analyze --all-namespaces
+</code></pre>
+<p>例如，如果某些命名空间没有启用istiod注入，会打印如下告警信息：</p>
+<pre><code>Warn [IST0102] (Namespace openshift) The namespace is not enabled for Istio injection. Run 'kubectl label namespace openshift istio-injection=enabled' to enable it, or 'kubectl label namespace openshift istio-injection=disabled' to explicitly mark it as not needing injection
+</code></pre>
+<h3 id="分析现有的集群-x2F-本地文件或二者"><a title="分析现有的集群/本地文件或二者" class="headerlink" href="#分析现有的集群-x2F-本地文件或二者"></a>分析现有的集群/本地文件或二者</h3><p>上述的例子用于分析一个存在的集群，但该工具也可以支持分析本地kubernetes yaml的配置文件集，或同时分析本地文件和集群。当分析一个本地文件集时，这些文件集应该是完全自包含的。通常用于分析需要部署到集群的一个完整的配置文件集。</p>
+<p>分析特定的本地kubernetes yaml文件集：</p>
+<pre><code>$ istioctl analyze --use-kube=false a.yaml b.yaml
+</code></pre>
+<p>分析当前目录中的所有yaml文件：</p>
+<pre><code>$ istioctl analyze --use-kube=false *.yaml
+</code></pre>
+<p>模拟将当前目录中的files部署到当前集群中：</p>
+<pre><code>$ istioctl analyze *.yaml
+</code></pre>
+<p>使用<code>istioctl analyze --help</code>命令查看完整的选项。更多analyse的使用参见<a target="_blank" rel="noopener" href="https://istio.io/docs/ops/diagnostic-tools/istioctl-analyze/#q-a">Q&amp;A</a>.</p>
+<h2 id="组件内省"><a title="组件内省" class="headerlink" href="#组件内省"></a>组件内省</h2><p>Istio组件是用一个灵活的内省框架构建的，它使检查和操作运行组件的内部状态变得简单。组件会开放一个端口，用于通过web浏览器的交互式视图获取组件的状态，或使用外部工具通过REST访问。</p>
+<p><code>Mixer</code>, <code>Pilot</code>和<code>Galley</code> 都实现了ControlZ 功能(1.6版本可以查看istiod)。当启用这些组件时将记录一条消息，指示要连接的IP地址和端口，以便与ControlZ交互。</p>
+<pre><code>2018-07-26T23:28:48.889370Z     info    ControlZ available at 100.76.122.230:9876
+</code></pre>
+<p>可以使用如下命令进行端口转发，类似kubectl的<code>port-forward</code>，用于远程访问。</p>
+<pre><code>$ istioctl dashboard controlz &lt;podname&gt; -n &lt;namespaces&gt;
+</code></pre>
+<h2 id="组件日志"><a title="组件日志" class="headerlink" href="#组件日志"></a>组件日志</h2><h3 id="日志作用域"><a title="日志作用域" class="headerlink" href="#日志作用域"></a>日志作用域</h3><p>组件的日志按照作用域进行分类。取决于组件提供的功能，不同的组件有不同的作用域。所有的组件都有一个<code>default</code>的作用域，用于未分类的日志消息。</p>
+<p>各个组件的日志作用域参见：<a target="_blank" rel="noopener" href="https://istio.io/docs/reference/commands/">reference documentation</a>。</p>
+<p>每个作用域对应一个唯一的日志级别：</p>
+<ol>
+<li>none</li>
+<li>error</li>
+<li>warning</li>
+<li>info</li>
+<li>debug</li>
+</ol>
+<p>其中none表示没有划分作用域的输出，<code>debug</code>会最大化输出。默认的作用域为<code>info</code>，用于在一般情况下为istio提供何时的日志输出。</p>
+<p>可以使用 <code>--log_output_level</code> 控制输出级别：</p>
+<h3 id="控制输出"><a title="控制输出" class="headerlink" href="#控制输出"></a>控制输出</h3><p>日志信息通常会发送到组件的标准输出流中。 <code>--log_target</code>选项可以将输出重定向到任意(数量的)位置，可以通过逗号分割的列表给出文件系统的路径。<code>stdout</code> 和<code>stderr</code>分别表示标准输出和标准错误输出流。</p>
+<h3 id="日志滚动"><a title="日志滚动" class="headerlink" href="#日志滚动"></a>日志滚动</h3><p>istio组件能够自动管理日志滚动，将大的日志切分为小的日志文件。<code>--log_rotate</code>选项允许指定用于滚动的基本文件名。派生的名称将用于单个日志文件。</p>
+<p><code>--log_rotate_max_age</code>选项指定文件发生滚动前的最大时间(天为单位)，<code>--log_rotate_max_size</code>选项用于指定文件滚动发生前的最大文件大小(MB为单位)， <code>--log_rotate_max_backups</code>选项控制保存的滚动文件的最大数量，超过该值的老文件会被自动删除。</p>
+<h3 id="组件调试"><a title="组件调试" class="headerlink" href="#组件调试"></a>组件调试</h3><p><code>--log_caller</code> 和<code>--log_stacktrace_level</code>选项可以控制日志信息是否包含程序员级别的信息。在跟踪组件bug时很有用，但日常用不到。</p>
+<h3 id="参考"><a title="参考" class="headerlink" href="#参考"></a>参考</h3>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E4%B8%8EWeb%E6%9C%8D%E5%8A%A1/">网络与Web服务</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Istio%E7%9A%84%E8%BF%90%E7%BB%B4-%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7%20-%20charlieroro%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/" data-title="Istio的运维-诊断工具 - charlieroro - 博客园 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/Intelij svn一些不常用操作/" title="Intelij svn一些不常用操作">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Intelij svn一些不常用操作</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/JAVA正则表达式，过滤HTML，替换HTML标签！/"  title="JAVA正则表达式，过滤HTML，替换HTML标签！">
+ <strong>下一篇：</strong><br/> 
+ <span>JAVA正则表达式，过滤HTML，替换HTML标签！
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/Istio的运维-诊断工具 - charlieroro - 博客园/" data-title="Istio的运维-诊断工具 - charlieroro - 博客园" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Istio%E7%9A%84%E8%BF%90%E7%BB%B4-%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7%20-%20charlieroro%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Istio%E7%9A%84%E8%BF%90%E7%BB%B4-%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7-charlieroro-%E5%8D%9A%E5%AE%A2%E5%9B%AD"><span class="toc-number">1.</span> <span class="toc-text">Istio的运维-诊断工具 - charlieroro - 博客园</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Istio%E7%9A%84%E8%BF%90%E7%BB%B4-%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7"><span class="toc-number">2.</span> <span class="toc-text">Istio的运维-诊断工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8istioctl%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-number">2.1.</span> <span class="toc-text">使用istioctl命令行工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#istioctl%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text">istioctl自动补全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BD%91%E6%A0%BC%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-number">2.1.2.</span> <span class="toc-text">查看网格的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE"><span class="toc-number">2.1.3.</span> <span class="toc-text">获取代理配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95Envoy%E5%92%8Cistiod"><span class="toc-number">2.2.</span> <span class="toc-text">调试Envoy和istiod</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E7%BD%91%E6%A0%BC%E6%A6%82%E5%86%B5"><span class="toc-number">2.2.1.</span> <span class="toc-text">获取网格概况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E7%B4%A2Envoy%E5%92%8Cistiod%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="toc-number">2.2.2.</span> <span class="toc-text">检索Envoy和istiod的差异</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%A9%B6Envoy%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.3.</span> <span class="toc-text">深入探究Envoy配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5bootstrap%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.4.</span> <span class="toc-text">检查bootstrap配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E5%88%B0istiod%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">2.2.5.</span> <span class="toc-text">校验到istiod的连通性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87istioctl%E7%9A%84%E8%BE%93%E5%87%BA%E7%90%86%E8%A7%A3%E7%BD%91%E6%A0%BC"><span class="toc-number">2.3.</span> <span class="toc-text">通过istioctl的输出理解网格</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8Cpod%E6%98%AF%E5%90%A6%E5%9C%A8%E7%BD%91%E6%A0%BC%E4%B8%AD"><span class="toc-number">2.3.1.</span> <span class="toc-text">校验pod是否在网格中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8Cdestination-rule%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.2.</span> <span class="toc-text">校验destination rule配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8Cvirtual-service%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.3.</span> <span class="toc-text">校验virtual service配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1"><span class="toc-number">2.3.4.</span> <span class="toc-text">校验流量路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5strict-mutual-TLS-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E5%BE%85%E6%9B%B4%E6%96%B0"><span class="toc-number">2.3.5.</span> <span class="toc-text">检查strict mutual TLS(官方文档待更新)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD"><span class="toc-number">2.3.6.</span> <span class="toc-text">卸载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8istioctl-analyse%E8%AF%8A%E6%96%AD%E9%85%8D%E7%BD%AE"><span class="toc-number">2.4.</span> <span class="toc-text">使用istioctl analyse诊断配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E7%8E%B0%E6%9C%89%E7%9A%84%E9%9B%86%E7%BE%A4-x2F-%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E6%88%96%E4%BA%8C%E8%80%85"><span class="toc-number">2.4.1.</span> <span class="toc-text">分析现有的集群&#x2F;本地文件或二者</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%86%85%E7%9C%81"><span class="toc-number">2.5.</span> <span class="toc-text">组件内省</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E6%97%A5%E5%BF%97"><span class="toc-number">2.6.</span> <span class="toc-text">组件日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">2.6.1.</span> <span class="toc-text">日志作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E8%BE%93%E5%87%BA"><span class="toc-number">2.6.2.</span> <span class="toc-text">控制输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E6%BB%9A%E5%8A%A8"><span class="toc-number">2.6.3.</span> <span class="toc-text">日志滚动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E8%B0%83%E8%AF%95"><span class="toc-number">2.6.4.</span> <span class="toc-text">组件调试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">2.6.5.</span> <span class="toc-text">参考</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

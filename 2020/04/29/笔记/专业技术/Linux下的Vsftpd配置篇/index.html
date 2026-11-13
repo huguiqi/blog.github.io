@@ -1,0 +1,1107 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>Linux下的Vsftpd配置篇 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="Linux下的Vsftpd配置篇linux vsftpd Linux下的Vsftpd配置篇 2010-10-12 22:59:02 1.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;主动与被动模式1)&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;主动模式(PORT方式)连接过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下的Vsftpd配置篇">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="Linux下的Vsftpd配置篇linux vsftpd Linux下的Vsftpd配置篇 2010-10-12 22:59:02 1.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;主动与被动模式1)&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;主动模式(PORT方式)连接过">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/68.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/69.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/70.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/71.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/72.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/73.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/74.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/75.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/76.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/77.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/78.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/79.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/80.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/81.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/82.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/83.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/84.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/85.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/86.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/87.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/88.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/89.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/90.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/91.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/92.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/93.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/94.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/95.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/96.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/97.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/98.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/99.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/100.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/101.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/102.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/103.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/104.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/105.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/106.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/107.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/108.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/109.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/110.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/111.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/112.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/113.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/114.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/115.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/116.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/117.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/118.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/119.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/120.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/121.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/122.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/123.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/124.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/125.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/126.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2015-07-29T01:55:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="vsftpd">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/68.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/Linux下的Vsftpd配置篇/" title="Linux下的Vsftpd配置篇" itemprop="url">Linux下的Vsftpd配置篇</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87"><span class="toc-number">1.</span> <span class="toc-text">Linux下的Vsftpd配置篇</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="Linux下的Vsftpd配置篇"><a title="Linux下的Vsftpd配置篇" class="headerlink" href="#Linux下的Vsftpd配置篇"></a>Linux下的Vsftpd配置篇</h1><p><code>linux</code> <code>vsftpd</code></p>
+<p>Linux下的Vsftpd配置篇</p>
+<p>2010-10-12 22:59:02</p>
+<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主动与被动模式<br>1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主动模式(PORT方式)<br>连接过程为：客户端向服务器FTP端口(默认是21)发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，客户端在命令链路上用PORT命令告诉服务器：我打开了XX端口，你过来连接我，于是服务器从20号端口向客户端的XX端口发送连接请求，建立一条数据链路来传送数据。<br>2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;被动模式(PASV方式)<br>连接过程为：客户端向服务器FTP端口(默认是21)发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，服务器在命令链路上用PASV命令告诉客户端：我打开了XX端口，你过来连接我，于是客户端向服务器的XX端口发送连接请求，建立一条数据链路来传送数据。<br>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;安装<br>1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查看是否安装<br>打开命令行，输入rpm -q vsftpd，出现：<br>Ø&nbsp;已经安装<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/220313876.jpg"><img loading="lazy" alt="-68.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/68.jpg"></a></p>
+<p>Ø&nbsp;还没安装<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/220328940.jpg"><img loading="lazy" alt="-69.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/69.jpg"></a></p>
+<p>2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;安装<br>Ø&nbsp;载入光盘<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/220351982.jpg"><img loading="lazy" alt="-70.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/70.jpg"></a></p>
+<p>Ø&nbsp;设置光盘<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/220412956.jpg"><img loading="lazy" alt="-71.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/71.jpg"></a></p>
+<p>单击虚拟机右下角的光盘图标，选择Settings，在Device status中将Connected勾选，在Connection中选择Use ISO image file，然后单击Browse选择Linux的安装包，单击OK<br>Ø&nbsp;安装<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/220544107.jpg"><img loading="lazy" alt="-72.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/72.jpg"></a></p>
+<p>安装完成<br>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文件结构与配置文件<br>1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文件结构<br>|配置文件名<br>|功能<br>|<br>|———-|—-|</p>
+<p>|/usr/sbin/vsftpd<br>|vsftpd的主程序<br>|<br>|—————-|————–|</p>
+<p>|/etc/rc.d/init.d/vsftpd<br>|启动脚本<br>|<br>|———————–|——–|</p>
+<p>|/etc/vsftpd/vsftpd.conf<br>|主配置文件<br>|<br>|———————–|———-|</p>
+<p>|/etc/pam.d/vsftpd<br>|PAM认证文件<br>|<br>|—————–|———–|</p>
+<p>|/etc/vsftpd.ftpusers<br>|禁止使用vsftpd的用户列表文件<br>|<br>|——————–|—————————-|</p>
+<p>|/etc/vsftpd.user_list<br>|禁止或允许使用vsftpd的用户列表文件<br>|<br>|———————|———————————-|</p>
+<p>|/var/ftp<br>|匿名用户主目录<br>|<br>|——–|————–|</p>
+<p>|/var/ftp/pub<br>|匿名用户的下载目录<br>|<br>|————|——————|</p>
+<p>|/etc/logrotate.d/vsftpd.log<br>|vsftpd的日志文件<br>|<br>|—————————|—————-|</p>
+<p>2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配置文件<br>Ø&nbsp;查看<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/220624163.jpg"><img loading="lazy" alt="-73.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/73.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/220637621.jpg"><img loading="lazy" alt="-74.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/74.jpg"></a></p>
+<p>以#号开头的为注释，这里把非配置参数注释都去掉了<br>Ø&nbsp;参数含义<br>|参数<br>|含义<br>|<br>|—-|—-|</p>
+<p>|anonymous_enable=YES<br>|是否允许使用匿名账户<br>|<br>|——————–|——————–|</p>
+<p>|local_enable=YES<br>|是否允许本地用户登录<br>|<br>|—————-|——————–|</p>
+<p>|write_enable=YES<br>|是否允许写入<br>|<br>|—————-|————|</p>
+<p>|local_umask=022<br>|本地umask值为022<br>|<br>|—————|—————-|</p>
+<p>|#anon_upload_enable=YES<br>|匿名用户是否可上传文件<br>|<br>|———————–|———————-|</p>
+<p>|#anon_mkdir_write_enable=YES<br>|匿名用户是否可建立目录<br>|<br>|—————————-|———————-|</p>
+<p>|dirmessage_enable=YES<br>|进入每个目录显示欢迎信息，在每个目录下建立.message文件在里面写欢迎信息<br>|<br>|———————|———————————————————————-|</p>
+<p>|xferlog_enable=YES<br>|上传/下载文件时记录日志<br>|<br>|——————|———————–|</p>
+<p>|connect_from_port_20=YES<br>|是否使用20端口传输数据(是否使用主动模式)<br>|<br>|————————|—————————————-|</p>
+<p>|#chown_uploads=YES<br>|修改匿名用户上传的文件，文件的拥有者<br>|<br>|——————|————————————|</p>
+<p>|#chown_username=whoever<br>|<br>|———————–|</p>
+<p>|#xferlog_file=/var/log/xferlog<br>|日志文件<br>|<br>|——————————|——–|</p>
+<p>|xferlog_std_format=YES<br>|使用标准文件日志<br>|<br>|———————-|—————-|</p>
+<p>|#idle_session_timeout=600<br>|会话超时，客户端连接到ftp但未操作<br>|<br>|————————-|———————————|</p>
+<p>|#data_connection_timeout=120<br>|数据传输超时<br>|<br>|—————————-|————|</p>
+<p>|#nopriv_user=ftpsecure<br>|指定vsftpd服务的运行帐户，不指定时使用ftp<br>|<br>|———————-|—————————————–|</p>
+<p>|#async_abor_enable=YES<br>|是否允许客户端使用sync等命令<br>|<br>|———————-|—————————-|</p>
+<p>|#ascii_upload_enable=YES<br>|是否允许上传/下载二进制文件<br>|<br>|————————|—————————|</p>
+<p>|#ascii_download_enable=YES<br>|<br>|————————–|</p>
+<p>|#ftpd_banner=Welcome to blah FTP service.<br>|登录提示语<br>|<br>|—————————————–|———-|</p>
+<p>|#deny_email_enable=YES<br>|拒绝使用banned_email_file参数指定文件中所列出的e-mail地址进行登录的匿名用户。即，当匿名用户使用banned_email_file文件中所列出的e-mail进行登录时，被拒绝。<br>|<br>|———————-|——————————————————————————————————————————————————–|</p>
+<p>|#banned_email_file=/etc/vsftpd/banned_emails<br>|<br>|——————————————–|</p>
+<p>|#chroot_list_enable=YES<br>|锁定登陆用户在其主目录，将用户名一个一行写在/etc/vsftpd/chroot_list文件里，使用此方法时必须chroot_local_user=YES<br>|<br>|———————–|—————————————————————————————————————-|</p>
+<p>|#chroot_list_file=/etc/vsftpd/chroot_list<br>|<br>|—————————————–|</p>
+<p>|#ls_recurse_enable=YES<br>|是否允许使用ls -R等命令<br>|<br>|———————-|———————–|</p>
+<p>|listen=YES<br>|开启ipv4监听<br>|<br>|———-|————|</p>
+<p>|#listen_ipv6=YES<br>|开启ipv6监听<br>|<br>|—————-|————|</p>
+<p>|pam_service_name=vsftpd<br>|使用pam模块控制，vsftpd文件在/etc/pam.d目录下<br>|<br>|———————–|———————————————|</p>
+<p>|userlist_enable=YES<br>|与其他中userlist_deny=YES共同控制访问用户，详见userlist_deny=YES参数含义<br>|<br>|——————-|————————————————————————|</p>
+<p>|tcp_wrappers=YES<br>|是否允许tcp_wrappers管理<br>|<br>|—————-|————————|</p>
+<p>|其他<br>|<br>|—-|</p>
+<p>|listen_address=ip address<br>|指定侦听IP<br>|<br>|————————-|———-|</p>
+<p>|listen_port=port_value<br>|指定侦听端口，默认21<br>|<br>|———————-|——————–|</p>
+<p>|chroot_local_user=YES<br>|限制所有的本地用户在自家目录<br>|<br>|———————|—————————-|</p>
+<p>|userlist_deny=YES<br>|决定禁止还是只允许由userlist_file指定文件中的用户登录FTP服务器。此选项在userlist_enable选项启动后才生效。YES为默认值，禁止文件中的用户登录，同时也不向这些用户发出输入密码的提示。NO表示只允许在文件中的用户登录FTP服务器<br>|<br>|—————–|————————————————————————————————————————————————————————————————————————-|</p>
+<p>|local_root=/home/ftp<br>|所有用户的根目录，对匿名用户无效<br>|<br>|——————–|——————————–|</p>
+<p>|anon_max_rate=value<br>|匿名用户的最大传输速度，单位是Byts/s<br>|<br>|——————-|————————————|</p>
+<p>|local_max_rate=value<br>|本地用户的最大传输速度，单位是Byts/s<br>|<br>|——————–|————————————|</p>
+<p>|download_enable=YES<br>|是否允许下载<br>|<br>|——————-|————|</p>
+<p>3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;连接信息<br>|代码<br>|含义<br>|代码<br>|含义<br>|<br>|—-|—-|—-|—-|</p>
+<p>|110<br>|重新启动标记应答<br>|120<br>|服务在多久时间内ready<br>|<br>|—|—————-|—|———————|</p>
+<p>|125<br>|数据链路埠开启，准备传送<br>|150<br>|文件状态正常，开启数据连接端口<br>|<br>|—|————————|—|——————————|</p>
+<p>|200<br>|命令执行成功<br>|202<br>|命令执行失败<br>|<br>|—|————|—|————|</p>
+<p>|211<br>|系统状态或是系统求助响应<br>|212<br>|目录的状态<br>|<br>|—|————————|—|———-|</p>
+<p>|213<br>|文件的状态<br>|214<br>|求助的信息<br>|<br>|—|———-|—|———-|</p>
+<p>|215<br>|名称系统类型<br>|220<br>|新的联机服务ready<br>|<br>|—|————|—|—————–|</p>
+<p>|221<br>|服务的控制连接埠关闭，可以注销<br>|225<br>|数据连结开启，但无传输动作<br>|<br>|—|——————————|—|————————–|</p>
+<p>|226<br>|关闭数据连接端口，请求的文件操作成功<br>|227<br>|进入passive mode<br>|<br>|—|————————————|—|—————-|</p>
+<p>|230<br>|使用者登录<br>|250<br>|请求的文件操作完成<br>|<br>|—|———-|—|——————|</p>
+<p>|257<br>|显示目前的路径名称<br>|331<br>|用户名称正确，需要密码<br>|<br>|—|——————|—|———————-|</p>
+<p>|332<br>|登入时需要账号信息<br>|350<br>|请求的操作需要进一部的命令<br>|<br>|—|——————|—|————————–|</p>
+<p>|421<br>|无法提供服务，关闭控制连结<br>|425<br>|无法开启数据链路<br>|<br>|—|————————–|—|—————-|</p>
+<p>|426<br>|关闭联机，终止传输<br>|450<br>|请求的操作未执行<br>|<br>|—|——————|—|—————-|</p>
+<p>|451<br>|命令终止：有本地的错误<br>|452<br>|未执行命令：磁盘空间不足<br>|<br>|—|———————-|—|————————|</p>
+<p>|500<br>|格式错误，无法识别命令<br>|501<br>|参数语法错误<br>|<br>|—|———————-|—|————|</p>
+<p>|502<br>|命令执行失败<br>|503<br>|命令顺序错误<br>|<br>|—|————|—|————|</p>
+<p>|504<br>|命令所接的参数不正确<br>|530<br>|未登录<br>|<br>|—|——————–|—|——|</p>
+<p>|532<br>|储存文件需要账户登录<br>|550<br>|未执行请求的操作<br>|<br>|—|——————–|—|—————-|</p>
+<p>|551<br>|请求的命令终止，类型未知<br>|552<br>|请求的文件终止，储存位溢出<br>|<br>|—|————————|—|————————–|</p>
+<p>|553<br>|未执行请求的的命令，名称不正确<br>|&nbsp;<br>|&nbsp;<br>|<br>|—|——————————|-|-|</p>
+<p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配置<br>1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;匿名用户登录FTP<br>Ø&nbsp;配置<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/220752284.jpg"><img loading="lazy" alt="-75.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/75.jpg"></a></p>
+<p>安装完成后，service vsftpd start启动服务<br>Ø&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/220813512.jpg"><img loading="lazy" alt="-76.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/76.jpg"></a></p>
+<p>在XP下连接FTP，可以看到登陆成功，用户名为ftp，即为匿名用户，anonymous也为匿名用户，vsFTP默认的配置匿名用户就可登录<br>2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实名用户登录FTP<br>Ø&nbsp;配置<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/220921438.jpg"><img loading="lazy" alt="-77.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/77.jpg"></a></p>
+<p>mkdir -p /var/ftp/pub/zwb：建立用户登录根目录<br>useradd -G ftp -d /var/ftp/pub/zwb -M zwb：建立实名用户<br>passwd zwb：设置实名用户登录密码<br>Ø&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/220949891.jpg"><img loading="lazy" alt="-78.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/78.jpg"></a></p>
+<p>3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只允许匿名登录，不允许实名登录<br>Ø&nbsp;配置<br>l&nbsp;修改配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221117141.jpg"><img loading="lazy" alt="-79.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/79.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221127192.jpg"><img loading="lazy" alt="-80.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/80.jpg"></a></p>
+<p>将local_enable=YES改为NO，保存退出<br>l&nbsp;重启服务<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221143152.jpg"><img loading="lazy" alt="-81.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/81.jpg"></a></p>
+<p>Ø&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221207528.jpg"><img loading="lazy" alt="-82.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/82.jpg"></a></p>
+<p>4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不允许匿名登录，只允许实名登录<br>Ø&nbsp;配置<br>l&nbsp;修改配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221424654.jpg"><img loading="lazy" alt="-83.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/83.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221435822.jpg"><img loading="lazy" alt="-84.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/84.jpg"></a></p>
+<p>将local_enable=NO改为YES，anonymous_enable=YES改为NO，退出保存<br>l&nbsp;重启服务<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221528643.jpg"><img loading="lazy" alt="-85.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/85.jpg"></a></p>
+<p>Ø&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221547700.jpg"><img loading="lazy" alt="-86.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/86.jpg"></a></p>
+<p>5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;黑、白名单<br>Ø&nbsp;黑名单<br>l&nbsp;配置<br>u&nbsp;修改配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221618677.jpg"><img loading="lazy" alt="-87.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/87.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221630800.jpg"><img loading="lazy" alt="-88.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/88.jpg"></a></p>
+<p>anonymous_enable=NO改为anonymous_enable=YES，还原初始配置<br>u&nbsp;添加黑名单<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221914993.jpg"><img loading="lazy" alt="-89.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/89.jpg"></a></p>
+<p>将zwb用户追加进黑名单<br>l&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/221946623.jpg"><img loading="lazy" alt="-90.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/90.jpg"></a></p>
+<p>zwb用户登录失败<br>Ø&nbsp;白名单<br>l&nbsp;配置<br>u&nbsp;还原设置<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222042965.jpg"><img loading="lazy" alt="-91.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/91.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222110961.jpg"><img loading="lazy" alt="-92.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/92.jpg"></a></p>
+<p>将上面追加进黑名单的用户zwb移除并保存退出<br>u&nbsp;设置白名单<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222154987.jpg"><img loading="lazy" alt="-93.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/93.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222214596.jpg"><img loading="lazy" alt="-94.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/94.jpg"></a></p>
+<p>添加userlist_deny=NO与userlist_file=/etc/vsftpd/user_list这2行<br>u&nbsp;添加白名单<br>&nbsp;<a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222455284.jpg"><img loading="lazy" alt="-95.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/95.jpg"></a></p>
+<p>除user_list里的用户外，都不可登陆<br>u&nbsp;重启服务<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222432741.jpg"><img loading="lazy" alt="-96.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/96.jpg"></a></p>
+<p>l&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222622721.jpg"><img loading="lazy" alt="-97.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/97.jpg"></a></p>
+<p>6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;限制客户数<br>Ø&nbsp;配置<br>l&nbsp;还原设置<br>u&nbsp;还原白名单<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222738261.jpg"><img loading="lazy" alt="-98.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/98.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222747488.jpg"><img loading="lazy" alt="-99.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/99.jpg"></a></p>
+<p>将上面追加进黑名单的用户zwb移除并保存退出<br>u&nbsp;还原配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222857224.jpg"><img loading="lazy" alt="-100.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/100.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222907349.jpg"><img loading="lazy" alt="-101.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/101.jpg"></a></p>
+<p>去掉userlist_deny=NO与userlist_file=/etc/vsftpd/user_list<br>l&nbsp;修改配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222946906.jpg"><img loading="lazy" alt="-102.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/102.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/222957247.jpg"><img loading="lazy" alt="-103.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/103.jpg"></a></p>
+<p>添加max_clients=1，指明最大客户连接数量为1<br>l&nbsp;重启服务<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223105993.jpg"><img loading="lazy" alt="-104.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/104.jpg"></a></p>
+<p>Ø&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223128578.jpg"><img loading="lazy" alt="-105.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/105.jpg"></a></p>
+<p>ftp用户登录成功，不要退出，再次开启一个命令行<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223155871.jpg"><img loading="lazy" alt="-106.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/106.jpg"></a></p>
+<p>在才开启的命令行上连接FTP，错误代码421，提示There are too many connected users,please try later(有太多的用户连接，稍后再试)，使用zwb用户登录Connection closed by remote host(远程主机连接关闭)<br>7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;速率限制<br>Ø&nbsp;匿名用户与实名用户速率限制<br>l&nbsp;配置<br>u&nbsp;还原设置<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223231601.jpg"><img loading="lazy" alt="-107.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/107.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223243752.jpg"><img loading="lazy" alt="-108.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/108.jpg"></a></p>
+<p>去掉max_clients=1<br>u&nbsp;修改配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223331252.jpg"><img loading="lazy" alt="-109.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/109.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223341896.jpg"><img loading="lazy" alt="-110.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/110.jpg"></a></p>
+<p>单位为bytes，local_max_rate表示实名用户的下载速度，anon_max_rate表示匿名用户的下载速度<br>u&nbsp;重启服务<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223410331.jpg"><img loading="lazy" alt="-111.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/111.jpg"></a></p>
+<p>l&nbsp;测试<br>u&nbsp;创建测试文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223500220.jpg"><img loading="lazy" alt="-112.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/112.jpg"></a></p>
+<p>dd if=/dev/zero of=get_test bs=126k count=1创建一个大小为126k的文件，用0填满，作为测试文件，实际创建了一个129k的文件<br>u&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223528351.jpg"><img loading="lazy" alt="-113.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/113.jpg"></a></p>
+<p>zwb用户用时为0.77Seconds，速率为168.44Kbytes/sec。ftp用户用时为6.20Seconds，速率为20.80Kbytes/sec<br>Ø&nbsp;不同实名用户分等级下载限制<br>l&nbsp;配置<br>u&nbsp;还原设置<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223605333.jpg"><img loading="lazy" alt="-114.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/114.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223909128.jpg"><img loading="lazy" alt="-115.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/115.jpg"></a></p>
+<p>去掉local_max_rate与anon_max_rate</p>
+<p>u&nbsp;添加用户</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/223618175.jpg"><img loading="lazy" alt="-116.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/116.jpg"></a></p>
+<p>建立zzj用户的用户根目录，添加zzj用户，设置zzj用户密码<br>u&nbsp;修改配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224038698.jpg"><img loading="lazy" alt="-117.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/117.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224047579.jpg"><img loading="lazy" alt="-118.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/118.jpg"></a></p>
+<p>添加user_config_dir=/etc/vsftpd，设置用户配置目录<br>u&nbsp;添加用户配置文件<br>n&nbsp;为zwb用户添加配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224210133.jpg"><img loading="lazy" alt="-119.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/119.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224219334.jpg"><img loading="lazy" alt="-120.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/120.jpg"></a></p>
+<p>n&nbsp;为zzj用户添加配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224232319.jpg"><img loading="lazy" alt="-121.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/121.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224240466.jpg"><img loading="lazy" alt="-122.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/122.jpg"></a></p>
+<p>u&nbsp;重启服务<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224340636.jpg"><img loading="lazy" alt="-123.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/123.jpg"></a></p>
+<p>l&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224404882.jpg"><img loading="lazy" alt="-124.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/124.jpg"></a></p>
+<p>zwb用户用时为0.78Seconds，速率为165.20Kbytes/sec。zzj用户用时为6.20Seconds，速率为20.80Kbytes/sec<br>8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上传<br>Ø&nbsp;匿名用户上传<br>l&nbsp;配置<br>u&nbsp;还原设置<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224532538.jpg"><img loading="lazy" alt="-125.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/125.jpg"></a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224609979.jpg"><img loading="lazy" alt="-126.jpg" src="/images/notes/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/126.jpg"></a></p>
+<p>把user_config_dir=/etc/vsftpd去掉<br>u&nbsp;修改配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224625564.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224641127.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>取消anon_upload_enable=YES与anon_mkdir_write_enable=YES前的注释，添加anon_other_write_enable=YES，表示允许文件改名、删除<br>u&nbsp;权限配置<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224715812.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>chmod -R 777 pub：<br>将pub目录改为777的权限<br>chcon -R -t public_content_rw_t pub：<br>将pub目录的文件类型改为public_content_rw_t<br>getsebool -a | grep ftp：<br>查看sebool值中关于ftp的值<br>setsebool -P allow_ftpd_anon_write on:<br>修改sebool中allow_ftpd_anon_write的值为on<br>u&nbsp;重启服务<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224816661.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>l&nbsp;测试<br>u&nbsp;创建测试文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224840991.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>u&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224852955.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>匿名用户需要上传在pub目录下<br>Ø&nbsp;实名用户上传<br>l&nbsp;配置<br>u&nbsp;还原设置<br>n&nbsp;还原配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/224951887.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225004480.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>将anonymous_enable=YES注释<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225119736.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>将anon_upload_enable=YES与anon_mkdir_write_enable=YES注释<br>n&nbsp;还原sebool值<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225141830.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>u&nbsp;设置sebool值<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225223810.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>u&nbsp;设置用户根目录权限<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225234630.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>将用户主目录/var/ftp/pub/zwb改成777的权限<br>u&nbsp;重启服务<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225306919.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>l&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225322631.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更改默认共享目录<br>Ø&nbsp;配置<br>l&nbsp;还原设置<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225400574.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225411870.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>l&nbsp;修改配置文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225453178.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>&nbsp;</p>
+<p><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225504741.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>l&nbsp;重启服务<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225532393.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>l&nbsp;创建实名用户根目录<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225618259.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>l&nbsp;修改目录类型<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225631897.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>Ø&nbsp;测试<br>l&nbsp;创建文件<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225711794.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>l&nbsp;测试<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225722779.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>实名用户登录后ls可以看到文件A，证明在/home/zwb文件目录下，或者可以使用pwd命令，查看当前所在目录<br><a target="_blank" rel="noopener" href="http://img1.51cto.com/attachment/201010/225747295.jpg">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p>匿名用户ftp登录后，ls可以看到文件B，证明在/home文件目录下</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux%E4%B8%8E%E8%BF%90%E7%BB%B4/">Linux与运维</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/yinxiang/">yinxiang</a><a href="/tags/vsftpd/">vsftpd</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/" data-title="Linux下的Vsftpd配置篇 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/Linux下批量删除.git文件夹的命令/" title="Linux下批量删除.git文件夹的命令">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Linux下批量删除.git文件夹的命令</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/Linux学习笔记：用户管理和权限控制 - BruceOuyang 的专栏 - 博客频道 - CSDN.NET/"  title="Linux学习笔记：用户管理和权限控制 - BruceOuyang 的专栏 - 博客频道 - CSDN.NET">
+ <strong>下一篇：</strong><br/> 
+ <span>Linux学习笔记：用户管理和权限控制 - BruceOuyang 的专栏 - 博客频道 - CSDN.NET
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/Linux下的Vsftpd配置篇/" data-title="Linux下的Vsftpd配置篇" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E4%B8%8B%E7%9A%84Vsftpd%E9%85%8D%E7%BD%AE%E7%AF%87"><span class="toc-number">1.</span> <span class="toc-text">Linux下的Vsftpd配置篇</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

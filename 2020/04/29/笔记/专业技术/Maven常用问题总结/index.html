@@ -1,0 +1,1430 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>Maven常用问题总结 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="Maven常用问题总结前言Maven，发音是[&#96;meivin]，”专家”的意思。它是一个很好的项目管理工具，很早就进入了我的必备工具行列，但是这次为了把ABPM项目 完全迁移并应用maven，所以对maven进行了一些深入的学习。写这个学习笔记的目的，一个是为了自己备忘，二则希望能够为其他人学习使用maven 缩短一些时间。 maven概要首先我把maven的概念快速的梳理一下，让我们快速地建立起">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maven常用问题总结">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Maven%E5%B8%B8%E7%94%A8%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="Maven常用问题总结前言Maven，发音是[&#96;meivin]，”专家”的意思。它是一个很好的项目管理工具，很早就进入了我的必备工具行列，但是这次为了把ABPM项目 完全迁移并应用maven，所以对maven进行了一些深入的学习。写这个学习笔记的目的，一个是为了自己备忘，二则希望能够为其他人学习使用maven 缩短一些时间。 maven概要首先我把maven的概念快速的梳理一下，让我们快速地建立起">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Maven%E5%B8%B8%E7%94%A8%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/130.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2011-11-29T06:53:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/Maven%E5%B8%B8%E7%94%A8%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/130.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/Maven常用问题总结/" title="Maven常用问题总结" itemprop="url">Maven常用问题总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven%E5%B8%B8%E7%94%A8%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">Maven常用问题总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.0.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maven%E6%A6%82%E8%A6%81"><span class="toc-number">1.0.2.</span> <span class="toc-text">maven概要</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E4%B8%8D%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.0.2.0.1.</span> <span class="toc-text">maven不是什么</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.0.2.0.2.</span> <span class="toc-text">maven是什么</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.0.2.0.3.</span> <span class="toc-text">maven的生命周期</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E2%80%9D%E7%BA%A6%E5%AE%9A%E4%BC%98%E4%BA%8E%E9%85%8D%E7%BD%AE%E2%80%9D"><span class="toc-number">1.0.2.0.4.</span> <span class="toc-text">maven的”约定优于配置”</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E7%89%88%E6%9C%AC%E8%A7%84%E8%8C%83"><span class="toc-number">1.0.2.0.5.</span> <span class="toc-text">maven的版本规范</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="toc-number">1.0.2.0.6.</span> <span class="toc-text">maven的组成部分</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86"><span class="toc-number">1.0.2.0.7.</span> <span class="toc-text">maven的依赖管理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86"><span class="toc-number">1.0.2.0.8.</span> <span class="toc-text">多项目管理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84profile"><span class="toc-number">1.0.2.0.9.</span> <span class="toc-text">maven的profile</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maven%E7%9A%84%E6%93%8D%E4%BD%9C%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-number">1.0.3.</span> <span class="toc-text">maven的操作和使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.3.0.1.</span> <span class="toc-text">maven的配置文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.0.3.0.2.</span> <span class="toc-text">创建新工程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E5%A4%9A%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86"><span class="toc-number">1.0.3.0.3.</span> <span class="toc-text">maven的多项目管理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BA%93%E6%96%87%E4%BB%B6%E5%88%B0maven%E5%BA%93%E4%B8%AD"><span class="toc-number">1.0.3.0.4.</span> <span class="toc-text">安装库文件到maven库中</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E5%8F%98%E9%87%8F"><span class="toc-number">1.0.3.0.5.</span> <span class="toc-text">maven的变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.0.3.0.6.</span> <span class="toc-text">maven的使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maven%E7%9A%84%E4%BD%BF%E7%94%A8%E9%97%AE%E7%AD%94"><span class="toc-number">1.0.4.</span> <span class="toc-text">maven的使用问答</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="toc-number">1.0.4.1.</span> <span class="toc-text">依赖关系</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E5%A6%82%E4%BD%95%E5%A2%9E%E5%8A%A0%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="toc-number">1.0.4.1.0.1.</span> <span class="toc-text">问：如何增加删除一个依赖关系？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E5%A6%82%E4%BD%95%E5%B1%8F%E8%94%BD%E4%B8%80%E4%B8%AA%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%EF%BC%9F%E6%AF%94%E5%A6%82%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84libA%E4%BE%9D%E8%B5%96%E6%9F%90%E4%B8%AA%E5%BA%93%E7%9A%841-0%E7%89%88%EF%BC%8ClibB%E4%BB%A5%E6%9D%A5%E6%9F%90%E4%B8%AA%E5%BA%93%E7%9A%842-0%E7%89%88%EF%BC%8C%E7%8E%B0%E5%9C%A8%E6%83%B3%E7%BB%9F%E4%B8%80%E4%BD%BF%E7%94%A82-0%E7%89%88%EF%BC%8C%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%891-0%E7%89%88%E7%9A%84%E4%BE%9D%E8%B5%96%EF%BC%9F"><span class="toc-number">1.0.4.1.0.2.</span> <span class="toc-text">问：如何屏蔽一个依赖关系？比如项目中使用的libA依赖某个库的1.0版，libB以来某个库的2.0版，现在想统一使用2.0版，如何去掉1.0版的依赖？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E6%88%91%E6%9C%89%E4%B8%80%E4%BA%9Bjar%E6%96%87%E4%BB%B6%E8%A6%81%E4%BE%9D%E8%B5%96%EF%BC%8C%E4%BD%86%E6%98%AF%E6%88%91%E5%8F%88%E4%B8%8D%E6%83%B3%E6%8A%8A%E8%BF%99%E4%BA%9Bjar%E5%8E%BBinstall%E5%88%B0mvn%E7%9A%84repository%E4%B8%AD%E5%8E%BB%EF%BC%8C%E6%80%8E%E4%B9%88%E5%81%9A%E9%85%8D%E7%BD%AE%EF%BC%9F"><span class="toc-number">1.0.4.1.0.3.</span> <span class="toc-text">问：我有一些jar文件要依赖，但是我又不想把这些jar去install到mvn的repository中去，怎么做配置？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E5%9C%A8eclipse%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8maven-builder%E5%92%8Ceclipse-builder%EF%BC%8C%E5%B9%B6%E4%B8%94%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%E4%B9%8B%E5%90%8E%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E4%BC%9A%E5%87%BA%E7%8E%B0artifact%E6%89%BE%E4%B8%8D%E5%88%B0%E9%94%99%E8%AF%AF%EF%BC%8C%E4%BD%86%E6%98%AF%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8Cmvn%E6%9E%84%E5%BB%BA%E5%88%99%E4%B8%80%E5%88%87%E6%AD%A3%E5%B8%B8%EF%BC%9F"><span class="toc-number">1.0.4.1.0.4.</span> <span class="toc-text">问：在eclipse环境中同时使用maven builder和eclipse builder，并且设置项目依赖关系之后，为什么编译会出现artifact找不到错误，但是直接使用命令行mvn构建则一切正常？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E6%88%91%E6%83%B3%E8%AE%A9%E8%BE%93%E5%87%BA%E7%9A%84jar%E5%8C%85%E8%87%AA%E5%8A%A8%E5%8C%85%E5%90%AB%E6%89%80%E6%9C%89%E7%9A%84%E4%BE%9D%E8%B5%96"><span class="toc-number">1.0.4.1.0.5.</span> <span class="toc-text">问：我想让输出的jar包自动包含所有的依赖</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E6%88%91%E7%9A%84%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E4%BE%9D%E8%B5%96%E4%BA%8E%E5%85%B6%E4%BB%96%E5%B7%A5%E7%A8%8B%E7%9A%84%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%EF%BC%8C%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%EF%BC%9F"><span class="toc-number">1.0.4.1.0.6.</span> <span class="toc-text">问：我的测试用例依赖于其他工程的测试用例，如何设置？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">1.0.4.2.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F%E6%9B%BF%E6%8D%A2%EF%BC%9F%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E6%9F%90%E4%B8%AA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%AF%94%E5%A6%82jdbc-properties%E4%BD%BF%E7%94%A8%E4%BA%86%E4%B8%80%E4%BA%9Bpom%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%EF%BC%8C%E5%A6%82%E4%BD%95%E5%9C%A8%E5%8F%91%E5%B8%83%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8C%85%E5%90%AB%E7%9C%9F%E5%AE%9E%E5%86%85%E5%AE%B9%E7%9A%84%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C%E6%96%87%E4%BB%B6%EF%BC%9F"><span class="toc-number">1.0.4.2.0.1.</span> <span class="toc-text">问：如何使用变量替换？项目中的某个配置文件比如jdbc.properties使用了一些pom中的变量，如何在发布中使用包含真实内容的最终结果文件？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A-maven-svn-revision-number-plugin-%E6%8F%92%E4%BB%B6%E8%AF%B4%E6%98%8E"><span class="toc-number">1.0.4.2.0.2.</span> <span class="toc-text">问： maven-svn-revision-number-plugin 插件说明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-number">1.0.4.3.</span> <span class="toc-text">编译</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E5%A6%82%E4%BD%95%E7%BB%99%E6%8F%92%E4%BB%B6%E6%8C%87%E6%B4%BE%E5%8F%82%E6%95%B0%EF%BC%9F%E6%AF%94%E5%A6%82%E6%88%91%E8%A6%81%E8%AE%BE%E7%BD%AE%E4%B8%80%E4%BA%9B%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0"><span class="toc-number">1.0.4.3.0.1.</span> <span class="toc-text">问：如何给插件指派参数？比如我要设置一些编译参数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E6%88%91%E7%9A%84%E7%9B%AE%E5%BD%95%E6%98%AF%E9%9D%9E%E6%A0%87%E5%87%86%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%EF%BC%8C%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E8%AE%A9maven%E6%94%AF%E6%8C%81%EF%BC%9F"><span class="toc-number">1.0.4.3.0.2.</span> <span class="toc-text">问：我的目录是非标准的目录结构，如何设置让maven支持？</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="Maven常用问题总结"><a title="Maven常用问题总结" class="headerlink" href="#Maven常用问题总结"></a>Maven常用问题总结</h1><h3 id="前言"><a title="前言" class="headerlink" href="#前言"></a>前言</h3><p>Maven，发音是[`meivin]，”专家”的意思。它是一个很好的项目管理工具，很早就进入了我的必备工具行列，但是这次为了把ABPM项目 完全迁移并应用maven，所以对maven进行了一些深入的学习。写这个学习笔记的目的，一个是为了自己备忘，二则希望能够为其他人学习使用maven 缩短一些时间。</p>
+<h3 id="maven概要"><a title="maven概要" class="headerlink" href="#maven概要"></a><a href="">maven概要</a></h3><p><a href="">首先我把maven的概念快速的梳理一下，让我们快速地建立起一个比较精确的maven应用场景。</a></p>
+<h5 id="maven不是什么"><a title="maven不是什么" class="headerlink" href="#maven不是什么"></a><a href="">maven不是什么</a></h5><p><a href="">读书时候要先限定范围，避免一些有害的遐想。要说maven不是什么，我们可以从如下几个要点来展开</a></p>
+<ol>
+<li><a href="">maven不是ant，也不是make。<br> 我们以前接触的构建工具，需要写一些详细的步骤，比如：&nbsp;compile project1/src/*.java&nbsp;等类似的语句。这些语句正是我们使用ant和make所要编写的东西。maven采用了”约定优于配置”的方法，一些开发常用的操作和步骤已经固化在 maven中，所以使用者不再需要去编写那些烦人的语句了。同时，maven内置了开发流程的支持，它不仅能够编译，同样能够打包、发布，也能够一气呵成 做完这些所有的步骤。</a></li>
+<li><a href="">maven不是ivy<br> 依赖管理是maven的功能之一，虽然很多人包括我以前都是只用它的依赖管理功能，但是要深入运用的话，我们就可以看到更多的内容。更重要的是，maven在依赖关系中加入了scope的概念，进一步细化了依赖关系的划分。</a></li>
+</ol>
+<h5 id="maven是什么"><a title="maven是什么" class="headerlink" href="#maven是什么"></a><a href="">maven是什么</a></h5><p><a href="">maven将自己定位为一个项目管理工具。它负责管理项目开发过程中的几乎所有的东西：</a></p>
+<ol>
+<li><a href="">版本<br> maven有自己的版本定义和规则</a></li>
+<li><a href="">构建<br> maven支持许多种的应用程序类型，对于每一种支持的应用程序类型都定义好了一组构建规则和工具集。</a></li>
+<li><a href="">输出物管理<br> maven可以管理项目构建的产物，并将其加入到用户库中。这个功能可以用于项目组和其他部门之间的交付行为。</a></li>
+<li><a href="">依赖关系<br> maven对依赖关系的特性进行细致的分析和划分，避免开发过程中的依赖混乱和相互污染行为</a></li>
+<li><a href="">文档和构建结果<br> maven的site命令支持各种文档信息的发布，包括构建过程的各种输出，javadoc，产品文档等。</a></li>
+<li><a href="">项目关系<br> 一个大型的项目通常有几个小项目或者模块组成，用maven可以很方便地管理</a></li>
+<li><a href="">移植性管理<br> maven可以针对不同的开发场景，输出不同种类的输出结果。</a></li>
+</ol>
+<h5 id="maven的生命周期"><a title="maven的生命周期" class="headerlink" href="#maven的生命周期"></a><a href="">maven的生命周期</a></h5><p><a href="">maven把项目的构建划分为不同的生命周期(lifecycle)，在我看来，划分的已经是非常仔细了，大家可以参考</a><a target="_blank" rel="noopener" href="http://www.sonatype.com/books/maven-book/reference_zh/lifecycle.html#tbl-default-lifecycle">这里</a>&nbsp;。粗略一点的话，它这个过程(phase)包括：编译、测试、打包、集成测试、验证、部署。maven中所有的执行动作(goal)都需要指明自己在这个过程中的执行位置，然后maven执行的时候，就依照过程的发展依次调用这些goal进行各种处理。</p>
+<p>这个也是maven的一个基本调度机制。一般来说，位置稍后的过程都会依赖于之前的过程。当然，maven同样提供了配置文件，可以依照用户要求，跳过某些阶段。</p>
+<h5 id="maven的”约定优于配置”"><a title="maven的”约定优于配置”" class="headerlink" href="#maven的”约定优于配置”"></a><a href="">maven的”约定优于配置”</a></h5><p><a href="">所谓的”约定优于配置”，在maven中并不是完全不可以修改的，他们只是一些配置的默认值而已。但是使用者除非必要，并不需要去修改那些约定内容。maven默认的文件存放结构如下：</a></p>
+<ul>
+<li>[/项目目录<ul>
+<li>pom.xml 用于maven的配置文件</li>
+<li>/src 源代码目录<ul>
+<li>/src/main 工程源代码目录<ul>
+<li>/src/main/java 工程java源代码目录</li>
+</ul>
+</li>
+<li>/src/main/resource 工程的资源目录</li>
+<li>/src/test 单元测试目录<ul>
+<li>/src/test/java</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>/target 输出目录，所有的输出物都存放在这个目录下<ul>
+<li>/target/classes 编译之后的class文件]()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href="">每一个阶段的任务都知道怎么正确完成自己的工作，比如compile任务就知道从src/main/java下编译所有的java文件，并把它的输出class文件存放到target/classes中。</a></p>
+<p><a href="">对maven来说，采用”约定优于配置”的策略可以减少修改配置的工作量，也可以降低学习成本，更重要的是，给项目引入了统一的规范。</a></p>
+<h5 id="maven的版本规范"><a title="maven的版本规范" class="headerlink" href="#maven的版本规范"></a><a href="">maven的版本规范</a></h5><p><a href="">maven使用如下几个要素来唯一定位某一个输出物：&nbsp;groupId:artifactId:packaging:version&nbsp;。比如org.springframework:spring:2.5&nbsp;。每个部分的解释如下：</a></p>
+<ul>
+<li><a href="">groupId<br>  团体，公司，小组，组织，项目，或者其它团体。团体标识的约定是，它以创建这个项目的组织名称的逆向域名(reverse domain name)开头。来自Sonatype的项目有一个以com.sonatype开头的groupId，而Apache Software的项目有以org.apache开头的groupId。</a></li>
+<li><a href="">artifactId<br>  在groupId下的表示一个单独项目的唯一标识符。比如我们的tomcat, commons等。不要在artifactId中包含点号(.)。</a></li>
+<li><a href="">version<br>  一个项目的特定版本。发布的项目有一个固定的版本标识来指向该项目的某一个特定的版本。而正在开发中的项目可以用一个特殊的标识，这种标识给版本加上一个”SNAPSHOT”的标记。<br>  虽然项目的打包格式也是Maven坐标的重要组成部分，但是它不是项目唯一标识符的一个部分。一个项目的 groupId:artifactId:version使之成为一个独一无二的项目；你不能同时有一个拥有同样的groupId, artifactId和version标识的项目。</a></li>
+<li><a href="">packaging<br>  项目的类型，默认是jar，描述了项目打包后的输出。类型为jar的项目产生一个JAR文件，类型为war的项目产生一个web应用。</a></li>
+<li><a href="">classifier<br>  很少使用的坐标，一般都可以忽略classifiers。如果你要发布同样的代码，但是由于技术原因需要生成两个单独的构件，你就要使用一个分类器 （classifier）。例如，如果你想要构建两个单独的构件成JAR，一个使用Java 1.4编译器，另一个使用Java 6编译器，你就可以使用分类器来生成两个单独的JAR构件，它们有同样的groupId:artifactId:version组合。如果你的项目使用本 地扩展类库，你可以使用分类器为每一个目标平台生成一个构件。分类器常用于打包构件的源码，JavaDoc或者二进制集合。</a></li>
+</ul>
+<p><a href="">maven有自己的版本规范，一般是如下定义&nbsp;..-&nbsp;， 比如1.2.3-beta-01。要说明的是，maven自己判断版本的算法是major,minor,incremental部分用数字比 较，qualifier部分用字符串比较，所以要小心 alpha-2和alpha-15的比较关系，最好用 alpha-02的格式。</a></p>
+<p><a href="">maven在版本管理时候可以使用几个特殊的字符串&nbsp;SNAPSHOT&nbsp;,LATEST&nbsp;,RELEASE&nbsp;。比如”1.0-SNAPSHOT”。各个部分的含义和处理逻辑如下说明：</a></p>
+<ul>
+<li><a href="">SNAPSHOT<br>  如果一个版本包含字符串”SNAPSHOT”，Maven就会在安装或发布这个组件的时候将该符号展开为一个日期和时间值，转换为UTC时间。例 如，”1.0-SNAPSHOT”会在2010年5月5日下午2点10分发布时候变成1.0-20100505-141000-1。<br>  这个词只能用于开发过程中，因为一般来说，项目组都会频繁发布一些版本，最后实际发布的时候，会在这些snapshot版本中寻找一个稳定的，用于正式发 布，比如1.4版本发布之前，就会有一系列的1.4-SNAPSHOT，而实际发布的1.4，也是从中拿出来的一个稳定版。</a></li>
+<li><a href="">LATEST<br>  指某个特定构件的最新发布，这个发布可能是一个发布版，也可能是一个snapshot版，具体看哪个时间最后。</a></li>
+<li><a href="">RELEASE<br>  指最后一个发布版。</a></li>
+</ul>
+<h5 id="maven的组成部分"><a title="maven的组成部分" class="headerlink" href="#maven的组成部分"></a><a href="">maven的组成部分</a></h5><p><a href="">maven把整个maven管理的项目分为几个部分，一个部分是源代码，包括源代码本身、相关的各种资源，一个部分则是单元测试用例，另外一部分则是各种maven的插件。对于这几个部分，maven可以独立管理他们，包括各种外部依赖关系。</a></p>
+<h5 id="maven的依赖管理"><a title="maven的依赖管理" class="headerlink" href="#maven的依赖管理"></a><a href="">maven的依赖管理</a></h5><p><a href="">依赖管理一般是最吸引人使用maven的功能特性了，这个特性让开发者只需要关注代码的直接依赖，比如我们用了spring，就加入spring依赖说明就可以了，至于spring自己还依赖哪些外部的东西，maven帮我们搞定。</a></p>
+<p><a href="">任意一个外部依赖说明包含如下几个要素：groupId, artifactId, version, scope, type, optional。其中前3个是必须的，各自含义如下：</a></p>
+<ul>
+<li><a href="">groupId 必须</a></li>
+<li><a href="">artifactId 必须</a></li>
+<li>[version 必须。<br>  这里的version可以用区间表达式来表示，比如(2.0,)表示&gt;2.0，[2.0,3.0)表示2.0&lt;=ver&lt;3.0；多个条件之间用逗号分隔，比如<a href="">1,3),[5,7]。</a></li>
+<li><a href="">scope 作用域限制</a></li>
+<li><a href="">type 一般在pom引用依赖时候出现，其他时候不用</a></li>
+<li><a href="">optional 是否可选依赖</a></li>
+</ul>
+<p><a href="">maven认为，程序对外部的依赖会随着程序的所处阶段和应用场景而变化，所以maven中的依赖关系有作用域(scope)的限制。在maven中，scope包含如下的取值：</a></p>
+<ul>
+<li><a href="">compile（编译范围）<br>  compile是默认的范围；如果没有提供一个范围，那该依赖的范围就是编译范围。编译范围依赖在所有的classpath中可用，同时它们也会被打包。</a></li>
+<li><a href="">provided（已提供范围）<br>  provided依赖只有在当JDK或者一个容器已提供该依赖之后才使用。例如，如果你开发了一个web应用，你可能在编译classpath中需要可用 的Servlet API来编译一个servlet，但是你不会想要在打包好的WAR中包含这个Servlet API；这个Servlet API JAR由你的应用服务器或者servlet容器提供。已提供范围的依赖在编译classpath（不是运行时）可用。它们不是传递性的，也不会被打包。</a></li>
+<li><a href="">runtime（运行时范围）<br>  runtime依赖在运行和测试系统的时候需要，但在编译的时候不需要。比如，你可能在编译的时候只需要JDBC API JAR，而只有在运行的时候才需要JDBC驱动实现。</a></li>
+<li><a href="">test（测试范围）<br>  test范围依赖 在一般的 编译和运行时都不需要，它们只有在测试编译和测试运行阶段可用。测试范围依赖在之前的???中介绍过。</a></li>
+<li><a href="">system（系统范围）<br>  system范围依赖与provided类似，但是你必须显式的提供一个对于本地系统中JAR文件的路径。这么做是为了允许基于本地对象编译，而这些对象是系统类库的一部分。这样的构件应该是一直可用的，Maven也不会在仓库中去寻找它。&nbsp;<strong>如果你将一个依赖范围设置成系统范围，你必须同时提供一个systemPath元�</strong>�&nbsp;。注意该范围是不推荐使用的（你应该一直尽量去从公共或定制的Maven仓库中引用依赖）。</a></li>
+</ul>
+<p><a href="">另外，代码有代码自己的依赖，各个maven使用的插件也可以有自己的依赖关系。依赖也可以是可选的，比如我们代码中没有任何cache依赖，但是hibernate可能要配置cache，所以该cache的依赖就是可选的。</a></p>
+<h5 id="多项目管理"><a title="多项目管理" class="headerlink" href="#多项目管理"></a><a href="">多项目管理</a></h5><p><a href="">maven的多项目管理也是非常强大的。一般来说，maven要求同一个工程的所有子项目都放置到同一个目录下，每一个子目录代表一个项目，比如</a></p>
+<ul>
+<li>[总项目/<ul>
+<li>pom.xml 总项目的pom配置文件</li>
+<li>子项目1/<ul>
+<li>pom.xml 子项目1的pom文件</li>
+</ul>
+</li>
+<li>子项目2/<ul>
+<li>pom.xml 子项目2的pom文件]()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href="">按照这种格式存放，就是继承方式，所有具体子项目的pom.xml都会继承总项目pom的内容，取值为子项目pom内容优先。</a></p>
+<p><a href="">要设置继承方式，首先要在总项目的pom中加入如下配置</a></p>
+<p><a href="">Xml代码&nbsp;�</a>�<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22"><img loading="lazy" alt="-130.png" src="/images/notes/Maven%E5%B8%B8%E7%94%A8%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/130.png"></a></p>
+<ol>
+<li><strong>&lt;****modules****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****module****&gt;<strong>simple-weather</strong>&lt;/****module****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****module****&gt;<strong>simple-webapp</strong>&lt;/****module****&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****modules****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;其次在每个子项目中加入</p>
+<pre><code>&lt;parent&gt;  &lt;groupId&gt;org.sonatype.mavenbook.ch06&lt;/groupId&gt;  &lt;artifactId&gt;simple-parent&lt;/artifactId&gt;  &lt;version&gt;1.0&lt;/version&gt;&lt;/parent&gt;  
+</code></pre>
+<p>即可。</p>
+<p>当然，继承不是唯一的配置文件共用方式，maven还支持引用方式。引用pom的方式更简单，在依赖中加入一个type为pom的依赖即可。</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****project****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>&lt;****description****&gt;<strong>This&nbsp;is&nbsp;a&nbsp;project&nbsp;requiring&nbsp;JDBC</strong>&lt;/****description****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;…&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>&lt;****dependencies****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;…&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;<strong>&lt;****dependency****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****groupId****&gt;<strong>org.sonatype.mavenbook</strong>&lt;/****groupId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****artifactId****&gt;<strong>persistence-deps</strong>&lt;/****artifactId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****version****&gt;<strong>1.0</strong>&lt;/****version****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****type****&gt;<strong>pom</strong>&lt;/****type****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****dependency****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>&lt;/****dependencies****&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****project****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;##### <a href="">属性</a></p>
+<p><a href="">用户可以在maven中定义一些属性，然后在其他地方用${xxx}进行引用。比如：</a></p>
+<p><a href="">Xml代码&nbsp;�</a>�<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****project****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****modelVersion****&gt;<strong>4.0.0</strong>&lt;/****modelVersion****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;…&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****properties****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****var1****&gt;<strong>value1</strong>&lt;/****var1****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****properties****&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****project****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>maven提供了三个隐式的变量，用来访问系统环境变量、POM信息和maven的settings：</p>
+<ul>
+<li>env<br>  暴露操作系统的环境变量，比如env.PATH</li>
+<li>project<br>  暴露POM中的内容，用点号(.)的路径来引用POM元素的值，比如${project.artifactId}。另外，java的系统属性比如user.dir等，也暴露在这里。</li>
+<li>settings<br>  暴露maven的settings的信息，也可以用点号(.)来引用。maven把系统配置文件存放在maven的安装目录中，把用户相关的配置文件存放 在~/.m2/settings.xml(unix)或者%USERPROFILE%/.m2/settings.xml(windows)中。</li>
+</ul>
+<h5 id="maven的profile"><a title="maven的profile" class="headerlink" href="#maven的profile"></a><a href="">maven的profile</a></h5><p><a href="">profile是maven的一个重要特性，它可以让maven能够自动适应外部的环境变化，比如同一个项目，在linux下编译linux的版 本，在win下编译win的版本等。一个项目可以设置多个profile，也可以在同一时间设置多个profile被激活（active）的。自动激活的 profile的条件可以是各种各样的设定条件，组合放置在activation节点中，也可以通过命令行直接指定。profile包含的其他配置内容可 以覆盖掉pom定义的相应值。如果认为profile设置比较复杂，可以将所有的profiles内容移动到专门的&nbsp;profiles.xml&nbsp;文件中，不过记得和pom.xml放在一起。</a></p>
+<p><a href="">activation节点中的激活条件中常见的有如下几个：</a></p>
+<ol>
+<li>[os<br> 判断操作系统相关的参数，它包含如下可以自由组合的子节点元素<ul>
+<li>message - 规则失败之后显示的消息</li>
+<li>arch - 匹配cpu结构，常见为x86</li>
+<li>family - 匹配操作系统家族，常见的取值为：dos，mac，netware，os/2，unix，windows，win9x，os/400等</li>
+<li>name - 匹配操作系统的名字</li>
+<li>version - 匹配的操作系统版本号</li>
+<li>display - 检测到操作系统之后显示的信息]()</li>
+</ul>
+</li>
+<li><a href="">jdk<br> 检查jdk版本，可以用区间表示。</a></li>
+<li><a href="">property<br> 检查属性值，本节点可以包含name和value两个子节点。</a></li>
+<li><a href="">file<br> 检查文件相关内容，包含两个子节点：exists和missing，用于分别检查文件存在和不存在两种情况。</a></li>
+</ol>
+<h3 id="maven的操作和使用"><a title="maven的操作和使用" class="headerlink" href="#maven的操作和使用"></a><a href="">maven的操作和使用</a></h3><p><a href="">maven的操作有两种方式，一种是通过mvn命令行命令，一种是使用maven的eclipse插件。因为使用eclipse的maven插件操作起来比较容易，这里就只介绍使用mvn命令行的操作。</a></p>
+<h5 id="maven的配置文件"><a title="maven的配置文件" class="headerlink" href="#maven的配置文件"></a><a href="">maven的配置文件</a></h5><p><a href="">maven的主执行程序为mvn.bat，linux下为mvn.sh，这两个程序都很简单，它们的共同用途就是收集一些参数，然后用 java.exe来运行maven的Main函数。maven同样需要有配置文件，名字叫做settings.xml，它放在两个地方，一个是maven 安装目录的conf目录下，对所有使用该maven的用户都起作用，我们称为主配置文件，另外一个放在 %USERPROFILE%/.m2/settings.xml下，我们成为用户配置文件，只对当前用户有效，且可以覆盖主配置文件的参数内容。还有就是 项目级别的配置信息了，它存放在每一个maven管理的项目目录下，叫pom.xml，主要用于配置项目相关的一些内容，当然，如果有必要，用户也可以在 pom中写一些配置，覆盖住配置文件和用户配置文件的设置参数内容。</a></p>
+<p><a href="">一般来说，settings文件配置的是比如repository库路径之类的全局信息，具体可以参考</a><a target="_blank" rel="noopener" href="http://maven.apache.org/settings.html">官方网站的文�</a>�&nbsp;。</p>
+<h5 id="创建新工程"><a title="创建新工程" class="headerlink" href="#创建新工程"></a><a href="">创建新工程</a></h5><p><a href="">要创建一个新的maven工程，我们需要给我们的工程指定几个必要的要素，就是maven产品坐标的几个要素：groupId, artifactId，如果愿意，你也可以指定version和package名称。我们先看一个简单的创建命令：</a></p>
+<p><a href="">d:\work\temp&gt;mvn archetype:create -DgroupId=com.abc -DartifactId=product1 -DarchetypeArtifactId=maven-archetype-webapp</a></p>
+<p><a href="">首先看这里的命令行参数的传递结构，怪异的&nbsp;-D参数=值 的方式是 java.exe&nbsp;要求的方式。这个命令创建一个web工程，目录结构是一个标准的maven结构，如下：</a></p>
+<pre><code>D:.└─mywebapp    │  pom.xml    │    └─src        └─main            ├─resources            └─webapp                │  index.jsp                │                └─WEB-INF                        web.xml
+</code></pre>
+<p><a href="">大家要注意，这里目录结构的布局实际上是由参数&nbsp;archetypeArtifactId&nbsp;来决定的，因为这里传入的是&nbsp;maven-archetype-webapp如果我们传入其他的就会创建不同的结构，默认值为&nbsp;maven-archetype-quickstart&nbsp;，有兴趣的读者可以参考</a><a target="_blank" rel="noopener" href="http://docs.codehaus.org/display/MAVENUSER/Archetypes+List">更详细的列表</a>&nbsp;，我把部分常用的列表在这里：</p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Group</th>
+<th>Version</th>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>maven-archetype-j2ee-simple</td>
+<td>org.apache.maven.archetypes</td>
+<td></td>
+<td></td>
+<td>A simple J2EE Java application</td>
+</tr>
+<tr>
+<td>maven-archetype-marmalade-mojo</td>
+<td>org.apache.maven.archetypes</td>
+<td></td>
+<td></td>
+<td>A Maven plugin development project using marmalade</td>
+</tr>
+<tr>
+<td>maven-archetype-plugin</td>
+<td>org.apache.maven.archetypes</td>
+<td></td>
+<td></td>
+<td>A Maven Java plugin development project</td>
+</tr>
+<tr>
+<td>maven-archetype-portlet</td>
+<td>org.apache.maven.archetypes</td>
+<td></td>
+<td></td>
+<td>A simple portlet application</td>
+</tr>
+<tr>
+<td>maven-archetype-profiles</td>
+<td>org.apache.maven.archetypes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>maven-archetype-quickstart</td>
+<td>org.apache.maven.archetypes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>maven-archetype-simple</td>
+<td>org.apache.maven.archetypes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>maven-archetype-site-simple</td>
+<td>org.apache.maven.archetypes</td>
+<td></td>
+<td></td>
+<td>A simple site generation project</td>
+</tr>
+<tr>
+<td>maven-archetype-site</td>
+<td>org.apache.maven.archetypes</td>
+<td></td>
+<td></td>
+<td>A more complex site project</td>
+</tr>
+<tr>
+<td>maven-archetype-webapp</td>
+<td>org.apache.maven.archetypes</td>
+<td></td>
+<td></td>
+<td>A simple Java web application</td>
+</tr>
+<tr>
+<td>maven-archetype-har</td>
+<td>net.sf.maven-har</td>
+<td>0.9</td>
+<td></td>
+<td>Hibernate Archive</td>
+</tr>
+<tr>
+<td>maven-archetype-sar</td>
+<td>net.sf.maven-sar</td>
+<td>0.9</td>
+<td></td>
+<td>JBoss Service Archive</td>
+</tr>
+</tbody></table>
+<p>大家可以参考<a target="_blank" rel="noopener" href="http://maven.apache.org/archetype/maven-archetype-plugin/create-mojo.html">更详细的&nbsp;archetype:create&nbsp;帮助</a>&nbsp;和&nbsp;<a target="_blank" rel="noopener" href="http://maven.apache.org/archetype/maven-archetype-plugin/">archtype参考信息</a>&nbsp;。</p>
+<h5 id="maven的多项目管理"><a title="maven的多项目管理" class="headerlink" href="#maven的多项目管理"></a><a href="">maven的多项目管理</a></h5><p>[多项目管理是maven的主要特色之一，对于一个大型工程，用maven来管理他们之间复杂的依赖关系，是再好不过了。maven的项目配置之间的关系有两种：继承关系和引用关系。</p>
+<p>maven默认根据目录结构来设定pom的继承关系，即下级目录的pom默认继承上级目录的pom。要设定两者之间的关系很简单，上级pom如下设置：]()</p>
+<p><a href="">Xml代码&nbsp;�</a>�<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****modules****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****module****&gt;<strong>ABCCommon</strong>&lt;/****module****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****module****&gt;<strong>ABCCore</strong>&lt;/****module****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****module****&gt;<strong>ABCTools</strong>&lt;/****module****&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****modules****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>要记住的是，这里的module是目录名，不是子工程的artifactId。子工程如下设置：</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****parent****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****groupId****&gt;<strong>com.abc.product1</strong>&lt;/****groupId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****artifactId****&gt;<strong>abc-product1</strong>&lt;/****artifactId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****version****&gt;<strong>1.0.0-SNAPSHOT</strong>&lt;/****version****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>&lt;/****parent****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>&lt;****artifactId****&gt;<strong>abc-my-module2</strong>&lt;/****artifactId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>&lt;****packaging****&gt;<strong>jar</strong>&lt;/****packaging****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>这样两者就相互关联起来了，继承关系就设定完毕，所有父工程的配置内容都会自动在子工程中生效，除非子工程有相同的配置覆盖。如果你不喜欢层层递进的目录结构来实现继承，也可以在parent中加入&nbsp;../a-parent/pom.xml&nbsp;来制定parent项目的相对目录。继承关系通常用在项目共同特性的抽取上，通过抽取公共特性，可以大幅度减少子项目的配置工作量。</p>
+<p>引用关系是另外一种复用的方式，maven中配置引用关系也很简单，加入一个&nbsp;type&nbsp;为&nbsp;pom&nbsp;的依赖即可。</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****dependency****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****groupId****&gt;<strong>org.sonatype.mavenbook</strong>&lt;/****groupId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****artifactId****&gt;<strong>persistence-deps</strong>&lt;/****artifactId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****version****&gt;<strong>1.0</strong>&lt;/****version****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****type****&gt;<strong>pom</strong>&lt;/****type****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****dependency****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>但是无论是父项目还是引用项目，这些工程都必须用&nbsp;mvn install&nbsp;或者&nbsp;mvn deploy&nbsp;安装到本地库才行，否则会报告依赖没有找到，eclipse编译时候也会出错。</p>
+<p>需要特别提出的是复用过程中，父项目的pom中可以定义&nbsp;dependencyManagement&nbsp;节点，其中存放依赖关系，但是这个依赖关系只是定义，不会真的产生效果，如果子项目想要使用这个依赖关系，可以在本身的 dependency 中添加一个简化的引用</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****dependency****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****groupId****&gt;<strong>org.springframework</strong>&lt;/****groupId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****artifactId****&gt;<strong>spring</strong>&lt;/****artifactId****&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****dependency****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>这种方法可以避免版本号满天飞的情况。</p>
+<h5 id="安装库文件到maven库中"><a title="安装库文件到maven库中" class="headerlink" href="#安装库文件到maven库中"></a>安装库文件到maven库中</h5><p>在maven中一般都会用到安装库文件的功能，一则是我们常用的hibernate要使用jmx库，但是因为sun的license限制，所以无法将其直接包含在repository中。所以我们使用mvn命令把jar安装到我们本地的repository中</p>
+<p>mvn install:install-file -DgroupId=com.sun.jdmk -DartifactId=jmxtools -Dversion=1.2.1 -Dpackaging=jar -Dfile=/path/to/file</p>
+<p>如果我们想把它安装到公司的repository中，需要使用命令</p>
+<p>mvn deploy:deploy-file -DgroupId=com.sun.jdmk -DartifactId=jmxtools -Dversion=1.2.1 -Dpackaging=jar -Dfile=/path/to/file -Durl=<a target="_blank" rel="noopener" href="http://aaa.ss.com/ss.xxx">http://aaa.ss.com/ss.xxx</a> -DrepositoryId=release-repo</p>
+<p>对于我们的工程输出，如果需要放置到公司的repository中的话，可以通过配置pom来实现</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****distributionManagement****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****repository****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****id****&gt;<strong>mycompany-repository</strong>&lt;/****id****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****name****&gt;<strong>MyCompany&nbsp;Repository</strong>&lt;/****name****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****url****&gt;<strong>scp://repository.mycompany.com/repository/maven2</strong>&lt;/****url****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****repository****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>&lt;/****distributionManagement****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>这里使用的scp方式提交库文件，还有其他方式可以使用，请参考faq部分。然后记得在你的settings.xml中加入这一内容</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>**&lt;**<strong>settings</strong>&nbsp;xmlns=”<a target="_blank" rel="noopener" href="http://maven.apache.org/SETTINGS/1.0.0">http://maven.apache.org/SETTINGS/1.0.0</a>“&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;xmlns:xsi=”<a target="_blank" rel="noopener" href="http://www.w3.org/2001/XMLSchema-instance">http://www.w3.org/2001/XMLSchema-instance</a>“&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;xsi:schemaLocation=”<a target="_blank" rel="noopener" href="http://maven.apache.org/SETTINGS/1.0.0">http://maven.apache.org/SETTINGS/1.0.0</a>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" rel="noopener" href="http://maven.apache.org/xsd/settings-1.0.0.xsd%22**%3E">http://maven.apache.org/xsd/settings-1.0.0.xsd"**&gt;</a>**&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;…&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>&lt;****servers****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****server****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****id****&gt;<strong>mycompany-repository</strong>&lt;/****id****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****username****&gt;<strong>jvanzyl</strong>&lt;/****username****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****privateKey****&gt;</strong>/path/to/identity**&lt;/**<strong>privateKey****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****passphrase****&gt;<strong>my_key_passphrase</strong>&lt;/****passphrase****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****server****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>&lt;/****servers****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;…&nbsp;&nbsp;</li>
+<li><strong>&lt;/****settings****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h5 id="maven的变量"><a title="maven的变量" class="headerlink" href="#maven的变量"></a><a href="">maven的变量</a></h5><p><a href="">maven定义了很多变量属性,参考这里�</a>�<a target="_blank" rel="noopener" href="http://docs.codehaus.org/display/MAVENUSER/MavenPropertiesGuide">http://docs.codehaus.org/display/MAVENUSER/MavenPropertiesGuide</a></p>
+<ol>
+<li>内置属性<ul>
+<li>${basedir&nbsp;} represents the directory containing pom.xml</li>
+<li>${version&nbsp;} equivalent to&nbsp;${project.version&nbsp;} or&nbsp;${pom.version&nbsp;}</li>
+</ul>
+</li>
+<li>Pom/Project properties<br> 所有pom中的元素都可以用&nbsp;project.&nbsp;前缀进行引用,以下是部分常用的<ul>
+<li>${project.build.directory&nbsp;} results in the path to your “target” dir, this is the same as${pom.project.build.directory&nbsp;}</li>
+<li>${project.build.&nbsp;outputD&nbsp;irectory&nbsp;}&nbsp;results in the path to your “target/classes” dir</li>
+<li>${project.name&nbsp;} refers to the name of the project.</li>
+<li>${project.version&nbsp;} refers to the version of the project.</li>
+<li>${project.build.finalName&nbsp;} refers to the final name of the file created when the built project is packaged</li>
+</ul>
+</li>
+<li>本地用户设定<br> 所有用的的 settings.xml 中的设定都可以通过&nbsp;settings.&nbsp;前缀进行引用<ul>
+<li>${settings.localRepository&nbsp;} refers to the path of the user’s local repository.</li>
+<li>${maven.repo.local&nbsp;} also works for backward compatibility with maven1 ??</li>
+</ul>
+</li>
+<li>环境变量<br> 系统的环境变量通过&nbsp;env.&nbsp;前缀引用<ul>
+<li>${env.M2_HOME&nbsp;} returns the Maven2 installation path.</li>
+<li>${java.home&nbsp;} specifies the path to the current JRE_HOME environment use with relative paths to get for example:<br>  ${java.home}../bin/java.exe</li>
+</ul>
+</li>
+<li>java系统属性<br> 所有JVM中定义的java系统属性.</li>
+<li>用户在pom中定义的自定义属性<pre><code>&lt;project&gt;...&lt;properties&gt;&lt;my.filter.value&gt;hello&lt;/my.filter.value&gt;&lt;/properties&gt;...&lt;/project&gt; 
+</code></pre>
+<ul>
+<li>${my.filter.value&nbsp;} will result in&nbsp;hello&nbsp;if you inserted the above XML fragment in your pom.xml</li>
+</ul>
+</li>
+<li>上级工程的变量<br> 上级工程的pom中的变量用前缀&nbsp;${project.parent&nbsp;} 引用. 上级工程的版本也可以这样引用:&nbsp;${parent.version&nbsp;}.</li>
+</ol>
+<h5 id="maven的使用"><a title="maven的使用" class="headerlink" href="#maven的使用"></a><a href="">maven的使用</a></h5><p><a href="">我们已经知道maven预定义了许多的阶段（phase），每个插件都依附于这些阶段，并且在进入某个阶段的时候，调用运行这些相关插件的功能。我们先来看完整的maven生命周期：</a></p>
+<table>
+<thead>
+<tr>
+<th>生命周期</th>
+<th>阶段描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>validate</td>
+<td>验证项目是否正确，以及所有为了完整构建必要的信息是否可用</td>
+</tr>
+<tr>
+<td>generate-sources</td>
+<td>生成所有需要包含在编译过程中的源代码</td>
+</tr>
+<tr>
+<td>process-sources</td>
+<td>处理源代码，比如过滤一些值</td>
+</tr>
+<tr>
+<td>generate-resources</td>
+<td>生成所有需要包含在打包过程中的资源文件</td>
+</tr>
+<tr>
+<td>process-resources</td>
+<td>复制并处理资源文件至目标目录，准备打包</td>
+</tr>
+<tr>
+<td>compile</td>
+<td>编译项目的源代码</td>
+</tr>
+<tr>
+<td>process-classes</td>
+<td>后处理编译生成的文件，例如对Java类进行字节码增强（bytecode enhancement）</td>
+</tr>
+<tr>
+<td>generate-test-sources</td>
+<td>生成所有包含在测试编译过程中的测试源码</td>
+</tr>
+<tr>
+<td>process-test-sources</td>
+<td>处理测试源码，比如过滤一些值</td>
+</tr>
+<tr>
+<td>generate-test-resources</td>
+<td>生成测试需要的资源文件</td>
+</tr>
+<tr>
+<td>process-test-resources</td>
+<td>复制并处理测试资源文件至测试目标目录</td>
+</tr>
+<tr>
+<td>test-compile</td>
+<td>编译测试源码至测试目标目录</td>
+</tr>
+<tr>
+<td>test</td>
+<td>使用合适的单元测试框架运行测试。这些测试应该不需要代码被打包或发布</td>
+</tr>
+<tr>
+<td>prepare-package</td>
+<td>在真正的打包之前，执行一些准备打包必要的操作。这通常会产生一个包的展开的处理过的版本（将会在Maven 2.1+中实现）</td>
+</tr>
+<tr>
+<td>package</td>
+<td>将编译好的代码打包成可分发的格式，如JAR，WAR，或者EAR</td>
+</tr>
+<tr>
+<td>pre-integration-test</td>
+<td>执行一些在集成测试运行之前需要的动作。如建立集成测试需要的环境</td>
+</tr>
+<tr>
+<td>integration-test</td>
+<td>如果有必要的话，处理包并发布至集成测试可以运行的环境</td>
+</tr>
+<tr>
+<td>post-integration-test</td>
+<td>执行一些在集成测试运行之后需要的动作。如清理集成测试环境。</td>
+</tr>
+<tr>
+<td>verify</td>
+<td>执行所有检查，验证包是有效的，符合质量规范</td>
+</tr>
+<tr>
+<td>install</td>
+<td>安装包至本地仓库，以备本地的其它项目作为依赖使用</td>
+</tr>
+<tr>
+<td>deploy</td>
+<td>复制最终的包至远程仓库，共享给其它开发人员和项目（通常和一次正式的发布相关）</td>
+</tr>
+</tbody></table>
+<p><a href="">maven核心的插件列表可以参考�</a>�<a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/index.html">http://maven.apache.org/plugins/index.html</a>&nbsp;。这里仅列举几个常用的插件及其配置参数：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-clean-plugin/">clean插件</a>&nbsp;<br> 只包含一个goal叫做&nbsp;clean:clean&nbsp;，负责清理构建时候创建的文件。 默认清理的位置是如下几个变量指定的路径project.build.directory, project.build.outputDirectory, project.build.testOutputDirectory, and project.reporting.outputDirectory&nbsp;。</li>
+<li><a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-compiler-plugin/">compiler插件</a>&nbsp;<br> 包含2个goal，分别是&nbsp;compiler:compile&nbsp;和&nbsp;compiler:testCompile&nbsp;。可以到这里查看两者的具体参数设置：<a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html">compile</a>&nbsp;,<a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-compiler-plugin/testCompile-mojo.html">testCompile</a>&nbsp;。</li>
+<li><a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-surefire-plugin/">surefire插件</a>&nbsp;<br> 运行单元测试用例的插件，并且能够生成报表。包含一个goal为&nbsp;surefire:test&nbsp;。主要参数testSourceDirectory用来指定测试用例目录，参考<a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-surefire-plugin/test-mojo.html">完整用法帮助</a></li>
+<li><a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-jar-plugin/">jar</a>&nbsp;<br> 负责将工程输出打包到jar文件中。包含两个goal，分别是&nbsp;jar:jar&nbsp;,&nbsp;jar:test-jar&nbsp;。两个goal负责从classesDirectory或testClassesDirectory中获取所有资源，然后输出jar文件到outputDirectory中。</li>
+<li><a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-war-plugin/">war</a>&nbsp;<br> 负责打包成war文件。常用goal有&nbsp;war:war&nbsp;，负责从warSourceDirectory（默认${basedir}/src/main/webapp）打包所有资源到outputDirectory中。</li>
+<li><a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-resources-plugin/">resources</a>&nbsp;<br> 负责复制各种资源文件，常用goal有&nbsp;resources:resources&nbsp;，负责将资源文件复制到outputDirectory中，默认为${project.build.outputDirectory}。</li>
+<li><a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-install-plugin/">install</a>&nbsp;<br> 负责将项目输出(install:install)或者某个指定的文件(install:install-file)加入到本机库%USERPROFILE%/.m2/repository中。可以用&nbsp;install:help&nbsp;寻求帮助。</li>
+<li><a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-deploy-plugin/">deploy</a>&nbsp;<br> 负责将项目输出(deploy:deploy)或者某个指定的文件(deploy:deploy-file)加入到公司库中。</li>
+<li><a target="_blank" rel="noopener" href="http://maven.apache.org/plugins/maven-site-plugin/">site</a>&nbsp;<br> 将工程所有文档生成网站，生成的网站界面默认和apache的项目站点类似，但是其文档用doxia格式写的，目前不支持docbook，需要用其他插件配合才能支持。</li>
+</ol>
+<h3 id="maven的使用问答"><a title="maven的使用问答" class="headerlink" href="#maven的使用问答"></a><a href="">maven的使用问答</a></h3><p><a href="">除了以下的几个faq条目之外，还有一些faq可以参考</a></p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://maven.apache.org/general.html">maven 自己的FAQ</a></li>
+</ol>
+<p>兄弟们如果有其他问题，欢迎跟帖提问！</p>
+<h4 id="依赖关系"><a title="依赖关系" class="headerlink" href="#依赖关系"></a><a href="">依赖关系</a></h4><h6 id="问：如何增加删除一个依赖关系？"><a title="问：如何增加删除一个依赖关系？" class="headerlink" href="#问：如何增加删除一个依赖关系？"></a><a href="">问：如何增加删除一个依赖关系？</a></h6><p><a href="">答：直接在pom文件中加入一个dependency节点，如果要删除依赖，把对应的dependency节点删除即可。</a></p>
+<h6 id="问：如何屏蔽一个依赖关系？比如项目中使用的libA依赖某个库的1-0版，libB以来某个库的2-0版，现在想统一使用2-0版，如何去掉1-0版的依赖？"><a title="问：如何屏蔽一个依赖关系？比如项目中使用的libA依赖某个库的1.0版，libB以来某个库的2.0版，现在想统一使用2.0版，如何去掉1.0版的依赖？" class="headerlink" href="#问：如何屏蔽一个依赖关系？比如项目中使用的libA依赖某个库的1-0版，libB以来某个库的2-0版，现在想统一使用2-0版，如何去掉1-0版的依赖？"></a><a href="">问：如何屏蔽一个依赖关系？比如项目中使用的libA依赖某个库的1.0版，libB以来某个库的2.0版，现在想统一使用2.0版，如何去掉1.0版的依赖？</a></h6><p><a href="">答：设置exclusion即可。</a></p>
+<p><a href="">Xml代码&nbsp;�</a>�<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****dependency****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****groupId****&gt;<strong>org.hibernate</strong>&lt;/****groupId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****artifactId****&gt;<strong>hibernate</strong>&lt;/****artifactId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****version****&gt;<strong>3.2.5.ga</strong>&lt;/****version****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****exclusions****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****exclusion****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****groupId****&gt;<strong>javax.transaction</strong>&lt;/****groupId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****artifactId****&gt;<strong>jta</strong>&lt;/****artifactId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****exclusion****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****exclusions****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>&lt;/****dependency****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6 id="问：我有一些jar文件要依赖，但是我又不想把这些jar去install到mvn的repository中去，怎么做配置？"><a title="问：我有一些jar文件要依赖，但是我又不想把这些jar去install到mvn的repository中去，怎么做配置？" class="headerlink" href="#问：我有一些jar文件要依赖，但是我又不想把这些jar去install到mvn的repository中去，怎么做配置？"></a><a href="">问：我有一些jar文件要依赖，但是我又不想把这些jar去install到mvn的repository中去，怎么做配置？</a></h6><p><a href="">答：加入一个特殊的依赖关系，使用system类型，如下：</a></p>
+<pre><code>&lt;dependency&gt;                &lt;groupId&gt;com.abc&lt;/groupId&gt;                &lt;artifactId&gt;my-tools&lt;/artifactId&gt;                &lt;version&gt;2.5.0&lt;/version&gt;                &lt;type&gt;jar&lt;/type&gt;            &lt;scope&gt;system&lt;/scope&gt;           &lt;systemPath&gt;$&#123;basedir&#125;/lib/mylib1.jar&lt;/systemPath&gt;        &lt;/dependency&gt; 
+</code></pre>
+<p><a href="">但是要记住，发布的时候不会复制这个jar。需要手工配置，而且其他project依赖这个project的时候，会报告警告。如果没有特殊要求，建议直接注册发布到repository。</a></p>
+<h6 id="问：在eclipse环境中同时使用maven-builder和eclipse-builder，并且设置项目依赖关系之后，为什么编译会出现artifact找不到错误，但是直接使用命令行mvn构建则一切正常？"><a title="问：在eclipse环境中同时使用maven builder和eclipse builder，并且设置项目依赖关系之后，为什么编译会出现artifact找不到错误，但是直接使用命令行mvn构建则一切正常？" class="headerlink" href="#问：在eclipse环境中同时使用maven-builder和eclipse-builder，并且设置项目依赖关系之后，为什么编译会出现artifact找不到错误，但是直接使用命令行mvn构建则一切正常？"></a><a href="">问：在eclipse环境中同时使用maven builder和eclipse builder，并且设置项目依赖关系之后，为什么编译会出现artifact找不到错误，但是直接使用命令行mvn构建则一切正常？</a></h6><p><a href="">答：在project属性中去掉java build path中对其他 project 的依赖关系，直接在pom中设置依赖关系即可</a></p>
+<pre><code>&lt;!-- 依赖的其他项目 --&gt;        &lt;dependency&gt;                &lt;groupId&gt;com.abc.project1&lt;/groupId&gt;                &lt;artifactId&gt;abc-project1-common&lt;/artifactId&gt;                &lt;version&gt;$&#123;project.version&#125;&lt;/version&gt;        &lt;/dependency&gt; 
+</code></pre>
+<p><a href="">另外，保证没有其他错误。</a></p>
+<h6 id="问：我想让输出的jar包自动包含所有的依赖"><a title="问：我想让输出的jar包自动包含所有的依赖" class="headerlink" href="#问：我想让输出的jar包自动包含所有的依赖"></a><a href="">问：我想让输出的jar包自动包含所有的依赖</a></h6><p><a href="">答：使用&nbsp;assembly&nbsp;插件即可。</a></p>
+<pre><code>&lt;plugin&gt;       &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;        &lt;configuration&gt;          &lt;descriptorRefs&gt;            &lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt;          &lt;/descriptorRefs&gt;        &lt;/configuration&gt;      &lt;/plugin&gt; 
+</code></pre>
+<h6 id="问：我的测试用例依赖于其他工程的测试用例，如何设置？"><a title="问：我的测试用例依赖于其他工程的测试用例，如何设置？" class="headerlink" href="#问：我的测试用例依赖于其他工程的测试用例，如何设置？"></a><a href="">问：我的测试用例依赖于其他工程的测试用例，如何设置？</a></h6><p><a href="">答：maven本身在发布的时候，可以发布单纯的jar，也可以同时发布xxx-tests.jar和xxx-javadoc.jar（大家经常在repository中可以看到类似的东西）。我们自己的项目A要同时输出test.jar可以做如下的设置</a></p>
+<pre><code>&lt;!-- 用于把test代码也做成一个jar --&gt;      &lt;plugin&gt;        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;        &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;        &lt;executions&gt;          &lt;execution&gt;            &lt;goals&gt;               &lt;goal&gt;test-jar&lt;/goal&gt;            &lt;/goals&gt;          &lt;/execution&gt;        &lt;/executions&gt;      &lt;/plugin&gt; 
+</code></pre>
+<p><a href="">然后在其他需要引用的工程B中做如下的dependency设置</a></p>
+<p><a href="">Xml代码&nbsp;�</a>�<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****dependency****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****groupId****&gt;<strong>com.abc.XXX</strong>&lt;/****groupId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****artifactId****&gt;<strong>工程A</strong>&lt;/****artifactId****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****version****&gt;</strong>${project.version}<strong>&lt;/****version****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****type****&gt;<strong>test-jar</strong>&lt;/****type****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****scope****&gt;<strong>test</strong>&lt;/****scope****&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****dependency****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h4 id="变量"><a title="变量" class="headerlink" href="#变量"></a><a href="">变量</a></h4><h6 id="问：如何使用变量替换？项目中的某个配置文件比如jdbc-properties使用了一些pom中的变量，如何在发布中使用包含真实内容的最终结果文件？"><a title="问：如何使用变量替换？项目中的某个配置文件比如jdbc.properties使用了一些pom中的变量，如何在发布中使用包含真实内容的最终结果文件？" class="headerlink" href="#问：如何使用变量替换？项目中的某个配置文件比如jdbc-properties使用了一些pom中的变量，如何在发布中使用包含真实内容的最终结果文件？"></a><a href="">问：如何使用变量替换？项目中的某个配置文件比如jdbc.properties使用了一些pom中的变量，如何在发布中使用包含真实内容的最终结果文件？</a></h6><p><a href="">答：使用资源过滤功能，比如：</a></p>
+<pre><code>&lt;project&gt;  ..  &lt;properties&gt;    &lt;jdbc.driverClassName&gt;com.mysql.jdbc.Driver&lt;/jdbc.driverClassName&gt;    &lt;jdbc.url&gt;jdbc:mysql://localhost:3306/development_db&lt;/jdbc.url&gt;    &lt;jdbc.username&gt;dev_user&lt;/jdbc.username&gt;    &lt;jdbc.password&gt;s3cr3tw0rd&lt;/jdbc.password&gt;  &lt;/properties&gt;  ..  &lt;build&gt;    &lt;resources&gt;      &lt;resource&gt;        &lt;directory&gt;src/main/resources&lt;/directory&gt;        &lt;filtering&gt;true&lt;/filtering&gt;      &lt;/resource&gt;    &lt;/resources&gt;  &lt;/build&gt;  ..  &lt;profiles&gt;    &lt;profile&gt;      &lt;id&gt;production&lt;/id&gt;      &lt;properties&gt;        &lt;jdbc.driverClassName&gt;oracle.jdbc.driver.OracleDriver&lt;/jdbc.driverClassName&gt;        &lt;jdbc.url&gt;jdbc:oracle:thin:@proddb01:1521:PROD&lt;/jdbc.url&gt;        &lt;jdbc.username&gt;prod_user&lt;/jdbc.username&gt;        &lt;jdbc.password&gt;s00p3rs3cr3t&lt;/jdbc.password&gt;      &lt;/properties&gt;    &lt;/profile&gt;  &lt;/profiles&gt;&lt;/project&gt; 
+</code></pre>
+<h6 id="问：-maven-svn-revision-number-plugin-插件说明"><a title="问：&nbsp;maven-svn-revision-number-plugin&nbsp;插件说明" class="headerlink" href="#问：-maven-svn-revision-number-plugin-插件说明"></a><a href="">问：&nbsp;maven-svn-revision-number-plugin&nbsp;插件说明</a></h6><p><a href="">答：&nbsp;maven-svn-revision-number-plugin&nbsp;可以从 SVN 中获取版本号，并将其变成环境变量，交由其他插件或者profile使用，详细帮助在</a><a target="_blank" rel="noopener" href="http://maven-svn-revision-number-plugin.googlecode.com/svn/site/usage.html">这里</a>&nbsp;。一般和resource的filter机制同时使用</p>
+<pre><code>&lt;plugins&gt;            &lt;plugin&gt;                &lt;groupId&gt;com.google.code.maven-svn-revision-number-plugin&lt;/groupId&gt;                &lt;artifactId&gt;maven-svn-revision-number-plugin&lt;/artifactId&gt;                &lt;version&gt;1.3&lt;/version&gt;                &lt;executions&gt;                    &lt;execution&gt;                        &lt;goals&gt;                            &lt;goal&gt;revision&lt;/goal&gt;                        &lt;/goals&gt;                    &lt;/execution&gt;                &lt;/executions&gt;                &lt;configuration&gt;                    &lt;entries&gt;                        &lt;entry&gt;                            &lt;prefix&gt;prefix&lt;/prefix&gt;                        &lt;/entry&gt;                    &lt;/entries&gt;                &lt;/configuration&gt;            &lt;/plugin&gt;        &lt;/plugins&gt; 
+</code></pre>
+<p>这段代码负责把resource文件中的内容替换成适当内容</p>
+<pre><code>repository = $&#123;prefix.repository&#125;path = $&#123;prefix.path&#125;revision = $&#123;prefix.revision&#125;mixedRevisions = $&#123;prefix.mixedRevisions&#125;committedRevision = $&#123;prefix.committedRevision&#125;status = $&#123;prefix.status&#125;specialStatus = $&#123;prefix.specialStatus&#125;
+</code></pre>
+<h4 id="编译"><a title="编译" class="headerlink" href="#编译"></a><a href="">编译</a></h4><h6 id="问：如何给插件指派参数？比如我要设置一些编译参数"><a title="问：如何给插件指派参数？比如我要设置一些编译参数" class="headerlink" href="#问：如何给插件指派参数？比如我要设置一些编译参数"></a><a href="">问：如何给插件指派参数？比如我要设置一些编译参数</a></h6><p><a href="">答：以下内容设定编译器编译java1.5的代码</a></p>
+<pre><code>&lt;project&gt;  ... &lt;build&gt;    ...    &lt;plugins&gt;      &lt;plugin&gt;        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;        &lt;configuration&gt;          &lt;source&gt;1.5&lt;/source&gt;          &lt;target&gt;1.5&lt;/target&gt;        &lt;/configuration&gt;      &lt;/plugin&gt;    &lt;/plugins&gt; ...  &lt;/build&gt;  ...&lt;/project&gt; 
+</code></pre>
+<p><a href="">要设置其他插件的参数也可以，请参考对应插件的帮助信息</a></p>
+<h6 id="问：我的目录是非标准的目录结构，如何设置让maven支持？"><a title="问：我的目录是非标准的目录结构，如何设置让maven支持？" class="headerlink" href="#问：我的目录是非标准的目录结构，如何设置让maven支持？"></a><a href="">问：我的目录是非标准的目录结构，如何设置让maven支持？</a></h6><p><a href="">答：指定source目录和test-source目录即可。</a></p>
+<pre><code>&lt;build&gt;    &lt;directory&gt;target&lt;/directory&gt;    &lt;sourceDirectory&gt;src&lt;/sourceDirectory&gt;    &lt;scriptSourceDirectory&gt;js/scripts&lt;/scriptSourceDirectory&gt;    &lt;testSourceDirectory&gt;test&lt;/testSourceDirectory&gt;    &lt;outputDirectory&gt;bin&lt;/outputDirectory&gt;    &lt;testOutputDirectory&gt;bin&lt;/testOutputDirectory&gt;  &lt;/build&gt; 
+</code></pre>
+<p><a href="">这个例子把源代码设置成了src目录，测试代码在test目录，所以输出到bin目录。这里要注意，directory如果也设置成bin目录的 话，maven打包的时候会引起死循环，因为directory是所有工作存放的地方，默认包含outputDirectory定义的目录在内。</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java%E4%B8%8E%E5%90%8E%E7%AB%AF/">Java与后端</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Maven%E5%B8%B8%E7%94%A8%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/" data-title="Maven常用问题总结 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/Maven仓库的两个概念：本地仓库和远程仓库/" title="Maven仓库的两个概念：本地仓库和远程仓库">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Maven仓库的两个概念：本地仓库和远程仓库</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/MyBatis Generator 详解 - CSDN博客/"  title="MyBatis Generator 详解 - CSDN博客">
+ <strong>下一篇：</strong><br/> 
+ <span>MyBatis Generator 详解 - CSDN博客
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/Maven常用问题总结/" data-title="Maven常用问题总结" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Maven%E5%B8%B8%E7%94%A8%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven%E5%B8%B8%E7%94%A8%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">Maven常用问题总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.0.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maven%E6%A6%82%E8%A6%81"><span class="toc-number">1.0.2.</span> <span class="toc-text">maven概要</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E4%B8%8D%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.0.2.0.1.</span> <span class="toc-text">maven不是什么</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.0.2.0.2.</span> <span class="toc-text">maven是什么</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.0.2.0.3.</span> <span class="toc-text">maven的生命周期</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E2%80%9D%E7%BA%A6%E5%AE%9A%E4%BC%98%E4%BA%8E%E9%85%8D%E7%BD%AE%E2%80%9D"><span class="toc-number">1.0.2.0.4.</span> <span class="toc-text">maven的”约定优于配置”</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E7%89%88%E6%9C%AC%E8%A7%84%E8%8C%83"><span class="toc-number">1.0.2.0.5.</span> <span class="toc-text">maven的版本规范</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="toc-number">1.0.2.0.6.</span> <span class="toc-text">maven的组成部分</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86"><span class="toc-number">1.0.2.0.7.</span> <span class="toc-text">maven的依赖管理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86"><span class="toc-number">1.0.2.0.8.</span> <span class="toc-text">多项目管理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84profile"><span class="toc-number">1.0.2.0.9.</span> <span class="toc-text">maven的profile</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maven%E7%9A%84%E6%93%8D%E4%BD%9C%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-number">1.0.3.</span> <span class="toc-text">maven的操作和使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.3.0.1.</span> <span class="toc-text">maven的配置文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.0.3.0.2.</span> <span class="toc-text">创建新工程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E5%A4%9A%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86"><span class="toc-number">1.0.3.0.3.</span> <span class="toc-text">maven的多项目管理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BA%93%E6%96%87%E4%BB%B6%E5%88%B0maven%E5%BA%93%E4%B8%AD"><span class="toc-number">1.0.3.0.4.</span> <span class="toc-text">安装库文件到maven库中</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E5%8F%98%E9%87%8F"><span class="toc-number">1.0.3.0.5.</span> <span class="toc-text">maven的变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#maven%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.0.3.0.6.</span> <span class="toc-text">maven的使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maven%E7%9A%84%E4%BD%BF%E7%94%A8%E9%97%AE%E7%AD%94"><span class="toc-number">1.0.4.</span> <span class="toc-text">maven的使用问答</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="toc-number">1.0.4.1.</span> <span class="toc-text">依赖关系</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E5%A6%82%E4%BD%95%E5%A2%9E%E5%8A%A0%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="toc-number">1.0.4.1.0.1.</span> <span class="toc-text">问：如何增加删除一个依赖关系？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E5%A6%82%E4%BD%95%E5%B1%8F%E8%94%BD%E4%B8%80%E4%B8%AA%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%EF%BC%9F%E6%AF%94%E5%A6%82%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84libA%E4%BE%9D%E8%B5%96%E6%9F%90%E4%B8%AA%E5%BA%93%E7%9A%841-0%E7%89%88%EF%BC%8ClibB%E4%BB%A5%E6%9D%A5%E6%9F%90%E4%B8%AA%E5%BA%93%E7%9A%842-0%E7%89%88%EF%BC%8C%E7%8E%B0%E5%9C%A8%E6%83%B3%E7%BB%9F%E4%B8%80%E4%BD%BF%E7%94%A82-0%E7%89%88%EF%BC%8C%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%891-0%E7%89%88%E7%9A%84%E4%BE%9D%E8%B5%96%EF%BC%9F"><span class="toc-number">1.0.4.1.0.2.</span> <span class="toc-text">问：如何屏蔽一个依赖关系？比如项目中使用的libA依赖某个库的1.0版，libB以来某个库的2.0版，现在想统一使用2.0版，如何去掉1.0版的依赖？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E6%88%91%E6%9C%89%E4%B8%80%E4%BA%9Bjar%E6%96%87%E4%BB%B6%E8%A6%81%E4%BE%9D%E8%B5%96%EF%BC%8C%E4%BD%86%E6%98%AF%E6%88%91%E5%8F%88%E4%B8%8D%E6%83%B3%E6%8A%8A%E8%BF%99%E4%BA%9Bjar%E5%8E%BBinstall%E5%88%B0mvn%E7%9A%84repository%E4%B8%AD%E5%8E%BB%EF%BC%8C%E6%80%8E%E4%B9%88%E5%81%9A%E9%85%8D%E7%BD%AE%EF%BC%9F"><span class="toc-number">1.0.4.1.0.3.</span> <span class="toc-text">问：我有一些jar文件要依赖，但是我又不想把这些jar去install到mvn的repository中去，怎么做配置？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E5%9C%A8eclipse%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8maven-builder%E5%92%8Ceclipse-builder%EF%BC%8C%E5%B9%B6%E4%B8%94%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%E4%B9%8B%E5%90%8E%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E4%BC%9A%E5%87%BA%E7%8E%B0artifact%E6%89%BE%E4%B8%8D%E5%88%B0%E9%94%99%E8%AF%AF%EF%BC%8C%E4%BD%86%E6%98%AF%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8Cmvn%E6%9E%84%E5%BB%BA%E5%88%99%E4%B8%80%E5%88%87%E6%AD%A3%E5%B8%B8%EF%BC%9F"><span class="toc-number">1.0.4.1.0.4.</span> <span class="toc-text">问：在eclipse环境中同时使用maven builder和eclipse builder，并且设置项目依赖关系之后，为什么编译会出现artifact找不到错误，但是直接使用命令行mvn构建则一切正常？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E6%88%91%E6%83%B3%E8%AE%A9%E8%BE%93%E5%87%BA%E7%9A%84jar%E5%8C%85%E8%87%AA%E5%8A%A8%E5%8C%85%E5%90%AB%E6%89%80%E6%9C%89%E7%9A%84%E4%BE%9D%E8%B5%96"><span class="toc-number">1.0.4.1.0.5.</span> <span class="toc-text">问：我想让输出的jar包自动包含所有的依赖</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E6%88%91%E7%9A%84%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E4%BE%9D%E8%B5%96%E4%BA%8E%E5%85%B6%E4%BB%96%E5%B7%A5%E7%A8%8B%E7%9A%84%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%EF%BC%8C%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%EF%BC%9F"><span class="toc-number">1.0.4.1.0.6.</span> <span class="toc-text">问：我的测试用例依赖于其他工程的测试用例，如何设置？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">1.0.4.2.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F%E6%9B%BF%E6%8D%A2%EF%BC%9F%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E6%9F%90%E4%B8%AA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%AF%94%E5%A6%82jdbc-properties%E4%BD%BF%E7%94%A8%E4%BA%86%E4%B8%80%E4%BA%9Bpom%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%EF%BC%8C%E5%A6%82%E4%BD%95%E5%9C%A8%E5%8F%91%E5%B8%83%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8C%85%E5%90%AB%E7%9C%9F%E5%AE%9E%E5%86%85%E5%AE%B9%E7%9A%84%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C%E6%96%87%E4%BB%B6%EF%BC%9F"><span class="toc-number">1.0.4.2.0.1.</span> <span class="toc-text">问：如何使用变量替换？项目中的某个配置文件比如jdbc.properties使用了一些pom中的变量，如何在发布中使用包含真实内容的最终结果文件？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A-maven-svn-revision-number-plugin-%E6%8F%92%E4%BB%B6%E8%AF%B4%E6%98%8E"><span class="toc-number">1.0.4.2.0.2.</span> <span class="toc-text">问： maven-svn-revision-number-plugin 插件说明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-number">1.0.4.3.</span> <span class="toc-text">编译</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E5%A6%82%E4%BD%95%E7%BB%99%E6%8F%92%E4%BB%B6%E6%8C%87%E6%B4%BE%E5%8F%82%E6%95%B0%EF%BC%9F%E6%AF%94%E5%A6%82%E6%88%91%E8%A6%81%E8%AE%BE%E7%BD%AE%E4%B8%80%E4%BA%9B%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0"><span class="toc-number">1.0.4.3.0.1.</span> <span class="toc-text">问：如何给插件指派参数？比如我要设置一些编译参数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%97%AE%EF%BC%9A%E6%88%91%E7%9A%84%E7%9B%AE%E5%BD%95%E6%98%AF%E9%9D%9E%E6%A0%87%E5%87%86%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%EF%BC%8C%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E8%AE%A9maven%E6%94%AF%E6%8C%81%EF%BC%9F"><span class="toc-number">1.0.4.3.0.2.</span> <span class="toc-text">问：我的目录是非标准的目录结构，如何设置让maven支持？</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

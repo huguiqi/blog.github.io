@@ -1,0 +1,993 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>压力测试工具tsung初体验 // hello world | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="压力测试工具tsung初体验 &#x2F;&#x2F; hello world压力测试 tsung 压力测试工具tsung初体验   &amp;nbsp; | &amp;nbsp; In linux 最近参与开发了公司的评论和点赞的系统，该系统是作为symfony的一个独立plugin，可能会被其它很多系统使用，比如说图片，视频，newsfeed等等，都有可能直接嵌入，所以该独立模块做的尽可能通用，对性能也有一定要求。最终采用以my">
+<meta property="og:type" content="article">
+<meta property="og:title" content="压力测试工具tsung初体验 &#x2F;&#x2F; hello world">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C%20__%20hello%20world/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="压力测试工具tsung初体验 &#x2F;&#x2F; hello world压力测试 tsung 压力测试工具tsung初体验   &amp;nbsp; | &amp;nbsp; In linux 最近参与开发了公司的评论和点赞的系统，该系统是作为symfony的一个独立plugin，可能会被其它很多系统使用，比如说图片，视频，newsfeed等等，都有可能直接嵌入，所以该独立模块做的尽可能通用，对性能也有一定要求。最终采用以my">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C-__-hello-world/main_statistics.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C-__-hello-world/mean_request.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C-__-hello-world/graphes_users_simulaneous.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C-__-hello-world/http_code.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-09-08T02:21:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="压力测试">
+<meta property="article:tag" content="tsung">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C-__-hello-world/main_statistics.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/压力测试工具tsung初体验 __ hello world/" title="压力测试工具tsung初体验 // hello world" itemprop="url">压力测试工具tsung初体验 // hello world</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C-x2F-x2F-hello-world"><span class="toc-number">1.</span> <span class="toc-text">压力测试工具tsung初体验 &#x2F;&#x2F; hello world</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C"><span class="toc-number">2.</span> <span class="toc-text">压力测试工具tsung初体验</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#clients"><span class="toc-number">2.0.0.0.1.</span> <span class="toc-text">clients</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sessions"><span class="toc-number">2.0.0.0.2.</span> <span class="toc-text">sessions</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E7%BB%93%E6%9E%9C%E6%8A%A5%E8%A1%A8"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">分析结果报表</span></a></li></ol></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="压力测试工具tsung初体验-x2F-x2F-hello-world"><a title="压力测试工具tsung初体验 // hello world" class="headerlink" href="#压力测试工具tsung初体验-x2F-x2F-hello-world"></a>压力测试工具tsung初体验 // hello world</h1><p><code>压力测试</code> <code>tsung</code></p>
+<h1 id="压力测试工具tsung初体验"><a title="压力测试工具tsung初体验" class="headerlink" href="#压力测试工具tsung初体验"></a>压力测试工具tsung初体验</h1><p>   &nbsp; | &nbsp; In <a target="_blank" rel="noopener" href="http://codezye.com/categories/linux/">linux</a><br> 最近参与开发了公司的评论和点赞的系统，该系统是作为symfony的一个独立plugin，可能会被其它很多系统使用，比如说图片，视频，newsfeed等等，都有可能直接嵌入，所以该独立模块做的尽可能通用，对性能也有一定要求。最终采用以mysql作为储存方案，以redis作为缓存方案的设计。接口开发完后想对接口进行性能负载测试，估算该系统的读写性能的上限。</p>
+<p>了解了几个常用的测试工具和与公司之前所用的测试工具进行对比后，最终选定tsung进行测试工具：</p>
+<p>tsung是erlang开发的一个开源的多协议分布式负载测试工具，它能用来压力测试HTTP, WebDAV, SOAP, PostgreSQL, MySQL, LDAP 和 Jabber/XMPP的服务器。它可以分布在多个客户机，并能轻松够模拟成千上万的虚拟用户数并发。</p>
+<p>首先是安装tsung，因为最新的tsung是1.6.0版的，系统自带的源可能没有最新版本，所以到官网<a target="_blank" rel="noopener" href="http://tsung.erlang-projects.org/">http://tsung.erlang-projects.org/</a> 下载源码包来编译，configure &amp;&amp; make &amp;&amp; make install完成。</p>
+<p>tsung是根据xml配置文件里的参数内容来进行压测。默认tsung会加载配置文件：~/.tsung/tsung.xml</p>
+<p>如果该文件夹下初始为空，则在/usr/share/doc/tsung/examples下有样例的xml文件，http的配置是http_simple.xml</p>
+<p>下面来讲几个关键的配置</p>
+<h5 id="clients"><a title="clients" class="headerlink" href="#clients"></a>clients</h5><p>用户产生的方式</p>
+<p>||```<br>  &lt;client =”localhost” use_controller_vm=”true” maxusers=”30000”/&gt;</p>
+<pre><code>
+|
+||-------------------------------------------------------------------------------------------|
+
+tsung运行时可以由很多的虚拟机组成，client配置指明这个client机器上最多生成的用户数，如果use_controller_vm为true的话，那么当用户数达到mmaxusers，tsung会自动生成新的VM。
+
+##### servers
+
+||```
+&lt;servers&gt;  &lt;server ="test.com" = ="tcp"&gt;&lt;/server&gt;&lt;/servers&gt;
+</code></pre>
+<p>|<br>||—————————————————————–|</p>
+<p>server段可以配置被测服务器的相关信息，也可以配置成集群，如下</p>
+<p>||```<br>  &lt;server host=”server1” port= type=”tcp” weight=&gt;  &lt;server host=”server2” port= type=”tcp” weight=&gt;</p>
+<pre><code>
+|
+||-----------------------------------------------------------------------------------------------------------------------------------------------|
+
+这时tsung会根据weight值来选择发起请求的server
+
+##### monitoring
+
+系统监控服务，配置完后可获取被测server的cpu，内存，负载，数据库的相关信息。可以配置成erlang的监控服务和snmp的监控服务。
+
+||```
+&lt;monitoring&gt;  &lt;monitor ="garden" ="erlang"&gt;    &lt;mysqladmin ="3306" username="root" /&gt;  &lt;/monitor&gt;&lt;/monitoring&gt;
+</code></pre>
+<p>|<br>||——————————————————————————————————————–|</p>
+<p>||```<br>&lt;&gt; &lt;arrivalphase phase= duration= =”minute”&gt;   &lt;users maxnumber=”100” interarrival=”0.02” =”second” &gt; &lt;/&gt;</p>
+<pre><code>
+|
+||--------------------------------------------------------------------------------------------------------------------------------------|
+
+load段可配置访问的负载，访问可以配成多个阶段，由phase值指定。duration是测试持续时间，unit是单位。
+
+users段的maxnumber限制了生成的最大用户数，interarrival=”0.02”表示0.02秒产生一个新用户，用户按照session的配置顺序执行session中的request。
+
+##### options
+
+||```
+&lt;options&gt;   &lt;option ="ts_http" ="user_agent"&gt;     &lt;user_agent probability=&gt;Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8) Gecko/20050513 Galeon/1.3.21&lt;/user_agent&gt;     &lt;user_agent probability=&gt;Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4&lt;/user_agent&gt;   &lt;/option&gt; &lt;/options&gt;
+</code></pre>
+<p>|<br>||————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p>options段可配置一些请求的信息，如agent信息。</p>
+<h5 id="sessions"><a title="sessions" class="headerlink" href="#sessions"></a>sessions</h5><p>||```<br>    &lt;session =”http-example” probability= =”ts_http”&gt;      &lt;setdynvars sourcetype=”random_number” start=  =”100”&gt;        &lt; =”itemid” /&gt;            &lt;transaction =’getlist’&gt;                  &lt; =”/comment/getList” method=”POST” contents = “item_type=image&amp;item_id=%%_itemid%%”&gt;&lt;/&gt;                      &lt;session =”http-example” probability= =”ts_http”&gt;      &lt;setdynvars sourcetype=”random_number” start= =”100”&gt;        &lt; =”itemid” /&gt;            &lt;setdynvars sourcetype=”random_number” start= =”5000000”&gt;        &lt; =”content” /&gt;            &lt;transaction =’getlist’&gt;                  &lt; =”/comment/addComment” method=”POST” contents = “item_type=image&amp;item_id=%%_itemid%%&amp;content=%%_content%%”&gt;&lt;/&gt;                    </p>
+<pre><code>
+|
+||---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+可配置多个子session，进而可测试多个api，可以设置请求概率，在probability里被定义，要求每个session的probability之和是100。类型是http。
+
+sessions里可用for来设定请求次数，如下
+
+||```
+&lt; = ="@loop" incr= ="counter"&gt;
+</code></pre>
+<p>|<br>||————————————|</p>
+<p>在里面可以设置请求的具体信息。在请求参数里可以带上随机数。随机数和随机字符串的定义如下：</p>
+<p>||```<br>  <var name="xxx"></var>&lt;setdynvars sourcetype=”random_string” length=&gt;  <var name="xxx"></var></p>
+<pre><code>
+|
+||-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+以%%_xxx%%的形式来调用，这里必须注意的是，要使用随机数，request必须加上**subst=”true”**参数，不然随机数无法被引用成功。随机数也可从文件读取，如csv。
+
+http内部可定义header参数：
+
+||```
+&lt;http_header ="Authorization" value="111"/&gt;&lt;http_header ="Cookie" value="authToken=%%_auth_token%%; Path=/"/&gt;&lt;!-- content-Type：POST请求参数的格式，如果是json格式可以这样写 --&gt;&lt;http_header ="Content-Type" value="application/json"/&gt;
+</code></pre>
+<p>|<br>||———————————————————————————————————————————————————————————————————————————————|</p>
+<p>thinktime可用于定义两个请求的间隔时间</p>
+<p>||```<br></p>
+<pre><code>
+|
+||-------------------------|
+
+另外可定义不同的transaction ，这样子结果里就会显示不同transaction的具体信息。
+
+||```
+tsung start
+</code></pre>
+<p>|<br>||—————–|</p>
+<p>开始测试</p>
+<p>运行时执行</p>
+<p>||```<br>tsung status</p>
+<pre><code>
+|
+||------------------|
+
+可获取tsung运行时的状态
+
+测试程序结束后，进入log文件夹下的对应结果文件夹，执行
+
+||```
+tsung_stats
+</code></pre>
+<p>|<br>||—————–|</p>
+<p>就可以得到我们想要的结果报表了。</p>
+<h4 id="分析结果报表"><a title="分析结果报表" class="headerlink" href="#分析结果报表"></a>分析结果报表</h4><p>生成好后的report.html就是测试的最终结果。</p>
+<p>Main statistics里有一些总体的信息</p>
+<p><a target="_blank" rel="noopener" href="http://7xt0z7.com1.z0.glb.clouddn.com/main_statistics.jpg"><img loading="lazy" alt="main_statistics.jpg" src="/images/notes/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C-__-hello-world/main_statistics.jpg"></a></p>
+<p>有几张重要的结果图如下：</p>
+<ul>
+<li>tsung产生的用户曲线图<br>  <a target="_blank" rel="noopener" href="http://7xt0z7.com1.z0.glb.clouddn.com/graphes_users_simulaneous.png"><img loading="lazy" alt="mean_request.png" src="/images/notes/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C-__-hello-world/mean_request.png"></a><br>  Y轴代表每秒用户数，tsung每秒会产生一批用户，这个统计结果是每十秒统计一次，所有的图的起始位置显示的是0，其实是第一个10秒</li>
+<li>http接口响应数曲线图（TPS）<br>  <a target="_blank" rel="noopener" href="http://7xt0z7.com1.z0.glb.clouddn.com/http_code.png"><img loading="lazy" alt="graphes_users_simulaneous.png" src="/images/notes/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C-__-hello-world/graphes_users_simulaneous.png"></a><br>  Y轴是每秒响应数，右上角的200是http状态码，如果有多个状态码，会有多条不同颜色的曲线。</li>
+<li>http接口响应时间曲线<br>  <a target="_blank" rel="noopener" href="http://7xt0z7.com1.z0.glb.clouddn.com/mean_request.png"><img loading="lazy" alt="http_code.png" src="/images/notes/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C-__-hello-world/http_code.png"></a><br>  Y轴是接口响应时间，单位是毫秒，request的线代表请求响应总耗时，connect的线代表tcp链接建立的时间。</li>
+</ul>
+<p>经过测试，发现该系统支持的最大写入频率是80次/min，因为并未加入cache, queue等优化方案，是直接同步写库，初始业务量也未必会很大，所以该数据也已满足正式环境的使用。根据测试结果我们改进了一些逻辑SQL，使执行效率尽可能高。</p>
+<p>另外还使用了<strong>innotop</strong>作为mysql的监控工具，<strong>htop</strong>作为系统负载的监控工具，在这里就不展开介绍了：）</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/压力测试/">压力测试</a><a href="/tags/tsung/">tsung</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C%20__%20hello%20world/" data-title="压力测试工具tsung初体验 // hello world | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/动态的Objective-C——关于消息机制与运行时的探讨 - 珲少/" title="动态的Objective-C——关于消息机制与运行时的探讨 - 珲少">
+  <strong>上一篇：</strong><br/>
+  <span>
+  动态的Objective-C——关于消息机制与运行时的探讨 - 珲少</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/原子操作_与java线程有关_/"  title="原子操作(与java线程有关)">
+ <strong>下一篇：</strong><br/> 
+ <span>原子操作(与java线程有关)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/压力测试工具tsung初体验 __ hello world/" data-title="压力测试工具tsung初体验 // hello world" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C%20__%20hello%20world/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C-x2F-x2F-hello-world"><span class="toc-number">1.</span> <span class="toc-text">压力测试工具tsung初体验 &#x2F;&#x2F; hello world</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7tsung%E5%88%9D%E4%BD%93%E9%AA%8C"><span class="toc-number">2.</span> <span class="toc-text">压力测试工具tsung初体验</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#clients"><span class="toc-number">2.0.0.0.1.</span> <span class="toc-text">clients</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sessions"><span class="toc-number">2.0.0.0.2.</span> <span class="toc-text">sessions</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E7%BB%93%E6%9E%9C%E6%8A%A5%E8%A1%A8"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">分析结果报表</span></a></li></ol></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

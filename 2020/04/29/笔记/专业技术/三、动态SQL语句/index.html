@@ -1,0 +1,1343 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>三、动态SQL语句 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="三、动态SQL语句mybatis 三、动态SQL语句有些时候，sql语句where条件中，需要一些安全判断，例如按某一条件查询时如果传入的参数是空，此时查询出的结果很可能是空的，也许我们需要参数为空时，是查出全部的信息。使用Oracle的序列、mysql的函数生成Id。这时我们可以使用动态sql。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;下文均采用mys">
+<meta property="og:type" content="article">
+<meta property="og:title" content="三、动态SQL语句">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E4%B8%89%E3%80%81%E5%8A%A8%E6%80%81SQL%E8%AF%AD%E5%8F%A5/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="三、动态SQL语句mybatis 三、动态SQL语句有些时候，sql语句where条件中，需要一些安全判断，例如按某一条件查询时如果传入的参数是空，此时查询出的结果很可能是空的，也许我们需要参数为空时，是查出全部的信息。使用Oracle的序列、mysql的函数生成Id。这时我们可以使用动态sql。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;下文均采用mys">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E4%B8%89-%E5%8A%A8%E6%80%81SQL%E8%AF%AD%E5%8F%A5/293.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2011-12-08T17:34:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="mybatis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E4%B8%89-%E5%8A%A8%E6%80%81SQL%E8%AF%AD%E5%8F%A5/293.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/三、动态SQL语句/" title="三、动态SQL语句" itemprop="url">三、动态SQL语句</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%8A%A8%E6%80%81SQL%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.</span> <span class="toc-text">三、动态SQL语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%8A%A8%E6%80%81SQL%E8%AF%AD%E5%8F%A5-1"><span class="toc-number">2.</span> <span class="toc-text">三、动态SQL语句</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-selectKey-%E6%A0%87%E7%AD%BE"><span class="toc-number">2.1.</span> <span class="toc-text">3.1 selectKey 标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-if%E6%A0%87%E7%AD%BE"><span class="toc-number">2.2.</span> <span class="toc-text">3.2 if标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-if-where-%E7%9A%84%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD"><span class="toc-number">2.3.</span> <span class="toc-text">3.3 if + where 的条件判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-if-set-%E7%9A%84%E6%9B%B4%E6%96%B0%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.4.</span> <span class="toc-text">3.4 if + set 的更新语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-if-trim%E4%BB%A3%E6%9B%BFwhere-x2F-set%E6%A0%87%E7%AD%BE"><span class="toc-number">2.5.</span> <span class="toc-text">3.5 if + trim代替where&#x2F;set标签</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-2-trim%E4%BB%A3%E6%9B%BFset"><span class="toc-number">2.5.1.</span> <span class="toc-text">3.5.2 trim代替set</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-choose-when-otherwise"><span class="toc-number">2.6.</span> <span class="toc-text">3.6 choose (when, otherwise)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7-foreach"><span class="toc-number">2.7.</span> <span class="toc-text">3.7 foreach</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-1%E5%8F%82%E6%95%B0%E4%B8%BAarray%E7%A4%BA%E4%BE%8B%E7%9A%84%E5%86%99%E6%B3%95"><span class="toc-number">2.7.1.</span> <span class="toc-text">3.7.1参数为array示例的写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.7.2.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-2%E5%8F%82%E6%95%B0%E4%B8%BAlist%E7%A4%BA%E4%BE%8B%E7%9A%84%E5%86%99%E6%B3%95"><span class="toc-number">2.7.3.</span> <span class="toc-text">3.7.2参数为list示例的写法</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="三、动态SQL语句"><a title="三、动态SQL语句" class="headerlink" href="#三、动态SQL语句"></a>三、动态SQL语句</h1><p><code>mybatis</code></p>
+<h1 id="三、动态SQL语句-1"><a title="三、动态SQL语句" class="headerlink" href="#三、动态SQL语句-1"></a>三、动态SQL语句</h1><p>有些时候，sql语句where条件中，需要一些安全判断，例如按某一条件查询时如果传入的参数是空，此时查询出的结果很可能是空的，也许我们需要参数为空时，是查出全部的信息。使用Oracle的序列、mysql的函数生成Id。这时我们可以使用动态sql。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下文均采用mysql语法和函数（例如字符串链接函数CONCAT）。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="3-1-selectKey-标签"><a title="3.1 selectKey&nbsp;标签" class="headerlink" href="#3-1-selectKey-标签"></a>3.1 selectKey&nbsp;标签</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在insert语句中，在Oracle经常使用序列、在MySQL中使用函数来自动生成插入表的主键，而且需要方法能返回这个生成主键。使用myBatis的selectKey标签可以实现这个效果。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面例子，使用mysql数据库自定义函数nextval(‘student’)，用来生成一个key，并把他设置到传入的实体类中的studentId属性上。所以在执行完此方法后，边可以通过这个实体类获取生成的key。</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22"><img loading="lazy" alt="-293.png" src="/images/notes/%E4%B8%89-%E5%8A%A8%E6%80%81SQL%E8%AF%AD%E5%8F%A5/293.png"></a></p>
+<ol>
+<li>&nbsp;&nbsp;</li>
+<li><strong>&lt;****insert**&nbsp;id=”createStudentAutoKey”&nbsp;parameterType=”liming.student.manager.data.model.StudentEntity”&nbsp;keyProperty=”studentId”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****selectKey**&nbsp;keyProperty=”studentId”&nbsp;resultType=”String”&nbsp;order=”BEFORE”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;nextval(‘student’)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****selectKey****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;INTO&nbsp;STUDENT_TBL(STUDENT_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_NAME,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_SEX,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_BIRTHDAY,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_PHOTO,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PLACE_ID)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;VALUES&nbsp;(#{studentId},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{studentName},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{studentSex},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{studentBirthday},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{studentPhoto,&nbsp;javaType=byte[],&nbsp;jdbcType=BLOB,&nbsp;typeHandler=org.apache.ibatis.type.BlobTypeHandler},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{classId},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{placeId})&nbsp;&nbsp;</li>
+<li><strong>&lt;/****insert****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>调用接口方法，和获取自动生成key</p>
+<p>Java代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>StudentEntity&nbsp;entity&nbsp;=&nbsp;<strong>new</strong>&nbsp;StudentEntity();&nbsp;&nbsp;</li>
+<li>entity.setStudentName(“黎明你好”);&nbsp;&nbsp;</li>
+<li>entity.setStudentSex(1);&nbsp;&nbsp;</li>
+<li>entity.setStudentBirthday(DateUtil.parse(“1985-05-28”));&nbsp;&nbsp;</li>
+<li>entity.setClassId(“20000001”);&nbsp;&nbsp;</li>
+<li>entity.setPlaceId(“70000001”);&nbsp;&nbsp;</li>
+<li><strong>this</strong>.dynamicSqlMapper.createStudentAutoKey(entity);&nbsp;&nbsp;</li>
+<li>System.out.println(“新增学生ID:&nbsp;“&nbsp;+&nbsp;entity.getStudentId());</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>selectKeyselectKey语句属性配置细节：</p>
+<p>&nbsp;</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>取值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>keyPropertykeyProperty</td>
+<td>selectKey&nbsp;selectKey&nbsp;语句生成结果需要设置的属性。</td>
+<td></td>
+</tr>
+<tr>
+<td>resultTyperesultType</td>
+<td>生成结果类型，MyBatis&nbsp;MyBatis&nbsp;允许使用基本的数据类型，包括String&nbsp;String&nbsp;、intint类型。</td>
+<td></td>
+</tr>
+<tr>
+<td>orderorder</td>
+<td>1：BEFORE，会先选择主键，然后设置keyProperty，再执行insert语句；</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>22：AFTERAFTER，就先运行insert&nbsp;insert&nbsp;语句再运行selectKey&nbsp;selectKey&nbsp;语句。                                                       |BEFORE</p>
+<p>AFTERAFTER                 |<br>|statementTypestatementType|MyBatis&nbsp;MyBatis&nbsp;支持STATEMENTSTATEMENT，PREPAREDPREPARED和CALLABLE&nbsp;CALLABLE&nbsp;的语句形式，&nbsp;对应Statement&nbsp;Statement&nbsp;，PreparedStatement&nbsp;PreparedStatement&nbsp;和CallableStatement&nbsp;CallableStatement&nbsp;响应|STATEMENT</p>
+<p>PREPARED</p>
+<p>CALLABLECALLABLE|</p>
+<p>&nbsp;</p>
+<h2 id="3-2-if标签"><a title="3.2 if标签" class="headerlink" href="#3-2-if标签"></a>3.2 if标签</h2><p>&nbsp;</p>
+<p>&nbsp;if标签可用在许多类型的sql语句中，我们以查询为例。首先看一个很普通的查询：</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>&nbsp;&nbsp;</li>
+<li><strong>&lt;****select**&nbsp;id=”getStudentListLikeName”&nbsp;parameterType=”StudentEntity”&nbsp;resultMap=”studentResultMap”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;from&nbsp;STUDENT_TBL&nbsp;ST&nbsp;&nbsp;&nbsp;</li>
+<li>WHERE&nbsp;ST.STUDENT_NAME&nbsp;LIKE&nbsp;CONCAT(CONCAT(‘%’,&nbsp;#{studentName}),’%’)&nbsp;&nbsp;</li>
+<li><strong>&lt;/****select****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>但是此时如果studentName或studentSex为null，此语句很可能报错或查询结果为空。此时我们使用if动态sql语句先进行判断，如果值为null或等于空字符串，我们就不进行此条件的判断，增加灵活性。</p>
+<p>参数为实体类StudentEntity。将实体类中所有的属性均进行判断，如果不为空则执行判断条件。</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>&nbsp;&nbsp;</li>
+<li><strong>&lt;****select**&nbsp;id=”getStudentList_if”&nbsp;resultMap=”resultMap_studentEntity”&nbsp;parameterType=”liming.student.manager.data.model.StudentEntity”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;ST.STUDENT_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_NAME,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_SEX,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_BIRTHDAY,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_PHOTO,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.CLASS_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.PLACE_ID&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;STUDENT_TBL&nbsp;ST&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentName&nbsp;!=null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_NAME&nbsp;LIKE&nbsp;CONCAT(CONCAT(‘%’,&nbsp;#{studentName,&nbsp;jdbcType=VARCHAR}),’%’)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentSex&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentSex&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_SEX&nbsp;=&nbsp;#{studentSex,&nbsp;jdbcType=INTEGER}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentBirthday&nbsp;!=&nbsp;null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_BIRTHDAY&nbsp;=&nbsp;#{studentBirthday,&nbsp;jdbcType=DATE}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”classId&nbsp;!=&nbsp;null&nbsp;and&nbsp;classId!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.CLASS_ID&nbsp;=&nbsp;#{classId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”classEntity&nbsp;!=&nbsp;null&nbsp;and&nbsp;classEntity.classId&nbsp;!=null&nbsp;and&nbsp;classEntity.classId&nbsp;!=’&nbsp;‘&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.CLASS_ID&nbsp;=&nbsp;#{classEntity.classId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”placeId&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.PLACE_ID&nbsp;=&nbsp;#{placeId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”placeEntity&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeEntity.placeId&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeEntity.placeId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.PLACE_ID&nbsp;=&nbsp;#{placeEntity.placeId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentId&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_ID&nbsp;=&nbsp;#{studentId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;&nbsp;</li>
+<li><strong>&lt;/****select****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>使用时比较灵活，&nbsp;new一个这样的实体类，我们需要限制那个条件，只需要附上相应的值就会where这个条件，相反不去赋值就可以不在where中判断。</p>
+<p>Java代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>public</strong>&nbsp;<strong>void</strong>&nbsp;select_test_2_1()&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;StudentEntity&nbsp;entity&nbsp;=&nbsp;<strong>new</strong>&nbsp;StudentEntity();&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;entity.setStudentName(“”);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;entity.setStudentSex(1);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;entity.setStudentBirthday(DateUtil.parse(“1985-05-28”));&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;entity.setClassId(“20000001”);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;//entity.setPlaceId(“70000001”);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;list&nbsp;=&nbsp;<strong>this</strong>.dynamicSqlMapper.getStudentList_if(entity);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>for</strong>&nbsp;(StudentEntity&nbsp;e&nbsp;:&nbsp;list)&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(e.toString());&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h2 id="3-3-if-where-的条件判断"><a title="3.3 if + where&nbsp;的条件判断" class="headerlink" href="#3-3-if-where-的条件判断"></a>3.3 if + where&nbsp;的条件判断</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当where中的条件使用的if标签较多时，这样的组合可能会导致错误。我们以在3.1中的查询语句为例子，当java代码按如下方法调用时：</p>
+<p>Java代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>@Test&nbsp;&nbsp;</li>
+<li><strong>public</strong>&nbsp;<strong>void</strong>&nbsp;select_test_2_1()&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;StudentEntity&nbsp;entity&nbsp;=&nbsp;<strong>new</strong>&nbsp;StudentEntity();&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;entity.setStudentName(<strong>null</strong>);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;entity.setStudentSex(1);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;list&nbsp;=&nbsp;<strong>this</strong>.dynamicSqlMapper.getStudentList_if(entity);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>for</strong>&nbsp;(StudentEntity&nbsp;e&nbsp;:&nbsp;list)&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(e.toString());&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>如果上面例子，参数studentName为null，将不会进行STUDENT_NAME列的判断，则会直接导“WHERE AND”关键字多余的错误SQL。</p>
+<p>&nbsp;</p>
+<p>这时我们可以使用where动态语句来解决。这个“where”标签会知道如果它包含的标签中有返回值的话，它就插入一个‘where’。此外，如果标签返回的内容是以AND&nbsp;或OR&nbsp;开头的，则它会剔除掉。</p>
+<p>上面例子修改为：</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>&nbsp;&nbsp;</li>
+<li><strong>&lt;****select**&nbsp;id=”getStudentList_whereIf”&nbsp;resultMap=”resultMap_studentEntity”&nbsp;parameterType=”liming.student.manager.data.model.StudentEntity”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;ST.STUDENT_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_NAME,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_SEX,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_BIRTHDAY,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_PHOTO,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.CLASS_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.PLACE_ID&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;STUDENT_TBL&nbsp;ST&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****where****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentName&nbsp;!=null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_NAME&nbsp;LIKE&nbsp;CONCAT(CONCAT(‘%’,&nbsp;#{studentName,&nbsp;jdbcType=VARCHAR}),’%’)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentSex&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentSex&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_SEX&nbsp;=&nbsp;#{studentSex,&nbsp;jdbcType=INTEGER}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentBirthday&nbsp;!=&nbsp;null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_BIRTHDAY&nbsp;=&nbsp;#{studentBirthday,&nbsp;jdbcType=DATE}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”classId&nbsp;!=&nbsp;null&nbsp;and&nbsp;classId!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.CLASS_ID&nbsp;=&nbsp;#{classId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”classEntity&nbsp;!=&nbsp;null&nbsp;and&nbsp;classEntity.classId&nbsp;!=null&nbsp;and&nbsp;classEntity.classId&nbsp;!=’&nbsp;‘&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.CLASS_ID&nbsp;=&nbsp;#{classEntity.classId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”placeId&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.PLACE_ID&nbsp;=&nbsp;#{placeId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”placeEntity&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeEntity.placeId&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeEntity.placeId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.PLACE_ID&nbsp;=&nbsp;#{placeEntity.placeId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentId&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_ID&nbsp;=&nbsp;#{studentId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****where****&gt;</strong>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li><strong>&lt;/****select****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="3-4-if-set-的更新语句"><a title="3.4 if + set&nbsp;的更新语句" class="headerlink" href="#3-4-if-set-的更新语句"></a>3.4 if + set&nbsp;的更新语句</h2><p>当update语句中没有使用if标签时，如果有一个参数为null，都会导致错误。</p>
+<p>当在update语句中使用if标签时，如果前面的if没有执行，则或导致逗号多余错误。使用set标签可以将动态的配置SET&nbsp;关键字，和剔除追加到条件末尾的任何不相关的逗号。</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用if+set标签修改后，如果某项为null则不进行更新，而是保持数据库原值。如下示例：</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>&nbsp;&nbsp;</li>
+<li><strong>&lt;****update**&nbsp;id=”updateStudent_if_set”&nbsp;parameterType=”liming.student.manager.data.model.StudentEntity”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;STUDENT_TBL&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****set****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentName&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentName&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.STUDENT_NAME&nbsp;=&nbsp;#{studentName},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentSex&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentSex&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.STUDENT_SEX&nbsp;=&nbsp;#{studentSex},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentBirthday&nbsp;!=&nbsp;null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.STUDENT_BIRTHDAY&nbsp;=&nbsp;#{studentBirthday},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentPhoto&nbsp;!=&nbsp;null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.STUDENT_PHOTO&nbsp;=&nbsp;#{studentPhoto,&nbsp;javaType=byte[],&nbsp;jdbcType=BLOB,&nbsp;typeHandler=org.apache.ibatis.type.BlobTypeHandler},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”classId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.CLASS_ID&nbsp;=&nbsp;#{classId}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”placeId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.PLACE_ID&nbsp;=&nbsp;#{placeId}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****set****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;STUDENT_TBL.STUDENT_ID&nbsp;=&nbsp;#{studentId};&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li><strong>&lt;/****update****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="3-5-if-trim代替where-x2F-set标签"><a title="3.5 if + trim代替where/set标签" class="headerlink" href="#3-5-if-trim代替where-x2F-set标签"></a>3.5 if + trim代替where/set标签</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trim是更灵活的去处多余关键字的标签，他可以实践where和set的效果。</p>
+<p>&nbsp;</p>
+<p><strong>3.5.1trim代替where</strong></p>
+<p>&nbsp;</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>&nbsp;&nbsp;</li>
+<li><strong>&lt;****select**&nbsp;id=”getStudentList_if_trim”&nbsp;resultMap=”resultMap_studentEntity”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;ST.STUDENT_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_NAME,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_SEX,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_BIRTHDAY,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_PHOTO,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.CLASS_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.PLACE_ID&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;STUDENT_TBL&nbsp;ST&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****trim**&nbsp;prefix=”WHERE”&nbsp;prefixOverrides=”AND|OR”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentName&nbsp;!=null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_NAME&nbsp;LIKE&nbsp;CONCAT(CONCAT(‘%’,&nbsp;#{studentName,&nbsp;jdbcType=VARCHAR}),’%’)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentSex&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentSex&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_SEX&nbsp;=&nbsp;#{studentSex,&nbsp;jdbcType=INTEGER}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentBirthday&nbsp;!=&nbsp;null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_BIRTHDAY&nbsp;=&nbsp;#{studentBirthday,&nbsp;jdbcType=DATE}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”classId&nbsp;!=&nbsp;null&nbsp;and&nbsp;classId!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.CLASS_ID&nbsp;=&nbsp;#{classId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”classEntity&nbsp;!=&nbsp;null&nbsp;and&nbsp;classEntity.classId&nbsp;!=null&nbsp;and&nbsp;classEntity.classId&nbsp;!=’&nbsp;‘&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.CLASS_ID&nbsp;=&nbsp;#{classEntity.classId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”placeId&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.PLACE_ID&nbsp;=&nbsp;#{placeId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”placeEntity&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeEntity.placeId&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeEntity.placeId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.PLACE_ID&nbsp;=&nbsp;#{placeEntity.placeId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentId&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_ID&nbsp;=&nbsp;#{studentId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****trim****&gt;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li><strong>&lt;/****select****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h3 id="3-5-2-trim代替set"><a title="3.5.2 trim代替set" class="headerlink" href="#3-5-2-trim代替set"></a>3.5.2 trim代替set</h3><p>&nbsp;</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>&nbsp;&nbsp;</li>
+<li><strong>&lt;****update**&nbsp;id=”updateStudent_if_trim”&nbsp;parameterType=”liming.student.manager.data.model.StudentEntity”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;STUDENT_TBL&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****trim**&nbsp;prefix=”SET”&nbsp;suffixOverrides=”,”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentName&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentName&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.STUDENT_NAME&nbsp;=&nbsp;#{studentName},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentSex&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentSex&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.STUDENT_SEX&nbsp;=&nbsp;#{studentSex},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentBirthday&nbsp;!=&nbsp;null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.STUDENT_BIRTHDAY&nbsp;=&nbsp;#{studentBirthday},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”studentPhoto&nbsp;!=&nbsp;null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.STUDENT_PHOTO&nbsp;=&nbsp;#{studentPhoto,&nbsp;javaType=byte[],&nbsp;jdbcType=BLOB,&nbsp;typeHandler=org.apache.ibatis.type.BlobTypeHandler},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”classId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.CLASS_ID&nbsp;=&nbsp;#{classId},&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****if**&nbsp;test=”placeId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUDENT_TBL.PLACE_ID&nbsp;=&nbsp;#{placeId}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****if****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****trim****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;STUDENT_TBL.STUDENT_ID&nbsp;=&nbsp;#{studentId}&nbsp;&nbsp;</li>
+<li><strong>&lt;/****update****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="3-6-choose-when-otherwise"><a title="3.6 choose (when, otherwise)" class="headerlink" href="#3-6-choose-when-otherwise"></a>3.6 choose (when, otherwise)</h2><p>&nbsp;</p>
+<p>&nbsp; &nbsp; 有时候我们并不想应用所有的条件，而只是想从多个选项中选择一个。而使用if标签时，只要test中的表达式为true，就会执行if标签中的条件。MyBatis提供了choose 元素。if标签是与(and)的关系，而choose比傲天是或（or）的关系。</p>
+<p>&nbsp; &nbsp; choose标签是按顺序判断其内部when标签中的test条件出否成立，如果有一个成立，则choose结束。当choose中所有when的条件都不满则时，则执行otherwise中的sql。类似于Java 的switch 语句，choose为switch，when为case，otherwise则为default。</p>
+<p>&nbsp; &nbsp; 例如下面例子，同样把所有可以限制的条件都写上，方面使用。choose会从上到下选择一个when标签的test为true的sql执行。安全考虑，我们使用where将choose包起来，放置关键字多于错误。</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>&nbsp;&nbsp;</li>
+<li><strong>&lt;****select**&nbsp;id=”getStudentList_choose”&nbsp;resultMap=”resultMap_studentEntity”&nbsp;parameterType=”liming.student.manager.data.model.StudentEntity”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;ST.STUDENT_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_NAME,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_SEX,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_BIRTHDAY,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_PHOTO,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.CLASS_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.PLACE_ID&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;STUDENT_TBL&nbsp;ST&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****where****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****choose****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****when**&nbsp;test=”studentName&nbsp;!=null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_NAME&nbsp;LIKE&nbsp;CONCAT(CONCAT(‘%’,&nbsp;#{studentName,&nbsp;jdbcType=VARCHAR}),’%’)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****when**&nbsp;**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****when**&nbsp;test=”studentSex&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentSex&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_SEX&nbsp;=&nbsp;#{studentSex,&nbsp;jdbcType=INTEGER}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****when**&nbsp;**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****when**&nbsp;test=”studentBirthday&nbsp;!=&nbsp;null&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_BIRTHDAY&nbsp;=&nbsp;#{studentBirthday,&nbsp;jdbcType=DATE}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****when**&nbsp;**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****when**&nbsp;test=”classId&nbsp;!=&nbsp;null&nbsp;and&nbsp;classId!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.CLASS_ID&nbsp;=&nbsp;#{classId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****when**&nbsp;**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****when**&nbsp;test=”classEntity&nbsp;!=&nbsp;null&nbsp;and&nbsp;classEntity.classId&nbsp;!=null&nbsp;and&nbsp;classEntity.classId&nbsp;!=’&nbsp;‘&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.CLASS_ID&nbsp;=&nbsp;#{classEntity.classId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****when**&nbsp;**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****when**&nbsp;test=”placeId&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.PLACE_ID&nbsp;=&nbsp;#{placeId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****when**&nbsp;**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****when**&nbsp;test=”placeEntity&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeEntity.placeId&nbsp;!=&nbsp;null&nbsp;and&nbsp;placeEntity.placeId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.PLACE_ID&nbsp;=&nbsp;#{placeEntity.placeId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****when**&nbsp;**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****when**&nbsp;test=”studentId&nbsp;!=&nbsp;null&nbsp;and&nbsp;studentId&nbsp;!=&nbsp;‘’&nbsp;“**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ST.STUDENT_ID&nbsp;=&nbsp;#{studentId,&nbsp;jdbcType=VARCHAR}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****when**&nbsp;**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****otherwise****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****otherwise****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****choose****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****where****&gt;</strong>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li><strong>&lt;/****select****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="3-7-foreach"><a title="3.7 foreach" class="headerlink" href="#3-7-foreach"></a>3.7 foreach</h2><p>对于动态SQL&nbsp;非常必须的，主是要迭代一个集合，通常是用于IN&nbsp;条件。List&nbsp;实例将使用“list”做为键，数组实例以“array”&nbsp;做为键。</p>
+<p>foreach元素是非常强大的，它允许你指定一个集合，声明集合项和索引变量，它们可以用在元素体内。它也允许你指定开放和关闭的字符串，在迭代之间放置分隔符。这个元素是很智能的，它不会偶然地附加多余的分隔符。</p>
+<p>注意：你可以传递一个List实例或者数组作为参数对象传给MyBatis。当你这么做的时候，MyBatis会自动将它包装在一个Map中，用名称在作为键。List实例将会以“list”作为键，而数组实例将会以“array”作为键。</p>
+<p>这个部分是对关于XML配置文件和XML映射文件的而讨论的。下一部分将详细讨论Java API，所以你可以得到你已经创建的最有效的映射。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3 id="3-7-1参数为array示例的写法"><a title="3.7.1参数为array示例的写法" class="headerlink" href="#3-7-1参数为array示例的写法"></a>3.7.1参数为array示例的写法</h3><p>&nbsp;</p>
+<p>接口的方法声明：</p>
+<p>Java代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>public</strong>&nbsp;List&nbsp;getStudentListByClassIds_foreach_array(String[]&nbsp;classIds);</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>动态SQL语句：</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>&lt;!—&nbsp;7.1&nbsp;foreach(循环array参数)&nbsp;-&nbsp;作为where中in的条件&nbsp;–<strong>&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;****select**&nbsp;id=”getStudentListByClassIds_foreach_array”&nbsp;resultMap=”resultMap_studentEntity”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;ST.STUDENT_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_NAME,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_SEX,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_BIRTHDAY,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_PHOTO,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.CLASS_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.PLACE_ID&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;STUDENT_TBL&nbsp;ST&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ST.CLASS_ID&nbsp;IN&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****foreach**&nbsp;collection=”array”&nbsp;item=”classIds”&nbsp;&nbsp;open=”(“&nbsp;separator=”,”&nbsp;close=”)”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{classIds}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****foreach****&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****select****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>测试代码，查询学生中，在20000001、20000002这两个班级的学生：</p>
+<p>Java代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>@Test&nbsp;&nbsp;</li>
+<li><strong>public</strong>&nbsp;<strong>void</strong>&nbsp;test7_foreach()&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;String[]&nbsp;classIds&nbsp;=&nbsp;{&nbsp;“20000001”,&nbsp;“20000002”&nbsp;};&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;list&nbsp;=&nbsp;<strong>this</strong>.dynamicSqlMapper.getStudentListByClassIds_foreach_array(classIds);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>for</strong>&nbsp;(StudentEntity&nbsp;e&nbsp;:&nbsp;list)&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(e.toString());&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li><p>}</p></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<h3 id=""><a title="" class="headerlink" href="#"></a></h3><h3 id="3-7-2参数为list示例的写法"><a title="3.7.2参数为list示例的写法" class="headerlink" href="#3-7-2参数为list示例的写法"></a>3.7.2参数为list示例的写法</h3><p>接口的方法声明：</p>
+<p>Java代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>public</strong>&nbsp;List&nbsp;getStudentListByClassIds_foreach_list(List&nbsp;classIdList);</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>动态SQL语句：</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>&nbsp;&nbsp;</li>
+<li><strong>&lt;****select**&nbsp;id=”getStudentListByClassIds_foreach_list”&nbsp;resultMap=”resultMap_studentEntity”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;ST.STUDENT_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_NAME,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_SEX,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_BIRTHDAY,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.STUDENT_PHOTO,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.CLASS_ID,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST.PLACE_ID&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;STUDENT_TBL&nbsp;ST&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ST.CLASS_ID&nbsp;IN&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****foreach**&nbsp;collection=”list”&nbsp;item=”classIdList”&nbsp;&nbsp;open=”(“&nbsp;separator=”,”&nbsp;close=”)”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{classIdList}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;/****foreach****&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****select****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;测试代码，查询学生中，在20000001、20000002这两个班级的学生：</p>
+<p>Java代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>@Test&nbsp;&nbsp;</li>
+<li><strong>public</strong>&nbsp;<strong>void</strong>&nbsp;test7_2_foreach()&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;ArrayList&nbsp;classIdList&nbsp;=&nbsp;<strong>new</strong>&nbsp;ArrayList();&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;classIdList.add(“20000001”);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;classIdList.add(“20000002”);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;list&nbsp;=&nbsp;<strong>this</strong>.dynamicSqlMapper.getStudentListByClassIds_foreach_list(classIdList);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>for</strong>&nbsp;(StudentEntity&nbsp;e&nbsp;:&nbsp;list)&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(e.toString());&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/mybatis/">mybatis</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E4%B8%89%E3%80%81%E5%8A%A8%E6%80%81SQL%E8%AF%AD%E5%8F%A5/" data-title="三、动态SQL语句 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/万丈高楼平地起，无论学习什么，都需要一步一个脚印打好基础。 一个好的设计师，平常要做到多看，多想，多练。第一步多看，我认为需要阅读大量的理论知识和优秀的作品。国外的很多书籍和作品都值得大家参考，... http___www.jianshu./" title="万丈高楼平地起，无论学习什么，都需要一步一个脚印打好基础。 一个好的设计师，平常要做到多看，多想，多练。第一步多看，我认为需要阅读大量的理论知识和优秀的作品。国外的很多书籍和作品都值得大家参考，... http://www.jianshu.com/p/9536744c3a32?utm_campaign=hugo&amp;utm_medium=reader_share&amp;utm_content=note">
+  <strong>上一篇：</strong><br/>
+  <span>
+  万丈高楼平地起，无论学习什么，都需要一步一个脚印打好基础。 一个好的设计师，平常要做到多看，多想，多练。第一步多看，我认为需要阅读大量的理论知识和优秀的作品。国外的很多书籍和作品都值得大家参考，... http://www.jianshu.com/p/9536744c3a32?utm_campaign=hugo&amp;utm_medium=reader_share&amp;utm_content=note</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/一位工作10年的程序员给小弟弟小妹妹的一些忠告/"  title="一位工作10年的程序员给小弟弟小妹妹的一些忠告">
+ <strong>下一篇：</strong><br/> 
+ <span>一位工作10年的程序员给小弟弟小妹妹的一些忠告
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/三、动态SQL语句/" data-title="三、动态SQL语句" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E4%B8%89%E3%80%81%E5%8A%A8%E6%80%81SQL%E8%AF%AD%E5%8F%A5/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%8A%A8%E6%80%81SQL%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.</span> <span class="toc-text">三、动态SQL语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%8A%A8%E6%80%81SQL%E8%AF%AD%E5%8F%A5-1"><span class="toc-number">2.</span> <span class="toc-text">三、动态SQL语句</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-selectKey-%E6%A0%87%E7%AD%BE"><span class="toc-number">2.1.</span> <span class="toc-text">3.1 selectKey 标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-if%E6%A0%87%E7%AD%BE"><span class="toc-number">2.2.</span> <span class="toc-text">3.2 if标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-if-where-%E7%9A%84%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD"><span class="toc-number">2.3.</span> <span class="toc-text">3.3 if + where 的条件判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-if-set-%E7%9A%84%E6%9B%B4%E6%96%B0%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.4.</span> <span class="toc-text">3.4 if + set 的更新语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-if-trim%E4%BB%A3%E6%9B%BFwhere-x2F-set%E6%A0%87%E7%AD%BE"><span class="toc-number">2.5.</span> <span class="toc-text">3.5 if + trim代替where&#x2F;set标签</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-2-trim%E4%BB%A3%E6%9B%BFset"><span class="toc-number">2.5.1.</span> <span class="toc-text">3.5.2 trim代替set</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-choose-when-otherwise"><span class="toc-number">2.6.</span> <span class="toc-text">3.6 choose (when, otherwise)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7-foreach"><span class="toc-number">2.7.</span> <span class="toc-text">3.7 foreach</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-1%E5%8F%82%E6%95%B0%E4%B8%BAarray%E7%A4%BA%E4%BE%8B%E7%9A%84%E5%86%99%E6%B3%95"><span class="toc-number">2.7.1.</span> <span class="toc-text">3.7.1参数为array示例的写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.7.2.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-2%E5%8F%82%E6%95%B0%E4%B8%BAlist%E7%A4%BA%E4%BE%8B%E7%9A%84%E5%86%99%E6%B3%95"><span class="toc-number">2.7.3.</span> <span class="toc-text">3.7.2参数为list示例的写法</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,1184 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>iOS ARC | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="iOS ARCIos技术文章收录 &amp;nbsp;### iOS ARC 2012-04-10 17:34&amp;nbsp;725人阅读725人阅读&amp;nbsp;评论(0)评论(0)&amp;nbsp;收藏&amp;nbsp;举报ARC指南：http:&#x2F;&#x2F;download.csdn.net&#x2F;detail&#x2F;zkdemon&#x2F;4213790 ARC是iOS 5推出的新功能，全称叫 ARC(Automatic Reference C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS ARC">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%20ARC/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="iOS ARCIos技术文章收录 &amp;nbsp;### iOS ARC 2012-04-10 17:34&amp;nbsp;725人阅读725人阅读&amp;nbsp;评论(0)评论(0)&amp;nbsp;收藏&amp;nbsp;举报ARC指南：http:&#x2F;&#x2F;download.csdn.net&#x2F;detail&#x2F;zkdemon&#x2F;4213790 ARC是iOS 5推出的新功能，全称叫 ARC(Automatic Reference C">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS-ARC/175.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS-ARC/176.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS-ARC/177.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS-ARC/178.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS-ARC/158.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2012-11-23T15:24:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios技术文章收录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/iOS-ARC/175.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/iOS ARC/" title="iOS ARC" itemprop="url">iOS ARC</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS-ARC"><span class="toc-number">1.</span> <span class="toc-text">iOS ARC</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#s1"><span class="toc-number">1.0.0.0.1.</span> <span class="toc-text">(s1)</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="iOS-ARC"><a title="iOS ARC" class="headerlink" href="#iOS-ARC"></a>iOS ARC</h1><p><code>Ios技术文章收录</code></p>
+<p>&nbsp;### <a target="_blank" rel="noopener" href="http://blog.csdn.net/zkdemon/article/details/7446385">iOS ARC</a></p>
+<p>2012-04-10 17:34&nbsp;725人阅读725人阅读&nbsp;<a target="_blank" rel="noopener" href="http://blog.csdn.net/zkdemon/article/details/7446385#comments">评论</a>(0)<a target="_blank" rel="noopener" href="http://blog.csdn.net/zkdemon/article/details/7446385#comments">评论</a>(0)&nbsp;<a href="%22%E6%94%B6%E8%97%8F%22">收藏</a>&nbsp;<a title="举报" target="_blank" rel="noopener" href="http://blog.csdn.net/zkdemon/article/details/7446385#report">举报</a><br>ARC指南：<a target="_blank" rel="noopener" href="http://download.csdn.net/detail/zkdemon/4213790">http://download.csdn.net/detail/zkdemon/4213790</a></p>
+<p>ARC是iOS 5推出的新功能，全称叫 ARC(Automatic Reference Counting)。简单地说，就是代码中自动加入了retain/release，原先需要手动添加的用来处理内存管理的引用计数的代码可以自动地由编译器完成了。</p>
+<p>该机能在 iOS 5/ Mac OS X 10.7 开始导入，利用 Xcode4.2 可以使用该机能。简单地理解ARC，就是通过指定的语法，让编译器(LLVM 3.0)在编译代码时，自动生成实例的引用计数管理部分代码。有一点，ARC并不是GC，它只是一种代码静态分析（Static Analyzer）工具。</p>
+<p>通过一小段代码，我们看看使用ARC前后的变化点。</p>
+<p>&nbsp;</p>
+<ol>
+<li><p>@interface&nbsp;NonARCObject&nbsp;:&nbsp;NSObject&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;NSString&nbsp;*name;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>}&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>-(id)initWithName:(NSString&nbsp;*)name;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>@end&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>@implementation&nbsp;NonARCObject&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>-(id)initWithName:(NSString&nbsp;*)newName&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;self&nbsp;=&nbsp;[super&nbsp;init];&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>if</strong>&nbsp;(self)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;=&nbsp;[newName&nbsp;retain];&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;self;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>}&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>-(<strong>void</strong>)dealloc&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;[name&nbsp;release];&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;[Super&nbsp;dealloc];&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>}&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>@end&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>@interface&nbsp;ARCObject&nbsp;:&nbsp;NSObject&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;NSString&nbsp;*name;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>}&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>-(id)initWithName:(NSString&nbsp;*)name;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>@end&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>@implementation&nbsp;ARCObject&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>-(id)initWithName:(NSString&nbsp;*)newName&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;self&nbsp;=&nbsp;[super&nbsp;init];&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>if</strong>&nbsp;(self)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;=&nbsp;newName;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;self;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>}&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</li>
+<li><p>@end</p>
+</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>我们之前使用Objective-C中内存管理规则时，往往采用下面的准则</p>
+<ul>
+<li>&nbsp;&nbsp;&nbsp;生成对象时，使用autorelease</li>
+<li>&nbsp;&nbsp;&nbsp;对象代入时，先autorelease后再retain</li>
+<li>&nbsp;&nbsp;&nbsp;对象在函数中返回时，使用return [[object retain] autorelease];</li>
+</ul>
+<p>而使用ARC后，我们可以不需要这样做了，甚至连最基础的release都不需要了。</p>
+<p>&nbsp;</p>
+<p>使用ARC有什么好处呢？</p>
+<ul>
+<li><p>&nbsp;&nbsp;&nbsp;看到上面的例子，大家就知道了，以后写Objective-C的代码变得简单多了，因为我们不需要担心烦人的内存管理，担心内存泄露了</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;代码的总量变少了，看上去清爽了不少，也节省了劳动力</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;代码高速化，由于使用编译器管理引用计数，减少了低效代码的可能性</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;记住一堆新的ARC规则 — 关键字及特性等需要一定的学习周期</p>
+</li>
+<li><p>&nbsp;&nbsp;&nbsp;一些旧的代码，第三方代码使用的时候比较麻烦；修改代码需要工数，要么修改编译开关</p>
+</li>
+</ul>
+<p>关于第二点，由于 XCode4.2 中缺省ARC就是 ON 的状态，所以编译旧代码的时候往往有”Automatic Reference Counting Issue”的错误信息。</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" alt="-175.png" src="/images/notes/iOS-ARC/175.png"></p>
+<p>这个时候，可以将项目编译设置中的“Objectice-C Auto Reference Counteting”设为NO。如下所示。</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" alt="-176.png" src="/images/notes/iOS-ARC/176.png"></p>
+<p>如果只想对某个.m文件不适应ARC，可以只针对该类文件加上 -fno-objc-arc 编译FLAGS，如下图。</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" alt="-177.png" src="/images/notes/iOS-ARC/177.png"></p>
+<p>&nbsp;</p>
+<ul>
+<li>&nbsp;&nbsp;&nbsp; retain, release, autorelease, dealloc由编译器自动插入，不能在代码中调用</li>
+<li>&nbsp;&nbsp;&nbsp; dealloc虽然可以被重载，但是不能调用[super dealloc]</li>
+</ul>
+<p>由于ARC并不是GC，并需要一些规则让编译器支持代码插入，所以必须清楚清楚了这些规则后，才能写出健壮的代码。</p>
+<p>&nbsp;</p>
+<p>ObjectiveC中的对象，有强参照(Strong reference)和弱参照(Weak reference)之分，当需要保持其他对象的时候，需要retain以确保对象引用计数加1。对象的持有者(owner)只要存在，那么该对象的强参照就一直存在。</p>
+<p>对象处理的基本规则是</p>
+<ul>
+<li>&nbsp;&nbsp;&nbsp; 只要对象的持有者存在（对象被强参照），那么就可以使用该对象</li>
+<li>&nbsp;&nbsp;&nbsp; 对象失去了持有者后，即被破弃</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>强参照 (Strong reference)</strong></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" alt="-178.png" src="/images/notes/iOS-ARC/178.png"></p>
+<h5 id="s1"><a title="(s1)" class="headerlink" href="#s1"></a>(s1)</h5><p>firstName作为”natsu”字符串对象的最初持有者，是该NSString类型对象的Strong reference。</p>
+<p>(s2)这里将firstName代入到aName中，即aName也成为了@”natsu”字符串对象的持有者，对于该对象，aName也是Strong reference。</p>
+<p>(s3)这里，改变firstName的内容。生成新的字符串对象”maki”。这时候firstName成为”maki”的持有者，而@”natsu”的持有者只有aName。每个字符串对象都有各自的持有者，所以它们都在内存中都存在。</p>
+<p>(s4)追加新的变量otherName, 它将成为@”maki”对象的另一个持有者。即NSString类型对象的Strong reference。</p>
+<p>(s5)将otherName代入到aName，这时，aName将成为@”maki”字符串对象的持有者。而对象@”natsu”已经没有持有者了，该对象将被破弃。</p>
+<p>&nbsp;</p>
+<p><strong>弱参照 (Weak reference)</strong></p>
+<p>接下来我们来看看弱参照 (Weak reference) 的使用方式。</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" alt="-158.jpg" src="/images/notes/iOS-ARC/158.jpg"></p>
+<p>&nbsp;</p>
+<p>(w1)</p>
+<p>与强参照方式同样，firstName作为字符串对象@”natsu”的持有者存在。即是该NSString类型对象的Strong reference。</p>
+<p>(w2)使用关键字__weak，声明弱参照weakName变量，将firstName代入。这时weakName虽然参照@”natsu”，但仍是Weak reference。即weakName虽然能看到@”natsu”，但不是其持有者。</p>
+<p>(w3)firstName指向了新的对象@”maki”，成为其持有者，而对象@”natsu”因为没有了持有者，即被破弃。同时weakName变量将被自动代入nil。</p>
+<p>&nbsp;</p>
+<p>ARC中关于对象的引用参照，主要有下面几关键字。使用strong, weak, autoreleasing限定的变量会被隐式初始化为nil。</p>
+<p>&nbsp;</p>
+<ul>
+<li>__strong</li>
+</ul>
+<p>变量声明缺省都带有__strong关键字，如果变量什么关键字都不写，那么缺省就是强参照。</p>
+<p>&nbsp;</p>
+<ul>
+<li>__weak</li>
+</ul>
+<p>上面已经看到了，这是弱参照的关键字。该概念是新特性，从 iOS 5/ Mac OS X 10.7 开始导入。由于该类型不影响对象的生命周期，所以如果对象之前就没有持有者，那么会出现刚创建就被破弃的问题，比如下面的代码。</p>
+<p>&nbsp;</p>
+<ol>
+<li>NSString&nbsp;__weak&nbsp;*string&nbsp;=&nbsp;[[NSString&nbsp;alloc]&nbsp;initWithFormat:@”First&nbsp;Name:&nbsp;%@”,&nbsp;[self&nbsp;firstName]];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>NSLog(@”string:&nbsp;%@”,&nbsp;string);&nbsp;//此时&nbsp;string为空</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>如果编译设定OS版本 Deployment Target 设定为这比这低的版本，那么编译时将报错(The current deployment target does not support automated __weak references)，这个时候，我们可以使用下面的&nbsp;__unsafe_unretained。</p>
+<p>弱参照还有一个特征，即当参数对象失去所有者之后，变量会被自动付上nil (Zeroing)。</p>
+<p>&nbsp;</p>
+<ul>
+<li>__unsafe_unretained</li>
+</ul>
+<p>该关键字与__weak一样，也是弱参照，与__weak的区别只是是否执行nil赋值(Zeroing)。但是这样，需要注意变量所指的对象已经被破弃了，地址还还存在，但内存中对象已经没有了。如果还是访问该对象，将引起「BAD_ACCESS」错误。</p>
+<p>&nbsp;</p>
+<ul>
+<li>__autoreleasing</li>
+</ul>
+<p>该关键字使对像延迟释放。比如你想传一个未初始化的对像引用到一个方法当中，在此方法中实例化此对像，那么这种情况可以使用__autoreleasing。他被经常用于函数有值参数返回时的处理，比如下面的例子。</p>
+<p>&nbsp;&nbsp;</p>
+<ol>
+<li>-&nbsp;(<strong>void</strong>)&nbsp;generateErrorInVariable:(__autoreleasing&nbsp;NSError&nbsp;**)paramError&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;….&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;*paramError&nbsp;=&nbsp;[[NSError&nbsp;alloc]&nbsp;initWithDomain:@”MyApp”&nbsp;code:1&nbsp;userInfo:errorDictionary];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>}&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>….&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;NSError&nbsp;*error&nbsp;=&nbsp;nil;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[self&nbsp;generateErrorInVariable:&amp;error];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;NSLog(@”Error&nbsp;=&nbsp;%@”,&nbsp;error);&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;又如函数的返回值是在函数中申请的，那么希望释放是在调用端时，往往有下面的代码。</p>
+<p>&nbsp;</p>
+<ol>
+<li>-(NSString&nbsp;*)stringTest&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;NSString&nbsp;*retStr&nbsp;=&nbsp;[NSString&nbsp;stringWithString:@”test”];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;[[retStr&nbsp;retain]&nbsp;autorelease];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>}&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>//&nbsp;使用ARC&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>-(NSString&nbsp;*)stringTest&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;__autoreleasing&nbsp;NSString&nbsp;*retStr&nbsp;=&nbsp;[NSString&nbsp;alloc]&nbsp;initWithString:@”test”];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;retStr;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>即当方法的参数是id*，且希望方法返回时对象被autoreleased，那么使用该关键字。</p>
+<p>&nbsp;</p>
+<p>基本的ARC使用规则</p>
+<ul>
+<li>&nbsp;&nbsp;&nbsp; 代码中不能使用retain, release, retain, autorelease</li>
+<li>&nbsp;&nbsp;&nbsp; 不重载dealloc（如果是释放对象内存以外的处理，是可以重载该函数的，但是不能调用[super dealloc]）</li>
+<li>&nbsp;&nbsp;&nbsp; 不能使用NSAllocateObject, NSDeallocateObject</li>
+<li>&nbsp;&nbsp;&nbsp; 不能在C结构体中使用对象指针</li>
+<li>&nbsp;&nbsp;&nbsp; id与void *间的如果cast时需要用特定的方法（__bridge关键字）</li>
+<li>&nbsp;&nbsp;&nbsp; 不能使用NSAutoReleasePool、而需要@autoreleasepool块</li>
+<li>&nbsp;&nbsp;&nbsp; 不能使用“new”开始的属性名称 （如果使用会有下面的编译错误”Property’s synthesized getter follows Cocoa naming convention for returning ‘owned’ objects”）</li>
+</ul>
+<p>——————————————————————–华丽的分割线——————————————————————–</p>
+<p>ARC工作原理是在编译程序的时候由xCode将内存操作的代码(如:retain，release 和 autorelease)自动添加到需要的位置。</p>
+<p>ARC 只能在iOS4 和iOS5上使用，weak refrences 只能在iOS5上使用，并且只能是工程在ARC管理内存的时候才能用。</p>
+<p>老版本的工程是可以转换成使用ARC的工程,转换规则包括：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.去掉所有的retain，release，autorelease</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.把NSAutoRelease替换成@autoreleasepool{}块</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.把assign的属性变为weak</p>
+<p>使用ARC的一些强制规定</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.不能直接调用dealloc方法，不能调用retain，release，autorelease，reraubCount方法，包括@selector(retain)的方式也不行</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.截图租户事故宣布dealloc方法来管理一些资源，但不能用来释放实例变量，也不能在dealloc方法里面去掉[super dealloc]方法，在ARC下父类的dealloc同样由编译器来自动完成</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.Core Foundation类型的对象任然可以用CFRetain，CFRelease这些方法</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.不能在使用NSAllocateObject和NSDeallocateObject对象</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.不能在c结构体中使用对象指针，如果有类似功能可以创建一个Objective-c类来管理这些对象</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.在id和void *之间没有简便的转换方法，同样在Objective-c和core Foundation类型之间的转换都需要使用编译器制定的转换函数</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7.不能再使用NSAutoreleasePool对象，ARC提供了@autoreleasepool块来代替它，这样更加有效率</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8.不能使用内存存储区（不能再使用NSZone）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9.不能以new为开头给一个属性命名</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.声明outlet时一般应当使用weak，除了对StoryBoard 这样nib中间的顶层对象要用strong</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11.weak 相当于老版本的assign，strong相当于retain</p>
+<p>对工程中的单个文件制定不使用ARC的方法：在targets的build phases选项下Compile Sources下选择要不使用arc编译的文件，双击它，输入<code>-fno-objc-arc</code>即可</p>
+<table>
+<thead>
+<tr>
+<th>属性值</th>
+<th>关键字</th>
+<th>所有权</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>strong</td>
+<td>__strong</td>
+<td>有</td>
+</tr>
+<tr>
+<td>weak</td>
+<td>__weak</td>
+<td>无</td>
+</tr>
+<tr>
+<td>unsafe_unretained</td>
+<td>__unsafe_unretained</td>
+<td>无</td>
+</tr>
+<tr>
+<td>copy</td>
+<td>__strong</td>
+<td>有</td>
+</tr>
+<tr>
+<td>assign</td>
+<td>__unsafe_unretained</td>
+<td>无</td>
+</tr>
+<tr>
+<td>retain</td>
+<td>__strong</td>
+<td>有</td>
+</tr>
+</tbody></table>
+<p><strong>strong</strong></p>
+<p>该属性值对应 __strong 关键字，即该属性所声明的变量将成为对象的持有者。</p>
+<p><strong>weak</strong></p>
+<p>该属性对应 __weak 关键字，与 __weak 定义的变量一致，该属性所声明的变量将没有对象的所有权，并且当对象被破弃之后，对象将被自动赋值nil。</p>
+<p>并且，delegate 和 Outlet 应该用 weak 属性来声明。同时，如上一回介绍的 iOS 5 之前的版本是没有 __weak 关键字的，所以 weak 属性是不能使用的。这种情况我们使用 unsafe_unretained。</p>
+<p><strong>unsafe_unretained</strong></p>
+<p>等效于__unsafe_unretaind关键字声明的变量;像上面说明的，iOS 5之前的系统用该属性代替 weak 来使用。</p>
+<p><strong>copy</strong></p>
+<p>与 strong 的区别是声明变量是拷贝对象的持有者。</p>
+<p><strong>assign</strong></p>
+<p>一般Scalar Varible用该属性声明，比如,int, BOOL。</p>
+<p><strong>retain</strong></p>
+<p>该属性与 strong 一致;只是可读性更强一些。</p>
+<p><strong>读写相关的属性 (readwrite, readonly)</strong></p>
+<p>读写相关的属性有 readwrite 和 readonly 两种，如果使用ARC之后，我么需要注意一下 readonly 属性的使用。</p>
+<p>比如下面的变量声明。</p>
+<pre><code>
+</code></pre>
+<ol>
+<li>@property&nbsp;(nonatomic,&nbsp;readonly)&nbsp;NSString&nbsp;*name;</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<pre><code>一般声明为 readonly 的变量按理说应该不需要持有所有权了，但是在ARC有效的情况下，将出现下面的错误信息 ：
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>“ARC forbids synthesizing a property of an Objective-C object with unspecified ownership or storage attribute</th>
+</tr>
+</thead>
+</table>
+<pre><code>如果定义了ARC有效，那么必须要有所有者属性的定义;所以我们的代码改成这样，就OK了
+</code></pre>
+<pre><code>
+</code></pre>
+<ol>
+<li>@property&nbsp;(nonatomic,&nbsp;strong,&nbsp;readonly)&nbsp;NSString&nbsp;*name;</li>
+</ol>
+<p>&nbsp;</p>
+<pre><code>不过有一点，Scalar Varible的变量缺省都有 assign 的属性定义，所以不需要给他们单独的明示声明了。
+</code></pre>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios技术文章收录/">Ios技术文章收录</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%20ARC/" data-title="iOS ARC | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/iOS Framework 制作教程/" title="iOS Framework 制作教程">
+  <strong>上一篇：</strong><br/>
+  <span>
+  iOS Framework 制作教程</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/iOS View中不能直接代码add tableView/"  title="iOS View中不能直接代码add tableView">
+ <strong>下一篇：</strong><br/> 
+ <span>iOS View中不能直接代码add tableView
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/iOS ARC/" data-title="iOS ARC" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%20ARC/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS-ARC"><span class="toc-number">1.</span> <span class="toc-text">iOS ARC</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#s1"><span class="toc-number">1.0.0.0.1.</span> <span class="toc-text">(s1)</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

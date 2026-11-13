@@ -1,0 +1,1013 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>iOS开发大神必备的Xcode插件 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="iOS开发大神必备的Xcode插件iOS大全 微信 iOS开发大神必备的Xcode插件  2016-05-15 iOS大全  （点击上方公众号，可快速关注）  来源：Mellong   链接：http:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;ac8ac991d77b  写在前面 工欲善其事，必先利其器，iOS开发中不仅要学会Xcode的基本操作，而且还得学会一些Xcode的使用技巧，如掌握常用的快">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发大神必备的Xcode插件">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%BE%AE%E4%BF%A1/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="iOS开发大神必备的Xcode插件iOS大全 微信 iOS开发大神必备的Xcode插件  2016-05-15 iOS大全  （点击上方公众号，可快速关注）  来源：Mellong   链接：http:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;ac8ac991d77b  写在前面 工欲善其事，必先利其器，iOS开发中不仅要学会Xcode的基本操作，而且还得学会一些Xcode的使用技巧，如掌握常用的快">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/640.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0-1.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0-2.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0-3.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/640-1.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0-4.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0-5.gif">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-05-15T07:02:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="iOS大全">
+<meta property="article:tag" content="微信">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0.gif">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/微信/iOS开发大神必备的Xcode插件/" title="iOS开发大神必备的Xcode插件" itemprop="url">iOS开发大神必备的Xcode插件</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">iOS开发大神必备的Xcode插件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6-1"><span class="toc-number">1.1.</span> <span class="toc-text">iOS开发大神必备的Xcode插件</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="iOS开发大神必备的Xcode插件"><a title="iOS开发大神必备的Xcode插件" class="headerlink" href="#iOS开发大神必备的Xcode插件"></a>iOS开发大神必备的Xcode插件</h1><p><code>iOS大全</code> <code>微信</code></p>
+<h2 id="iOS开发大神必备的Xcode插件-1"><a title="iOS开发大神必备的Xcode插件" class="headerlink" href="#iOS开发大神必备的Xcode插件-1"></a>iOS开发大神必备的Xcode插件</h2><p>  <em>2016-05-15</em> <a href="">iOS大全</a><br>  （点击上方公众号，可快速关注）</p>
+<blockquote>
+<p>来源：Mellong</p>
+</blockquote>
+<blockquote>
+<p>链接：<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/ac8ac991d77b">http://www.jianshu.com/p/ac8ac991d77b</a></p>
+</blockquote>
+<p><strong>写在前面</strong></p>
+<p>工欲善其事，必先利其器，iOS开发中不仅要学会Xcode的基本操作，而且还得学会一些Xcode的使用技巧，如掌握常用的快捷键等，还有就是今天要说到的Xcode插件，下面我就为大家介绍几款开发中比较常用的Xcode插件（此处应有掌声）。</p>
+<p><strong>插件推荐</strong></p>
+<p><strong>1. AMAppExportToIPA</strong></p>
+<ul>
+<li>简介：<br>  AMAppExportToIPA 是一款可以让你在Xcode的project navigator界面中直接右键点击xxx.app -&gt; Export IPA就可以生成对应的IPA文件的Xcode插件。</li>
+<li>演示图片：<br>  <img loading="lazy" alt="0.gif" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0.gif"></li>
+</ul>
+<p>AMAppExportToIPA</p>
+<ul>
+<li>Github地址：<a target="_blank" rel="noopener" href="https://github.com/MellongLau/AMAppExportToIPA-Xcode-Plugin">https://github.com/MellongLau/AMAppExportToIPA-Xcode-Plugin</a></li>
+</ul>
+<p><strong>2. HOStringSense</strong></p>
+<ul>
+<li><p>简介：<br>  可以完美编辑正则表达式，多行文本，HTML等字符串，还提供字符串长度快速提示。</p>
+</li>
+<li><p>演示图片：</p>
+</li>
+</ul>
+<p><img loading="lazy" alt="640.jpg" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/640.jpg"></p>
+<p>HOStringSense</p>
+<ul>
+<li>Github地址：<a target="_blank" rel="noopener" href="https://github.com/holtwick/HOStringSense-for-Xcode">https://github.com/holtwick/HOStringSense-for-Xcode</a></li>
+</ul>
+<p><strong>3. MCLog</strong></p>
+<ul>
+<li>简介：<br>  MCLog 是一款可以让你轻松过滤Xcode控制台日志输出的Xcode插件。虽然目前已经可以搜索到控制台日志输出的文本，但是仍然还有大量你不感兴趣的日志。MCLog是对此问题的一个简单解决方案。使用简单的字符串来过滤控制台，并显示你真正想看到的日志.</li>
+<li>演示图片：</li>
+</ul>
+<p><img loading="lazy" alt="0-1.gif" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0-1.gif"></p>
+<p>MCLog</p>
+<ul>
+<li>Github地址：<a target="_blank" rel="noopener" href="https://github.com/yuhua-chen/MCLog">https://github.com/yuhua-chen/MCLog</a></li>
+</ul>
+<p><strong>4. AMMethod2Implement</strong></p>
+<ul>
+<li><p>简介：<br>  可以自动的将.h或者.m .mm里边需要写入的方法自动填充进来。可以选择要导入的方法，然后按 Ctrl+A 或者 Edit &gt; AMMethod2Implement &gt; Implement Method.就会自动填充方法.也可以自行设置快捷键。<br>  目前版本支持h文件声明方法自动生成实现，m或者mm文件已写好的方法生成方法声明到h文件， extern NSString * const， @select(method:) 和 [self methodName] 实现代码生成。</p>
+</li>
+<li><p>演示图片：</p>
+</li>
+</ul>
+<p><img loading="lazy" alt="0-2.gif" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0-2.gif"></p>
+<p>AMMethod2Implement</p>
+<ul>
+<li>Github地址：<a target="_blank" rel="noopener" href="https://github.com/MellongLau/AMMethod2Implement">https://github.com/MellongLau/AMMethod2Implement</a></li>
+</ul>
+<p><strong>5. Auto-Importer</strong></p>
+<ul>
+<li>简介：<br>  可以搜索和自动导入头文件的一款Xcode插件。</li>
+<li>演示图片：</li>
+</ul>
+<p><img loading="lazy" alt="0-3.gif" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0-3.gif"></p>
+<p>Auto-Importer</p>
+<ul>
+<li>Github地址：<a target="_blank" rel="noopener" href="https://github.com/citrusbyte/Auto-Importer-for-Xcode">https://github.com/citrusbyte/Auto-Importer-for-Xcode</a></li>
+</ul>
+<ol start="6">
+<li>ColorSense</li>
+</ol>
+<ul>
+<li>简介：<br>  具有可以用颜色选择面板直接插入颜色代码和颜色代码显示颜色预览功能。</li>
+<li>Github地址：<a target="_blank" rel="noopener" href="https://github.com/omz/ColorSense-for-Xcode">https://github.com/omz/ColorSense-for-Xcode</a></li>
+</ul>
+<ol start="7">
+<li>VVDocumenter</li>
+</ol>
+<ul>
+<li>简介：<br>  VVDocumenter是一款输入///就会自动生成javadoc风格注释的Xcode插件。</li>
+<li>演示图片：</li>
+</ul>
+<p><img loading="lazy" alt="640-1.jpg" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/640-1.jpg"></p>
+<p>VVDocumenter</p>
+<ul>
+<li>Github地址：<a target="_blank" rel="noopener" href="https://github.com/onevcat/VVDocumenter-Xcode">https://github.com/onevcat/VVDocumenter-Xcode</a></li>
+</ul>
+<p><strong>8. AMLocalizedStringBuilder</strong></p>
+<ul>
+<li><p>简介：<br>  AMLocalizedStringBuilder 是可以帮助你将语言本地化文件Localizable.strings生成object-c的类AMLocalizedString的Xcode插件，这样可以直接使用R_String.am_&lt;#你的本地化字符串key#&gt;获取对应key的值，还可以随时点击Alt或Option按键查看当前字符串的值。</p>
+</li>
+<li><p>Github地址：<a target="_blank" rel="noopener" href="https://github.com/MellongLau/AMLocalizedStringBuilder-Xcode-Plugin">https://github.com/MellongLau/AMLocalizedStringBuilder-Xcode-Plugin</a></p>
+</li>
+</ul>
+<p><strong>9. R.swift</strong></p>
+<ul>
+<li><p>简介：<br>  类似AMLocalizedStringBuilder，不过是swift版本的，功能也更丰富，不仅支持Localized strings映射，还支持其他资源的映射，支持的列表如下：</p>
+</li>
+<li><p>Images</p>
+</li>
+<li><p>Custom fonts</p>
+</li>
+<li><p>Resource files</p>
+</li>
+<li><p>Colors</p>
+</li>
+<li><p>Localized strings</p>
+</li>
+<li><p>Storyboards</p>
+</li>
+<li><p>Segues</p>
+</li>
+<li><p>Nibs</p>
+</li>
+<li><p>Reusable cells</p>
+</li>
+<li><p>Github地址：<a target="_blank" rel="noopener" href="https://github.com/mac-cain13/R.swift">https://github.com/mac-cain13/R.swift</a></p>
+</li>
+</ul>
+<p><strong>10. CopyIssue</strong></p>
+<ul>
+<li><p>简介：<br>  方便你搜索的任何错误或警告的问题，可以复制完整的问题描述，或者可以自动打开你的默认浏览器并通过Google（默认快捷⇧⌥G）或Stackoverflow（默认快捷⇧⌥S）搜索你选择的问题。</p>
+</li>
+<li><p>Github地址：<a target="_blank" rel="noopener" href="https://github.com/hanton/CopyIssue-Xcode-Plugin">https://github.com/hanton/CopyIssue-Xcode-Plugin</a></p>
+</li>
+</ul>
+<p><strong>如何安�</strong>�</p>
+<p>安装方法目前有两种：</p>
+<ol>
+<li>从github下载源代码进行安装<br> $ git clone <a href="mailto:git@github.com">git@github.com</a>:插件地址<br> 打开插件项目运行，运行成功后程序会自动把插件文件拷贝到这个路径下：<br> ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins。<br> 重新启动Xcode使插件生效。</li>
+<li>通过Xcode插件管理器 Alcatraz 进行安装，安装完成后也要重新启动Xcode使插件生效。</li>
+</ol>
+<p><strong>最后</strong></p>
+<p>随着Xcode的发展和iOS开发的红火，现在Xcode插件越来越多了，插件越来越多当然是好事，毕竟选择就更多，功能也更丰富了，不过，安装太多插件容易造成Xcode运行不稳定，因此，安装插件还是要根据自身需求选择稳定性比较好的插件（此处应有打赏）。</p>
+<p>The End</p>
+<p>【今日微信公号推荐↓】</p>
+<p><img loading="lazy" alt="0-4.gif" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0-4.gif"></p>
+<p>更多推荐请看<strong>《</strong><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxMzE2Mjc2Ng==&amp;mid=403261234&amp;idx=2&amp;sn=9f111eeed8b17aff453aad4a1d0a6b81&amp;scene=21#wechat_redirect">值得关注的技术和设计公众号</a><strong>》</strong></p>
+<p>其中推荐了包括<strong>技术</strong>、<strong>设计</strong>、<strong>极客�</strong>�和&nbsp;<strong>IT相亲</strong>相关的热门公众号。技术涵盖：Python、Web前端、Java、安卓、iOS、PHP、C/C++、.NET、Linux、数据库、运维、大数据、算法、IT职场等。点击《<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxMzE2Mjc2Ng==&amp;mid=403261234&amp;idx=2&amp;sn=9f111eeed8b17aff453aad4a1d0a6b81&amp;scene=21#wechat_redirect">值得关注的技术和设计公众号</a>》，发现精彩！</p>
+<p><img loading="lazy" alt="0-5.gif" src="/images/notes/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/0-5.gif"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/iOS大全/">iOS大全</a><a href="/tags/微信/">微信</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%BE%AE%E4%BF%A1/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/" data-title="iOS开发大神必备的Xcode插件 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/兴趣笔记/飞机上为啥不能随便换座位/" title="飞机上为啥不能随便换座位">
+  <strong>上一篇：</strong><br/>
+  <span>
+  飞机上为啥不能随便换座位</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/微信/springboot_十六_：使用Jenkins部署Spring Boot/"  title="springboot(十六)：使用Jenkins部署Spring Boot">
+ <strong>下一篇：</strong><br/> 
+ <span>springboot(十六)：使用Jenkins部署Spring Boot
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/微信/iOS开发大神必备的Xcode插件/" data-title="iOS开发大神必备的Xcode插件" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%BE%AE%E4%BF%A1/iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">iOS开发大神必备的Xcode插件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91%E5%A4%A7%E7%A5%9E%E5%BF%85%E5%A4%87%E7%9A%84Xcode%E6%8F%92%E4%BB%B6-1"><span class="toc-number">1.1.</span> <span class="toc-text">iOS开发大神必备的Xcode插件</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

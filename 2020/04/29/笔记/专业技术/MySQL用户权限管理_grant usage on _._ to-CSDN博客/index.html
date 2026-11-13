@@ -1,0 +1,1272 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>MySQL用户权限管理_grant usage on *.* to-CSDN博客 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="MySQL用户权限管理_grant usage on . to-CSDN博客MySQL用户权限管理[不会推车的娘们](https:&#x2F;&#x2F;blog.csdn.net&#x2F;shmily_lsl &quot;不会推车的娘们&quot;) 于 2019-10-25 16:18:33 发布  阅读量3.3k  点赞数 3      版权  用户和权限管理：语法 grant&amp;nbsp;权限&amp;nbsp;on&amp;nbsp;数据库.数据表&amp;n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL用户权限管理_grant usage on *.* to-CSDN博客">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/MySQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86_grant%20usage%20on%20_._%20to-CSDN%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="MySQL用户权限管理_grant usage on . to-CSDN博客MySQL用户权限管理[不会推车的娘们](https:&#x2F;&#x2F;blog.csdn.net&#x2F;shmily_lsl &quot;不会推车的娘们&quot;) 于 2019-10-25 16:18:33 发布  阅读量3.3k  点赞数 3      版权  用户和权限管理：语法 grant&amp;nbsp;权限&amp;nbsp;on&amp;nbsp;数据库.数据表&amp;n">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-04T04:52:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/MySQL用户权限管理_grant usage on _._ to-CSDN博客/" title="MySQL用户权限管理_grant usage on *.* to-CSDN博客" itemprop="url">MySQL用户权限管理_grant usage on *.* to-CSDN博客</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-grant-usage-on-to-CSDN%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.</span> <span class="toc-text">MySQL用户权限管理_grant usage on . to-CSDN博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">MySQL用户权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%EF%BC%9A"><span class="toc-number">2.0.1.</span> <span class="toc-text">用户和权限管理：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">2.0.2.</span> <span class="toc-text">语法</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="MySQL用户权限管理-grant-usage-on-to-CSDN博客"><a title="MySQL用户权限管理_grant usage on . to-CSDN博客" class="headerlink" href="#MySQL用户权限管理-grant-usage-on-to-CSDN博客"></a>MySQL用户权限管理_grant usage on <em>.</em> to-CSDN博客</h1><h1 id="MySQL用户权限管理"><a title="MySQL用户权限管理" class="headerlink" href="#MySQL用户权限管理"></a>MySQL用户权限管理</h1><pre><code>[不会推车的娘们](https://blog.csdn.net/shmily_lsl "不会推车的娘们") 于 2019-10-25 16:18:33 发布  阅读量3.3k  点赞数 3  
+</code></pre>
+<p>  <a href="">版权</a> </p>
+<h3 id="用户和权限管理："><a title="用户和权限管理：" class="headerlink" href="#用户和权限管理："></a><strong>用户和权限管理：</strong></h3><h3 id="语法"><a title="语法" class="headerlink" href="#语法"></a><strong>语法</strong></h3><p> grant&nbsp;权限&nbsp;on&nbsp;<a target="_blank" rel="noopener" href="http://www.111cn.net/database/database.html">数据库</a>.数据表&nbsp;to&nbsp;‘用户’&nbsp;@&nbsp;‘主机名’;</p>
+<p> 例：给&nbsp;xiaogang&nbsp;分配所有的权限</p>
+<p> grant&nbsp;all&nbsp;on&nbsp;<em>.</em>&nbsp;to&nbsp;‘xiaogang‘@’%’;</p>
+<p> 这个时候&nbsp;xiaogang&nbsp;就拥有了&nbsp;所有权限了</p>
+<p> | 权限</p>
+<pre><code>                                                                                              | 说明
+
+                                                                                                                                                | 举例
+
+                                                                   |
+</code></pre>
+<p>|——————————————————————————————————-|———————————————————————————————————————————————————|—————————————————————————-|<br>| usage</p>
+<pre><code>                                                                                             | 连接（登陆）权限，建立一个用户，就会自动授予其usage权限（默认授予）。
+
+                                                                               | mysql&gt;&nbsp;&nbsp;grant&nbsp;usage&nbsp;on&nbsp;*.*&nbsp;to&nbsp;'root′@'localhost'&nbsp;identified&nbsp;by&nbsp;'123';
+
+  |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;该权限只能用于数据库登陆，不能执行任何操作；且usage权限不能被回收，也即REVOKE用户并不能删除用户。</p>
+<p>  |                                                                                                                                                         |                                                                            |<br>| file</p>
+<pre><code>                                                                                              | 拥有file权限才可以执行&nbsp;&nbsp;select&nbsp;..into&nbsp;outfile和load&nbsp;data&nbsp;infile…操作，但是不要把file,&nbsp;process,&nbsp;&nbsp;super权限授予管理员以外的账号，这样存在严重的安全隐患。
+</code></pre>
+<p> | mysql&gt;&nbsp;&nbsp;grant&nbsp;file&nbsp;on&nbsp;<em>.</em>&nbsp;to&nbsp;root@localhost;</p>
+<pre><code>                           |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;load&nbsp;data&nbsp;infile&nbsp;‘/home/mysql/pet.txt’&nbsp;into&nbsp;table&nbsp;pet;</p>
+<pre><code>                                  |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| super</p>
+<pre><code>                                                                                             | 这个权限允许用户终止任何查询；修改全局变量的SET语句；使用CHANGE&nbsp;&nbsp;MASTER，PURGE&nbsp;MASTER&nbsp;LOGS。
+
+                                                        | mysql&gt;&nbsp;&nbsp;grant&nbsp;super&nbsp;on&nbsp;*.*&nbsp;to&nbsp;root@localhost;
+
+                          |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;purge&nbsp;master&nbsp;logs&nbsp;before&nbsp;‘mysql-bin.000006′;</p>
+<pre><code>                                            |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| select</p>
+<pre><code>                                                                                            | 必须有select的权限，才可以使用select&nbsp;&nbsp;table
+
+                                                                                                         | mysql&gt;&nbsp;&nbsp;grant&nbsp;select&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;'root′@'localhost';
+
+                   |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;select&nbsp;*&nbsp;from&nbsp;shop;</p>
+<pre><code>                                                                     |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| insert</p>
+<pre><code>                                                                                            | 必须有insert的权限，才可以使用insert&nbsp;&nbsp;into&nbsp;…..&nbsp;values….
+
+                                                                                             | mysql&gt;&nbsp;&nbsp;grant&nbsp;insert&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;'root′@'localhost';
+
+                   |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;insert&nbsp;into&nbsp;shop(name)&nbsp;values(‘aa’);</p>
+<pre><code>                                                    |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| update</p>
+<pre><code>                                                                                            | 必须有update的权限，才可以使用update&nbsp;&nbsp;table
+
+                                                                                                         | mysql&gt;&nbsp;&nbsp;update&nbsp;shop&nbsp;set&nbsp;price=3.5&nbsp;where&nbsp;article=0001&nbsp;and&nbsp;dealer='A';
+
+   |
+</code></pre>
+<p>| delete</p>
+<pre><code>                                                                                            | 必须有delete的权限，才可以使用delete&nbsp;&nbsp;from&nbsp;….where….(删除表中的记录)
+
+                                                                                | mysql&gt;&nbsp;&nbsp;grant&nbsp;delete&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;'root′@'localhost';
+
+                   |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;delete&nbsp;from&nbsp;table&nbsp;where&nbsp;id=1;</p>
+<pre><code>                                                           |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| alter</p>
+<pre><code>                                                                                             | 必须有alter的权限，才可以使用alter&nbsp;&nbsp;table
+
+                                                                                                           | mysql&gt;&nbsp;&nbsp;alter&nbsp;table&nbsp;shop&nbsp;modify&nbsp;dealer&nbsp;char(15);
+
+                       |
+</code></pre>
+<p>| alter&nbsp;routine</p>
+<pre><code>                                                                                     | 必须具有alter&nbsp;&nbsp;routine的权限，才可以使用&#123;alter&nbsp;|drop&#125;&nbsp;&#123;procedure|function&#125;
+
+                                                                          | mysql&gt;grant&nbsp;&nbsp;alter&nbsp;routine&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;'root′@'&nbsp;localhost&nbsp;‘;
+
+           |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;drop&nbsp;procedure&nbsp;pro_shop;</p>
+<pre><code>                                                                |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;Query&nbsp;OK,&nbsp;0&nbsp;rows&nbsp;affected&nbsp;(0.00&nbsp;sec)</p>
+<pre><code>                                                           |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| create</p>
+<pre><code>                                                                                            | 必须有create的权限，才可以使用create&nbsp;&nbsp;table
+
+                                                                                                         | mysql&gt;&nbsp;&nbsp;grant&nbsp;create&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;'root′@'localhost';
+
+                   |
+</code></pre>
+<p>| drop</p>
+<pre><code>                                                                                              | 必须有drop的权限，才可以删除库、表、索引、视图等
+
+                                                                                                    | mysql&gt;&nbsp;&nbsp;drop&nbsp;database&nbsp;db_name;&nbsp;
+
+                                        |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;drop&nbsp;table&nbsp;tab_name;</p>
+<pre><code>                                                                    |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;drop&nbsp;view&nbsp;vi_name;&nbsp;</p>
+<pre><code>                                                                     |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;drop&nbsp;index&nbsp;in_name;</p>
+<pre><code>                                                                     |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| create&nbsp;routine</p>
+<pre><code>                                                                                    | 必须具有create&nbsp;&nbsp;routine的权限，才可以使用&#123;create&nbsp;|alter|drop&#125;&nbsp;&#123;procedure|function&#125;
+
+                                                                  | mysql&gt;&nbsp;&nbsp;grant&nbsp;create&nbsp;routine&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;'root′@'localhost';
+
+           |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;当授予create&nbsp;routine时，自动授予EXECUTE,&nbsp;ALTER&nbsp;ROUTINE权限给它的创建者：</p>
+<pre><code>                       |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| create&nbsp;temporary&nbsp;tables</p>
+<pre><code>                                                                           | (注意这里是tables，不是table)
+
+                                                                                                                       | 必须有create&nbsp;&nbsp;temporary&nbsp;tables的权限，才可以使用create&nbsp;temporary&nbsp;tables.
+</code></pre>
+<p>   |<br>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;grant&nbsp;create&nbsp;temporary&nbsp;tables&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;&nbsp;‘root′@’localhost’;</p>
+<pre><code>                          |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;[mysql@mydev&nbsp;~]$&nbsp;mysql&nbsp;-h&nbsp;localhost&nbsp;-u&nbsp;root&nbsp;-p&nbsp;pyt</p>
+<pre><code>                                             |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;create&nbsp;temporary&nbsp;table&nbsp;tt1(id&nbsp;int);</p>
+<pre><code>                                                     |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| create&nbsp;view</p>
+<pre><code>                                                                                       | 必须有create&nbsp;&nbsp;view的权限，才可以使用create&nbsp;view
+
+                                                                                                     | mysql&gt;&nbsp;&nbsp;grant&nbsp;create&nbsp;view&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;'root′@'localhost';
+
+              |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;create&nbsp;view&nbsp;v_shop&nbsp;as&nbsp;select&nbsp;price&nbsp;from&nbsp;shop;</p>
+<pre><code>                                           |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| create&nbsp;user</p>
+<pre><code>                                                                                       | 要使用CREATE&nbsp;&nbsp;USER，必须拥有mysql数据库的全局CREATE&nbsp;USER权限，或拥有INSERT权限。
+
+                                                                    | mysql&gt;&nbsp;&nbsp;grant&nbsp;create&nbsp;user&nbsp;on&nbsp;*.*&nbsp;to&nbsp;'root′@'localhost';
+
+                |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;或：mysql&gt;&nbsp;grant&nbsp;insert&nbsp;on&nbsp;<em>.</em>&nbsp;to&nbsp;root@localhost;</p>
+<pre><code>                                              |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| show&nbsp;database</p>
+<pre><code>                                                                                     | 通过show&nbsp;&nbsp;database只能看到你拥有的某些权限的数据库，除非你拥有全局SHOW&nbsp;DATABASES权限。
+
+                                                              | mysql&gt;&nbsp;&nbsp;show&nbsp;databases;
+
+                                                |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;对于root@localhost用户来说，没有对mysql数据库的权限，所以以此身份登陆查询时，无法看到mysql数据库：</p>
+<p> |                                                                                                                                                         |                                                                            |<br>| show&nbsp;view</p>
+<pre><code>                                                                                         | 必须拥有show&nbsp;&nbsp;view权限，才能执行show&nbsp;create&nbsp;view
+
+                                                                                                    | mysql&gt;&nbsp;&nbsp;show&nbsp;create&nbsp;view&nbsp;name;
+
+                                         |
+</code></pre>
+<p>| index</p>
+<pre><code>                                                                                             | 必须拥有index权限，才能执行[create&nbsp;&nbsp;|drop]&nbsp;index
+
+                                                                                                    | mysql&gt;&nbsp;&nbsp;grant&nbsp;index&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;root@localhost;
+
+                        |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;create&nbsp;index&nbsp;ix_shop&nbsp;on&nbsp;shop(article);</p>
+<pre><code>                                                  |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;drop&nbsp;index&nbsp;ix_shop&nbsp;on&nbsp;shop;</p>
+<pre><code>                                                             |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| excute</p>
+<pre><code>                                                                                            | 执行存在的Functions,Procedures
+
+                                                                                                                      | mysql&gt;&nbsp;&nbsp;call&nbsp;pro_shoroot(0001,@a)；
+
+                                    |
+</code></pre>
+<p>| event</p>
+<pre><code>                                                                                             | event的使用频率较低建议使用root用户进行创建和维护。
+
+                                                                                                 | mysql&gt;&nbsp;&nbsp;show&nbsp;global&nbsp;variables&nbsp;like&nbsp;'event_scheduler';
+
+                  |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;要使event起作用，MySQL的常量GLOBAL&nbsp;event_scheduler必须为on或者是1</p>
+<pre><code>                              |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| lock&nbsp;tables</p>
+<pre><code>                                                                                       | 必须拥有lock&nbsp;&nbsp;tables权限，才可以使用lock&nbsp;tables
+
+                                                                                                     | mysql&gt;&nbsp;&nbsp;grant&nbsp;lock&nbsp;tables&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;root@localhost;
+
+                  |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;lock&nbsp;tables&nbsp;a1&nbsp;read;</p>
+<pre><code>                                                                    |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;unlock&nbsp;tables;</p>
+<pre><code>                                                                          |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| references</p>
+<pre><code>                                                                                        | 有了REFERENCES权限，用户就可以将其它表的一个字段作为某一个表的外键约束。
+
+                                                                            |                                                                            |
+</code></pre>
+<p>| reload</p>
+<pre><code>                                                                                            | 必须拥有reload权限，才可以执行flush&nbsp;&nbsp;[tables&nbsp;|&nbsp;logs&nbsp;|&nbsp;privileges]
+
+                                                                                   | mysql&gt;&nbsp;&nbsp;grant&nbsp;reload&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;root@localhost;
+
+                       |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;ERROR&nbsp;1221&nbsp;(HY000):&nbsp;Incorrect&nbsp;usage&nbsp;of&nbsp;DB&nbsp;GRANT&nbsp;and&nbsp;GLOBAL&nbsp;PRIVILEGES</p>
+<pre><code>                          |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;grant&nbsp;reload&nbsp;on&nbsp;<em>.</em>&nbsp;to&nbsp;‘root′@’localhost’;</p>
+<pre><code>                                              |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;Query&nbsp;OK,&nbsp;0&nbsp;rows&nbsp;affected&nbsp;(0.00&nbsp;sec)</p>
+<pre><code>                                                           |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;flush&nbsp;tables;</p>
+<pre><code>                                                                           |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| replication&nbsp;client</p>
+<pre><code>                                                                                | 拥有此权限可以查询master&nbsp;&nbsp;server、slave&nbsp;server状态。
+
+                                                                                                | mysql&gt;&nbsp;&nbsp;grant&nbsp;Replication&nbsp;client&nbsp;on&nbsp;*.*&nbsp;to&nbsp;root@localhost;
+
+             |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;或：mysql&gt;&nbsp;grant&nbsp;super&nbsp;on&nbsp;<em>.</em>&nbsp;to&nbsp;root@localhost;</p>
+<pre><code>                                               |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;show&nbsp;master&nbsp;status;</p>
+<pre><code>                                                                     |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| replication&nbsp;slave</p>
+<pre><code>                                                                                 | 拥有此权限可以查看从服务器，从主服务器读取二进制日志。
+
+                                                                                              | mysql&gt;&nbsp;&nbsp;grant&nbsp;replication&nbsp;slave&nbsp;on&nbsp;*.*&nbsp;to&nbsp;root@localhost;
+
+              |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;show&nbsp;slave&nbsp;hosts;</p>
+<pre><code>                                                                       |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;Empty&nbsp;set&nbsp;(0.00&nbsp;sec)</p>
+<pre><code>                                                                           |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;show&nbsp;binlog&nbsp;events;</p>
+<pre><code>                                                                      |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| Shutdown</p>
+<pre><code>                                                                                          | 关闭mysql权限
+
+                                                                                                                                       | [mysql@mydev&nbsp;&nbsp;~]$&nbsp;mysqladmin&nbsp;shutdown
+
+                                  |
+</code></pre>
+<p>| grant&nbsp;option</p>
+<pre><code>                                                                                      | 拥有grant&nbsp;&nbsp;option，就可以将自己拥有的权限授予其他用户（仅限于自己已经拥有的权限）
+
+                                                                   | mysql&gt;&nbsp;&nbsp;grant&nbsp;Grant&nbsp;option&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;root@localhost;
+
+                 |
+</code></pre>
+<p>| &nbsp;&nbsp;&nbsp;mysql&gt;&nbsp;grant&nbsp;select&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;p2@localhost;</p>
+<pre><code>                                                  |                                                                                                                                                         |                                                                            |
+</code></pre>
+<p>| process</p>
+<pre><code>                                                                                           | 通过这个权限，用户可以执行SHOW&nbsp;&nbsp;PROCESSLIST和KILL命令。默认情况下，每个用户都可以执行SHOW&nbsp;PROCESSLIST命令，但是只能查询本用户的进程。
+
+               | mysql&gt;&nbsp;&nbsp;show&nbsp;processlist;
+
+                                              |
+</code></pre>
+<p>| all&nbsp;privileges</p>
+<pre><code>                                                                                    | 所有权限。with&nbsp;&nbsp;grant&nbsp;option&nbsp;可以连带授权
+
+                                                                                                           | mysql&gt;&nbsp;&nbsp;grant&nbsp;all&nbsp;privileges&nbsp;on&nbsp;pyt.*&nbsp;to&nbsp;root@localhost&nbsp;with&nbsp;grant&nbsp;option;
+</code></pre>
+<p> |</p>
+<p> &nbsp;&nbsp;管理权限（如&nbsp;super，&nbsp;process，&nbsp;file等）不能够指定某个<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/mysql"><strong>数据库</strong></a>，on后面必须跟&nbsp;<em>.</em></p>
+<p> ·&nbsp;&nbsp;&nbsp;有人会问truncate权限呢，其实truncate权限就是create+drop，这点需要注意</p>
+<p> 查看用户授权信息</p>
+<p> mysql&gt;&nbsp;show&nbsp;grants&nbsp;for&nbsp;bzfys;</p>
+<p> +——————————————————————————————————-+</p>
+<p> |&nbsp;Grants&nbsp;for&nbsp;bzfys@%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</p>
+<p> +——————————————————————————————————-+</p>
+<p> |&nbsp;GRANT&nbsp;USAGE&nbsp;ON&nbsp;<em>.</em>&nbsp;TO&nbsp;bzfys@’%’&nbsp;IDENTIFIED&nbsp;BY&nbsp;PASSWORD&nbsp;‘*A399693A49F7EC7C548D0FC376FA52AD293A552F’&nbsp;|</p>
+<p> +——————————————————————————————————-+</p>
+<p> 1&nbsp;row&nbsp;in&nbsp;set&nbsp;(0.00&nbsp;sec)</p>
+<p> ————————————————</p>
+<p> 一般情况赋予的权限</p>
+<p> 用户管理</p>
+<p> mysql&gt;use&nbsp;mysql;</p>
+<p> 一、查看</p>
+<p> mysql&gt;&nbsp;select&nbsp;host,user,password&nbsp;from&nbsp;user&nbsp;;</p>
+<p> 二、创建</p>
+<p> mysql&gt;&nbsp;create&nbsp;user&nbsp;&nbsp;bzfys&nbsp;&nbsp;&nbsp;IDENTIFIED&nbsp;by&nbsp;‘xxxxx’;&nbsp;&nbsp;&nbsp;//identified&nbsp;by&nbsp;会将纯文本密码加密作为散列值存储</p>
+<p> 三、修改</p>
+<p> mysql&gt;rename&nbsp;&nbsp;&nbsp;user&nbsp;&nbsp;bzfys&nbsp;to&nbsp;&nbsp;&nbsp;buzaifengyaosha；//mysql&nbsp;5之后可以使用，之前需要使用update&nbsp;更新user表</p>
+<p> 四、删除</p>
+<p> mysql&gt;drop&nbsp;user&nbsp;buzaifengyaosha;&nbsp;&nbsp;&nbsp;//mysql5之前删除用户时必须先使用revoke&nbsp;删除用户权限，然后删除用户，mysql5之后drop&nbsp;命令可以删除用户的同时删除用户的相关权限</p>
+<p> 五、更改密码（如果找回root密码必须用这种方式）</p>
+<p> mysql&gt;&nbsp;set&nbsp;password&nbsp;for&nbsp;bzfys&nbsp;=password(‘xxxxxx’);</p>
+<p> &nbsp;mysql&gt;&nbsp;update&nbsp;&nbsp;mysql.user&nbsp;&nbsp;set&nbsp;&nbsp;password=password(‘xxxx’)&nbsp;&nbsp;where&nbsp;user=’bzfys’;5.8以后需要修改的列为authentication_string列update&nbsp;&nbsp;mysql.user&nbsp;&nbsp;set&nbsp;&nbsp;authentication_string=password(‘xxxx’)&nbsp;&nbsp;where&nbsp;user=’bzfys’</p>
+<p> 六、查看用户权限</p>
+<p> mysql&gt;&nbsp;show&nbsp;grants&nbsp;for&nbsp;bzfys;</p>
+<p> 七、赋予权限</p>
+<p> mysql&gt;&nbsp;grant&nbsp;select&nbsp;on&nbsp;bzfys_db.*&nbsp;&nbsp;to&nbsp;bzfys;</p>
+<p> 回收权限</p>
+<p> mysql&gt;&nbsp;revoke&nbsp;&nbsp;select&nbsp;on&nbsp;bzfys_db.*&nbsp;&nbsp;from&nbsp;&nbsp;bzfys;&nbsp;&nbsp;//如果权限不存在会报错</p>
+<p> &nbsp;上面的命令也可使用多个权限同时赋予和回收，权限之间使用逗号分隔</p>
+<p> mysql&gt;&nbsp;grant&nbsp;select，update，delete&nbsp;&nbsp;，insert&nbsp;&nbsp;on&nbsp;bzfys_db.*&nbsp;&nbsp;to&nbsp;&nbsp;bzfys;</p>
+<p> 如果想立即看到结果使用</p>
+<p> flush&nbsp;&nbsp;privileges&nbsp;;</p>
+<p> 命令更新&nbsp;</p>
+<p> 设置权限时必须给出一下信息</p>
+<p> 1，要授予的权限</p>
+<p> 2，被授予访问权限的数据库或表</p>
+<p> 3，用户名</p>
+<p> grant和revoke可以在几个层次上控制访问权限</p>
+<p> 1，整个服务器，使用&nbsp;grant&nbsp;ALL&nbsp;&nbsp;和revoke&nbsp;&nbsp;ALL</p>
+<p> 2，整个数据库，使用on&nbsp;&nbsp;database.*</p>
+<p> 3，特点表，使用on&nbsp;&nbsp;database.table</p>
+<p> 4，特定的列</p>
+<p> 5，特定的存储过程</p>
+<p> user表中host列的值的意义</p>
+<p> %&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;匹配所有主机</p>
+<p> localhost&nbsp;&nbsp;&nbsp;&nbsp;localhost不会被解析成IP地址，直接通过UNIXsocket连接</p>
+<p> 127.0.0.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;会通过TCP/IP协议连接，并且只能在本机访问；</p>
+<p> ::1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::1就是兼容支持ipv6的，表示同ipv4的127.0.0.1</p>
+<p> grant&nbsp;普通数据用户，查询、插入、更新、删除&nbsp;数据库中所有表数据的权利。</p>
+<p> grant&nbsp;select&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;common_user@’%’</p>
+<p> grant&nbsp;insert&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;common_user@’%’</p>
+<p> grant&nbsp;update&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;common_user@’%’</p>
+<p> grant&nbsp;delete&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;common_user@’%’</p>
+<p> 或者，用一条&nbsp;MySQL&nbsp;命令来替代：</p>
+<p> grant&nbsp;select,&nbsp;insert,&nbsp;update,&nbsp;delete&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;common_user@’%’</p>
+<p> 9&gt;.grant&nbsp;数据库开发人员，创建表、索引、视图、存储过程、函数。。。等权限。</p>
+<p> grant&nbsp;创建、修改、删除&nbsp;MySQL&nbsp;数据表结构权限。</p>
+<p> grant&nbsp;create&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;developer@’192.168.0.%’;</p>
+<p> grant&nbsp;alter&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;developer@’192.168.0.%’;</p>
+<p> grant&nbsp;drop&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;developer@’192.168.0.%’;</p>
+<p> grant&nbsp;操作&nbsp;MySQL&nbsp;外键权限。</p>
+<p> grant&nbsp;references&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;developer@’192.168.0.%’;</p>
+<p> grant&nbsp;操作&nbsp;MySQL&nbsp;临时表权限。</p>
+<p> grant&nbsp;create&nbsp;temporary&nbsp;tables&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;developer@’192.168.0.%’;</p>
+<p> grant&nbsp;操作&nbsp;MySQL&nbsp;索引权限。</p>
+<p> grant&nbsp;index&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;developer@’192.168.0.%’;</p>
+<p> grant&nbsp;操作&nbsp;MySQL&nbsp;视图、查看视图源代码&nbsp;权限。</p>
+<p> grant&nbsp;create&nbsp;view&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;developer@’192.168.0.%’;</p>
+<p> grant&nbsp;show&nbsp;view&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;developer@’192.168.0.%’;</p>
+<p> grant&nbsp;操作&nbsp;MySQL&nbsp;存储过程、函数&nbsp;权限。</p>
+<p> grant&nbsp;create&nbsp;routine&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;developer@’192.168.0.%’;&nbsp;–&nbsp;now,&nbsp;can&nbsp;show&nbsp;procedure&nbsp;status</p>
+<p> grant&nbsp;alter&nbsp;routine&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;developer@’192.168.0.%’;&nbsp;–&nbsp;now,&nbsp;you&nbsp;can&nbsp;drop&nbsp;a&nbsp;procedure</p>
+<p> grant&nbsp;execute&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;developer@’192.168.0.%’;</p>
+<p> 10&gt;.grant&nbsp;普通&nbsp;DBA&nbsp;管理某个&nbsp;MySQL&nbsp;数据库的权限。</p>
+<p> grant&nbsp;all&nbsp;privileges&nbsp;on&nbsp;testdb&nbsp;to&nbsp;dba@’localhost’</p>
+<p> 其中，关键字&nbsp;“privileges”&nbsp;可以省略。</p>
+<p> 11&gt;.grant&nbsp;高级&nbsp;DBA&nbsp;管理&nbsp;MySQL&nbsp;中所有数据库的权限。</p>
+<p> grant&nbsp;all&nbsp;on&nbsp;<em>.</em>&nbsp;to&nbsp;dba@’localhost’</p>
+<p> 12&gt;.MySQL&nbsp;grant&nbsp;权限，分别可以作用在多个层次上。</p>
+<p> 1.&nbsp;grant&nbsp;作用在整个&nbsp;MySQL&nbsp;服务器上：</p>
+<p> grant&nbsp;select&nbsp;on&nbsp;<em>.</em>&nbsp;to&nbsp;dba@localhost;&nbsp;–&nbsp;dba&nbsp;可以查询&nbsp;MySQL&nbsp;中所有数据库中的表。</p>
+<p> grant&nbsp;all&nbsp;on&nbsp;<em>.</em>&nbsp;to&nbsp;dba@localhost;&nbsp;–&nbsp;dba&nbsp;可以管理&nbsp;MySQL&nbsp;中的所有数据库</p>
+<p> 2.&nbsp;grant&nbsp;作用在单个数据库上：</p>
+<p> grant&nbsp;select&nbsp;on&nbsp;testdb.*&nbsp;to&nbsp;dba@localhost;&nbsp;–&nbsp;dba&nbsp;可以查询&nbsp;testdb&nbsp;中的表。</p>
+<p> 3.&nbsp;grant&nbsp;作用在单个数据表上：</p>
+<p> grant&nbsp;select,&nbsp;insert,&nbsp;update,&nbsp;delete&nbsp;on&nbsp;testdb.orders&nbsp;to&nbsp;dba@localhost;</p>
+<p> 4.&nbsp;grant&nbsp;作用在表中的列上：</p>
+<p> grant&nbsp;select(id,&nbsp;se,&nbsp;rank)&nbsp;on&nbsp;testdb.apache_log&nbsp;to&nbsp;dba@localhost;</p>
+<p> 5.&nbsp;grant&nbsp;作用在存储过程、函数上：</p>
+<p> grant&nbsp;execute&nbsp;on&nbsp;procedure&nbsp;testdb.pr_add&nbsp;to&nbsp;’dba’@’localhost’</p>
+<p> grant&nbsp;execute&nbsp;on&nbsp;function&nbsp;testdb.fn_add&nbsp;to&nbsp;’dba’@’localhost’</p>
+<p> 注意：修改完权限以后&nbsp;一定要刷新服务，或者重启服务，刷新服务用：FLUSH&nbsp;PRIVILEGES。</p>
+<p> grant&nbsp;create&nbsp;routine,&nbsp;alter&nbsp;routine,&nbsp;execute&nbsp;ON&nbsp;<code>blacklist</code>.*&nbsp;TO&nbsp;‘blacklist‘@’%’;</p>
+<p> create&nbsp;routine创建存储过程</p>
+<p> alter&nbsp;routine,&nbsp;修改存储过程</p>
+<p> execute：执行存储过程</p>
+<p> ————————————————</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/MySQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86_grant%20usage%20on%20_._%20to-CSDN%E5%8D%9A%E5%AE%A2/" data-title="MySQL用户权限管理_grant usage on *.* to-CSDN博客 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/NSDictionary 的用法/" title="NSDictionary 的用法">
+  <strong>上一篇：</strong><br/>
+  <span>
+  NSDictionary 的用法</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/MySQL根据出生日期计算年龄的五种方法比较 - 简书/"  title="MySQL根据出生日期计算年龄的五种方法比较 - 简书">
+ <strong>下一篇：</strong><br/> 
+ <span>MySQL根据出生日期计算年龄的五种方法比较 - 简书
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/MySQL用户权限管理_grant usage on _._ to-CSDN博客/" data-title="MySQL用户权限管理_grant usage on *.* to-CSDN博客" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/MySQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86_grant%20usage%20on%20_._%20to-CSDN%E5%8D%9A%E5%AE%A2/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86-grant-usage-on-to-CSDN%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.</span> <span class="toc-text">MySQL用户权限管理_grant usage on . to-CSDN博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">MySQL用户权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%EF%BC%9A"><span class="toc-number">2.0.1.</span> <span class="toc-text">用户和权限管理：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">2.0.2.</span> <span class="toc-text">语法</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

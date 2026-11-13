@@ -1,0 +1,1032 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>《你好啊，区块链！》读书笔记 - CodeAntenna | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="《你好啊，区块链！》读书笔记 - CodeAntenna 基础词  挖矿 智能合约 通证 加密货币和数字货币     区块链的运作机制  算力 孤块 空块 工作量证明机制PoW 权益证明机制PoS 股份授权证明机制DPoS 实用拜占庭容错机制 Coinbase交易     区块内部微观世界  梅克尔树 简单支付验证 对称加密 非对称加密 数字签名 盲签名 环签名 多重签名 数字证书 钱��">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《你好啊，区块链！》读书笔记 - CodeAntenna">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E3%80%8A%E4%BD%A0%E5%A5%BD%E5%95%8A%EF%BC%8C%E5%8C%BA%E5%9D%97%E9%93%BE%EF%BC%81%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%20-%20CodeAntenna/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="《你好啊，区块链！》读书笔记 - CodeAntenna 基础词  挖矿 智能合约 通证 加密货币和数字货币     区块链的运作机制  算力 孤块 空块 工作量证明机制PoW 权益证明机制PoS 股份授权证明机制DPoS 实用拜占庭容错机制 Coinbase交易     区块内部微观世界  梅克尔树 简单支付验证 对称加密 非对称加密 数字签名 盲签名 环签名 多重签名 数字证书 钱��">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-31T01:50:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/《你好啊，区块链！》读书笔记 - CodeAntenna/" title="《你好啊，区块链！》读书笔记 - CodeAntenna" itemprop="url">《你好啊，区块链！》读书笔记 - CodeAntenna</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%8A%E4%BD%A0%E5%A5%BD%E5%95%8A%EF%BC%8C%E5%8C%BA%E5%9D%97%E9%93%BE%EF%BC%81%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-CodeAntenna"><span class="toc-number">1.</span> <span class="toc-text">《你好啊，区块链！》读书笔记 - CodeAntenna</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E8%AF%8D"><span class="toc-number">2.</span> <span class="toc-text">基础词</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%96%E7%9F%BF"><span class="toc-number">2.1.</span> <span class="toc-text">挖矿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6"><span class="toc-number">2.2.</span> <span class="toc-text">智能合约</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%AF%81"><span class="toc-number">2.3.</span> <span class="toc-text">通证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E8%B4%A7%E5%B8%81%E5%92%8C%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81"><span class="toc-number">2.4.</span> <span class="toc-text">加密货币和数字货币</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">区块链的运作机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E5%8A%9B"><span class="toc-number">3.1.</span> <span class="toc-text">算力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A4%E5%9D%97"><span class="toc-number">3.2.</span> <span class="toc-text">孤块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E5%9D%97"><span class="toc-number">3.3.</span> <span class="toc-text">空块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E9%87%8F%E8%AF%81%E6%98%8E%E6%9C%BA%E5%88%B6PoW"><span class="toc-number">3.4.</span> <span class="toc-text">工作量证明机制PoW</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E7%9B%8A%E8%AF%81%E6%98%8E%E6%9C%BA%E5%88%B6PoS"><span class="toc-number">3.5.</span> <span class="toc-text">权益证明机制PoS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%82%A1%E4%BB%BD%E6%8E%88%E6%9D%83%E8%AF%81%E6%98%8E%E6%9C%BA%E5%88%B6DPoS"><span class="toc-number">3.6.</span> <span class="toc-text">股份授权证明机制DPoS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%94%A8%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6"><span class="toc-number">3.7.</span> <span class="toc-text">实用拜占庭容错机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Coinbase%E4%BA%A4%E6%98%93"><span class="toc-number">3.8.</span> <span class="toc-text">Coinbase交易</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E5%86%85%E9%83%A8%E5%BE%AE%E8%A7%82%E4%B8%96%E7%95%8C"><span class="toc-number">4.</span> <span class="toc-text">区块内部微观世界</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A2%85%E5%85%8B%E5%B0%94%E6%A0%91"><span class="toc-number">4.1.</span> <span class="toc-text">梅克尔树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E6%94%AF%E4%BB%98%E9%AA%8C%E8%AF%81"><span class="toc-number">4.2.</span> <span class="toc-text">简单支付验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">4.3.</span> <span class="toc-text">对称加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">4.4.</span> <span class="toc-text">非对称加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="toc-number">4.5.</span> <span class="toc-text">数字签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B2%E7%AD%BE%E5%90%8D"><span class="toc-number">4.6.</span> <span class="toc-text">盲签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E7%AD%BE%E5%90%8D"><span class="toc-number">4.7.</span> <span class="toc-text">环签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E9%87%8D%E7%AD%BE%E5%90%8D"><span class="toc-number">4.8.</span> <span class="toc-text">多重签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="toc-number">4.9.</span> <span class="toc-text">数字证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%92%B1%E5%8C%85"><span class="toc-number">4.10.</span> <span class="toc-text">钱包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E5%88%A9%E7%9B%8A"><span class="toc-number">5.</span> <span class="toc-text">外部利益</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E9%87%8D%E6%94%AF%E4%BB%98"><span class="toc-number">5.1.</span> <span class="toc-text">双重支付</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB"><span class="toc-number">5.2.</span> <span class="toc-text">重放攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB%E4%BF%9D%E6%8A%A4"><span class="toc-number">5.3.</span> <span class="toc-text">重放攻击保护</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%8F%89"><span class="toc-number">5.4.</span> <span class="toc-text">分叉</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E5%88%86%E5%8F%89"><span class="toc-number">5.4.1.</span> <span class="toc-text">软分叉</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E5%88%86%E5%8F%89"><span class="toc-number">5.4.2.</span> <span class="toc-text">硬分叉</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%94%E7%A6%BB%E8%A7%81%E8%AF%81"><span class="toc-number">5.5.</span> <span class="toc-text">隔离见证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AA%E7%94%B5%E7%BD%91%E7%BB%9C"><span class="toc-number">5.6.</span> <span class="toc-text">闪电网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E9%80%9A%E9%81%93"><span class="toc-number">5.7.</span> <span class="toc-text">状态通道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%B6%E7%A1%AE%E8%AE%A4%E4%BA%A4%E6%98%93"><span class="toc-number">5.8.</span> <span class="toc-text">零确认交易</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%80%81%E5%93%88%E5%B8%8C"><span class="toc-number">5.9.</span> <span class="toc-text">同态哈希</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E"><span class="toc-number">5.10.</span> <span class="toc-text">零知识证明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E5%8E%BB%E4%BA%8B%E4%BB%B6%E5%92%8C%E7%8E%B0%E5%9C%A8%E6%97%B6"><span class="toc-number">6.</span> <span class="toc-text">过去事件和现在时</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%93%BE%E5%92%8C%E4%BE%A7%E9%93%BE"><span class="toc-number">6.1.</span> <span class="toc-text">主链和侧链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E9%93%BE%E6%8A%80%E6%9C%AF"><span class="toc-number">6.2.</span> <span class="toc-text">跨链技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8D%B3%E6%9C%8D%E5%8A%A1Baas"><span class="toc-number">6.3.</span> <span class="toc-text">区块链即服务Baas</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%AF%81%E5%8C%96"><span class="toc-number">6.4.</span> <span class="toc-text">通证化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E4%BA%92%E8%81%94%E7%BD%91"><span class="toc-number">6.5.</span> <span class="toc-text">价值互联网</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">7.</span> <span class="toc-text">参考链接</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="《你好啊，区块链！》读书笔记-CodeAntenna"><a title="《你好啊，区块链！》读书笔记 - CodeAntenna" class="headerlink" href="#《你好啊，区块链！》读书笔记-CodeAntenna"></a>《你好啊，区块链！》读书笔记 - CodeAntenna</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_1">基础词</a></li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_2">挖矿</a><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_6">智能合约</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_10">通证</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_22">加密货币和数字货币</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_28">区块链的运作机制</a></li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_29">算力</a><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_34">孤块</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_41">空块</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#PoW_44">工作量证明机制PoW</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#PoS_47">权益证明机制PoS</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#DPoS_50">股份授权证明机制DPoS</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_55">实用拜占庭容错机制</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#Coinbase_58">Coinbase交易</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_62">区块内部微观世界</a></li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_63">梅克尔树</a><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_70">简单支付验证</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_73">对称加密</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_76">非对称加密</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_79">数字签名</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_82">盲签名</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_85">环签名</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_90">多重签名</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_93">数字证书</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_96">钱�</a>�</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_100">外部利益</a></li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_101">双重支付</a><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_104">重放攻击</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_109">重放攻击保护</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_114">分叉</a></li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_116">软分叉</a><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_118">硬分叉</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_121">隔离见证</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_124">闪电网络</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_131">状态通道</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_142">零确认交易</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_145">同态哈希</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_152">零知识证明</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_162">过去事件和现在时</a></li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_163">主链和侧链</a><ul>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_174">跨链技术</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#Baas_179">区块链即服务Baas</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_184">通证化</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_189">价值互联网</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://codeantenna.com/a/XDYZk3eJPv#_193">参考链接</a></li>
+</ul>
+<h1 id="基础词"><a title="基础词" class="headerlink" href="#基础词"></a>基础词</h1><h2 id="挖矿"><a title="挖矿" class="headerlink" href="#挖矿"></a>挖矿</h2><p> 区块链用来封装交易记录的盒子叫做去区块，想要得到区块需要进行一道复杂的数学题，这道数学题的内容是这样的：矿工们已经选好了自己想塞入新区看的交易，新区块区块头的绝大部分信息是可以急死安获知的，现在，就只需要找到一个数字，使得这个数组与区块头其他信息哈希之后得出的数值，小于软件给出的数值</p>
+<h2 id="智能合约"><a title="智能合约" class="headerlink" href="#智能合约"></a>智能合约</h2><p> 基于区块链技术搭建的智能合约是被存储在区块链网络上的，不仅合约的执行时自动触发的，全网任何人还可以追溯（租房使用时可以自动被触发，时间一到密码自动更改）；但是同样由于这个问题，由于智能合约执行后，任何人都无法篡改和掌握，所以代码一旦出现漏洞，很难及时补救</p>
+<h2 id="通证"><a title="通证" class="headerlink" href="#通证"></a>通证</h2><p> 代币和通证在计算机科科学里是同一个词：token。token在区块链的语境里指一类加密货币。目前以太坊机器同类平台上创建的DApp基本都发行token</p>
+<p> 和比特币、以太币这些加密货币相似的是，token也有去中心化的内核属性，但不同额度是，比特币、以太币拥有完全独立的区块链网络，而token则依附在以太坊这类平台上发行和运行，下面是一个例子</p>
+<p> 一个团队发布了一个用来打车的智能合约部署在了以太坊网络上，根据以太坊提供的”模板”发型了属于自己的token。token的发行量一开始就写入合约，将这个token称为”打车币”。乘客支付车费时，可以选用”打车币”来支付车费，一般也可以用以太币结算；而如果选择”打车币”来支付，智能合约会记录下”打车币”的使用情况，智能合约的每一个动态都被矿工们塞入区块，链接到以太坊网络中</p>
+<p> 在这个例子中，“打车币”可以”替代”以太币使用，可能这就是token被称为”代币”的原因；token可以在应用项目资金构建的生态中流转使用，换言之，有了token，就等于获得了在生态中执行操作的”通行证”，所以token又被成为”通证”</p>
+<p> token相当于以太坊上的”子生态”，所以token要想真正获得广泛的价值认同和用户基础是非常困难的。但由于开发和维护一条像以太坊独立的区块链成本高昂，许多团队还是选择以方形token的方式来创建一个区块链项目</p>
+<h2 id="加密货币和数字货币"><a title="加密货币和数字货币" class="headerlink" href="#加密货币和数字货币"></a>加密货币和数字货币</h2><p> 媒体常常将加密货币称为数字货币，是因为他们以数字形式而非物理形式存在，同时又具有可交易的属性。中国互联网金融协会区块链研究工作组组长李礼辉认为：数字货币必须具有国别，拥有主权背书，有合格的发行主体，有国家信用支撑。</p>
+<p> 按照这个标志，比特币等加密货币都不能被称为数字货币；最早的加密货币是”电子黄金”，但其是中心化的</p>
+<h1 id="区块链的运作机制"><a title="区块链的运作机制" class="headerlink" href="#区块链的运作机制"></a>区块链的运作机制</h1><h2 id="算力"><a title="算力" class="headerlink" href="#算力"></a>算力</h2><p> 指的是每秒计算多少次哈希值的能力，在同样的时间里，算力越大，就越有可能挖出新区块。”挖新区块”本质上就是一个数学计算的过程，矿工需要计算这个新区块的区块头的哈希值，以符合规则设定的条件</p>
+<p> 矿工在挑选好要塞入新区块的交易后，区块头中的大部分数据就可以确定下来，但有一个数据需要矿工自己填入，他毫无捷径可走，只能反复尝试猜这个数字，直到得出的区块头哈希值能够小于规则给出的数值</p>
+<h2 id="孤块"><a title="孤块" class="headerlink" href="#孤块"></a>孤块</h2><p> 如果当前你已经成功挖出了第一个区块，你需要做的工作似乎只剩下将挖出的区块信息广播到区块链网络中，让其他矿工们及时停下手头的工作，转而挖掘下一个区块</p>
+<p> 但就在此刻，由于网络延迟，另一个和你几乎同时挖出这个区块的矿工，比你更早将这个消息通知了全网，此时只有一个区块会被认可并保留，而被认可的对象永远是后面连接了最多区块的那个区块(因为那位网络更通畅的矿工比你更快广播，所以其他矿工迅速确认后，将自己挖出的区块一个个连接到了他挖出的区块之后，于是这条链变得越来越长)</p>
+<p> 这时，你的这个区块就被称为”孤块”，以太坊由于生成区块的速度比较快，大大增加了孤块的产生概率，所以孤块也还是有可能获得一小部分挖矿奖励的</p>
+<h2 id="空块"><a title="空块" class="headerlink" href="#空块"></a>空块</h2><p> 比特币的区块链上却存在一些区块，只包含记录矿工领走比特币奖励的那笔交易，而没有记账信息。这种区块就被称为空块。因为这一部分的矿工觉得，全网交易校验的风险非常大，宁愿只获取挖出块的费用，这个时候损失的只有矿工费</p>
+<h2 id="工作量证明机制PoW"><a title="工作量证明机制PoW" class="headerlink" href="#工作量证明机制PoW"></a>工作量证明机制PoW</h2><p> 所有人都在挖矿，胜出者就是那个提供了最多工作量证明的人</p>
+<h2 id="权益证明机制PoS"><a title="权益证明机制PoS" class="headerlink" href="#权益证明机制PoS"></a>权益证明机制PoS</h2><p> PoS通常意味着只有持有该加密货币的人才能参与竞选新区块额度添加权。不好的地方就在于，持币越多的人越容易挖到新区块而获得挖矿奖励</p>
+<h2 id="股份授权证明机制DPoS"><a title="股份授权证明机制DPoS" class="headerlink" href="#股份授权证明机制DPoS"></a>股份授权证明机制DPoS</h2><p> 本质上还是对PoS机制的改良。就去中心化的角度来说，它的纯粹性在一定程度上被稀释，却平衡了效率的要求</p>
+<p> 这是因为当代表团选定后，实际添加新区块时，无需再通过竞争，所以新区块的添加速度有了显著的提升，一笔交易得到处理的速度也变得更快</p>
+<h2 id="实用拜占庭容错机制"><a title="实用拜占庭容错机制" class="headerlink" href="#实用拜占庭容错机制"></a>实用拜占庭容错机制</h2><p> 如果套用PBFT的运作原理，只要将军总人数大于其中“坏将军”的3倍，就能确保共识的产生不受干扰。</p>
+<h2 id="Coinbase交易"><a title="Coinbase交易" class="headerlink" href="#Coinbase交易"></a>Coinbase交易</h2><p> 比特币每个区块里都记录着一笔笔交易的数据，第一笔交易就被称为Coinbase交易，它的作用只是记录第一个挖出这个区块的矿工获得奖励的信息</p>
+<h1 id="区块内部微观世界"><a title="区块内部微观世界" class="headerlink" href="#区块内部微观世界"></a>区块内部微观世界</h1><h2 id="梅克尔树"><a title="梅克尔树" class="headerlink" href="#梅克尔树"></a>梅克尔树</h2><p> 在密码学应用中，很少直接将一个数据哈希一次，通过得出单一哈希值来传输。因为一旦传输过程中数据损坏，很难定位检索究竟具体是哪个小部分出现了问题</p>
+<p> 通常采取的方法是，先将数据切割成许多小的数据块，每个小数据块分别哈希一次，再将相邻的两个小数据块得出的哈希值放在一起哈希一次。如果数据块为奇数，则自动复制一笔交易，使数据块变成偶数后，再进行两两哈希。这个过程不断重复，直到产生最后一个哈希值</p>
+<p> 梅克尔树的一层层哈希值能快速定位出错的问题</p>
+<h2 id="简单支付验证"><a title="简单支付验证" class="headerlink" href="#简单支付验证"></a>简单支付验证</h2><p> 每一个区块头都储存着该区块中所有交易层层哈希后得到的梅克尔树根，你只需要让矿工给予你你交易id相邻的那条交易id，再加上其他的哈希值，自己计算出一个梅克尔树根，再与”区块头账本”中的梅克尔树根比对，即可完成验证</p>
+<h2 id="对称加密"><a title="对称加密" class="headerlink" href="#对称加密"></a>对称加密</h2><p> 知道加密算法和密钥，反推可以得到加密前的内容</p>
+<h2 id="非对称加密"><a title="非对称加密" class="headerlink" href="#非对称加密"></a>非对称加密</h2><p> 会生成两把不同的密钥，公钥和私钥，假如你要加密内容，把公钥发给对方加密内容，发送给你后，用私钥即可解密</p>
+<h2 id="数字签名"><a title="数字签名" class="headerlink" href="#数字签名"></a>数字签名</h2><p> 数字签名一般都是结合非对称加密使用，在非对称加密使用后，对加密的内容进行摘要后进行哈希，再用公钥进行加密；对方得到后，首先用私钥对这个哈希进行解密，然后对密文也进行哈希，用这两个哈希对比，验证内容是否被篡改</p>
+<h2 id="盲签名"><a title="盲签名" class="headerlink" href="#盲签名"></a>盲签名</h2><p> 盲签名的意思跟匿名选举非常类似。盲签名是一种特殊的数字签名技术。盲签名因签名的人看不到所签署文件的具体内容而闻名，它有两个显著的特点：一是签名者对消息的内容是不可见的 ;二是签名被公开后，签名者不能追踪签名</p>
+<h2 id="环签名"><a title="环签名" class="headerlink" href="#环签名"></a>环签名</h2><p> 环签名的特点是确保收件者不知道签名者具体是谁，换言之，整个签名本身是以匿名形式完成的</p>
+<p> 就比如上面的数字签名，如果是使用的是自己的公钥进行加密，会被对方知道是谁签的，假如用自己和N多人的公钥共同来签名，那么就不容易知道是谁签的了</p>
+<h2 id="多重签名"><a title="多重签名" class="headerlink" href="#多重签名"></a>多重签名</h2><p> 事先约定好的签名个数，只有满足后，才算签名成功</p>
+<h2 id="数字证书"><a title="数字证书" class="headerlink" href="#数字证书"></a>数字证书</h2><p> 数字证书是依赖CA的，在有CA做认证的前提下，我们才能知道发送信息的对方是谁，保证了中间即使被截获消息，也无法进行篡改</p>
+<h2 id="钱包"><a title="钱包" class="headerlink" href="#钱包"></a>钱包</h2><p> 加密货币钱包保存的是一个密钥，真正的数字资产是保存在区块链账本中的数据，人们正式通过这个密钥来确认其归属</p>
+<h1 id="外部利益"><a title="外部利益" class="headerlink" href="#外部利益"></a>外部利益</h1><h2 id="双重支付"><a title="双重支付" class="headerlink" href="#双重支付"></a>双重支付</h2><p> 双重支付的发生是因为收款人在交易零确认的情况下，将货物给了付款人。而安全交易的前提应该是保证获得较多的确认数</p>
+<h2 id="重放攻击"><a title="重放攻击" class="headerlink" href="#重放攻击"></a>重放攻击</h2><p> 在区块链中，指代一种利用重复广播相同交易消息的手段实现网络欺诈的行为。其一般出现在两个场景中：</p>
+<ul>
+<li>发生在硬分叉造成的新链和原来那条链之间</li>
+<li>发生在没有UTXO的区块链系统中，比如以太坊，如果没有防范，会造成用户的余额完全扣除</li>
+</ul>
+<h2 id="重放攻击保护"><a title="重放攻击保护" class="headerlink" href="#重放攻击保护"></a>重放攻击保护</h2><p> 两种方法提供保护</p>
+<ul>
+<li>在交易的时候加盖时间戳，交易只有在时间戳之后一定的时间内验证才有效</li>
+<li>为交易添加序列号</li>
+</ul>
+<h2 id="分叉"><a title="分叉" class="headerlink" href="#分叉"></a>分叉</h2><p> 好比app的升级功能</p>
+<h3 id="软分叉"><a title="软分叉" class="headerlink" href="#软分叉"></a>软分叉</h3><p> 分叉发生后，不同版本的客户端并存，如果一个消息在两个客户端下同时都可以生效，那么就是软分叉</p>
+<h3 id="硬分叉"><a title="硬分叉" class="headerlink" href="#硬分叉"></a>硬分叉</h3><p> 新app上面的消息，旧app上面不能认同，则此时分出来的两个app为硬分叉</p>
+<h2 id="隔离见证"><a title="隔离见证" class="headerlink" href="#隔离见证"></a>隔离见证</h2><p> 一个比特币区块包含了若干笔交易，包含两个部分，一个是转入转出地址和转账金额，另一部分是”见证”信息。隔离见证，就是将”见证”信息隔离开来，不再计入区块容量，这样能生出大量区块空间，同时能够将私钥添加数字签名，向矿工证明自己是某笔比特币的真实拥有者</p>
+<h2 id="闪电网络"><a title="闪电网络" class="headerlink" href="#闪电网络"></a>闪电网络</h2><p> 闪电网络是为了解决效率问题产生，简单理解为开辟了一条仅供下载了带有闪电网络钱包的双方专用的快速转账通道，这个通道类似资金池的共同”账户”，首先需要双方分别往账户中打入一些比特币，随后才可以在这个通道上完成转账，矿工只会记录开启通道时存入的金额，以及关闭时的账户余额分配信息打包塞入区块中</p>
+<p> 在以太坊也有同样叫做”雷电网络”的扩容方案</p>
+<p> 闪电网络是将一部分交易分流到了链下，以解决账本太大无法存储的问题</p>
+<h2 id="状态通道"><a title="状态通道" class="headerlink" href="#状态通道"></a>状态通道</h2><p> 也是一种扩容方案，同”隔离见证”一样，都是将”见证”信息隔离在区块外，以扩大存储的信息；而”状态通道”是将”状态信息”放在一条特殊的”通道”上记录</p>
+<p> 由于区块链的”状态信息”是由链上所有人共同构成的，所以一个人产生交易，网络上所有人的”状态”都会改变</p>
+<p> 状态通道技术，交易双方另辟一条交易的”通道”，无论他们在这条”通道”上频繁交易了多少次，状态改变了多少回，最终关闭时，只会记录双方的余额信息</p>
+<blockquote>
+<p>所以闪电网络就是状态通道技术的一次运用</p>
+</blockquote>
+<p> 对于一些需要频繁响应的区块链应用项目来说，状态通道技术可以优化体验，比如下象棋，只有开局和结束时的输赢状态记录在链上，期间无论如何下，都只是在双方建立的”通道”上更新状态，不仅系统响应更快速，也免于支付多余的记账费用</p>
+<h2 id="零确认交易"><a title="零确认交易" class="headerlink" href="#零确认交易"></a>零确认交易</h2><p> 当发生交易的时候通常需要两个确认，首先是挖出区块的矿工的验证，其次是这个区块的后面又添加的一个新区块。零确认交易指的就是这两个确认都没有发生，商家就发货了，但是这样没有办法防范双重支付，同时产生的两条交易按照矿工自行决定留下哪一条</p>
+<h2 id="同态哈希"><a title="同态哈希" class="headerlink" href="#同态哈希"></a>同态哈希</h2><p> 一种特殊的哈希，把A与B分别经过同态哈希后的数值之和，与A和B一起做哈希得到的结果一致，即为同态哈希</p>
+<p> 使用同态哈希是可以减少计算量的，比如要存入一个数据，计算了它的哈希值并加以保存，几天后，需要对其更新，在提交了更新部分的数据后，只需要将更细部分再哈西一下，和原来的哈希值相加就可以了，不需要将全部数据再次哈希</p>
+<p> 同态哈希具有某种”隐匿”的功能，可以提高交易的隐私性，用于加密货币交易，矿工可以在看不到双方地址和金额的前提下，完成对一些交易信息的验证</p>
+<h2 id="零知识证明"><a title="零知识证明" class="headerlink" href="#零知识证明"></a>零知识证明</h2><p> 一个人想对另一个人证明某个论点，他使用的证明方法是确保另一个人无法获取已知信息以外更多额外的信息，这种证明方法就叫做零知识证明</p>
+<p> 一个自称博物馆守门人的人，炫耀自己有钥匙，他有两种方法给你证明自己</p>
+<ul>
+<li>他直接开博物馆的门，带你进去，但同时，博物馆藏着的名作，也被暴露了</li>
+<li>每个人都知道，里面有一幅镇馆之宝xxx，他可以把这幅画单独取出来给你看，这样你除了像其他人那样，只知道这幅画，无法获取更多信息了</li>
+</ul>
+<p> 第二种就是零知识证明，在区块链中，能够让一笔资产在转移时兼顾隐私，让矿工在验证交易时无法知道交易信息，网络中其他人也知道发生了一笔验证过的交易，但是没有更多信息了</p>
+<h1 id="过去事件和现在时"><a title="过去事件和现在时" class="headerlink" href="#过去事件和现在时"></a>过去事件和现在时</h1><h2 id="主链和侧链"><a title="主链和侧链" class="headerlink" href="#主链和侧链"></a>主链和侧链</h2><p> 侧链是相对于主链的概念。如果将以太坊视作一条主链，下面就是一个构建侧链的场景</p>
+<p> 以太坊上有一些DApp提供电影放映服务，但是要将电影存储在以太坊上，成本高得离谱。一条1MB的交易数据费用高达上千元，而高清电影都是以GB为单位的</p>
+<p> 于是想到了一个侧链的解决方案，先将以太坊的源码改几个参数，优化一下适用于存储场景的性能，一条公链搭好了，接着花钱租一堆服务器，就有了矿工节点，假设这条链为”电影链”，加密货币叫”电影币”。相比以太坊，由于”电影链”舍弃了许多其他功能，存储性能不仅提升了，上链成本也变得非常低廉，那么此时”电影链”就是一条侧链</p>
+<p> 此时的”电影链”可以利用智能合约技术和以太坊生态打通，让那些拿着”电影币”的人可以很方便地区以太坊DApp上看电影，那么此时，这条链上存储电影的记录、”电影币”的交易明细等，都可以被链接到以太坊的网络中，这可以让侧链的公信力直线上升</p>
+<p> 以太坊也不清楚自己有多少条侧链，许多区块链为了提升价值认同感，纷纷将自己设计成以太坊的侧链。存储和运算的庞大数据就是这些侧链比较常见的应用场景</p>
+<h2 id="跨链技术"><a title="跨链技术" class="headerlink" href="#跨链技术"></a>跨链技术</h2><p> 侧链使用自己的token，拿上面”电影链”的例子来说，你是一个以太币的持有者，想要在”电影链”上看电影，需要先把以太币换成”电影币”，而整个过程是这样的：当你发起一个以太币换成一万哥侧链token的需求时，气孔跨链技术的智能合约会帮你在链上寻找并撮合接收你报价的人，撮合成功后，跨链技术确保了你们的提币是完全同时的，不会因为时差而让任何一方承担风险</p>
+<p> 中心化交易所币币交易就是使用了跨链技术，整个撮合过程同上</p>
+<h2 id="区块链即服务Baas"><a title="区块链即服务Baas" class="headerlink" href="#区块链即服务Baas"></a>区块链即服务Baas</h2><p> Blockchain as Service(区块链即服务)，指通过云计算平台向企业用户提供区块链的配套服务，以便奇特快速和低成本的开发与管理自己的区块链，这种服务器一般针对联盟链，BaaS提供的”模板”就是超级账本</p>
+<p> 超级账本提供的服务即是，只需要用户准备好自己的业务逻辑，并将这种逻辑编写成智能合约导入BaaS提供的平台，选择适合自己的配置，就可以利用超级账本末班一键生成属于自己的联盟链</p>
+<h2 id="通证化"><a title="通证化" class="headerlink" href="#通证化"></a>通证化</h2><p> 通证化就是将资产”token化”，比如把一幅画分成了10个token，每个人持有一份，那么这幅画的投资流动性就变高了</p>
+<p> 但是面临的问题有：这幅画通证化后并不单独属于某个人或机构，那么谁来保管？如何确保它一直被妥善存放？如果发生失窃，又如何界定责任？</p>
+<h2 id="价值互联网"><a title="价值互联网" class="headerlink" href="#价值互联网"></a>价值互联网</h2><p> 区块链用一套不可篡改的代码系统来奠定信任基础，让陌生人之间可以通过加密货币实现点对点的价值转移，剔除中心化的第三方平台，使交易成本变得低廉</p>
+<h1 id="参考链接"><a title="参考链接" class="headerlink" href="#参考链接"></a>参考链接</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.hellobtc.com/kp/kc/08/2106.html">盲签名：一种特殊的数字签名技术</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/85229020">同态哈希函数(Homomorphic Hashing)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/fbeffa0e7754">区块链+：资产通证化</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.360doc.com/content/19/1111/20/40351491_872499091.shtml">“通证化”给企业带大的5大好处</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/annotation/96433731/">摘录</a></li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E3%80%8A%E4%BD%A0%E5%A5%BD%E5%95%8A%EF%BC%8C%E5%8C%BA%E5%9D%97%E9%93%BE%EF%BC%81%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%20-%20CodeAntenna/" data-title="《你好啊，区块链！》读书笔记 - CodeAntenna | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/《西游记》里有哪些不易发现却很打动人的小细节？/" title="《西游记》里有哪些不易发现却很打动人的小细节？">
+  <strong>上一篇：</strong><br/>
+  <span>
+  《西游记》里有哪些不易发现却很打动人的小细节？</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/《我们台湾这些年》的笔记（作者：廖信忠）/"  title="《我们台湾这些年》的笔记（作者：廖信忠）">
+ <strong>下一篇：</strong><br/> 
+ <span>《我们台湾这些年》的笔记（作者：廖信忠）
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/《你好啊，区块链！》读书笔记 - CodeAntenna/" data-title="《你好啊，区块链！》读书笔记 - CodeAntenna" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E3%80%8A%E4%BD%A0%E5%A5%BD%E5%95%8A%EF%BC%8C%E5%8C%BA%E5%9D%97%E9%93%BE%EF%BC%81%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%20-%20CodeAntenna/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%8A%E4%BD%A0%E5%A5%BD%E5%95%8A%EF%BC%8C%E5%8C%BA%E5%9D%97%E9%93%BE%EF%BC%81%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-CodeAntenna"><span class="toc-number">1.</span> <span class="toc-text">《你好啊，区块链！》读书笔记 - CodeAntenna</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E8%AF%8D"><span class="toc-number">2.</span> <span class="toc-text">基础词</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%96%E7%9F%BF"><span class="toc-number">2.1.</span> <span class="toc-text">挖矿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6"><span class="toc-number">2.2.</span> <span class="toc-text">智能合约</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%AF%81"><span class="toc-number">2.3.</span> <span class="toc-text">通证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E8%B4%A7%E5%B8%81%E5%92%8C%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81"><span class="toc-number">2.4.</span> <span class="toc-text">加密货币和数字货币</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">区块链的运作机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E5%8A%9B"><span class="toc-number">3.1.</span> <span class="toc-text">算力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A4%E5%9D%97"><span class="toc-number">3.2.</span> <span class="toc-text">孤块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E5%9D%97"><span class="toc-number">3.3.</span> <span class="toc-text">空块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E9%87%8F%E8%AF%81%E6%98%8E%E6%9C%BA%E5%88%B6PoW"><span class="toc-number">3.4.</span> <span class="toc-text">工作量证明机制PoW</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E7%9B%8A%E8%AF%81%E6%98%8E%E6%9C%BA%E5%88%B6PoS"><span class="toc-number">3.5.</span> <span class="toc-text">权益证明机制PoS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%82%A1%E4%BB%BD%E6%8E%88%E6%9D%83%E8%AF%81%E6%98%8E%E6%9C%BA%E5%88%B6DPoS"><span class="toc-number">3.6.</span> <span class="toc-text">股份授权证明机制DPoS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%94%A8%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6"><span class="toc-number">3.7.</span> <span class="toc-text">实用拜占庭容错机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Coinbase%E4%BA%A4%E6%98%93"><span class="toc-number">3.8.</span> <span class="toc-text">Coinbase交易</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E5%86%85%E9%83%A8%E5%BE%AE%E8%A7%82%E4%B8%96%E7%95%8C"><span class="toc-number">4.</span> <span class="toc-text">区块内部微观世界</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A2%85%E5%85%8B%E5%B0%94%E6%A0%91"><span class="toc-number">4.1.</span> <span class="toc-text">梅克尔树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E6%94%AF%E4%BB%98%E9%AA%8C%E8%AF%81"><span class="toc-number">4.2.</span> <span class="toc-text">简单支付验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">4.3.</span> <span class="toc-text">对称加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">4.4.</span> <span class="toc-text">非对称加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="toc-number">4.5.</span> <span class="toc-text">数字签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B2%E7%AD%BE%E5%90%8D"><span class="toc-number">4.6.</span> <span class="toc-text">盲签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E7%AD%BE%E5%90%8D"><span class="toc-number">4.7.</span> <span class="toc-text">环签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E9%87%8D%E7%AD%BE%E5%90%8D"><span class="toc-number">4.8.</span> <span class="toc-text">多重签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="toc-number">4.9.</span> <span class="toc-text">数字证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%92%B1%E5%8C%85"><span class="toc-number">4.10.</span> <span class="toc-text">钱包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E5%88%A9%E7%9B%8A"><span class="toc-number">5.</span> <span class="toc-text">外部利益</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E9%87%8D%E6%94%AF%E4%BB%98"><span class="toc-number">5.1.</span> <span class="toc-text">双重支付</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB"><span class="toc-number">5.2.</span> <span class="toc-text">重放攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB%E4%BF%9D%E6%8A%A4"><span class="toc-number">5.3.</span> <span class="toc-text">重放攻击保护</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%8F%89"><span class="toc-number">5.4.</span> <span class="toc-text">分叉</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E5%88%86%E5%8F%89"><span class="toc-number">5.4.1.</span> <span class="toc-text">软分叉</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E5%88%86%E5%8F%89"><span class="toc-number">5.4.2.</span> <span class="toc-text">硬分叉</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%94%E7%A6%BB%E8%A7%81%E8%AF%81"><span class="toc-number">5.5.</span> <span class="toc-text">隔离见证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AA%E7%94%B5%E7%BD%91%E7%BB%9C"><span class="toc-number">5.6.</span> <span class="toc-text">闪电网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E9%80%9A%E9%81%93"><span class="toc-number">5.7.</span> <span class="toc-text">状态通道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%B6%E7%A1%AE%E8%AE%A4%E4%BA%A4%E6%98%93"><span class="toc-number">5.8.</span> <span class="toc-text">零确认交易</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%80%81%E5%93%88%E5%B8%8C"><span class="toc-number">5.9.</span> <span class="toc-text">同态哈希</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E"><span class="toc-number">5.10.</span> <span class="toc-text">零知识证明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E5%8E%BB%E4%BA%8B%E4%BB%B6%E5%92%8C%E7%8E%B0%E5%9C%A8%E6%97%B6"><span class="toc-number">6.</span> <span class="toc-text">过去事件和现在时</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%93%BE%E5%92%8C%E4%BE%A7%E9%93%BE"><span class="toc-number">6.1.</span> <span class="toc-text">主链和侧链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E9%93%BE%E6%8A%80%E6%9C%AF"><span class="toc-number">6.2.</span> <span class="toc-text">跨链技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8D%B3%E6%9C%8D%E5%8A%A1Baas"><span class="toc-number">6.3.</span> <span class="toc-text">区块链即服务Baas</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%AF%81%E5%8C%96"><span class="toc-number">6.4.</span> <span class="toc-text">通证化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E4%BA%92%E8%81%94%E7%BD%91"><span class="toc-number">6.5.</span> <span class="toc-text">价值互联网</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">7.</span> <span class="toc-text">参考链接</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

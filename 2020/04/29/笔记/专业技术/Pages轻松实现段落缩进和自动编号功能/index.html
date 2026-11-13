@@ -1,0 +1,892 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>Pages轻松实现段落缩进和自动编号功能 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="Pages轻松实现段落缩进和自动编号功能macOS Pages Pages轻松实现段落缩进和自动编号功能2012 六月 6日Mac下的Pages实际上是一款非常优秀的文字处理软件，但是它与我们习惯的Word风格截然不同，尤其是在用Pages处理一些以中文为主的文档时，会遇到段落缩进，自动编号等问题。Pages会显得捉襟见肘。但是这并不表示Pages功能不强大，让我们看看在他简洁的界面下，如何处理这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pages轻松实现段落缩进和自动编号功能">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="Pages轻松实现段落缩进和自动编号功能macOS Pages Pages轻松实现段落缩进和自动编号功能2012 六月 6日Mac下的Pages实际上是一款非常优秀的文字处理软件，但是它与我们习惯的Word风格截然不同，尤其是在用Pages处理一些以中文为主的文档时，会遇到段落缩进，自动编号等问题。Pages会显得捉襟见肘。但是这并不表示Pages功能不强大，让我们看看在他简洁的界面下，如何处理这">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/149.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/150.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/151.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/152.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/153.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/154.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2015-04-01T07:33:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="macOS">
+<meta property="article:tag" content="Pages">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/149.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/Pages轻松实现段落缩进和自动编号功能/" title="Pages轻松实现段落缩进和自动编号功能" itemprop="url">Pages轻松实现段落缩进和自动编号功能</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD"><span class="toc-number">1.</span> <span class="toc-text">Pages轻松实现段落缩进和自动编号功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD-1"><span class="toc-number">1.1.</span> <span class="toc-text">Pages轻松实现段落缩进和自动编号功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2012-%E5%85%AD%E6%9C%88-6%E6%97%A5"><span class="toc-number">1.1.1.</span> <span class="toc-text">2012 六月 6日</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="Pages轻松实现段落缩进和自动编号功能"><a title="Pages轻松实现段落缩进和自动编号功能" class="headerlink" href="#Pages轻松实现段落缩进和自动编号功能"></a>Pages轻松实现段落缩进和自动编号功能</h1><p><code>macOS</code> <code>Pages</code></p>
+<h2 id="Pages轻松实现段落缩进和自动编号功能-1"><a title="Pages轻松实现段落缩进和自动编号功能" class="headerlink" href="#Pages轻松实现段落缩进和自动编号功能-1"></a><a href="%22Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD%22">Pages轻松实现段落缩进和自动编号功能</a></h2><h3 id="2012-六月-6日"><a title="2012 六月 6日" class="headerlink" href="#2012-六月-6日"></a>2012 六月 6日</h3><p>Mac下的Pages实际上是一款非常优秀的文字处理软件，但是它与我们习惯的Word风格截然不同，尤其是在用Pages处理一些以中文为主的文档时，会遇到段落缩进，自动编号等问题。Pages会显得捉襟见肘。但是这并不表示Pages功能不强大，让我们看看在他简洁的界面下，如何处理这些问题吧。</p>
+<p>Pages可以算是欧美系软件，所以在自动编号方面不如已经对中文优化了的Word那么强大。如果正在编写一篇文档，希望开始编号时，只需点击工具栏上的<strong>检查器</strong>(Inspector)按钮，选择<strong>文本</strong>选项卡，再选择<strong>列表</strong>选项卡。在<strong>项目符号与编号</strong>下拉菜单里面，选择<strong>多级编号</strong>。下面会出现编号的样式，选择后就会从你当前编辑的段落开始编号，当你回车换行时，编号会自动递进。</p>
+<p><img loading="lazy" alt="-149.png" src="/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/149.png"></p>
+<p>如果希望进行多级编号，只需在当前段落后回车，然后再按键盘上的Tab键。新产生的一段就会成为上一段的子段落。如图：<img loading="lazy" alt="-150.png" src="/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/150.png"></p>
+<p>当希望对已经成文的段落添加编号时，只需将光标移进段落内，然后选择<strong>编号</strong>或者<strong>多级编号</strong>，重复这个动作，直到所有段落都被编号。</p>
+<p>需要提一点的是Pages没有（一），（二），之类的大写中文编号（这个应该是软件本地化不足导致的，希望在下个版本得到解决）。所以当用Pages打开一篇含有以大写中文自动编号的Doc文档时，所有大写中文就会<strong>变成</strong>阿拉伯数字。所以如果希望使用大写中文编号的段落，还是需要手动添加。</p>
+<p>中文写作还有一个特点是每一段首行空出2个中文字符的位置。这一点Pages也是可以直接做到的，只不过实现方法不同。<img loading="lazy" alt="-151.png" src="/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/151.png"></p>
+<p>还是在<strong>文本</strong>选项卡里，选择<strong>制表符</strong>，然后会看到下面有段落缩进，在首行里填入<strong>0.85厘米</strong>，回车。就会看到当前的段落首行缩进了两个字。但是，这个0.85厘米是根据这一段的字号得来的，当字号为12时，0.85厘米就刚好是2个字的距离。如果字号为24时，2个字的距离就变为1.7厘米。<strong>在这里我个人也觉得非常不方便</strong>，如果这篇Pgaes文档存为Doc时，每一段的首行缩进还是以厘米为单位。在Word里面更改这一段的字号，首行缩进就不为2个字了。</p>
+<p><strong>还有一种缩进方法</strong>就是在刚才的添加编号的选项卡里选择<strong>文本项目符号</strong>，在文本框里输入<strong>7个空格</strong>，并保证<strong>随文本缩放</strong>这一项打钩。这种方法的优点是不论字号怎么改，这一段的开头始终是2个汉字的空位。</p>
+<p><img loading="lazy" alt="-152.png" src="/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/152.png"></p>
+<p>但是缺点是保存成Doc之后，每一段的缩进要到Word右键菜单中的<strong>项目符号和编号</strong>里面去改，里面的设置很繁琐，会让人产生困惑。</p>
+<p><img loading="lazy" alt="-153.png" src="/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/153.png"></p>
+<p>这两种方法需要根据情况选择使用。</p>
+<p>最后一个问题就是关于字号的问题。在Windows下字号有我们熟悉的“初号、小一、三号”等中文字号，但是到了Mac下，就只有国际通用的磅数为单位的字号了。他们之间的对应关系见下表。</p>
+<p><img loading="lazy" alt="-154.png" src="/images/notes/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/154.png"></p>
+<p>总的来说，Pages最大的不便处就是中国化程度不够，在Mac OS的下一个版本Moutain Lion到来之际，希望下一个版本的iWork也能在中国化方面有所进步。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%B7%A5%E5%85%B7%E6%8A%80%E5%B7%A7/">系统与工具技巧</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/macOS/">macOS</a><a href="/tags/Pages/">Pages</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/" data-title="Pages轻松实现段落缩进和自动编号功能 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/Redis 横向扩展案例 2/" title="Redis 横向扩展案例">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Redis 横向扩展案例</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/Redis 横向扩展案例/"  title="Redis 横向扩展案例">
+ <strong>下一篇：</strong><br/> 
+ <span>Redis 横向扩展案例
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/Pages轻松实现段落缩进和自动编号功能/" data-title="Pages轻松实现段落缩进和自动编号功能" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD"><span class="toc-number">1.</span> <span class="toc-text">Pages轻松实现段落缩进和自动编号功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pages%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0%E6%AE%B5%E8%90%BD%E7%BC%A9%E8%BF%9B%E5%92%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7%E5%8A%9F%E8%83%BD-1"><span class="toc-number">1.1.</span> <span class="toc-text">Pages轻松实现段落缩进和自动编号功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2012-%E5%85%AD%E6%9C%88-6%E6%97%A5"><span class="toc-number">1.1.1.</span> <span class="toc-text">2012 六月 6日</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

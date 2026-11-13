@@ -1,0 +1,1024 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>重构的技巧 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="重构的技巧Ios基础语法 重构的技巧发布于：2014-08-16 11:41阅读数：762 我想一条童子军的军规:“始终保持露营地比你发现它的时候还要干净”。如果你在地上发现了一点脏东西，不管是谁弄的，都清理掉它。要为了下一拨来露营的人改善环境。（实际上，那条规矩的早期版本，出自Robert Stephenson Smyth Bden-Powell，童子军活动之父，说的是“努力使世界比你发现它时变">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重构的技巧">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E9%87%8D%E6%9E%84%E7%9A%84%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="重构的技巧Ios基础语法 重构的技巧发布于：2014-08-16 11:41阅读数：762 我想一条童子军的军规:“始终保持露营地比你发现它的时候还要干净”。如果你在地上发现了一点脏东西，不管是谁弄的，都清理掉它。要为了下一拨来露营的人改善环境。（实际上，那条规矩的早期版本，出自Robert Stephenson Smyth Bden-Powell，童子军活动之父，说的是“努力使世界比你发现它时变">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2014-08-17T16:15:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios基础语法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/重构的技巧/" title="重构的技巧" itemprop="url">重构的技巧</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8D%E6%9E%84%E7%9A%84%E6%8A%80%E5%B7%A7"><span class="toc-number">1.</span> <span class="toc-text">重构的技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%9E%84%E7%9A%84%E6%8A%80%E5%B7%A7-1"><span class="toc-number">1.1.</span> <span class="toc-text">重构的技巧</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="重构的技巧"><a title="重构的技巧" class="headerlink" href="#重构的技巧"></a>重构的技巧</h1><p><code>Ios基础语法</code></p>
+<h2 id="重构的技巧-1"><a title="重构的技巧" class="headerlink" href="#重构的技巧-1"></a>重构的技巧</h2><p>发布于：2014-08-16 11:41阅读数：762</p>
+<p>我想一条童子军的军规:“始终保持露营地比你发现它的时候还要干净”。如果你在地上发现了一点脏东西，不管是谁弄的，都清理掉它。要为了下一拨来露营的人改善环境。（实际上，那条规矩的早期版本，出自Robert Stephenson Smyth Bden-Powell，童子军活动之父，说的是“努力使世界比你发现它时变得更好”。） 这就是为什么我不断的重构我的代码让它干净整洁. 当谈到编程的质量时,代码的可读性是我最关注的部分. 我想分享一些大部分人不知道的我用来简化代码的重构技巧.<br>&nbsp;<br><strong>字典的映射</strong><br>假如你有一个switch语句来分配一些值:</p>
+<pre><code>
+</code></pre>
+<ol>
+<li><strong>switch</strong>(condition)&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>case</strong>&nbsp;value1:&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;@”valueFor1”;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>break</strong>;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>case</strong>&nbsp;value2:&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;@”valueFor2”;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>break</strong>;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>case</strong>&nbsp;value3:&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;@”valueFor3”;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>break</strong>;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>case</strong>&nbsp;value4:&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;@”valueFor4”;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>break</strong>;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>case</strong>&nbsp;value5:&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;@”valueFor5”;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>break</strong>;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>default</strong>:&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;@”valueForDefault”;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>break</strong>;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;result;</li>
+</ol>
+<p>&nbsp;</p>
+<p>记住这儿仅仅就 switch 5个值, 想象一下一对多. 让我们使用字典映射来简化这段代码:</p>
+<pre><code>
+</code></pre>
+<ol>
+<li><strong>static</strong>&nbsp;NSDictionary&nbsp;*mapping&nbsp;=&nbsp;nil;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>if</strong>(!mapping)&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mapping&nbsp;=&nbsp;@{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(value1)&nbsp;:&nbsp;@”valueFor1”,&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(value2)&nbsp;:&nbsp;@”valueFor2”,&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(value3)&nbsp;:&nbsp;@”valueFor3”,&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(value4)&nbsp;:&nbsp;@”valueFor4”&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(value5)&nbsp;:&nbsp;@”valueFor5”&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;mapping[@value]&nbsp;?:&nbsp;@”valueForDefault”;</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;<br><strong>Pro’s(赞成的原因)</strong><br>1.更方便阅读,即使在原来的switch里面有着更多的值也可以变得更容易阅读.<br>2.更快,映射仅仅构造一次,然后我们只需要快速的查找值.<br>3.更不易出错,因为这儿并不需要写break或者return. 4.基于代码映射的性质可以非常轻松的将这个映射转成某种静态数据,例如JSON,PLIST文件,.<br>&nbsp;<br><strong>用block动态映射</strong><br>&nbsp;<br>关于更加复杂的switch,怎么样真正动态的做一些事情?我们可以用block来简化这段代码.<br>&nbsp;<br>最近,我重构了一些代码,字符串格式化来针对不同的类型:</p>
+<pre><code>
+</code></pre>
+<ol>
+<li><strong>if</strong>&nbsp;([title&nbsp;isEqualToString:@”Scratches”])&nbsp;</li>
+<li>&nbsp;&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;=&nbsp;[NSString&nbsp;stringWithFormat:(self.vehicle.numberOfScratches&nbsp;==&nbsp;1&nbsp;?&nbsp;@”%d&nbsp;Scratch”&nbsp;:&nbsp;@”%d&nbsp;Scratches”),&nbsp;self.vehicle.numberOfScratches];&nbsp;</li>
+<li>&nbsp;&nbsp;}&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>else</strong>&nbsp;<strong>if</strong>&nbsp;([title&nbsp;isEqualToString:@”Dents”])&nbsp;</li>
+<li>&nbsp;&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;=&nbsp;[NSString&nbsp;stringWithFormat:(self.vehicle.numberOfDents&nbsp;==&nbsp;1&nbsp;?&nbsp;@”%d&nbsp;Dent”&nbsp;:&nbsp;@”%d&nbsp;Dents”),&nbsp;self.vehicle.numberOfDents];&nbsp;</li>
+<li>&nbsp;&nbsp;}&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>else</strong>&nbsp;<strong>if</strong>&nbsp;([title&nbsp;isEqualToString:@”Painted&nbsp;Panels”])&nbsp;</li>
+<li>&nbsp;&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;=&nbsp;[NSString&nbsp;stringWithFormat:(self.vehicle.numberOfPaintedPanels&nbsp;==&nbsp;1&nbsp;?&nbsp;@”%d&nbsp;Painted&nbsp;Panel”&nbsp;:&nbsp;@”%d&nbsp;Painted&nbsp;Panels”),&nbsp;self.vehicle.numberOfPaintedPanels];&nbsp;</li>
+<li>&nbsp;&nbsp;}&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>else</strong>&nbsp;<strong>if</strong>&nbsp;([title&nbsp;isEqualToString:@”Chips”])&nbsp;</li>
+<li>&nbsp;&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;=&nbsp;[NSString&nbsp;stringWithFormat:(self.vehicle.numberOfChips&nbsp;==&nbsp;1&nbsp;?&nbsp;@”%d&nbsp;Chip”&nbsp;:&nbsp;@”%d&nbsp;Chips”),&nbsp;self.vehicle.numberOfChips];&nbsp;</li>
+<li>&nbsp;&nbsp;}&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>else</strong>&nbsp;<strong>if</strong>&nbsp;([title&nbsp;isEqualToString:@”Tires”])&nbsp;</li>
+<li>&nbsp;&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;=&nbsp;[NSString&nbsp;stringWithFormat:(self.vehicle.numberOfTires&nbsp;==&nbsp;1&nbsp;?&nbsp;@”%d&nbsp;Tire”&nbsp;:&nbsp;@”%d&nbsp;Tires”),&nbsp;self.vehicle.numberOfTires];&nbsp;</li>
+<li>&nbsp;&nbsp;}&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>else</strong>&nbsp;title&nbsp;=&nbsp;nil;</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;<br>通过使用 block 映射,我们可以重构这段代码为下面这样:</p>
+<pre><code>
+</code></pre>
+<ol>
+<li><strong>static</strong>&nbsp;NSDictionary&nbsp;*titleMapping&nbsp;=&nbsp;nil;&nbsp;</li>
+<li><strong>if</strong>&nbsp;(!titleMapping)&nbsp;{&nbsp;</li>
+<li>&nbsp;NSString&nbsp;<em>(^*<em>const</em></em>&nbsp;format)(NSUInteger,&nbsp;NSString&nbsp;*,&nbsp;NSString&nbsp;*)&nbsp;=&nbsp;^(NSUInteger&nbsp;value,&nbsp;NSString&nbsp;*singular,&nbsp;NSString&nbsp;*plural)&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;[NSString&nbsp;stringWithFormat:@”%d&nbsp;%@”,&nbsp;value,&nbsp;(value&nbsp;==&nbsp;1&nbsp;?&nbsp;singular&nbsp;:&nbsp;plural)];&nbsp;</li>
+<li>&nbsp;&nbsp;};&nbsp;</li>
+<li>&nbsp;&nbsp;titleMapping&nbsp;=&nbsp;@{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;@”Scratches”&nbsp;:&nbsp;^(MyClass&nbsp;*target)&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;format([target&nbsp;numberOfScratches],&nbsp;@”Scratch”,&nbsp;@”Scratches”);&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;@”Dents”&nbsp;:&nbsp;^(MyClass&nbsp;*target)&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;format([target&nbsp;numberOfDents],&nbsp;@”Dent”,&nbsp;@”Dents”);&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;@”Painted&nbsp;Panels”&nbsp;:&nbsp;^(MyClass&nbsp;*target)&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;format([target&nbsp;numberOfPaintedPanels],&nbsp;@”Painted&nbsp;Panel”,&nbsp;@”Painted&nbsp;Panels”);&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;@”Chips”&nbsp;:&nbsp;^(MyClass&nbsp;*target)&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;format([target&nbsp;numberOfChips],&nbsp;@”Chip”,&nbsp;@”Chips”);&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;@”Tires”&nbsp;:&nbsp;^(MyClass&nbsp;*target)&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;format([target&nbsp;numberOfTires],&nbsp;@”Tire”,&nbsp;@”Tires”);&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;</li>
+<li>&nbsp;&nbsp;};&nbsp;</li>
+<li>}&nbsp;</li>
+<li>&nbsp;&nbsp;NSString&nbsp;*(^getTitle)(MyClass&nbsp;*target)&nbsp;=&nbsp;titleMapping[title];&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>return</strong>&nbsp;getTitle&nbsp;?&nbsp;getTitle(self)&nbsp;:&nbsp;nil;</li>
+</ol>
+<p>&nbsp;</p>
+<p>Pro’s<br>1.非常安全,因为没有办法弄错if-else链. 2.缓存了映射,因为我们使用的是静态的变量. 3.我们可以很容易的添加一些宏来使得代码更精简,并且因此更容易来扩展.<br>&nbsp;<br>PS.我可以用字符串匹配来实现它,甚至使用的代码更少. 但是我不认为它能使可读性更好.<br>&nbsp;<br><strong>更早使用 return 和取反 if 的判断条件来简化的流程</strong><br>现在你大概可能发现我不太喜欢太多的if条件句并且我讨厌太长的if-esle链. 反而我比较喜欢让if条件语句尽可能的简单并且更早使用return来返回.<br>&nbsp;<br>原始代码:</p>
+<pre><code>
+</code></pre>
+<ol>
+<li><strong>if</strong>(!error)&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;//!&nbsp;success&nbsp;code&nbsp;</li>
+<li>}&nbsp;<strong>else</strong>&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;//!&nbsp;failure&nbsp;code&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;</p>
+<p>我比较喜欢的写法:</p>
+<pre><code>
+</code></pre>
+<ol>
+<li><strong>if</strong>(error)&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;//!&nbsp;failure&nbsp;code&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>return</strong>;&nbsp;</li>
+<li>}&nbsp;</li>
+<li>//!&nbsp;success&nbsp;code</li>
+</ol>
+<p>&nbsp;</p>
+<p>Pro’s 1.我不需要阅读更多的代码.假如我仅仅只是对error的情况感兴趣.<br>2.在大段代码的情况我不需要去记住所有的流程,因为我可以非常清楚看到前面的return/break.<br>&nbsp;<br><strong>使用动态方法解决</strong><br>有时,我们可能看到类似下面的情况:</p>
+<pre><code>
+</code></pre>
+<ol>
+<li><strong>if</strong>([type&nbsp;isEqualToString:@”videoWidget”])&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;[self&nbsp;parseVideoWidget:dictionary];&nbsp;</li>
+<li>}&nbsp;<strong>else</strong>&nbsp;</li>
+<li><strong>if</strong>([type&nbsp;isEqualToString:@”imageWidget”])&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;[self&nbsp;parseImageWidget:dictionary];&nbsp;</li>
+<li>}&nbsp;<strong>else</strong>&nbsp;</li>
+<li><strong>if</strong>([type&nbsp;isEqualToString:@”textWidget”])&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;[self&nbsp;parseTextWidget:dictionary];&nbsp;</li>
+<li>}&nbsp;<strong>else</strong>&nbsp;</li>
+<li><strong>if</strong>([type&nbsp;isEqualToString:@”twitterWidget”])&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;[self&nbsp;parseTwitterWidget:dictionary];&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;</p>
+<p>首先,我可以把上面讲的所有重构技巧应用到此,但是这段代码看起来主要等待解决的问题是将来的可扩展问题,让我们一起看看如何能够让它变得更好.</p>
+<pre><code>
+</code></pre>
+<ol>
+<li>SEL&nbsp;dynamicSelector&nbsp;=&nbsp;NSSelectorFromString([NSString&nbsp;stringWithFormat:@”parse%@:”,&nbsp;type]);&nbsp;</li>
+<li><strong>if</strong>(![self&nbsp;respondsToSelector:dynamicSelector])&nbsp;{&nbsp;</li>
+<li>&nbsp;&nbsp;DDLogWarning(@”Unsupported&nbsp;widget&nbsp;type&nbsp;%@”,&nbsp;type);&nbsp;</li>
+<li>&nbsp;&nbsp;<strong>return</strong>;&nbsp;</li>
+<li>}&nbsp;</li>
+<li>[self&nbsp;performSelector:dynamicSelector&nbsp;withObject:dictionary];</li>
+</ol>
+<p>&nbsp;</p>
+<p>Pro’s 1.非常容易阅读并且理解 2.比if条件语句更安全 3.更容易扩展,例如我可以添加新的工具类型到分类中.当开发一个衍生APP的时候我甚至都不需要去接触它的基础类.&nbsp;</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios基础语法/">Ios基础语法</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E9%87%8D%E6%9E%84%E7%9A%84%E6%8A%80%E5%B7%A7/" data-title="重构的技巧 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/解决mysql数据库自动关闭/" title="解决mysql数据库自动关闭">
+  <strong>上一篇：</strong><br/>
+  <span>
+  解决mysql数据库自动关闭</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/转 push本地代码到github出错/"  title="转 push本地代码到github出错">
+ <strong>下一篇：</strong><br/> 
+ <span>转 push本地代码到github出错
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/重构的技巧/" data-title="重构的技巧" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E9%87%8D%E6%9E%84%E7%9A%84%E6%8A%80%E5%B7%A7/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8D%E6%9E%84%E7%9A%84%E6%8A%80%E5%B7%A7"><span class="toc-number">1.</span> <span class="toc-text">重构的技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%9E%84%E7%9A%84%E6%8A%80%E5%B7%A7-1"><span class="toc-number">1.1.</span> <span class="toc-text">重构的技巧</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

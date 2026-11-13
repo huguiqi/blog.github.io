@@ -1,0 +1,1583 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>String.prototype 工具常用类 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="String.prototype 工具常用类javascript 小黑_spring 通过 麦库 发送。 [ 查看 小黑_spring 的共享资料库 ]   &#x2F;**     * 扩展基础类     * 得到字符串的长度，包括中文和英文     **&#x2F;    String.prototype.charlen &#x3D; function() &amp;#123;     var arr &#x3D; this.match(&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="String.prototype 工具常用类">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/String.prototype%20%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E7%B1%BB/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="String.prototype 工具常用类javascript 小黑_spring 通过 麦库 发送。 [ 查看 小黑_spring 的共享资料库 ]   &#x2F;**     * 扩展基础类     * 得到字符串的长度，包括中文和英文     **&#x2F;    String.prototype.charlen &#x3D; function() &amp;#123;     var arr &#x3D; this.match(&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2012-11-22T08:21:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/String.prototype 工具常用类/" title="String.prototype 工具常用类" itemprop="url">String.prototype 工具常用类</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#String-prototype-%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">String.prototype 工具常用类</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="String-prototype-工具常用类"><a title="String.prototype 工具常用类" class="headerlink" href="#String-prototype-工具常用类"></a>String.prototype 工具常用类</h1><p><code>javascript</code></p>
+<p>小黑_spring 通过 <a target="_blank" rel="noopener" href="http://note.sdo.com/">麦库</a> 发送。 [ <a target="_blank" rel="noopener" href="http://note.sdo.com/u/634601439002161431">查看 小黑_spring 的共享资料库</a> ] </p>
+<hr>
+<pre><code>/**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 得到字符串的长度，包括中文和英文
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  String.prototype.charlen = function() &#123;
+</code></pre>
+<pre><code>   var arr = this.match(/[^\x00-\xff]/ig);
+</code></pre>
+<pre><code>   return this.length + (arr == null ? 0 : arr.length);
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<blockquote>
+<pre><code>// 返回字符串的长度，一个中文算2个字节(英文字母和英文标点符号一个字符占一个字节，全部把页面字符串转成字节长度，以便与数据库字段长度相匹配)
+</code></pre>
+<p>String.prototype.ChineseLength=function()</p>
+<p>{</p>
+<p>return this.replace(/[^\x00-\xff]/g,”**”).length;</p>
+<pre><code>&#125;;
+</code></pre>
+</blockquote>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 格式化字符串$&#123;0&#125; -&gt; 参考printf %s
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  String.prototype.format = function() &#123;
+</code></pre>
+<pre><code>   var args = arguments;
+</code></pre>
+<pre><code>   return this.replace(/\$\&#123;(\d+)\&#125;/g,              
+</code></pre>
+<pre><code>    function(m, i)&#123;
+</code></pre>
+<pre><code>     return args[i];
+</code></pre>
+<pre><code>    &#125;);
+</code></pre>
+<pre><code>  &#125; 
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 字符串首尾去空格
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  String.prototype.trim = function() &#123;
+</code></pre>
+<pre><code>   return this.replace(/(^\s*)|(\s*$)/g, "");
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 字符串包含字符串判断
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  String.prototype.contains = function(sub) &#123;
+</code></pre>
+<pre><code>   return this.indexOf(sub) != -1;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 字符串比较大小
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  String.prototype.compare = function(b) &#123;
+</code></pre>
+<pre><code>   if(!b)
+</code></pre>
+<pre><code>    return -1;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   if(this.length != b.length)
+</code></pre>
+<pre><code>    return this.length - b.length;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   var i = 0;
+</code></pre>
+<pre><code>   for (; i &lt; this.length; i++)&#123;
+</code></pre>
+<pre><code>    var val = this.charCodeAt(i) - b.charCodeAt(i);
+</code></pre>
+<pre><code>    if(val != 0)
+</code></pre>
+<pre><code>     return val;
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   return 0;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 替换字符
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  String.prototype.replaceLen = function(start, len, replaced) &#123;
+</code></pre>
+<pre><code>   if(!len)
+</code></pre>
+<pre><code>    return this;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   if(start &gt;= this.length)
+</code></pre>
+<pre><code>    return this;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   var returnSeg = &amp;apos;&amp;apos;;
+</code></pre>
+<pre><code>   var returnSeg2 = &amp;apos;&amp;apos;;
+</code></pre>
+<pre><code>   var i = 0;
+</code></pre>
+<pre><code>   for (; i &lt; this.length; i++)&#123;
+</code></pre>
+<pre><code>    var c = this.charAt(i);
+</code></pre>
+<pre><code>    if(i &lt; start)
+</code></pre>
+<pre><code>     returnSeg += c;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>    if(i &gt;= start + len)
+</code></pre>
+<pre><code>     returnSeg2 += c;
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   return returnSeg + replaced + returnSeg2;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 替换字符，这个在替换填入比较有用，比如***天***小时 替换为 &lt;input /&gt;天&lt;input /&gt;小时
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  String.prototype.replaceChar = function(target, replaced, start) &#123;
+</code></pre>
+<pre><code>   if(!target)
+</code></pre>
+<pre><code>    return this;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   if(!start)
+</code></pre>
+<pre><code>    start = 0;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   var returnVal = this.substring(0, start);
+</code></pre>
+<pre><code>   var index = 0;
+</code></pre>
+<pre><code>   for (var i = start; i &lt; this.length; i++) &#123;
+</code></pre>
+<pre><code>    var c = this.charAt(i);
+</code></pre>
+<pre><code>    target = typeof target == &amp;apos;function&amp;apos; ? target.call(this, index) : target;
+</code></pre>
+<pre><code>    if (c == target) &#123;
+</code></pre>
+<pre><code>     returnVal += typeof replaced == &amp;apos;function&amp;apos; ? replaced.call(this, index) : replaced;
+</code></pre>
+<pre><code>     while (i &lt; this.length - 1 &amp;&amp; this.charAt(i + 1) == c) &#123;
+</code></pre>
+<pre><code>      i++;
+</code></pre>
+<pre><code>     &#125;
+</code></pre>
+<pre><code>     index++;
+</code></pre>
+<pre><code>    &#125;else&#123;
+</code></pre>
+<pre><code>     returnVal += c;
+</code></pre>
+<pre><code>    &#125;
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   return returnVal;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 克隆复制（简单copy而已）
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  Array.prototype.clone = function()&#123;
+</code></pre>
+<pre><code>   var arr = [];
+</code></pre>
+<pre><code>   var i = 0;
+</code></pre>
+<pre><code>   for(; i &lt; this.length; i++)&#123;
+</code></pre>
+<pre><code>    switch(typeof this[i])&#123;
+</code></pre>
+<pre><code>     case &amp;apos;object&amp;apos;:
+</code></pre>
+<pre><code>      var obj = &#123;&#125;;
+</code></pre>
+<pre><code>      for(key in this[i])
+</code></pre>
+<pre><code>       obj[key] = this[i][key];
+</code></pre>
+<pre><code>      arr.push(obj);
+</code></pre>
+<pre><code>      break;
+</code></pre>
+<pre><code>     default:
+</code></pre>
+<pre><code>      arr.push(this[i]);
+</code></pre>
+<pre><code>      break;
+</code></pre>
+<pre><code>    &#125;
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code>   return arr;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 清空
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  Array.prototype.clear = function() &#123;
+</code></pre>
+<pre><code>   this.splice(0, this.length);
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 数组包含元素
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  Array.prototype.contains = function(el) &#123;
+</code></pre>
+<pre><code>   var i;
+</code></pre>
+<pre><code>   for(i = 0; i &lt; this.length; i++) &#123;  
+</code></pre>
+<pre><code>    if(this[i] == el)  
+</code></pre>
+<pre><code>     return true;  
+</code></pre>
+<pre><code>   &#125;  
+</code></pre>
+<pre><code>   return false;  
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 数组添加数组
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  Array.prototype.merge = function(arr) &#123;
+</code></pre>
+<pre><code>   if(arr)&#123;
+</code></pre>
+<pre><code>    var i;
+</code></pre>
+<pre><code>    for(i = 0; i &lt; arr.length; i++) &#123;  
+</code></pre>
+<pre><code>     this.push(arr[i]);
+</code></pre>
+<pre><code>    &#125;  
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 根据值和属性获取到数组的对象下标
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  Array.prototype.indexOf = function(val, field)&#123;
+</code></pre>
+<pre><code>   var i = 0;
+</code></pre>
+<pre><code>   for(; i &lt; this.length; i++)&#123;
+</code></pre>
+<pre><code>    if(this[i] &amp;&amp; (field ? this[i][field] == val : this[i] == val))&#123;
+</code></pre>
+<pre><code>     return i;
+</code></pre>
+<pre><code>    &#125;
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code>   return -1;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 最后一个下标
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  Array.prototype.lastIndexOf = function(val, field)&#123;
+</code></pre>
+<pre><code>   var i = 0;
+</code></pre>
+<pre><code>   var max = -1;
+</code></pre>
+<pre><code>   for(; i &lt; this.length; i++)&#123;
+</code></pre>
+<pre><code>    if(this[i] &amp;&amp; (field ? this[i][field] == val : this[i] == val))&#123;
+</code></pre>
+<pre><code>     max = i;
+</code></pre>
+<pre><code>    &#125;
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code>   return max;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 数组唯一
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  Array.prototype.unique = function(field)&#123;
+</code></pre>
+<pre><code>   var arr = [];
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   var i = 0;
+</code></pre>
+<pre><code>   for(; i &lt; this.length; i++)&#123;
+</code></pre>
+<pre><code>    var val = field ? this[i][field] : this[i];
+</code></pre>
+<pre><code>    var index = this.lastIndexOf(val, field);
+</code></pre>
+<pre><code>    if(index == i)
+</code></pre>
+<pre><code>     arr.push(this[i]);
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   return arr;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 数组最大值
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  Array.prototype.max = function(field)&#123;
+</code></pre>
+<pre><code>   var result = -1;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   var i = 0;
+</code></pre>
+<pre><code>   for(; i &lt; this.length; i++)&#123;
+</code></pre>
+<pre><code>    var val = field ? this[i][field] : this[i];
+</code></pre>
+<pre><code>    if(val &gt; result)
+</code></pre>
+<pre><code>     result = val;
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   return result;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 数组最小值
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  Array.prototype.min = function(field)&#123;
+</code></pre>
+<pre><code>   var result = -1;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   var i = 0;
+</code></pre>
+<pre><code>   for(; i &lt; this.length; i++)&#123;
+</code></pre>
+<pre><code>    var val = field ? this[i][field] : this[i];
+</code></pre>
+<pre><code>    if(val &lt; result)
+</code></pre>
+<pre><code>     result = val;
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>   return result;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  /**
+</code></pre>
+<pre><code>   * 扩展基础类
+</code></pre>
+<pre><code>   * 日期格式化
+</code></pre>
+<pre><code>   **/
+</code></pre>
+<pre><code>  Date.prototype.format = function(pat)&#123;
+</code></pre>
+<pre><code>   var year = this.getFullYear();
+</code></pre>
+<pre><code>   var month = this.getMonth() + 1;
+</code></pre>
+<pre><code>   var day = this.getDate();
+</code></pre>
+<pre><code>   var hour = this.getHours();
+</code></pre>
+<pre><code>   var minute = this.getMinutes();
+</code></pre>
+<pre><code>   var second = this.getSeconds();
+</code></pre>
+<pre><code>   // 两位补齐
+</code></pre>
+<pre><code>   month = month &gt; 9 ? month : "0" + month;
+</code></pre>
+<pre><code>   day = day &gt; 9 ? day : "0" + day;
+</code></pre>
+<pre><code>   hour = hour &gt; 9 ? hour : "0" + hour;
+</code></pre>
+<pre><code>   minute = minute &gt; 9 ? minute : "0" + minute;
+</code></pre>
+<pre><code>   second = second &gt; 9 ? second : "0" + second;
+</code></pre>
+<pre><code>   if(!pat)&#123;
+</code></pre>
+<pre><code>    pat = "yyyy-MM-dd";
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code>   pat = pat.replace(/yyyy/g, year);
+</code></pre>
+<pre><code>   pat = pat.replace(/MM/g, month);
+</code></pre>
+<pre><code>   pat = pat.replace(/dd/g, day);
+</code></pre>
+<pre><code>   pat = pat.replace(/HH/gi, hour);
+</code></pre>
+<pre><code>   pat = pat.replace(/mm/g, minute);
+</code></pre>
+<pre><code>   pat = pat.replace(/ss/g, second);
+</code></pre>
+<pre><code>   return pat;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  // 减去时差的毫秒数（取决于使用的浏览器的locale设置）
+</code></pre>
+<pre><code>  Date.prototype.getTime2 = function()&#123;
+</code></pre>
+<pre><code>//   return this.getTime();
+</code></pre>
+<pre><code>   return this.getTime() - this.getTimezoneOffset() / 60 * 3600 * 1000;
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  // 日期相差天数
+</code></pre>
+<pre><code>  Date.prototype.diff = function(date)&#123;
+</code></pre>
+<pre><code>   return Math.ceil((this - date) / (1000 * 60 * 60 * 24));
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  // 日期加减计算
+</code></pre>
+<pre><code>  Date.prototype.add = function(days)&#123;
+</code></pre>
+<pre><code>   return new Date(this.getTime() + days * (1000 * 60 * 60 * 24));
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  // 日期加减计算
+</code></pre>
+<pre><code>  Date.prototype.addMonth = function(months)&#123;
+</code></pre>
+<pre><code>   var day = this.getDate();
+</code></pre>
+<pre><code>   var month = this.getMonth() + 1;
+</code></pre>
+<pre><code>   var year = this.getFullYear();
+</code></pre>
+<pre><code>   month += months;  
+</code></pre>
+<pre><code>   if(month &gt; 12)&#123;
+</code></pre>
+<pre><code>    year += Math.floor(month / 12);
+</code></pre>
+<pre><code>    month = month % 12;
+</code></pre>
+<pre><code>   &#125;
+</code></pre>
+<pre><code>   return Date.parse(month + &amp;apos;/&amp;apos; + day + &amp;apos;/&amp;apos; + year);
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  // 解析字符串，以默认 pat = "yyyy-MM-dd"的格式，而不是MM/dd/yyyy
+</code></pre>
+<pre><code>  Date.parse2 = function(str, pat)&#123;
+</code></pre>
+<pre><code>   if(str == null || str == &amp;apos;&amp;apos;)
+</code></pre>
+<pre><code>    return new Date();
+</code></pre>
+<pre><code>   var rstr = str.replace(/(\d&#123;4&#125;)([-\./])(\d&#123;1,2&#125;)\2(\d&#123;1,2&#125;)/, "$3/$4/$1");
+</code></pre>
+<pre><code>   return new Date(Date.parse(rstr));
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<pre><code> 
+</code></pre>
+<pre><code>  // 解析字符串，json date obj
+</code></pre>
+<pre><code>  // 减去时差的毫秒数（取决于使用的浏览器的locale设置）
+</code></pre>
+<pre><code>  Date.parse3 = function(obj)&#123;
+</code></pre>
+<pre><code>//   return new Date(obj.time);
+</code></pre>
+<pre><code>   return new Date(obj.time - new Date().getTimezoneOffset() / 60 * 3600 * 1000);
+</code></pre>
+<pre><code>//   var str = obj.year + &amp;apos;-&amp;apos; + (obj.month + 1) + &amp;apos;-&amp;apos; + obj.date + &amp;apos; &amp;apos; + 
+</code></pre>
+<pre><code>//    obj.hours + &amp;apos;:&amp;apos; + obj.minutes + &amp;apos;:&amp;apos; + obj.seconds;
+</code></pre>
+<pre><code>//   return Date.parse2(str);
+</code></pre>
+<pre><code>  &#125;
+</code></pre>
+<p> &nbsp;</p>
+<p>其中日期部分是为了和后台json-libjson-lib交互用，用了时间戳。 </p>
+<p>把之前两次的扩展总结一下，trim 方法有四种使用方法：</p>
+<p>trim()&nbsp;&nbsp; 去除字符串左右两端的空格</p>
+<p>trim(“xyz”)&nbsp; 去除字符串左右两端的字符xyz</p>
+<p>trim(/[0-9]/g)&nbsp; 去除字符串左右两端的数字</p>
+<p>trim(0,3)&nbsp; 去除字符串右端3个字符</p>
+<p>trim 方法代码如下：</p>
+<p>String.prototype.trim = function(){</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; var _argument = arguments[0]==undefined ? “ “:arguments[0];</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; if(typeof(_argument)==”string”){</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return this.replace(_argument == “ “?/(^s*)|(s*$)/g : new RegExp(“(^”+_argument+”<em>)|(“+_argument+”</em>$)”,”g”),””);</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; }else if(typeof(_argument)==”object”){</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return this.replace(_argument,””)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; }else if(typeof(_argument)==”number” &amp;&amp; arguments.length&gt;=1){</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return arguments.length==1? this.substring(arguments[0]) : this.substring(arguments[0],this.length-arguments[1]);</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p>};</p>
+<p>//trim扩展,(注：ie和chrome，Safari都没有提供trim方法，而在firefox下却有trim方法，而且还可以用，不过最好是重写一个，以便浏览器兼容)</p>
+<p>String.prototype.trim = function() {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; //去除左右空格</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; return this.replace(/(^\s*)|(\s*$)/g,””);&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; //去除所有空格</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; //return this.replace(/\s+/g, “”);</p>
+<p>}</p>
+<p>// 返回字符的长度，一个中文算2个&nbsp;</p>
+<p>String.prototype.ChineseLength=function()&nbsp;</p>
+<p>{&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; return this.replace(/[^\x00-\xff]/g,”**”).length;&nbsp;</p>
+<p>};&nbsp;</p>
+<p>//判断输入是否为手机或者电话号码(国内)<br>String.prototype.isMobileOrPhone = function(){<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var mobile = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var tel = /^\d{3,4}-\d{7,8}(-\d{3,4})?$/;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; return&nbsp;mobile.test(this) || tel.test(this);<br>}
+&nbsp;</p>
+<p>//jquery.table.addrow</p>
+<table><tbody><tr><td>
+
+<p>&nbsp;<label>Month (local):</label></p>
+<p>&nbsp;<input class="month" type="text"></p>
+<p>&nbsp;<input value="Add" type="button" class="addRow"></p>
+<p>&nbsp;<input value="Remove" type="button" class="delRow"></p>
+</td></tr></tbody></table>
+
+
+
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><a href="">//以下是在项目中用到的基于jquery.class插件的js身份证验证类</a><br><a target="_blank" rel="noopener" href="http://files.note.sdo.com/1Hf4n~jLae6wLX0ew002cQ">Common</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF%E4%B8%8ENode-js/">前端与Node.js</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/javascript/">javascript</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/String.prototype%20%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E7%B1%BB/" data-title="String.prototype 工具常用类 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/Springboot中使用Xstream进行XML与Bean 相互转换/" title="Springboot中使用Xstream进行XML与Bean 相互转换">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Springboot中使用Xstream进行XML与Bean 相互转换</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/String.prototype 工具常用类 2/"  title="String.prototype 工具常用类">
+ <strong>下一篇：</strong><br/> 
+ <span>String.prototype 工具常用类
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/String.prototype 工具常用类/" data-title="String.prototype 工具常用类" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/String.prototype%20%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E7%B1%BB/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#String-prototype-%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">String.prototype 工具常用类</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

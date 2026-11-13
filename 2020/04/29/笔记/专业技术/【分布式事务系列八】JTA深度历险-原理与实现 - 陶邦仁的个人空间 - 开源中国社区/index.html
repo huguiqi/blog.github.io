@@ -1,0 +1,1198 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区java事务管理 JTA&amp;XA 【分布式事务系列八】JTA深度历险-原理与实现  发表于3个月前(2015-12-21 14:39)&amp;nbsp;&amp;nbsp; 阅读（）&amp;nbsp;|&amp;nbsp;评论（）赞__0  [# 0 系列目录 在 J2EE 应用中，事务是一个不可或缺的组件模型，它保证了用户操作的 A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB%E3%80%91JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0%20-%20%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%20%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区java事务管理 JTA&amp;XA 【分布式事务系列八】JTA深度历险-原理与实现  发表于3个月前(2015-12-21 14:39)&amp;nbsp;&amp;nbsp; 阅读（）&amp;nbsp;|&amp;nbsp;评论（）赞__0  [# 0 系列目录 在 J2EE 应用中，事务是一个不可或缺的组件模型，它保证了用户操作的 A">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB-JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4-%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA/21151151_grLu.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB-JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4-%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA/21153117_LsB9.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB-JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4-%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA/21150048_Q4eR.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-03-21T14:32:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="java事务管理">
+<meta property="article:tag" content="JTA&amp;XA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB-JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4-%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA/21151151_grLu.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区/" title="【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区" itemprop="url">【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB%E3%80%91JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4-%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA"><span class="toc-number">1.</span> <span class="toc-text">【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB%E3%80%91JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">【分布式事务系列八】JTA深度历险-原理与实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%88%A9%E7%94%A8-JTA-%E5%A4%84%E7%90%86%E4%BA%8B%E5%8A%A1"><span class="toc-number">3.</span> <span class="toc-text">1 利用 JTA 处理事务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">1.1 什么是事务处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-J2EE-%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">3.2.</span> <span class="toc-text">1.2 J2EE 事务处理方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-JTA-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">2 JTA 实现原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-JTA%E5%92%8CJTS%E5%85%B3%E7%B3%BB"><span class="toc-number">5.</span> <span class="toc-text">3 JTA和JTS关系</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="【分布式事务系列八】JTA深度历险-原理与实现-陶邦仁的个人空间-开源中国社区"><a title="【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区" class="headerlink" href="#【分布式事务系列八】JTA深度历险-原理与实现-陶邦仁的个人空间-开源中国社区"></a>【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区</h1><p><code>java事务管理</code> <code>JTA&amp;XA</code></p>
+<h1 id="【分布式事务系列八】JTA深度历险-原理与实现"><a title="【分布式事务系列八】JTA深度历险-原理与实现" class="headerlink" href="#【分布式事务系列八】JTA深度历险-原理与实现"></a>【分布式事务系列八】JTA深度历险-原理与实现</h1><p>  发表于3个月前(2015-12-21 14:39)&nbsp;&nbsp; 阅读（）&nbsp;|&nbsp;评论（）<br><em>赞__0</em><br>  [# 0 系列目录</p>
+<p>在 J2EE 应用中，事务是一个不可或缺的组件模型，<code>它保证了用户操作的 ACID（即原子、一致、隔离、持久）属性</code>。对于只操作单一数据源的应用，可以通过本地资源接口实现事务管理；对于跨数据源（例如多个数据库，或者数据库与 JMS）的大型应用，则必须使用全局事务 JTA (Java Transaction API)。<code>JTA 为 J2EE 平台提供了分布式事务服务，它隔离了事务与底层的资源，实现了透明的事务管理方式</code>。</p>
+<h1 id="1-利用-JTA-处理事务"><a title="1 利用 JTA 处理事务" class="headerlink" href="#1-利用-JTA-处理事务"></a>1 利用 JTA 处理事务</h1><h2 id="1-1-什么是事务处理"><a title="1.1 什么是事务处理" class="headerlink" href="#1-1-什么是事务处理"></a>1.1 什么是事务处理</h2><p>事务是计算机应用中不可或缺的组件模型，<code>它保证了用户操作的原子性 ( Atomicity )、一致性 ( Consistency )、隔离性 ( Isolation ) 和持久性 ( Durabilily )</code>。关于事务最经典的示例莫过于信用卡转账：将用户 A 账户中的 500 元人民币转移到用户 B 的账户中，其操作流程如下 </p>
+<ol>
+<li>将 A 账户中的金额减少 500</li>
+<li>将 B 账户中的金额增加 500</li>
+</ol>
+<p>这两个操作必须保正 ACID 的事务属性：即要么全部成功，要么全部失败；假若没有事务保障，用户的账号金额将可能发生问题：</p>
+<p>假如第一步操作成功而第二步失败，那么用户 A 账户中的金额将就减少 500 元而用户 B 的账号却没有任何增加（不翼而飞）；同样如果第一步出错 而第二步成功，那么用户 A 的账户金额不变而用户 B 的账号将增加 500 元（凭空而生）。上述任何一种错误都会产生严重的数据不一致问题，事务的缺失对于一个稳定的生产系统是不可接受的。</p>
+<h2 id="1-2-J2EE-事务处理方式"><a title="1.2 J2EE 事务处理方式" class="headerlink" href="#1-2-J2EE-事务处理方式"></a>1.2 J2EE 事务处理方式</h2><ol>
+<li><code>本地事务：紧密依赖于底层资源管理器（例如数据库连接 )，事务处理局限在当前事务资源内</code>。此种事务处理方式不存在对应用服务器的依赖，因而部署灵活却无法支持多数据源的分布式事务。在数据库连接中使用本地事务示例如下：<pre><code>public transferAccount&#123; 
+  Connection conn = ; 
+  Statement stmt = ; 
+  &#123; 
+      conn = getDataSource().getConnection(); 
+      // 将自动提交设置为 false，
+      //若设置为 true 则数据库将会把每一次数据更新认定为一个事务并自动提交
+      conn.setAutoCommit(false);
+      stmt = conn.createStatement(); 
+      // 将 A 账户中的金额减少 500 
+      stmt.execute("update t_account set amount = amount - 500 where account_id = 'A'");
+      // 将 B 账户中的金额增加 500 
+      stmt.execute("update t_account set amount = amount + 500 where account_id = 'B'");
+      // 提交事务
+      conn.commit();
+  // 事务提交：转账的两步操作同时成功
+  &#125; catch(SQLException sqle)&#123;             
+      &#123; 
+          // 发生异常，回滚在本事务中的操做
+          conn.rollback();
+          // 事务回滚：转账的两步操作完全撤销
+          stmt.close(); 
+          conn.close(); 
+      &#125;catch(Exception ignore)&#123; 
+  &#125; 
+  sqle.printStackTrace(); 
+  &#125; 
+&#125;
+</code></pre>
+</li>
+<li><code>分布式事务处理 : Java 事务编程接口（JTA：Java Transaction API）和 Java 事务服务 (JTS：Java Transaction Service) 为 J2EE 平台提供了分布式事务服务</code>。分布式事务（Distributed Transaction）包括事务管理器（Transaction Manager）和一个或多个支持 XA 协议的资源管理器 ( Resource Manager )。我们可以将<code>资源管理器看做任意类型的持久化数据存储</code>；<code>事务管理器承担着所有事务参与单元的协调与控制</code>。JTA 事务有效的屏蔽了底层事务资源，使应用可以以透明的方式参入到事务处理中；但是与本地事务相比，<code>XA 协议的系统开销大，在系统开发过程中应慎重考虑是否确实需要分布式事务</code>。若确实需要分布式事务以协调多个事务资源，则应实现和配置所支持 XA 协议的事务资源，如 JMS、JDBC 数据库连接池等。使用 JTA 处理事务的示例如下（注意：connA 和 connB 是来自不同数据库的连接）<pre><code>public transferAccount&#123; 
+  UserTransaction userTx = ; 
+  Connection connA = ; 
+  Statement stmtA = ; 
+  Connection connB = ; 
+  Statement stmtB = ; 
+  &#123; 
+      // 获得 Transaction 管理对象
+      userTx = (UserTransaction)getContext().lookup("java:comp/UserTransaction"); 
+      // 从数据库 A 中取得数据库连接
+  connA = getDataSourceA().getConnection(); 
+  // 从数据库 B 中取得数据库连接
+  connB = getDataSourceB().getConnection(); 
+      // 启动事务
+  userTx.begin();
+  // 将 A 账户中的金额减少 500 
+  stmtA = connA.createStatement(); 
+  stmtA.execute("update t_account set amount = amount - 500 where account_id = 'A'");
+  // 将 B 账户中的金额增加 500 
+  stmtB = connB.createStatement(); 
+  stmtB.execute("update t_account set amount = amount + 500 where account_id = 'B'");
+  // 提交事务
+  userTx.commit();
+  // 事务提交：转账的两步操作同时成功（数据库 A 和数据库 B 中的数据被同时更新）
+  &#125; catch(SQLException sqle) &#123; 
+       &#123; 
+      // 发生异常，回滚在本事务中的操纵
+          userTx.rollback();
+      // 事务回滚：转账的两步操作完全撤销 
+      //( 数据库 A 和数据库 B 中的数据更新被同时撤销）
+      stmt.close(); 
+          conn.close(); 
+      ... 
+  &#125; catch(Exception ignore) &#123; 
+  &#125; 
+  sqle.printStackTrace();     
+  &#125; catch(Exception e) &#123; 
+      e.printStackTrace(); 
+  &#125; 
+&#125;
+</code></pre>
+</li>
+</ol>
+<h1 id="2-JTA-实现原理"><a title="2 JTA 实现原理" class="headerlink" href="#2-JTA-实现原理"></a>2 JTA 实现原理</h1><p>很多开发人员都会对 JTA 的内部工作机制感兴趣：我编写的代码没有任何与事务资源（如数据库连接）互动的代码，但是我的操作（数据库更新）却实实在在的被包含在了事务中，那 JTA 究竟是通过何种方式来实现这种透明性的呢？ 要理解 JTA 的实现原理首先需要了解其架构：<code>它包括事务管理器（Transaction Manager）和一个或多个支持 XA 协议的资源管理器 ( Resource Manager ) 两部分</code>， 我们可以将<code>资源管理器看做任意类型的持久化数据存储</code>；<code>事务管理器则承担着所有事务参与单元的协调与控制</code>。 根据所面向对象的不同，我们可以将 JTA 的事务管理器和资源管理器理解为两个方面：<code>面向开发人员的使用接口（事务管理器）和面向服务提供商的实现接口（资源管理器）</code>。其中开发接口的主要部分即为上述示例中引用的 UserTransaction 对象，开发人员通过此接口在信息系统中实现分布式事务；而实现接口则用来规范提供商（如数据库连接提供商）所提供的事务服务，它约定了事务的资源管理功能，使得 JTA 可以在异构事务资源之间执行协同沟通。以数据库为例，IBM 公司提供了实现分布式事务的数据库驱动程序，Oracle 也提供了实现分布式事务的数据库驱动程序， 在同时使用 DB2 和 Oracle 两种数据库连接时， JTA 即可以根据约定的接口协调者两种事务资源从而实现分布式事务。<code>正是基于统一规范的不同实现使得 JTA 可以协调与控制不同数据库或者 JMS 厂商的事务资源</code>，其架构如下图所示：](<a target="_blank" rel="noopener" href="http://click.aliyun.com/m/3873/">http://click.aliyun.com/m/3873/</a>)</p>
+<p><a target="_blank" rel="noopener" href="https://static.oschina.net/uploads/img/201512/21150048_Q4eR.jpg"><img loading="lazy" alt="21151151_grLu.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB-JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4-%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA/21151151_grLu.jpg"></a></p>
+<p><code>开发人员使用开发人员接口，实现应用程序对全局事务的支持；各提供商（数据库，JMS 等）依据提供商接口的规范提供事务资源管理功能</code>；<code>事务管理器（ TransactionManager ）将应用对分布式事务的使用映射到实际的事务资源并在事务资源间进行协调与控制</code>。下面，本文将对包括 UserTransaction、Transaction 和 TransactionManager 在内的三个主要接口以及其定义的方法进行介绍。</p>
+<p><strong>面向开发人员的接口为 UserTransaction （使用方法如上例所示），开发人员通常只使用此接口实现 JTA 事务管理，其定义了如下的方法：</strong></p>
+<blockquote>
+<p>begin()- 开始一个分布式事务，（在后台 TransactionManager 会创建一个 Transaction 事务对象并把此对象通过 ThreadLocale 关联到当前线程上 )</p>
+<p>commit()- 提交事务（在后台 TransactionManager 会从当前线程下取出事务对象并把此对象所代表的事务提交）</p>
+<p>rollback()- 回滚事务（在后台 TransactionManager 会从当前线程下取出事务对象并把此对象所代表的事务回滚）</p>
+<p>getStatus()- 返回关联到当前线程的分布式事务的状态 (Status 对象里边定义了所有的事务状态，感兴趣的读者可以参考 API 文档 )</p>
+<p>setRollbackOnly()- 标识关联到当前线程的分布式事务将被回滚</p>
+</blockquote>
+<p><strong>面向提供商的实现接口主要涉及到 TransactionManager 和 Transaction 两个对象：</strong></p>
+<p><code>Transaction 代表了一个物理意义上的事务</code>，在开发人员调用 UserTransaction.begin() 方法时 TransactionManager 会创建一个 Transaction 事务对象（标志着事务的开始）并把此对象通过 ThreadLocale 关联到当前线程。<code>UserTransaction 接口中的 commit()、rollback()，getStatus() 等方法都将最终委托给 Transaction 类的对应方法执行</code>。Transaction 接口定义了如下的方法：</p>
+<blockquote>
+<p>commit()- 协调不同的事务资源共同完成事务的提交</p>
+<p>rollback()- 协调不同的事务资源共同完成事务的回滚</p>
+<p>setRollbackOnly()- 标识关联到当前线程的分布式事务将被回滚</p>
+<p>getStatus()- 返回关联到当前线程的分布式事务的状态</p>
+<p>enListResource(XAResource xaRes, int flag)- 将事务资源加入到当前的事务中（在上述示例中，在对数据库 A 操作时 其所代表的事务资源将被关联到当前事务中，同样，在对数据库 B 操作时其所代表的事务资源也将被关联到当前事务中）</p>
+<p>delistResourc(XAResource xaRes, int flag)- 将事务资源从当前事务中删除</p>
+<p>registerSynchronization(Synchronization sync)- 回调接口，Hibernate 等 ORM 工具都有自己的事务控制机制来保证事务， 但同时它们还需要一种回调机制以便在事务完成时得到通知从而触发一些处理工作，如清除缓存等。这就涉及到了 Transaction 的回调接口 registerSynchronization。工具可以通过此接口将回调程序注入到事务中，当事务成功提交后，回调程序将被激活。</p>
+</blockquote>
+<p><code>TransactionManager 本身并不承担实际的事务处理功能，它更多的是充当用户接口和实现接口之间的桥梁</code>。下面列出了 TransactionManager 中定义的方法，可以看到此接口中的大部分事务方法与 UserTransaction 和 Transaction 相同。 在开发人员调用 UserTransaction.begin() 方法时 TransactionManager 会创建一个 Transaction 事务对象（标志着事务的开始）并把此对象通过 ThreadLocale 关联到当前线程上；同样 UserTransaction.commit() 会调用 TransactionManager.commit()， 方法将从当前线程下取出事务对象 Transaction 并把此对象所代表的事务提交， 即调用 Transaction.commit()：</p>
+<blockquote>
+<p>begin()- 开始事务</p>
+<p>commit()- 提交事务</p>
+<p>rollback()- 回滚事务</p>
+<p>getStatus()- 返回当前事务状态</p>
+<p>setRollbackOnly()</p>
+<p>getTransaction()- 返回关联到当前线程的事务</p>
+<p>setTransactionTimeout(int seconds)- 设置事务超时时间</p>
+<p>resume(Transaction tobj)- 继续当前线程关联的事务</p>
+<p>suspend()- 挂起当前线程关联的事务</p>
+</blockquote>
+<p>在系统开发过程中会遇到需要将事务资源暂时排除的操作，<code>此时就需要调用 suspend() 方法将当前的事务挂起</code>：在此方法后面所做的任何操作将不会被包括在事务中，<code>在非事务性操作完成后调用 resume()以继续事务</code>（注： 要进行此操作需要获得 TransactionManager 对象， 其获得方式在不同的 J2EE 应用服务器上是不一样的）。</p>
+<p>下面将通过具体的代码向读者介绍 JTA 实现原理。下图列出了示例实现中涉及到的 Java 类，其中 UserTransactionImpl 实现了 UserTransaction 接口，TransactionManagerImpl 实现了 TransactionManager 接口，TransactionImpl 实现了 Transaction 接口：</p>
+<p><strong>JTA 实现类图：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://static.oschina.net/uploads/img/201512/21151151_grLu.jpg"><img loading="lazy" alt="21153117_LsB9.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB-JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4-%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA/21153117_LsB9.jpg"></a></p>
+<p><strong>开始事务 - UserTransactionImpl implenments UserTransaction</strong></p>
+<pre><code>public beginthrows NotSupportedException, SystemException &#123; 
+    // 将开始事务的操作委托给 TransactionManagerImpl 
+    TransactionManagerImpl.singleton().begin(); 
+&#125;
+</code></pre>
+<p><strong>开始事务 - TransactionManagerImpl implements TransactionManager</strong></p>
+<pre><code>// 此处 transactionHolder 用于将 Transaction 所代表的事务对象关联到线程上
+private static ThreadLocal&lt;TransactionImpl&gt; transactionHolder =  ThreadLocal&lt;TransactionImpl&gt;(); 
+
+//TransacationMananger 必须维护一个全局对象，因此使用单实例模式实现
+private static TransactionManagerImpl singleton =  TransactionManagerImpl(); 
+
+privateTransactionManagerImpl&#123; 
+
+&#125; 
+
+public static TransactionManagerImpl singleton&#123; 
+    return singleton; 
+&#125; 
+
+public beginthrows NotSupportedException, SystemException &#123; 
+    //XidImpl 实现了 Xid 接口，其作用是唯一标识一个事务
+    XidImpl xid =  XidImpl(); 
+
+    // 创建事务对象，并将对象关联到线程
+    TransactionImpl tx =  TransactionImpl(xid); 
+
+    transactionHolder.set(tx); 
+&#125;
+</code></pre>
+<p>现在我们就可以理解 Transaction 接口上没有定义 begin 方法的原因了：<code>Transaction 对象本身就代表了一个事务，在它被创建的时候就表明事务已经开始，因此也就不需要额外定义 begin() 方法了</code>。</p>
+<p><strong>提交事务 - UserTransactionImpl implenments UserTransaction</strong></p>
+<pre><code>public committhrows RollbackException, HeuristicMixedException, 
+    HeuristicRollbackException, SecurityException, IllegalStateException, SystemException &#123; 
+
+    // 检查是否是 Roll back only 事务，如果是回滚事务
+     (rollBackOnly) &#123; 
+        rollback(); 
+    return; 
+    &#125;  &#123; 
+        // 将提交事务的操作委托给 TransactionManagerImpl 
+    TransactionManagerImpl.singleton().commit(); 
+    &#125; 
+&#125;
+</code></pre>
+<p><strong>提交事务 - TransactionManagerImpl implenments TransactionManager</strong></p>
+<pre><code>public committhrows RollbackException, HeuristicMixedException, 
+    HeuristicRollbackException, SecurityException, 
+    IllegalStateException, SystemException &#123; 
+
+    // 取得当前事务所关联的事务并通过其 commit 方法提交
+    TransactionImpl tx = transactionHolder.get(); 
+    tx.commit(); 
+&#125;
+</code></pre>
+<p>同理， rollback、getStatus、setRollbackOnly 等方法也采用了与 commit() 相同的方式实现。 UserTransaction 对象不会对事务进行任何控制， 所有的事务方法都是通过 TransactionManager 传递到实际的事务资源即 Transaction 对象上。</p>
+<p>上述示例演示了 JTA 事务的处理过程，<code>下面将为您展示事务资源（数据库连接，JMS）是如何以透明的方式加入到 JTA 事务中的</code>。首先需要明确的一点是，<code>在 JTA 事务 代码中获得的数据库源 ( DataSource ) 必须是支持分布式事务的</code>。在如下的代码示例中，尽管所有的数据库操作都被包含在了 JTA 事务中，但是<code>因为 MySql 的数据库连接是通过本地方式获得的，对 MySql 的任何更新将不会被自动包含在全局事务中</code>。</p>
+<p><strong>JTA 事务处理</strong></p>
+<pre><code>public transferAccount&#123; 
+
+    UserTransaction userTx = ; 
+    Connection mySqlConnection = ; 
+    Statement mySqlStat = ; 
+
+    Connection connB = ; 
+    Statement stmtB = ; 
+
+    &#123; 
+        // 获得 Transaction 管理对象
+    userTx = (UserTransaction)getContext().lookup("java:comp/UserTransaction");
+    // 以本地方式获得 mySql 数据库连接
+    mySqlConnection = DriverManager.getConnection("localhost:1111"); 
+
+    // 从数据库 B 中取得数据库连接， getDataSourceB 返回应用服务器的数据源
+    connB = getDataSourceB().getConnection(); 
+
+        // 启动事务
+    userTx.begin();
+
+    // 将 A 账户中的金额减少 500 
+    //mySqlConnection 是从本地获得的数据库连接，不会被包含在全局事务中
+    mySqlStat = mySqlConnection.createStatement(); 
+    mySqlStat.execute("update t_account set amount = amount - 500 where account_id = 'A'");
+
+    //connB 是从应用服务器得的数据库连接，会被包含在全局事务中
+    stmtB = connB.createStatement(); 
+    stmtB.execute("update t_account set amount = amount + 500 where account_id = 'B'");
+
+    // 事务提交：connB 的操作被提交，mySqlConnection 的操作不会被提交
+    userTx.commit();
+
+    &#125; catch(SQLException sqle)&#123; 
+        // 处理异常代码
+    &#125; catch(Exception ne)&#123; 
+        e.printStackTrace(); 
+    &#125; 
+&#125;
+</code></pre>
+<p>为什么必须从支持事务的数据源中获得的数据库连接才支持分布式事务呢？<code>其实支持事务的数据源与普通的数据源是不同的，它实现了额外的 XADataSource 接口</code>。我们可以简单的将 XADataSource 理解为普通的数据源（继承了 java.sql.PooledConnection），只是它为支持分布式事务而增加了 getXAResource 方法。另外，由 XADataSource 返回的数据库连接与普通连接也是不同的，<code>此连接除了实现 java.sql.Connection 定义的所有功能之外还实现了 XAConnection 接口</code>。我们可以把 XAConnection 理解为普通的数据库连接，它支持所有 JDBC 规范的数据库操作，<code>不同之处在于 XAConnection 增加了对分布式事务的支持</code>。通过下面的类图读者可以对这几个接口的关系有所了解：</p>
+<p><strong>事务资源类图</strong></p>
+<p><a target="_blank" rel="noopener" href="https://static.oschina.net/uploads/img/201512/21153117_LsB9.jpg"><img loading="lazy" alt="21150048_Q4eR.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB-JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4-%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA/21150048_Q4eR.jpg"></a></p>
+<p>应用程序从支持分布式事务的数据源获得的数据库连接是 XAConnection 接口的实现，而由此数据库连接创建的会话（Statement）也为了支持分布式事务而增加了功能，如下代码所示：</p>
+<p><strong>JTA 事务资源处理</strong></p>
+<pre><code>public transferAccount&#123; 
+    UserTransaction userTx = ;                 
+    Connection conn = ; 
+    Statement stmt = ; 
+
+    &#123; 
+        // 获得 Transaction 管理对象
+    userTx = (UserTransaction)getContext().lookup("java:comp/UserTransaction"); 
+
+        // 从数据库中取得数据库连接， getDataSourceB 返回支持分布式事务的数据源
+    conn = getDataSourceB().getConnection(); 
+
+        // 会话 stmt 已经为支持分布式事务进行了功能增强
+    stmt = conn.createStatement(); 
+
+        // 启动事务
+    userTx.begin();
+        stmt.execute("update t_account ... where account_id = 'A'"); 
+    userTx.commit();
+
+    &#125; catch(SQLException sqle)&#123; 
+        // 处理异常代码
+    &#125; catch(Exception ne)&#123; 
+        e.printStackTrace(); 
+    &#125; 
+&#125;
+</code></pre>
+<p>我们来看一下<code>由 XAConnection 数据库连接创建的会话（Statement）部分的代码实现（不同的 JTA 提供商会有不同的实现方式，此处代码示例只是向您演示事务资源是如何被自动加入到事务中）</code>。 我们以会话对象的 execute 方法为例，通过在方法开始部分增加对 associateWithTransactionIfNecessary 方法的调用，即可以保证在 JTA 事务期间，对任何数据库连接的操作都会被透明的加入到事务中。</p>
+<p><strong>将事务资源自动关联到事务对象 - XAStatement implements Statement</strong></p>
+<pre><code>public execute(String sql)&#123; 
+    // 对于每次数据库操作都检查此会话所在的数据库连接是否已经被加入到事务中
+    associateWithTransactionIfNecessary(); 
+
+    &#123; 
+        // 处理数据库操作的代码
+    .... 
+    &#125; catch(SQLException sqle)&#123; 
+        // 处理异常代码
+    &#125; catch(Exception ne)&#123; 
+        e.printStackTrace(); 
+    &#125; 
+&#125; 
+
+public associateWithTransactionIfNecessary&#123; 
+    // 获得 TransactionManager 
+    TransactionManager tm = getTransactionManager(); 
+
+    Transaction tx = tm.getTransaction()；
+    // 检查当前线程是否有分布式事务
+    (tx != )&#123; 
+        // 在分布式事务内，通过 tx 对象判断当前数据连接是否已经被包含在事务中，
+    // 如果不是那么将此连接加入到事务中
+    Connection conn = .getConnection(); 
+    //tx.hasCurrentResource， xaConn.getDataSource() 不是标准的 JTA 
+        // 接口方法，是为了实现分布式事务而增加的自定义方法
+    (!tx.hasCurrentResource(conn))&#123; 
+        XAConnection xaConn = (XAConnection)conn; 
+        XADataSource xaSource = xaConn.getDataSource(); 
+
+        // 调用 Transaction 的接口方法，将数据库事务资源加入到当前事务中
+        tx.enListResource(xaSource.getXAResource(), );
+    &#125; 
+    &#125; 
+&#125;
+</code></pre>
+<p><strong>XAResource 与 Xid：</strong>XAResource 是 Distributed Transaction Processing: The XA Specification 标准的 Java 实现，<code>它是对底层事务资源的抽象，定义了分布式事务处理过程中事务管理器和资源管理器之间的协议，各事务资源提供商（如 JDBC 驱动，JMS）将提供此接口的实现</code>。使用此接口，开发人员可以通过自己的编程实现分布式事务处理，但这些通常都是由应用服务器实现的（服务器自带实现更加高效，稳定） 为了说明，我们将举例说明他的使用方式。</p>
+<p><code>在使用分布式事务之前，为了区分事务使之不发生混淆，必须实现一个 Xid 类用来标识事务</code>，可以把 Xid 想象成事务的一个标志符，每次在新事务创建是都会为事务分配一个 Xid，<code>Xid 包含三个元素：formatID、gtrid（全局事务标识符）和 bqual（分支修饰词标识符）</code>。 formatID 通常是零，这意味着你将使用 OSI CCR（Open Systems Interconnection Commitment, Concurrency 和 Recovery 标准）来命名；如果你要使用另外一种格式，那么 formatID 应该大于零，-1 值意味着 Xid 为无效。</p>
+<p>gtrid 和 bqual 分别包含 64 个字节二进制码来分别标识全局事务和分支事务， 唯一的要求是 gtrid 和 bqual 必须是全局唯一的。</p>
+<p><strong>XAResource 接口中主要定义了如下方法：</strong></p>
+<blockquote>
+<p>commit()- 提交事务</p>
+<p>isSameRM(XAResource xares)- 检查当前的 XAResource 与参数是否同一事务资源</p>
+<p>prepare()- 通知资源管理器准备事务的提交工作</p>
+<p>rollback()- 通知资源管理器回滚事务</p>
+</blockquote>
+<p>在事务被提交时，Transaction 对象会收集所有被当前事务包含的 XAResource 资源，然后调用资源的提交方法，如下代码所示：</p>
+<p><strong>提交事务 - TransactionImpl implements Transaction</strong></p>
+<pre><code>publiccommit throws RollbackException, HeuristicMixedException, 
+    HeuristicRollbackException, SecurityException, 
+    IllegalStateException, SystemException &#123; 
+
+    // 得到当前事务中的所有事务资源
+    List&lt;XAResource&gt;  = getAllEnlistedResouces(); 
+
+    // 通知所有的事务资源管理器，准备提交事务
+    // 对于生产级别的实现，此处需要进行额外处理以处理某些资源准备过程中出现的异常
+    (XAResource xa : )&#123; 
+        xa.prepare(); 
+    &#125; 
+
+    // 所有事务性资源，提交事务
+    (XAResource xa : )&#123; 
+        xa.commit(); 
+    &#125; 
+&#125;
+</code></pre>
+<p><strong>Java 官方网站“<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javaee/jta/index.html">Java Transaction API Specification</a>”提供了详细的 JTA 信息、包括版本， 规范等，感兴趣的读者可以参考。</strong></p>
+<h1 id="3-JTA和JTS关系"><a title="3 JTA和JTS关系" class="headerlink" href="#3-JTA和JTS关系"></a>3 JTA和JTS关系</h1><p>大体上所来，<code>JTA是一种接口规范，定义了一套接口，接口定义了相关的程序角色之间需要遵守的约定</code>，JTA中约定了几种主要的程序角色，分别是事务管理器、事务客户、应用服务器、资源管理器。简单地说来就是，事务客户发起事务，应用服务器根据事物客户的请求决定如何向事务管理器体提交一个事务请求，如新建一个（require new），参与（require）等，事务管理器接收到了应用服务器发出的事务请求，然后事务管理器根据某种特定的协议（一般是两阶段提交协议）和资源管理器通过交换事务上下文来实现事务的功能。在这里，事务客户使用UserTransaction接口，应用服务器使用TransactionManager、Transaction、Synchronization接口，资源管理器实现XAResource接口。</p>
+<p>那么JTS呢？JTA和JTS的关系如何呢？上面的内容有提到事务管理器要和资源管理器要进行事务上下文传播的交互，其中应用服务器和事务管理器之间也有传播事务上下文的交互，有时候事务客户和应用服务器也需要传播事务上下文，众所周知，只要涉及到软件交互往往都会有一套规范。那么如何来传递这种事务上下文呢？这就是JTS了。<code>JTS也定义了一套规范，它约定了各个程序角色之间如何传递事务上下文，它源自CORBA 的OTS规范，基于IIOP（一种软件交互协议）</code>。不要认为JTS是JTA的实现，JTA其实就定义了一个空架子，告诉JTA的实现者应该怎样做怎样做，但是具体到做的时候JTS就来插一手了。<code>因为JTA约定的这些角色要进行事务上下文的交互啊，JTS约定了应该怎样去进行交互</code>。</p>
+<p>总体上来说<code>JTA更多的是从框架的角度来约定程序角色的接口，而JTS则是从具体实现的角度来约定程序角色之间的接口</code>，两者各司其职。照这样看来，SUN搞出来的这两个名字还真有点艺术感，有点哲学的味道了。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/DevOps%E4%B8%8E%E6%9E%B6%E6%9E%84/">DevOps与架构</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/java事务管理/">java事务管理</a><a href="/tags/JTA-XA/">JTA&XA</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB%E3%80%91JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0%20-%20%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%20%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA/" data-title="【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/《我们台湾这些年》的笔记（作者：廖信忠）/" title="《我们台湾这些年》的笔记（作者：廖信忠）">
+  <strong>上一篇：</strong><br/>
+  <span>
+  《我们台湾这些年》的笔记（作者：廖信忠）</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/【译】我已经写了48年代码了，我感觉我还能写下去 - 分享自@开发者头条/"  title="【译】我已经写了48年代码了，我感觉我还能写下去 - 分享自@开发者头条">
+ <strong>下一篇：</strong><br/> 
+ <span>【译】我已经写了48年代码了，我感觉我还能写下去 - 分享自@开发者头条
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区/" data-title="【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB%E3%80%91JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0%20-%20%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%20%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB%E3%80%91JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0-%E9%99%B6%E9%82%A6%E4%BB%81%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4-%E5%BC%80%E6%BA%90%E4%B8%AD%E5%9B%BD%E7%A4%BE%E5%8C%BA"><span class="toc-number">1.</span> <span class="toc-text">【分布式事务系列八】JTA深度历险-原理与实现 - 陶邦仁的个人空间 - 开源中国社区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%B3%BB%E5%88%97%E5%85%AB%E3%80%91JTA%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">【分布式事务系列八】JTA深度历险-原理与实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%88%A9%E7%94%A8-JTA-%E5%A4%84%E7%90%86%E4%BA%8B%E5%8A%A1"><span class="toc-number">3.</span> <span class="toc-text">1 利用 JTA 处理事务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">1.1 什么是事务处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-J2EE-%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">3.2.</span> <span class="toc-text">1.2 J2EE 事务处理方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-JTA-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">2 JTA 实现原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-JTA%E5%92%8CJTS%E5%85%B3%E7%B3%BB"><span class="toc-number">5.</span> <span class="toc-text">3 JTA和JTS关系</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

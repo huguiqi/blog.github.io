@@ -1,0 +1,1208 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥）一、前言谈到面向对象技术的分析和设计，自然就离不开 UML。对于 UML 这个概念，很多程序员朋友耳熟能详，也有在用，但在工作中，一些朋友其实并不擅长使用 UML 甚至对 UML 这个东西模棱两可，也包括我自己。因此我希望可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/UML%20%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%20_%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%20_%20%E7%B1%BB%E5%9B%BE%20_%20%E6%97%B6%E5%BA%8F%E5%9B%BE%20_%EF%BC%88%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE%EF%BC%8C%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5%EF%BC%89%20-%20%E7%9F%A5%E4%B9%8E/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥）一、前言谈到面向对象技术的分析和设计，自然就离不开 UML。对于 UML 这个概念，很多程序员朋友耳熟能详，也有在用，但在工作中，一些朋友其实并不擅长使用 UML 甚至对 UML 这个东西模棱两可，也包括我自己。因此我希望可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-b5126f4be4d4fd3e5af95468d4d22eb8_1440w.webp">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-11fdcdb4ebabcfe4ac3dea038d8ac790_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-1aee122253ebfe44a1b51b4f4bb5dfa5_1440w.webp">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-1eda50656b84b4813025a4f97bdbdb05_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-cd8773f5585c086692de8838d39c0b42_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-3a7376256060b76c393c65fc8101884b_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-2afde966b609f589af8f3afce2e3e6c6_1440w.webp">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-e37837d1f45a86791c153498cb8f7682_1440w.webp">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-43a346adfe9eab7451d2df969721ec68_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-e0259b550c448527470b900a969336af_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-e6fedda10f7c8351f0ae677be0f10c60_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-880d8be3e5ebb73a91bb3b127162a712_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-db3767ecd2e4f0b6a45df4d9f66e808c_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-372144e35bc9c2eb223a7338fbdba6db_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-c102b34f45512b56461a1830588ad7bd_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-6746b7c68de40638cec2d8e1f895f5f2_1440w.webp">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-6692ba8ebe33ac8969bb97d4aaaeb602_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-49fbf0bd9b4850b077c32407463c0bed_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-1f02792a8f430db396182d323228501c_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-b656c12ae588ecb673750ac9e20ba58f_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-0433276d1c66f8b6a76d42ac869b630f_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-43f0268e3a09f5cfa660e7861561a531_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-ff3af2cd679a061fd538974c989ed0fc_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-b236ee32a6325df2eec9e1de3161fff8_1440w.webp">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-66815a642a8fd48deafef7d7923d5f1f_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-ccb67aa71c207bd37c3d0d0343ff6eb4_1440w.webp">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-0629272e8d7c69c5cb7165ee18e007b0_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-dd3230ba0e0eb9d751f77159e835d01c_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-47222cb7c7a3735bf291ae63ea0ff14b_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-b5aed22828f6a9b0dc10f9458b47655f_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-81d4c10e7684ddd06c93a4fbed580a52_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-c4c827164a67101aa2baf2b893ae0005_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-5ebe16cf72c300c9b7d2528d296392b8_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-b3e92bcad85da9951e878c67397badbd_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-bd9e614a54d52acdcfad15e586c0ef05_r.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-68331bde0804ac2faa0b58ec8a8ccd40_r.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-24T04:16:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-b5126f4be4d4fd3e5af95468d4d22eb8_1440w.webp">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/UML 入门指南 _ 面向对象设计 _ 类图 _ 时序图 _（万字多图，非常干燥） - 知乎/" title="UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎" itemprop="url">UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-%E7%B1%BB%E5%9B%BE-%E6%97%B6%E5%BA%8F%E5%9B%BE-%EF%BC%88%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE%EF%BC%8C%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5%EF%BC%89-%E7%9F%A5%E4%B9%8E"><span class="toc-number">1.</span> <span class="toc-text">UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-%E7%B1%BB%E5%9B%BE-%E6%97%B6%E5%BA%8F%E5%9B%BE-%EF%BC%88%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE%EF%BC%8C%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="toc-number">2.1.</span> <span class="toc-text">一、前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%A4%BA%E4%BE%8B%E5%BC%80%E5%A7%8B"><span class="toc-number">2.2.</span> <span class="toc-text">二、从一个示例开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF-UML%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">三、什么是 UML？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%B0%E4%B8%BA%E8%AF%AD%E8%A8%80"><span class="toc-number">2.4.</span> <span class="toc-text">3.1 为什么称为语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%BB%BA%E6%A8%A1"><span class="toc-number">2.5.</span> <span class="toc-text">3.2 什么是建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E7%BB%9F%E4%B8%80%E7%9A%84%E6%84%8F%E4%B9%89%E5%9C%A8%E5%93%AA"><span class="toc-number">2.6.</span> <span class="toc-text">3.3 统一的意义在哪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-UML"><span class="toc-number">2.7.</span> <span class="toc-text">四、为什么需要 UML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81UML-%E7%9A%84%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">2.8.</span> <span class="toc-text">五、UML 的适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81UML-%E7%9A%84%E7%BB%84%E6%88%90%E7%BB%93%E6%9E%84"><span class="toc-number">2.9.</span> <span class="toc-text">六、UML 的组成结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E6%A0%B8%E5%BF%83%E5%85%83%E7%B4%A0"><span class="toc-number">2.10.</span> <span class="toc-text">6.1 核心元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-1-%E7%89%88%E5%9E%8B"><span class="toc-number">2.10.1.</span> <span class="toc-text">6.1.1 版型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-2-%E5%8F%82%E4%B8%8E%E8%80%85"><span class="toc-number">2.10.2.</span> <span class="toc-text">6.1.2 参与者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-3-%E7%94%A8%E4%BE%8B"><span class="toc-number">2.10.3.</span> <span class="toc-text">6.1.3 用例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-4-%E8%BE%B9%E7%95%8C"><span class="toc-number">2.10.4.</span> <span class="toc-text">6.1.4 边界</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-5-%E4%B8%9A%E5%8A%A1%E5%AE%9E%E4%BD%93"><span class="toc-number">2.10.5.</span> <span class="toc-text">6.1.5 业务实体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-6-%E5%8C%85"><span class="toc-number">2.10.6.</span> <span class="toc-text">6.1.6 包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-7-%E5%88%86%E6%9E%90%E7%B1%BB"><span class="toc-number">2.10.7.</span> <span class="toc-text">6.1.7 分析类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-8-%E8%AE%BE%E8%AE%A1%E7%B1%BB"><span class="toc-number">2.10.8.</span> <span class="toc-text">6.1.8 设计类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-9-%E5%85%B3%E7%B3%BB"><span class="toc-number">2.10.9.</span> <span class="toc-text">6.1.9 关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-10-%E7%BB%84%E4%BB%B6"><span class="toc-number">2.10.10.</span> <span class="toc-text">6.1.10 组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-11-%E8%8A%82%E7%82%B9"><span class="toc-number">2.10.11.</span> <span class="toc-text">6.1.11 节点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E6%A0%B8%E5%BF%83%E8%A7%86%E5%9B%BE"><span class="toc-number">2.11.</span> <span class="toc-text">6.2 核心视图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-%E7%BB%93%E6%9E%84%E8%A7%86%E5%9B%BE"><span class="toc-number">2.11.1.</span> <span class="toc-text">6.2.1 结构视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-1-%E7%94%A8%E4%BE%8B%E5%9B%BE"><span class="toc-number">2.11.2.</span> <span class="toc-text">6.2.1.1 用例图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-2-%E7%B1%BB%E5%9B%BE"><span class="toc-number">2.11.3.</span> <span class="toc-text">6.2.1.2 类图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-3-%E5%AF%B9%E8%B1%A1%E5%9B%BE"><span class="toc-number">2.11.4.</span> <span class="toc-text">6.2.1.3 对象图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-4-%E5%8C%85%E5%9B%BE"><span class="toc-number">2.11.5.</span> <span class="toc-text">6.2.1.4 包图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-5-%E7%BB%84%E4%BB%B6%E5%9B%BE"><span class="toc-number">2.11.6.</span> <span class="toc-text">6.2.1.5 组件图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-6-%E9%83%A8%E7%BD%B2%E5%9B%BE"><span class="toc-number">2.11.7.</span> <span class="toc-text">6.2.1.6 部署图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-%E8%A1%8C%E4%B8%BA%E8%A7%86%E5%9B%BE"><span class="toc-number">2.11.8.</span> <span class="toc-text">6.2.2 行为视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-1-%E7%8A%B6%E6%80%81%E5%9B%BE"><span class="toc-number">2.11.9.</span> <span class="toc-text">6.2.2.1 状态图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-2-%E6%B4%BB%E5%8A%A8%E5%9B%BE"><span class="toc-number">2.11.10.</span> <span class="toc-text">6.2.2.2 活动图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-3-%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="toc-number">2.11.11.</span> <span class="toc-text">6.2.2.3 时序图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-4-%E5%8D%8F%E4%BD%9C%E5%9B%BE"><span class="toc-number">2.11.12.</span> <span class="toc-text">6.2.2.4 协作图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-3-%E5%B0%8F%E7%BB%93"><span class="toc-number">2.11.13.</span> <span class="toc-text">6.2.3 小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">2.12.</span> <span class="toc-text">七、总结</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="UML-入门指南-面向对象设计-类图-时序图-（万字多图，非常干燥）-知乎"><a title="UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎" class="headerlink" href="#UML-入门指南-面向对象设计-类图-时序图-（万字多图，非常干燥）-知乎"></a>UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎</h1><h1 id="UML-入门指南-面向对象设计-类图-时序图-（万字多图，非常干燥）"><a title="UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥）" class="headerlink" href="#UML-入门指南-面向对象设计-类图-时序图-（万字多图，非常干燥）"></a>UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥）</h1><h2 id="一、前言"><a title="一、前言" class="headerlink" href="#一、前言"></a>一、前言</h2><p>谈到面向对象技术的分析和设计，自然就离不开 UML。对于 UML 这个概念，很多程序员朋友耳熟能详，也有在用，但在工作中，一些朋友其实并不擅长使用 UML 甚至对 UML 这个东西模棱两可，也包括我自己。因此我希望可以结合自己的经验和实践，写一篇 UML 的入门文章，帮助做面向对象的程序员朋友能更好的利用它，从而顺利完成自己的编程设计工作。</p>
+<p>以下是本文大纲。</p>
+<p><img loading="lazy" alt="v2-b5126f4be4d4fd3e5af95468d4d22eb8_1440w.webp" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-b5126f4be4d4fd3e5af95468d4d22eb8_1440w.webp"></p>
+<h2 id="二、从一个示例开始"><a title="二、从一个示例开始" class="headerlink" href="#二、从一个示例开始"></a>二、从一个示例开始</h2><p>先举个现实世界的例子。我们上大学的时候，作为学生，每人都有一张学生证，会归属到一个班级，上学时可能会用到自行车。很多同学还会考驾照，挑放假时间练车，车可能是轿车也可能是皮卡。</p>
+<p>如果想通过在线的方式记录以上的信息和行为，在软件世界中如何表达呢？</p>
+<p>相信很多朋友的操作是，找到这段话里的主语和宾语，也就找到了这个例子中涉及的角色，然后通过动词来判断各个角色之间的关系和能力，最后用代码的方式来表达，产出可执行的程序。</p>
+<p>像下图这样，识别出关键的实体和它们之间的关系。</p>
+<p><img loading="lazy" alt="v2-11fdcdb4ebabcfe4ac3dea038d8ac790_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-11fdcdb4ebabcfe4ac3dea038d8ac790_r.jpg"></p>
+<p>用软件工程的方式，解决现实中的问题，是信息时代最明显的特点，这让我们的生活和工作变得更加便利。</p>
+<p>但现实世界错综复杂，灵活多变，每个人的理解可能会有不同，从现实世界到软件世界的映射，就变得困难重重，一团乱麻。</p>
+<p>如何让现实世界到软件世界映射变的简单容易，这就是 UML 要解决的问题。</p>
+<h2 id="三、什么是-UML？"><a title="三、什么是 UML？" class="headerlink" href="#三、什么是-UML？"></a>三、什么是 UML？</h2><p>UML 全称是 <strong>Unified Modeling Language</strong>（统一建模语言），它以<strong>图形的方式</strong>来描述软件的概念。</p>
+<h2 id="3-1-为什么称为语言"><a title="3.1 为什么称为语言" class="headerlink" href="#3-1-为什么称为语言"></a>3.1 为什么称为语言</h2><p>先说语言，为什么称为语言？</p>
+<p>名称的落脚点是语言。既然是语言，那么它就会<strong>具备语言的特性</strong>，比如结构上它由词汇和语法构成，功能上它能解决沟通问题。</p>
+<p>你熟知的语言里比较多的应该是汉语和英语，如果从事软件行业，C 语言和 Java 语言你应该也不会陌生。英语和 Java 语言明显都是语言，却常常不被放在一起讨论，为什么？因为它们是不同维度的语言。英语是<strong>解决现实世界中人与人之间沟通问题</strong>的人类语言，Java 是<strong>解决软件世界中程序员与计算机之间沟通问题</strong>的计算机语言。</p>
+<p>人类语言本质上是<strong>事实和观点的表达</strong>，计算机语言本质上是<strong>0 和 1 的表达</strong>。前者的表达形式是难以确定的，而且可能会产生歧义，所以才会有「被误解是表达者的宿命」这样的观点， 但后者就是确定性无歧义的 0 1 表达。</p>
+<p>这么看来，UML 的目标是<strong>通过一定结构的表达，来解决现实世界到软件世界的沟通问题</strong>。</p>
+<h2 id="3-2-什么是建模"><a title="3.2 什么是建模" class="headerlink" href="#3-2-什么是建模"></a>3.2 什么是建模</h2><p>再说建模，模是什么，需要怎么建？</p>
+<p>建模简单讲，是指<strong>通过抽象的方式解决某个领域的问题</strong>。各个抽象角度共同组成了一个问题领域。</p>
+<p>对于传统模型而言，建造它是为了证明这个问题领域下某件事物能否工作。当然它有前提，即建造模型的成本远远低于建造实物的成本。比如造飞机或造高楼。</p>
+<p>对于软件模型而言，建造它是为了与他人沟通，也为了保存这个问题领域下软件设计的最终成果。当然它也有前提，就是模型比代码更说明问题。</p>
+<p>比如购物这个问题，甲可以在淘宝上买衣服，乙可以在亚马逊上买书，丙可以在京东上买手机。</p>
+<p>谁买东西？是甲、乙和丙，他们都能抽象成人。</p>
+<p>买什么东西？有衣服、书和手机，它们都能抽象成货。</p>
+<p>在哪里买？在淘宝，亚马逊和京东，它们都能抽象成场。</p>
+<p>整体抽象一下就是人到场里买货。所以购物这个场景所抽象出来的人货场，就用来解决零售领域的问题。当然还可能会有些规则，比如成为注册会员才能发生交易。</p>
+<p>我们会发现，<strong>一个特定的事件（比如购物）里，会有特定的人的行为（比如甲乙丙要上电商网站），会有特定的物（比如货），有特定的规则（比如注册会员）</strong>，共同完成购物这件事。</p>
+<pre><code>特定的事 = 特定的人的行为 + 特定的物 + 特定的规则
+</code></pre>
+<p>在人货场这个抽象角度里，就会涉及到很多特定的事，包括会员注册，会员下单，会员支付，商家发货，快递公司邮寄等等。</p>
+<p>模简单讲，就是<strong>人、事、物和规则</strong>。</p>
+<p>人是一切的中心，人要做事，做事就会使用一些物并产生另一些物，同时做事需要遵循一定的规则。</p>
+<p><strong>人驱动系统，事体现过程，物记录结果，规则是控制</strong>。</p>
+<p>建立模型的关键就是<strong>弄明白有什么人，什么人做什么事，什么事产生什么物，中间有什么规则，再把人、事、物之间的关系定义出来</strong>，一个模型也就基本成型了。</p>
+<h2 id="3-3-统一的意义在哪"><a title="3.3 统一的意义在哪" class="headerlink" href="#3-3-统一的意义在哪"></a>3.3 统一的意义在哪</h2><p>统一的普遍意义是<strong>形成标准</strong>。所谓标准，就是<strong>所有人都明白的表述，所有人都遵从的格式</strong>。标准可以<strong>让信息在人群中无障碍地流通</strong>，即使这些信息来自不同地域、不同文化、不同社会或不同组织。</p>
+<p>比如美元作为国际统一使用的货币方便了全球的经济贸易，我们国家普及普通话方便了不同地区的交流沟通。</p>
+<p>在软件世界，任何一种组件化开发模式背后都有一个标准在规范和指导，比如 Java 的 JSR 标准。<strong>有了标准，编程就容易组件化，协作效率也会提升很多</strong>。对 UML 来说，这就是统一的意义。</p>
+<h2 id="四、为什么需要-UML"><a title="四、为什么需要 UML" class="headerlink" href="#四、为什么需要-UML"></a>四、为什么需要 UML</h2><p>一个软件项目要经历<strong>业务调研、立项、需求采集、架构设计、编码开发和测试验证</strong>等多个环节。</p>
+<p>每个环节可能角色并不相同，<strong>同样的文档同样的话语越向后传递就越容易失真</strong>。因此就容易出现最终交付的产品不是客户真正想要的这种情况。</p>
+<p>如何避免角色间信息传递的失真，保证信息能被准确的传达和准确的理解？一种好的办法就是<strong>大家使用标准化的语言。</strong></p>
+<p>统一建模语言(UML)就试图用标准化的语言来覆盖整个软件过程，让不同团队不同角色可以用相同的语言顺畅的沟通。</p>
+<p>在信息传播方面，图形相对于文字，人脑的接受能力显然更强。因此，<strong>UML 采用了「可视化」的图形方式来定义语言。</strong></p>
+<h2 id="五、UML-的适用场景"><a title="五、UML 的适用场景" class="headerlink" href="#五、UML-的适用场景"></a>五、UML 的适用场景</h2><p>UML 既可以描述某个问题领域，也可以表达构思中的软件设计，还可以描述已经完成的软件实现。</p>
+<p>它适用于面向对象分析设计的整个过程。这个过程可以分为三个阶段，如下图。</p>
+<p><img loading="lazy" alt="v2-1aee122253ebfe44a1b51b4f4bb5dfa5_1440w.webp" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-1aee122253ebfe44a1b51b4f4bb5dfa5_1440w.webp"></p>
+<p>第一个阶段是<strong>通过建模将现实世界转为业务模型</strong>。业务模型真实映射了参与者（业务活动的驱动者）在现实世界的行为。</p>
+<p><img loading="lazy" alt="v2-1eda50656b84b4813025a4f97bdbdb05_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-1eda50656b84b4813025a4f97bdbdb05_r.jpg"></p>
+<p>从图里可以看到，现实世界映射到业务模型后，是使用 <strong>参与�</strong>� 和 <strong>用例</strong> 这两个 UML 的核心元素表达的。参与者作为一个特定事件的驱动者，用例则描述了这个驱动者的业务目标。文章后边也会提到这两个元素。</p>
+<p>第二个阶段是<strong>对业务模型概念化，建立适合计算机理解和实现的模型，也就是概念模型</strong>，或者叫分析模型。分析模型<strong>向上映射了原始需求</strong>，向下<strong>为计算机实现规定了一种高层次的抽象</strong>，是一种过渡模型。</p>
+<p><img loading="lazy" alt="v2-cd8773f5585c086692de8838d39c0b42_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-cd8773f5585c086692de8838d39c0b42_r.jpg"></p>
+<p>现实世界千差万别的业务，都用 边界、控制和实体这几个核心元素来描述，同时也引入了 包、组件 这些与现实世界毫不相干的概念做包装。</p>
+<p>第三个阶段是<strong>对概念模型实例化，得到相对详细的设计模型。</strong></p>
+<p><img loading="lazy" alt="v2-3a7376256060b76c393c65fc8101884b_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-3a7376256060b76c393c65fc8101884b_r.jpg"></p>
+<p>在设计模型中，概念模型中的边界类可以被转化为操作界面或者系统接口；控制类可以被转化为计算程序或控制程序，例如工作流、算法体等；实体类可以转化为数据库表、XML 文档或者其他带有持久化特征的类。</p>
+<p><strong>同样的概念模型会因为选择不同而得到不同的设计模型</strong>。比如技术选型上使用不同的编程语言，不同的中间件就会得到不同的设计。</p>
+<p>为什么需要这一道转换呢？</p>
+<p>因为“边界”、“控制”、“实体”这些对象化的概念，虽然是计算机可以理解的，但它并不是真正的对象实例，也就是说它们并不是可执行代码，概念模型只是纸上谈兵。真正的对象世界行为是由 Java 类、C++ 类、JSP 等这些可执行代码构成的。</p>
+<p>换句话说，<strong>设计模型是概念模型在特定环境和条件下的实例化</strong>，实例化后的对象行为执行了概念模型描述的那些信息。</p>
+<p>以下是面向对象分析设计的完整过程，它表达了现实世界是怎么通过 UML 映射到对象世界的。</p>
+<p><img loading="lazy" alt="v2-2afde966b609f589af8f3afce2e3e6c6_1440w.webp" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-2afde966b609f589af8f3afce2e3e6c6_1440w.webp"></p>
+<h2 id="六、UML-的组成结构"><a title="六、UML 的组成结构" class="headerlink" href="#六、UML-的组成结构"></a>六、UML 的组成结构</h2><p>前面花了比较大的篇幅分析了 UML 的定位和适用场景，目的是帮助读者建立对 UML 整体系统性的认知，而不是过早的陷入 UML 的使用细节里。我们要应用一项技术或工具，不能单纯的因为它的酷炫或者说业界都在用所以我们要用，而应该结合自己的使用场景以及技术或工具的特点，来确认这项技术或工具究竟是不是我们需要的。</p>
+<p>在读者了解 UML 在面向对象分析设计领域优秀的特性之后，我们再来看看 UML 的一些细节。</p>
+<p>凡是语言，都会存在基本词汇和语法。</p>
+<p>那么对应到 UML 里，基本词汇就是核心元素，语法就是核心视图。</p>
+<p>UML 的组成结构如下图：</p>
+<p><img loading="lazy" alt="v2-e37837d1f45a86791c153498cb8f7682_1440w.webp" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-e37837d1f45a86791c153498cb8f7682_1440w.webp"></p>
+<h2 id="6-1-核心元素"><a title="6.1 核心元素" class="headerlink" href="#6-1-核心元素"></a>6.1 核心元素</h2><p>我们先介绍核心元素，下图是大纲。</p>
+<p><img loading="lazy" alt="v2-43a346adfe9eab7451d2df969721ec68_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-43a346adfe9eab7451d2df969721ec68_r.jpg"></p>
+<h3 id="6-1-1-版型"><a title="6.1.1 版型" class="headerlink" href="#6-1-1-版型"></a>6.1.1 版型</h3><p>版型：也称「类型」或「构造型」。是对 UML 元素基础定义的扩展，在元素基础定义的基础上赋予特别的含义，使得这个元素适用于特定的场合。</p>
+<p>比如，我们前边提到的「边界类」、「实体类」、「控制类」都是类的版型。</p>
+<h3 id="6-1-2-参与者"><a title="6.1.2 参与者" class="headerlink" href="#6-1-2-参与者"></a>6.1.2 参与者</h3><p><strong>参与者定位</strong>：事件的第一驱动者，也是系统的服务方。比如你在电商网站购物，你就是参与者。</p>
+<h3 id="6-1-3-用例"><a title="6.1.3 用例" class="headerlink" href="#6-1-3-用例"></a>6.1.3 用例</h3><p><strong>用例定位</strong>：系统执行的一系列操作，并生成参与者可以观察的值。比如你在电商网站交易，会生成在线订单，用户下单就是一个用例。</p>
+<p><strong>用例版型：</strong></p>
+<p><img loading="lazy" alt="v2-e0259b550c448527470b900a969336af_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-e0259b550c448527470b900a969336af_r.jpg"></p>
+<ul>
+<li>业务用例：<strong>用于需求阶段业务领域建模</strong>。与计算机系统建模无关，比如下单可以不依赖在线服务，而只是线下签署协议。业务建模的目标是让需求人员和客户能够达成共识。</li>
+<li>业务用例实现：<strong>业务用例的一种实现方式</strong>，一个业务用例可以有多种实现方式。比如下单后的支付，可以用现金，也可以银行卡转账，还可以第三方支付。</li>
+</ul>
+<p><img loading="lazy" alt="v2-e6fedda10f7c8351f0ae677be0f10c60_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-e6fedda10f7c8351f0ae677be0f10c60_r.jpg"></p>
+<ul>
+<li>概念用例：<strong>用于获取业务模型中的关键概念，分析出核心业务结构</strong>。业务架构就是概念建模阶段产生，同时为系统建模阶段提供重要指导。比如用户下单这个用例，可以从实现过程中获得一些核心业务，并把它们展现出来。</li>
+</ul>
+<p><img loading="lazy" alt="v2-880d8be3e5ebb73a91bb3b127162a712_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-880d8be3e5ebb73a91bb3b127162a712_r.jpg"></p>
+<ul>
+<li>系统用例：<strong>用于定义系统范围、获取功能性需求</strong>。也就是我们常挂在嘴边的用例。像业务用例中提到的线下签约的方式，就不会纳入到系统用例中，但如果是电子签约的话，就可以成为系统用例了。</li>
+<li>系统用例实现：<strong>系统用例的一种实现方式</strong>，一个系统用例可以有多种实现方式。比如下单后的支付，可以接入微信支付接口，也可以接入支付宝支付接口。</li>
+</ul>
+<p>你会发现，同是<strong>用例的版型，业务用例与系统用例的区别就在于</strong>业务用例是客户业务视角，系统用例是系统视角。</p>
+<h3 id="6-1-4-边界"><a title="6.1.4 边界" class="headerlink" href="#6-1-4-边界"></a>6.1.4 边界</h3><p><strong>边界定位</strong>：用于业务建模和系统建模阶段的分析，保证<strong>分析粒度在一定的范围�</strong>�，不会扩散。</p>
+<p>比如一个电商网站按领域职责作为边界，会有店铺域、商品域、会员域、交易域、支付域和营销域等。各域只负责域内的事情，就能够减少混乱紧耦合的局面。</p>
+<blockquote>
+<p>一个好的分析和设计如同一筐带壳的鸡蛋，清清爽爽；一个差的设计如同一堆打碎了壳的鸡蛋，粘粘糊糊。壳，是好坏的关键。</p>
+</blockquote>
+<h3 id="6-1-5-业务实体"><a title="6.1.5 业务实体" class="headerlink" href="#6-1-5-业务实体"></a>6.1.5 业务实体</h3><p><strong>业务实体定位</strong>：它代表<strong>参与者执行业务用例时所处理或使用的事物</strong>，特别用于在<strong>业务建模阶段</strong>建立领域模型。业务实体是类（class）的一种版型。</p>
+<p><strong>业务实体的结构</strong>：包含属性和方法。属性用来保存业务实体特征，方法用来访问业务实体。比如一台电视，把它看成一个业务实体的话，它的属性有运行状态和音量，它的方法就是遥控器，我们可以开、关、调声音，但是我们不可以试图让它飞起来——因为它没有这样的方法。</p>
+<h3 id="6-1-6-包"><a title="6.1.6 包" class="headerlink" href="#6-1-6-包"></a>6.1.6 包</h3><p><strong>包定位</strong>：容纳并为其他 UML 元素分类。比如 Java 后端经常会提供 jar 包给接入方使用。</p>
+<h3 id="6-1-7-分析类"><a title="6.1.7 分析类" class="headerlink" href="#6-1-7-分析类"></a>6.1.7 分析类</h3><p><img loading="lazy" alt="v2-db3767ecd2e4f0b6a45df4d9f66e808c_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-db3767ecd2e4f0b6a45df4d9f66e808c_r.jpg"></p>
+<p><strong>分析类定位</strong>：用于代表系统中主要的职责簇，由此产生系统的设计类和子系统。</p>
+<ul>
+<li>边界类：用于<strong>对系统外部环境和内部运作之间的交互</strong>进行建模。比如现实世界的窗户，计算机世界的网页。</li>
+<li>控制类：用于<strong>对用例特有的控制行为</strong>进行建模。比如显示逻辑和业务逻辑通过控制层分离的 MVC 架构。</li>
+<li>实体类：用于<strong>对需要存储的信息和相关行为</strong>进行建模。源于业务模型中的<strong>业务实体</strong>。</li>
+</ul>
+<p>分析类的抽象层次较高，比设计和实现要稳定很多，因此方便维护，也更容易获得一个稳定架构来指导整个软件的开发。</p>
+<h3 id="6-1-8-设计类"><a title="6.1.8 设计类" class="headerlink" href="#6-1-8-设计类"></a>6.1.8 设计类</h3><p><img loading="lazy" alt="v2-372144e35bc9c2eb223a7338fbdba6db_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-372144e35bc9c2eb223a7338fbdba6db_r.jpg"></p>
+<p><strong>设计类定位</strong>：是系统实施中一个或多个对象的抽象，由此<strong>映射到实现代码</strong>，依赖于实施语言。</p>
+<p><strong>设计类结构</strong>：</p>
+<ul>
+<li>类型：对对象某一方面特征的归纳和抽象。映射到编码中的 class。</li>
+<li>属性：对象特征。映射到编码中的 field。</li>
+<li>方法：访问对象属性的唯一途径。映射到编码中的 method。</li>
+</ul>
+<h3 id="6-1-9-关系"><a title="6.1.9 关系" class="headerlink" href="#6-1-9-关系"></a>6.1.9 关系</h3><p><img loading="lazy" alt="v2-c102b34f45512b56461a1830588ad7bd_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-c102b34f45512b56461a1830588ad7bd_r.jpg"></p>
+<p><strong>关系定位</strong>：抽象出<strong>对象之间的联系</strong>，让对象构成某个特定的结构。</p>
+<p>关系分为以下几种：</p>
+<ul>
+<li><strong>关联（association）</strong></li>
+<li>关系：是一种<strong>拥有</strong>的关系，即一个类知道另一个类的属性和方法；比如老师与学生可以是双向的，也可以是单向的。双向的关联可以有两个箭头或者没有箭头，单向的关联有一个箭头。</li>
+<li>箭头和连线：<strong>带普通箭头的实心线</strong>，指向被拥有者。</li>
+<li>适用场景：类图。</li>
+<li><strong>依赖（dependency）</strong></li>
+<li>关系：是一种<strong>使用</strong>的关系，即一个类的实现需要另一个类的协助，是一种弱关系，随运行场景变化。比如削苹果时，人依赖于刀，脱离了这个场景，依赖关系就不存在了。</li>
+<li>箭头和连线：<strong>带箭头的虚线</strong>，指向被使用者。</li>
+<li>适用场景：类图。</li>
+<li><strong>泛化（generalization）</strong></li>
+<li>关系：是一种<strong>继承</strong>的关系，比如猫是动物的一种。</li>
+<li>箭头和连线：<strong>带三角的实线</strong>，箭头指向父类。</li>
+<li>适用场景：类图。</li>
+<li><strong>实现（realization）</strong></li>
+<li>关系：是一种<strong>实现</strong>的关系，比如用例和用例实现的关系，接口与实现类的关系。</li>
+<li>箭头和连线：<strong>带三角的虚线</strong>，箭头指向用例实现或接口类。</li>
+<li>适用场景：用例图，类图。</li>
+<li><strong>聚合（aggregation）</strong></li>
+<li>关系：是<strong>整体与部分</strong>的关系，且<strong>部分可以离开整体而单独存在</strong>。生命周期各自独立。如车和轮胎是聚合关系，轮胎离开车仍然可以存在。</li>
+<li>箭头和连线：<strong>带空心菱形的实线</strong>，菱形指向整体。</li>
+<li>适用场景：类图。</li>
+<li><strong>组合（composition）</strong></li>
+<li>关系：是<strong>整体与部分</strong>的关系，但<strong>部分不能离开整体而单独存在</strong>。同生同灭。如公司和部门是组合关系，没有公司就不存在部门。</li>
+<li>箭头和连线：带实心(黑色实心：要死一起死，良心是黑的)菱形的实线，菱形指向整体。</li>
+<li>适用场景：类图。</li>
+</ul>
+<p><strong>关联关系和依赖关系的区别</strong>：</p>
+<ul>
+<li>关联关系是静态天然的联系，依赖关系是动态临时的联系。</li>
+</ul>
+<p>此外还有只用于用例中的关系：</p>
+<p><img loading="lazy" alt="v2-6746b7c68de40638cec2d8e1f895f5f2_1440w.webp" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-6746b7c68de40638cec2d8e1f895f5f2_1440w.webp"></p>
+<ul>
+<li><strong>扩展（extends）</strong></li>
+<li>关系：<strong>用于在用例模型</strong>中说明向基本用例中的某个扩展点插入扩展用例。</li>
+<li>箭头和连线：带箭头的虚线加版型&lt;&gt;。</li>
+<li>特点：用例可选。</li>
+<li><strong>包含（include）</strong></li>
+<li>关系：<strong>用于在用例模型中</strong>说明在执行基本用例的用例实例过程中插入的行为段。</li>
+<li>箭头和连线：带箭头的虚线加版型&lt;&gt;。</li>
+<li>特点：用例必需。</li>
+</ul>
+<h3 id="6-1-10-组件"><a title="6.1.10 组件" class="headerlink" href="#6-1-10-组件"></a>6.1.10 组件</h3><p><strong>组件定位</strong>：实现特定功能的逻辑代码模块。比如分布式应用架构下，将业务目标拆成多个功能，每个功能作为组件独立部署。这样这些组件也能被其他场景复用。</p>
+<h3 id="6-1-11-节点"><a title="6.1.11 节点" class="headerlink" href="#6-1-11-节点"></a>6.1.11 节点</h3><p><strong>节点定位</strong>：表示应用程序的部署单元。比如分布式应用的环境中，服务器或设备会有很多，就需要通过节点来体现物理部署的情况。</p>
+<h2 id="6-2-核心视图"><a title="6.2 核心视图" class="headerlink" href="#6-2-核心视图"></a>6.2 核心视图</h2><p>前面我们介绍了 UML 的核心元素，这些元素分别应用于面对对象分析设计的各个阶段，正是它们之间的相互组合，才形成了 UML 里的各种视图，最终指导软件设计。</p>
+<p>接下来讲讲核心视图里的结构视图和行为视图，下图是大纲。</p>
+<p><img loading="lazy" alt="v2-6692ba8ebe33ac8969bb97d4aaaeb602_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-6692ba8ebe33ac8969bb97d4aaaeb602_r.jpg"></p>
+<h3 id="6-2-1-结构视图"><a title="6.2.1 结构视图" class="headerlink" href="#6-2-1-结构视图"></a>6.2.1 结构视图</h3><p>结构视图也称为<strong>静态视图</strong>。静态视图就是<strong>表达静态事物</strong>的。它只描述<strong>事物的静态结构</strong>，而不描述其动态行为。这里简要介绍的静态视图包括<strong>用例图，对象图，类图，组件图，包图和部署图</strong>。</p>
+<h3 id="6-2-1-1-用例图"><a title="6.2.1.1 用例图" class="headerlink" href="#6-2-1-1-用例图"></a>6.2.1.1 用例图</h3><p>用例图包含<strong>参与者、用例和关系</strong>这三种核心元素，不同的视角可以得到不同的用例视图，它展现了系统的功能性需求。</p>
+<p>所谓不同的视角，可以对应面向对象分析设计的三阶段。</p>
+<ul>
+<li>建立业务模型阶段，产出<strong>业务用例视图</strong>。</li>
+<li>建立概念模型阶段，产出<strong>概念用例视图</strong>。</li>
+<li>建立设计模型阶段，产出<strong>系统用例视图</strong>。</li>
+</ul>
+<p>就借阅图书的用例而言，业务用例视图如下，它是完全从业务角度出发，和计算机系统无关。</p>
+<p><img loading="lazy" alt="v2-49fbf0bd9b4850b077c32407463c0bed_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-49fbf0bd9b4850b077c32407463c0bed_r.jpg"></p>
+<p>而我们在业务用例分析的过程中，可以分解出一些关键的概念用例，并建立它们之间的关系，如下图(bu 表示业务用例，cu 表示概念用例)。</p>
+<p><img loading="lazy" alt="v2-1f02792a8f430db396182d323228501c_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-1f02792a8f430db396182d323228501c_r.jpg"></p>
+<p>我们对业务用例进行分析以后，就可以绘制系统用例视图。但不是所有的业务用例都有系统用例对应，比如检查借阅证可能是手工工作，就不需要纳入系统建设范围。</p>
+<p>下图是借阅图书的系统用例视图。</p>
+<p><img loading="lazy" alt="v2-b656c12ae588ecb673750ac9e20ba58f_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-b656c12ae588ecb673750ac9e20ba58f_r.jpg"></p>
+<h3 id="6-2-1-2-类图"><a title="6.2.1.2 类图" class="headerlink" href="#6-2-1-2-类图"></a>6.2.1.2 类图</h3><p>类图用于<strong>展示系统中的类及其相互之间的关系。</strong></p>
+<p>类图建模常用的方式是从<strong>概念层，到说明层，最后到实现层</strong>这么一个抽象层次逐步降低和细化的过程。</p>
+<p><strong>概念层类图位于业务建模阶段</strong>，这个阶段采用<strong>业务实体</strong>这个核心元素来表示。</p>
+<p>下图是网上购物的业务实体图。</p>
+<p><img loading="lazy" alt="v2-0433276d1c66f8b6a76d42ac869b630f_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-0433276d1c66f8b6a76d42ac869b630f_r.jpg"></p>
+<p>网上购物主要由商品、订单、支付账户这几个关键类构成，这几个类的交互能够完成网上购物这个业务目标。</p>
+<p><strong>说明层类图位于概念建模阶段</strong>，这个阶段采用<strong>分析类</strong>这个核心元素来表示。</p>
+<p>下图展示了网上购物的说明层类图，这个类图表达了从计算机的视角来说，网上购物这个业务目标是由哪些类来完成的，这些类的接口保证了这个业务目标的达成。</p>
+<p><img loading="lazy" alt="v2-43f0268e3a09f5cfa660e7861561a531_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-43f0268e3a09f5cfa660e7861561a531_r.jpg"></p>
+<p><strong>实现层类图位于设计建模阶段</strong>，这个阶段采用<strong>设计类</strong>这个核心元素来表示。</p>
+<p>到了这一层，类图可视作伪代码，因此，在这个层次上，类必须明确采用哪种实现语言、什么设计模式、什么通信标准、遵循什么规范等。</p>
+<p>下图展示了查询商品功能的类图。可以看到，到了实现层类图，类描述和类关系已经是伪代码级别了。</p>
+<p><img loading="lazy" alt="v2-ff3af2cd679a061fd538974c989ed0fc_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-ff3af2cd679a061fd538974c989ed0fc_r.jpg"></p>
+<p>由此可见，在软件生命周期的不同阶段，类图也有三种不同的表达，他们分别是<strong>概念层类图，说明层类图和实现层类图</strong>。</p>
+<p>很多朋友在建模的时候只会用到实现层类图，并非他们对问题领域足够了解，而是不清楚类图也分了这么三层。</p>
+<h3 id="6-2-1-3-对象图"><a title="6.2.1.3 对象图" class="headerlink" href="#6-2-1-3-对象图"></a>6.2.1.3 对象图</h3><p>对象图是类图的实例，标识和类图基本相同。由于对象存在生命周期，对象图只能在系统某一时间段存在，因此对象图可以被想象成正在运行的系统在某一时刻的快照。</p>
+<p>比如一个正在运行的列车，如果用对象图来描述，某个时间点你会发现以下静态图片：</p>
+<ul>
+<li>当前的运行状态（运行中或停车中）</li>
+<li>当前的乘客数量。（如果捕捉在不同的时间，该值会变化）</li>
+</ul>
+<p><img loading="lazy" alt="v2-b236ee32a6325df2eec9e1de3161fff8_1440w.webp" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-b236ee32a6325df2eec9e1de3161fff8_1440w.webp"></p>
+<h3 id="6-2-1-4-包图"><a title="6.2.1.4 包图" class="headerlink" href="#6-2-1-4-包图"></a>6.2.1.4 包图</h3><p>在实际的项目中，建模过程获得的元素可能是非常多的，如果将这些元素的关系都绘制出来，看上去就会特别乱，特别复杂，也难以识别。</p>
+<p>那为了更好的理解和管理这些建模元素，我们就需要<strong>有规律的对元素进行组织</strong>。包图就起到了这么一个作用，通过包这个容器，可以<strong>从大到小、从粗到细地将建模元素组织起来</strong>，便于我们的<strong>分析，交流和细化</strong>。</p>
+<p>下图是网上购物的领域包图，它表达了关键业务领域及其依赖关系。</p>
+<p><img loading="lazy" alt="v2-66815a642a8fd48deafef7d7923d5f1f_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-66815a642a8fd48deafef7d7923d5f1f_r.jpg"></p>
+<p>下图展示了查询商品功能的类层次，它表达了实现类位于哪个层次的软件架构的观点。</p>
+<p><img loading="lazy" alt="v2-ccb67aa71c207bd37c3d0d0343ff6eb4_1440w.webp" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-ccb67aa71c207bd37c3d0d0343ff6eb4_1440w.webp"></p>
+<h3 id="6-2-1-5-组件图"><a title="6.2.1.5 组件图" class="headerlink" href="#6-2-1-5-组件图"></a>6.2.1.5 组件图</h3><p>当有些包能够<strong>被多个场景重复使用</strong>，那这个包就可以认为有着特定的功能，能够完成特定的目标。</p>
+<p>这种情况下，包就可以定义为组件，<strong>组件是一种特殊的包，既起到了普通包组织和容纳的作用，又能完成特定的功能</strong>。</p>
+<p>比如模块（登录模块），类库（Java Guava 包）。</p>
+<p>下图可以表达组件实现的过程，通过第三方软件或者面向对象分析设计过程中产生的各种包，可以定义组件。</p>
+<p><img loading="lazy" alt="v2-0629272e8d7c69c5cb7165ee18e007b0_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-0629272e8d7c69c5cb7165ee18e007b0_r.jpg"></p>
+<p>组件可以按功能分为以下几类：模块、子系统、库、可执行文件和程序包等等。</p>
+<p><img loading="lazy" alt="v2-dd3230ba0e0eb9d751f77159e835d01c_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-dd3230ba0e0eb9d751f77159e835d01c_r.jpg"></p>
+<h3 id="6-2-1-6-部署图"><a title="6.2.1.6 部署图" class="headerlink" href="#6-2-1-6-部署图"></a>6.2.1.6 部署图</h3><p>部署图描述了<strong>物理上系统运行时的结构</strong>，包括系统中<strong>硬件的分布以及软件部署到硬件上的具体方式</strong>。</p>
+<p>部署图用于<strong>设计建模阶段</strong>，采用<strong>节点和关系</strong>两种核心元素来绘制。常用于分布式应用环境和多设备应用环境。</p>
+<p><img loading="lazy" alt="v2-47222cb7c7a3735bf291ae63ea0ff14b_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-47222cb7c7a3735bf291ae63ea0ff14b_r.jpg"></p>
+<p>上图是一个简单的部署图，表达了客户端比如浏览器这个节点，会请求到 Web 服务器节点，最后通过数据库服务器节点返回数据。如果涉及分布式环境，就要考虑多个 Web Server，多个 Database Server，甚至考虑多机房，异地等物理层面的部署方式。</p>
+<h3 id="6-2-2-行为视图"><a title="6.2.2 行为视图" class="headerlink" href="#6-2-2-行为视图"></a>6.2.2 行为视图</h3><p>结构视图介绍完，我们讲讲行为视图。</p>
+<p>行为视图也称为<strong>动态视图</strong>。动态视图就是描述<strong>事物动态行为</strong>的。动态视图不能独立存在，它必须<strong>基于一个静态视图或者 UML 元�</strong>�，说明在静态视图规定的事物结构下它们的<strong>动态行为。</strong></p>
+<p>这里简要介绍的动态视图包括状态图、活动图、时序图和协作图。</p>
+<h3 id="6-2-2-1-状态图"><a title="6.2.2.1 状态图" class="headerlink" href="#6-2-2-1-状态图"></a>6.2.2.1 状态图</h3><p>状态图<strong>也称状态机</strong>，它<strong>描述了一个对象的生命周期</strong>，你可以把它理解成一台运行中的机器，这台机器<strong>负责这个对象在固定几个状态间的流转。</strong></p>
+<p>这个对象可以是<strong>业务实体对象</strong>，也可以是<strong>分析类对象</strong>，还可以是<strong>设计类对象</strong>。也就是说，在面向对象分析设计的<strong>三个阶段</strong>（业务建模，概念建模，设计建模），都可以用状态图来表达。</p>
+<p>下图是一个产品的生命周期状态图。绿色部分是状态图相关的元素，红色部分是元素的解释。</p>
+<p><img loading="lazy" alt="v2-b5aed22828f6a9b0dc10f9458b47655f_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-b5aed22828f6a9b0dc10f9458b47655f_r.jpg"></p>
+<p>从图中，我们可以看到，状态图有以下关键元素：</p>
+<ol>
+<li>初始状态：它是状态机的<strong>起始位置</strong>，不需要事件的触发。用实心圆圈表示。</li>
+<li>状态：状态是对象<strong>执行某项活动或者等待某个事件时的条件</strong>。比如要想执行产品入库动作，产品得是未入库的状态，如果想销售某个产品，产品得是入库的状态。</li>
+<li>转移：转移是<strong>两个状态之间的关系</strong>，它表示当发生指定事件并且满足指定条件时，第一个状态中的对象将执行某些操作并进入第二个状态。比如产品入库这个动作，就将产品的状态从未入库转移到了已入库。</li>
+<li>事件：事件是一个<strong>特定的动作或行为</strong>，有时候也包括系统时钟之类的定时器。如果条件满足，事件的发生将触发一个转移。比如产品销售这个动作，出发产品从已入库状态转移至已销售状态。</li>
+<li>条件：条件是一个<strong>布尔表达式</strong>，当事件发生时将检查这个表达式的值。条件求值结果可能决定转移的分支，或者拒绝转移。条件有可能引用当前状态。比如产品合不合格这个布尔判断，决定了产品是可被销售，还是不可被销售。</li>
+<li>最终状态：最终状态表示<strong>状态机执行结束</strong>，或者对象生命周期结束。用带环的实心圆圈表示。</li>
+</ol>
+<h3 id="6-2-2-2-活动图"><a title="6.2.2.2 活动图" class="headerlink" href="#6-2-2-2-活动图"></a>6.2.2.2 活动图</h3><p>活动图描述了为了<strong>完成某一个目标需要做的活动</strong>以及这些<strong>活动的执行顺序</strong>。</p>
+<p>UML 中有两个层面的活动图，一种是<strong>用例活动图</strong>，它用于描述<strong>用例场景</strong>，常用于业务建模阶段，另一种是<strong>对象活动图</strong>，用于描述<strong>对象交互</strong>，常用于设计建模阶段。</p>
+<p>下图是一个登机手续办理的用例活动图。绿色部分是活动图相关的元素，红色部分是元素的解释。</p>
+<p><img loading="lazy" alt="v2-81d4c10e7684ddd06c93a4fbed580a52_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-81d4c10e7684ddd06c93a4fbed580a52_r.jpg"></p>
+<p>从图中，我们可以看到，活动图有以下几个关键元素：</p>
+<ul>
+<li>起始点：起始点<strong>标记业务流程的开始</strong>。一个活动图仅有一个。用实心圆圈表示。</li>
+<li>活动：活动是业务流程中的一个<strong>执行单元</strong>。比如办理登机手续需要出示机票和身份证这样的动作。</li>
+<li>判断：判断<strong>根据某个条件进行决策</strong>，执行不同的流程分支。比如身份核对决定了你能否继续办理登机手续。</li>
+<li>基本流：基本流表示<strong>最主要、最频繁使用的</strong>、默认的业务流程分支。比如身份核对的正常分支。</li>
+<li>支流：支流是进行判断后走进的<strong>业务流程分支</strong>。比如图中无行李分支。</li>
+<li>异常流：异常流表示<strong>非正常的、不是业务目标期待的、容错性的、处理意外情况</strong>的业务流程分支。比如身份证核对错误。</li>
+<li>同步：同步分为<strong>同步起始和同步汇合</strong>。</li>
+<li>同步起始表示从它<strong>开始多个支流并行执行</strong>。比如托运行李的处理和登机牌的打印操作，可以并行。</li>
+<li>同步汇合表示<strong>多个支流同时到达后再执行后续活动</strong>。</li>
+<li>结束点：结束点表示<strong>业务流程的终止</strong>。一个或多个。</li>
+</ul>
+<p>用例活动图常常是从业务的角度上，分析要完成某个目标，要执行哪些活动。如果在系统设计的角度上，要表达完成目标需要的活动，就需要用到对象活动图。</p>
+<p>比如根据查询商品的对象交互过程，就能绘制出以下的对象活动图。</p>
+<p>虽然 UML 允许用活动图绘制对象交互，但实际工作中，<strong>我从来没用过</strong>。因为 UML 有其他更好的工具来绘制对象交互图，比如接下来要讲的时序图。</p>
+<h3 id="6-2-2-3-时序图"><a title="6.2.2.3 时序图" class="headerlink" href="#6-2-2-3-时序图"></a>6.2.2.3 时序图</h3><p>时序图用于描述按<strong>时间顺序排列的对象之间的交互模式</strong>。</p>
+<p>前面类图那一节有提过类有三个层次的观点：<strong>概念层、说明层和实现层</strong>，分别对应于面向对象分析设计的<strong>业务建模阶段、概念建模阶段和设计建模阶段</strong>，相应的，也可以在这三个层次上分别对<strong>业务实体对象、分析类对象和设计类对象</strong>绘制<strong>业务模型时序图、概念模型时序图和设计模型时序图</strong>。</p>
+<p><img loading="lazy" alt="v2-c4c827164a67101aa2baf2b893ae0005_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-c4c827164a67101aa2baf2b893ae0005_r.jpg"></p>
+<p>接下来介绍三种时序图。</p>
+<p>业务模型时序图用于为<strong>领域模型中的业务实体交互建模</strong>，目标是<strong>实现业务用例</strong>。</p>
+<p>上一节提到的活动图，可以帮助我们发现业务实体，活动图也可以很轻易的转换成时序图，下图是网上购买商品的业务模型时序图。</p>
+<p><img loading="lazy" alt="v2-5ebe16cf72c300c9b7d2528d296392b8_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-5ebe16cf72c300c9b7d2528d296392b8_r.jpg"></p>
+<p>时序图中会涉及一些 UML 元素，这里列举常用的几个：</p>
+<ul>
+<li>对象：表示<strong>参与交互的对象</strong>。每个对象都有一条生命周期线，对象被激活时，生命周期线上会出现一个长条（会话），表示对象的存在。</li>
+<li>生命周期线：表示<strong>对象的存在</strong>。当对象被激活时，生命周期线上出现会话，表示对象参与了这个会话。</li>
+<li>消息：表示<strong>对象间交互所发生的动作</strong>。由一个对象的生命周期线指向另一个对象的生命周期线。常见的消息类型有以下几种：</li>
+<li>简单消息：<strong>向右的实线箭头</strong>，这种最为常用。</li>
+<li>返回消息：<strong>源消息的返回体，并非新消息</strong>。用向左的单向虚线箭头表示。<strong>一般不需要为每个源消息都绘制返回消息</strong>，一方面源消息默认情况下都有返回消息，另一方面过多的返回消息会让图变得更复杂。</li>
+<li>同步消息：表示<strong>发出消息的对象将停止所有后续动作</strong>，一直等到接收消息方响应。用向右带×的单向实线箭头表示。同步消息将阻塞源消息所有行为。通常程序之间的方法调用都是同步消息。</li>
+<li>异步消息：表示源消息发出消息后不等待响应，而可以继续执行其他操作。<strong>用向右的单向上箭头表示</strong>。异步消息一般需要消息中间件的支持，如 MQ 等。</li>
+<li>会话：表示<strong>一次交互</strong>，在会话过程中<strong>所有对象共享一个上下文环境</strong>。例如操作上下文。</li>
+<li>销毁：表示<strong>生命周期的终止</strong>。绘制在生命周期线的末端，一般没有必要强调。</li>
+</ul>
+<p>业务模型时序图是<strong>业务建模阶段的产物</strong>，它展现了业务的实际需求，因此使用的<strong>描述语言应当采用业务术语</strong>。</p>
+<p>进入概念建模阶段，可以采用<strong>分析类绘制概念模型时序图</strong>。和业务模型时序图相比，同样是展现业务需求，不同点在于<strong>分析类代表了系统原型</strong>，所以这个阶段的时序图已经带有了计算机层面的理解。</p>
+<p>因此，概念模型时序图<strong>既保留了实际业务需求</strong>，又得到了<strong>计算机实现的基本理念</strong>。如下图所示。</p>
+<p><img loading="lazy" alt="v2-b3e92bcad85da9951e878c67397badbd_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-b3e92bcad85da9951e878c67397badbd_r.jpg"></p>
+<p>可以看到，在概念模型时序图里，相对于业务模型时序图，我们的表达增加了安全认证和商品目录。这是因为我们实际在做登录这个功能时，我们的软件系统需要关心身份核验。我们在获取商品时，为了避免杂乱需要对其进行分类。</p>
+<p>另外，我们的业务实体转为分析类进行表达，<strong>网站作为边界类</strong>，用于隔离用户操作和系统行为。<strong>安全认证作为控制类</strong>，用于决定是否能成功登录网站。<strong>商品目录和商品作为实体类</strong>，用于表达用户实际想看到或者操作的实体信息。 </p>
+<p>分析类展示出来的已经是系统实现的原型，进入设计建模阶段，我们做的工作就是要<strong>选择合适的实现方式来实现这个原型</strong>。</p>
+<p>设计建模阶段，我们采用设计模型时序图来实现概念模型中的交互。</p>
+<p>设计模型时序图使用设计类作为对象绘制，也是我们日常开发设计中最为常用的动态视图。以下是商品查询的设计模型时序图。</p>
+<p><img loading="lazy" alt="v2-bd9e614a54d52acdcfad15e586c0ef05_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-bd9e614a54d52acdcfad15e586c0ef05_r.jpg"></p>
+<p>可以看到，在设计模型时序图里，<strong>消息会细致到方法级别</strong>。因为在这个阶段，相关的技术选型，比如编程语言，交互协议，中间件等已经比较明确了。</p>
+<p>时序图除了在建模的三个阶段使用外，当你需要<strong>表达对象的交互</strong>，或者想<strong>分析对象的职责和接口</strong>时，都可以使用时序图。</p>
+<h3 id="6-2-2-4-协作图"><a title="6.2.2.4 协作图" class="headerlink" href="#6-2-2-4-协作图"></a>6.2.2.4 协作图</h3><p>协作图和时序图一样，也是描述对象之间的交互模式，不同的是，时序图在意的是<strong>对象交互的执行顺序</strong>，而协作图在意的是<strong>对象间的结构关系。</strong></p>
+<p>因此，时序图适用于<strong>获得对调用过程的理解</strong>，而协作图适用于<strong>获得对对象结构的理解。</strong></p>
+<p>协作图可以和时序图互相转换，对应时序图的三种表达方式，协作图也分为<strong>业务模型协作图</strong>，<strong>概念模型协作图</strong>和<strong>设计模型时序图</strong>。本文只介绍业务模型协作图，另外两种协作图可以由相应的时序图推导，这里就不赘述了。</p>
+<p>业务模型协作图同样采用业务实体来绘制，目标也是实现用例场景。下图是网上购买商品的业务模型协作图。</p>
+<p><img loading="lazy" alt="v2-68331bde0804ac2faa0b58ec8a8ccd40_r.jpg" src="/images/notes/UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-_-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-_-%E7%B1%BB%E5%9B%BE-_-%E6%97%B6%E5%BA%8F%E5%9B%BE-_-%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE-%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5-%E7%9F%A5%E4%B9%8E/v2-68331bde0804ac2faa0b58ec8a8ccd40_r.jpg"></p>
+<p>可以看到，协作图和时序图相比，对象间的结构一目了然，很容易<strong>知道哪些消息会影响哪些对象或者哪些对象需要提供哪些接口</strong>。但在执行顺序的表达上就很弱，必须依赖消息文本里的数字。</p>
+<p>以下是协作图常用的 UML 元素：</p>
+<ul>
+<li>对象：表示<strong>参与协作的对象</strong>。</li>
+<li>对象关联：用于<strong>连接两个对象</strong>，表示二者的关联。这种关联是临时的，只在本次交互中有效。</li>
+<li>消息：和时序图中的消息定义一致。</li>
+<li>消息序号：表明<strong>消息传递的先后顺序</strong>。</li>
+</ul>
+<h3 id="6-2-3-小结"><a title="6.2.3 小结" class="headerlink" href="#6-2-3-小结"></a>6.2.3 小结</h3><p>本节介绍了 UML 的核心视图，我们再看下核心视图的大纲。</p>
+<p>%!(EXTRA markdown.ResourceType=, string=, string=)</p>
+<p>核心视图分静态视图和动态视图。静态视图<strong>表达事物的结构性观点</strong>，动态视图<strong>表达事物的行为性观点</strong>。</p>
+<p>一个好的建模，结构性和行为性都不可或缺，既要说明<strong>该事物长什么样子</strong>，又要说明<strong>该事物应该怎么用</strong>。</p>
+<h2 id="七、总结"><a title="七、总结" class="headerlink" href="#七、总结"></a>七、总结</h2><p>本文从一个示例开始，引入了 UML 的概念，介绍了<strong>什么是 UML，为什么要用 UML以及什么时候用 UML</strong>。我们了解一个事物，<strong>知其然也要知其所以然</strong>。</p>
+<p>然后介绍了 UML 的组成结构，从元素和视图的角度出发，讲解了绘制图形的方法和相关概念。文中也给出了很多我亲手绘制的样例视图，如有错误之处，还望读者指摘。</p>
+<p><strong>纸上得来终觉浅，绝知此事要躬行</strong>。知道和做到总有一段距离，重在实践。</p>
+<p>希望这篇文章对从事面向对象编程的读者朋友能够有所启发，欢迎和我一起交流，也欢迎<strong>转发</strong>给有需要的朋友。</p>
+<p>（完）</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E4%B8%8E%E4%BA%A7%E5%93%81/">设计与产品</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/UML%20%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%20_%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%20_%20%E7%B1%BB%E5%9B%BE%20_%20%E6%97%B6%E5%BA%8F%E5%9B%BE%20_%EF%BC%88%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE%EF%BC%8C%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5%EF%BC%89%20-%20%E7%9F%A5%E4%B9%8E/" data-title="UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/UIView 中一些常用方法/" title="UIView 中一些常用方法">
+  <strong>上一篇：</strong><br/>
+  <span>
+  UIView 中一些常用方法</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/VI命令行 2/"  title="VI命令行">
+ <strong>下一篇：</strong><br/> 
+ <span>VI命令行
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/UML 入门指南 _ 面向对象设计 _ 类图 _ 时序图 _（万字多图，非常干燥） - 知乎/" data-title="UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/UML%20%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%20_%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%20_%20%E7%B1%BB%E5%9B%BE%20_%20%E6%97%B6%E5%BA%8F%E5%9B%BE%20_%EF%BC%88%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE%EF%BC%8C%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5%EF%BC%89%20-%20%E7%9F%A5%E4%B9%8E/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-%E7%B1%BB%E5%9B%BE-%E6%97%B6%E5%BA%8F%E5%9B%BE-%EF%BC%88%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE%EF%BC%8C%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5%EF%BC%89-%E7%9F%A5%E4%B9%8E"><span class="toc-number">1.</span> <span class="toc-text">UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥） - 知乎</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UML-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1-%E7%B1%BB%E5%9B%BE-%E6%97%B6%E5%BA%8F%E5%9B%BE-%EF%BC%88%E4%B8%87%E5%AD%97%E5%A4%9A%E5%9B%BE%EF%BC%8C%E9%9D%9E%E5%B8%B8%E5%B9%B2%E7%87%A5%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">UML 入门指南 | 面向对象设计 | 类图 | 时序图 |（万字多图，非常干燥）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="toc-number">2.1.</span> <span class="toc-text">一、前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%A4%BA%E4%BE%8B%E5%BC%80%E5%A7%8B"><span class="toc-number">2.2.</span> <span class="toc-text">二、从一个示例开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF-UML%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">三、什么是 UML？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%B0%E4%B8%BA%E8%AF%AD%E8%A8%80"><span class="toc-number">2.4.</span> <span class="toc-text">3.1 为什么称为语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%BB%BA%E6%A8%A1"><span class="toc-number">2.5.</span> <span class="toc-text">3.2 什么是建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E7%BB%9F%E4%B8%80%E7%9A%84%E6%84%8F%E4%B9%89%E5%9C%A8%E5%93%AA"><span class="toc-number">2.6.</span> <span class="toc-text">3.3 统一的意义在哪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-UML"><span class="toc-number">2.7.</span> <span class="toc-text">四、为什么需要 UML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81UML-%E7%9A%84%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">2.8.</span> <span class="toc-text">五、UML 的适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81UML-%E7%9A%84%E7%BB%84%E6%88%90%E7%BB%93%E6%9E%84"><span class="toc-number">2.9.</span> <span class="toc-text">六、UML 的组成结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E6%A0%B8%E5%BF%83%E5%85%83%E7%B4%A0"><span class="toc-number">2.10.</span> <span class="toc-text">6.1 核心元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-1-%E7%89%88%E5%9E%8B"><span class="toc-number">2.10.1.</span> <span class="toc-text">6.1.1 版型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-2-%E5%8F%82%E4%B8%8E%E8%80%85"><span class="toc-number">2.10.2.</span> <span class="toc-text">6.1.2 参与者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-3-%E7%94%A8%E4%BE%8B"><span class="toc-number">2.10.3.</span> <span class="toc-text">6.1.3 用例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-4-%E8%BE%B9%E7%95%8C"><span class="toc-number">2.10.4.</span> <span class="toc-text">6.1.4 边界</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-5-%E4%B8%9A%E5%8A%A1%E5%AE%9E%E4%BD%93"><span class="toc-number">2.10.5.</span> <span class="toc-text">6.1.5 业务实体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-6-%E5%8C%85"><span class="toc-number">2.10.6.</span> <span class="toc-text">6.1.6 包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-7-%E5%88%86%E6%9E%90%E7%B1%BB"><span class="toc-number">2.10.7.</span> <span class="toc-text">6.1.7 分析类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-8-%E8%AE%BE%E8%AE%A1%E7%B1%BB"><span class="toc-number">2.10.8.</span> <span class="toc-text">6.1.8 设计类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-9-%E5%85%B3%E7%B3%BB"><span class="toc-number">2.10.9.</span> <span class="toc-text">6.1.9 关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-10-%E7%BB%84%E4%BB%B6"><span class="toc-number">2.10.10.</span> <span class="toc-text">6.1.10 组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-11-%E8%8A%82%E7%82%B9"><span class="toc-number">2.10.11.</span> <span class="toc-text">6.1.11 节点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E6%A0%B8%E5%BF%83%E8%A7%86%E5%9B%BE"><span class="toc-number">2.11.</span> <span class="toc-text">6.2 核心视图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-%E7%BB%93%E6%9E%84%E8%A7%86%E5%9B%BE"><span class="toc-number">2.11.1.</span> <span class="toc-text">6.2.1 结构视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-1-%E7%94%A8%E4%BE%8B%E5%9B%BE"><span class="toc-number">2.11.2.</span> <span class="toc-text">6.2.1.1 用例图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-2-%E7%B1%BB%E5%9B%BE"><span class="toc-number">2.11.3.</span> <span class="toc-text">6.2.1.2 类图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-3-%E5%AF%B9%E8%B1%A1%E5%9B%BE"><span class="toc-number">2.11.4.</span> <span class="toc-text">6.2.1.3 对象图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-4-%E5%8C%85%E5%9B%BE"><span class="toc-number">2.11.5.</span> <span class="toc-text">6.2.1.4 包图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-5-%E7%BB%84%E4%BB%B6%E5%9B%BE"><span class="toc-number">2.11.6.</span> <span class="toc-text">6.2.1.5 组件图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-6-%E9%83%A8%E7%BD%B2%E5%9B%BE"><span class="toc-number">2.11.7.</span> <span class="toc-text">6.2.1.6 部署图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-%E8%A1%8C%E4%B8%BA%E8%A7%86%E5%9B%BE"><span class="toc-number">2.11.8.</span> <span class="toc-text">6.2.2 行为视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-1-%E7%8A%B6%E6%80%81%E5%9B%BE"><span class="toc-number">2.11.9.</span> <span class="toc-text">6.2.2.1 状态图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-2-%E6%B4%BB%E5%8A%A8%E5%9B%BE"><span class="toc-number">2.11.10.</span> <span class="toc-text">6.2.2.2 活动图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-3-%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="toc-number">2.11.11.</span> <span class="toc-text">6.2.2.3 时序图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-4-%E5%8D%8F%E4%BD%9C%E5%9B%BE"><span class="toc-number">2.11.12.</span> <span class="toc-text">6.2.2.4 协作图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-3-%E5%B0%8F%E7%BB%93"><span class="toc-number">2.11.13.</span> <span class="toc-text">6.2.3 小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">2.12.</span> <span class="toc-text">七、总结</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

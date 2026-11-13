@@ -1,0 +1,1079 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFaultjavascript 面向对象 浅谈 JS 创建对象的 8 种模式 Objct 模式 构造器模式 通过 Function 对象实现 prototype 模式 构造器与原型方式的混合模式 动态原型模式 混合工厂模式  1.Object 模式 o1 &#x3D; &amp;#123;&amp;#125;;&#x2F;&#x2F;字面量的表现形式  o2 &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E6%B5%85%E8%B0%88%20JS%20%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%208%20%E7%A7%8D%E6%A8%A1%E5%BC%8F%20-%20%E5%89%8D%E7%AB%AF%E5%B0%8F%E7%99%BD%E8%8F%9C%E7%9A%84%E7%83%B9%E9%A5%AA%E6%8C%87%E5%8D%97%20-%20SegmentFault/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFaultjavascript 面向对象 浅谈 JS 创建对象的 8 种模式 Objct 模式 构造器模式 通过 Function 对象实现 prototype 模式 构造器与原型方式的混合模式 动态原型模式 混合工厂模式  1.Object 模式 o1 &#x3D; &amp;#123;&amp;#125;;&#x2F;&#x2F;字面量的表现形式  o2 &#x3D;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%B5%85%E8%B0%88-JS-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84-8-%E7%A7%8D%E6%A8%A1%E5%BC%8F-%E5%89%8D%E7%AB%AF%E5%B0%8F%E7%99%BD%E8%8F%9C%E7%9A%84%E7%83%B9%E9%A5%AA%E6%8C%87%E5%8D%97-SegmentFault/bVqmdp.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-08-17T14:11:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E6%B5%85%E8%B0%88-JS-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84-8-%E7%A7%8D%E6%A8%A1%E5%BC%8F-%E5%89%8D%E7%AB%AF%E5%B0%8F%E7%99%BD%E8%8F%9C%E7%9A%84%E7%83%B9%E9%A5%AA%E6%8C%87%E5%8D%97-SegmentFault/bVqmdp.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault/" title="浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault" itemprop="url">浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%85%E8%B0%88-JS-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84-8-%E7%A7%8D%E6%A8%A1%E5%BC%8F-%E5%89%8D%E7%AB%AF%E5%B0%8F%E7%99%BD%E8%8F%9C%E7%9A%84%E7%83%B9%E9%A5%AA%E6%8C%87%E5%8D%97-SegmentFault"><span class="toc-number">1.</span> <span class="toc-text">浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%85%E8%B0%88-JS-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84-8-%E7%A7%8D%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">浅谈 JS 创建对象的 8 种模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Object-%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.1.</span> <span class="toc-text">1.Object 模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.2.</span> <span class="toc-text">2.工厂模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.3.</span> <span class="toc-text">3.构造器模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%80%9A%E8%BF%87Function%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.0.4.</span> <span class="toc-text">4.通过Function对象实现创建对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-prototype%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.5.</span> <span class="toc-text">5.prototype模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9E%84%E9%80%A0%E5%99%A8%E6%96%B9%E5%BC%8F%E4%B8%8E%E5%8E%9F%E5%9E%8B%E6%96%B9%E5%BC%8F%E7%9A%84%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.6.</span> <span class="toc-text">6.构造器方式与原型方式的混合模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%8A%A8%E6%80%81%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.7.</span> <span class="toc-text">7.动态原型模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E6%B7%B7%E5%90%88%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.8.</span> <span class="toc-text">8.混合工厂模式</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="浅谈-JS-创建对象的-8-种模式-前端小白菜的烹饪指南-SegmentFault"><a title="浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault" class="headerlink" href="#浅谈-JS-创建对象的-8-种模式-前端小白菜的烹饪指南-SegmentFault"></a>浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault</h1><p><code>javascript</code> <code>面向对象</code></p>
+<h1 id="浅谈-JS-创建对象的-8-种模式"><a title="浅谈 JS 创建对象的 8 种模式" class="headerlink" href="#浅谈-JS-创建对象的-8-种模式"></a>浅谈 JS 创建对象的 8 种模式</h1><ul>
+<li>Objct 模式</li>
+<li>构造器模式</li>
+<li>通过 Function 对象实现</li>
+<li>prototype 模式</li>
+<li>构造器与原型方式的混合模式</li>
+<li>动态原型模式</li>
+<li>混合工厂模式</li>
+</ul>
+<h3 id="1-Object-模式"><a title="1.Object 模式" class="headerlink" href="#1-Object-模式"></a><strong>1.Object 模式</strong></h3><pre><code> o1 = &#123;&#125;;//字面量的表现形式
+ o2 =  Object;
+ o3 =  Object();
+ o4 =  Object();
+ o5 =  Object(undefined);
+ o6 = Object.create(Object.prototype);//等价于 var o = &#123;&#125;;//即以 Object.prototype 对象为一个原型模板,新建一个以这个原型模板为原型的对象
+
+ o7 = Object.create();//创建一个原型为 null 的对象
+</code></pre>
+<p>在 chrome 里查看各个新建对象的区别:</p>
+<p><img loading="lazy" alt="bVqmdp.png" src="/images/notes/%E6%B5%85%E8%B0%88-JS-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84-8-%E7%A7%8D%E6%A8%A1%E5%BC%8F-%E5%89%8D%E7%AB%AF%E5%B0%8F%E7%99%BD%E8%8F%9C%E7%9A%84%E7%83%B9%E9%A5%AA%E6%8C%87%E5%8D%97-SegmentFault/bVqmdp.png"></p>
+<p>可以看出前6种模式创建出来的对象都是一样的,第七种不同点在于其虽然也为 Object 对象但其无任何属性(包括没有任何可以继承的属性,因为创建的时候没有指定其原型)</p>
+<h3 id="2-工厂模式"><a title="2.工厂模式" class="headerlink" href="#2-工厂模式"></a><strong>2.工厂模式</strong></h3><pre><code>//工厂方法1 通过一个方法来创建对象 利用 arguments 对象获取参数设置属性(参数不直观,容易出现问题)
+function createCar&#123;
+     oTemp =  Object();
+    oTemp.name = arguments[];//直接给对象添加属性，每个对象都有直接的属性
+    oTemp.age = arguments[];
+    oTemp.showName = function  &#123;
+        alert(.name);
+    &#125;;//每个对象都有一个 showName 方法版本
+    return oTemp;
+&#125;
+createCar("tom").showName();//在 JS 中没有传递的实参,实际形参值为 undefined(这里的 age 为 undefined)
+createCar("tim",).showName();
+alert(createCar("tom") instanceof Object);//true 判断对象是否 Object 类或子类
+</code></pre>
+<pre><code>//工厂方法2 通过传参设置属性(参数直观明了)
+function createCar(name,age)&#123;
+     oTemp =  Object();
+    oTemp.name = name;//直接给对象添加属性，每个对象都有直接的属性
+    oTemp.age = age;
+    oTemp.showName = function  &#123;
+        alert(.name);
+    &#125;;//每个对象都有一个 showName 方法版本
+    return oTemp;
+&#125;
+createCar("tom").showName();
+createCar("tim",).showName();
+alert(createCar("tom") instanceof Object);//true 判断对象是否 Object 类或子类
+</code></pre>
+<h3 id="3-构造器模式"><a title="3.构造器模式" class="headerlink" href="#3-构造器模式"></a><strong>3.构造器模式</strong></h3><pre><code>//构造器方法1
+function (sColor,iDoors)&#123;  //声明为构造器时需要将函数名首字母大写
+    .color = sColor;      //构造器内直接声明属性
+    .doors = iDoors;
+    .showColor = function&#123;
+        return .color;
+    &#125;;//每个 Car 对象都有自己的 showColor方法版本
+    .showDoor = function  &#123;
+        return .doors;
+    &#125;
+&#125;
+</code></pre>
+<p>使用方法1的问题很明显,没办法是 showDoor 方法重用,每次新建一个对象就要在堆里新开辟一篇空间.改进如下</p>
+<pre><code>//构造器方法2
+function showDoor&#123;      //定义一个全局的 Function 对象
+    return .doors;
+&#125;
+
+function (sColor,iDoors)&#123;//构造器
+    .color = sColor;      //构造器内直接声明属性
+    .doors = iDoors;
+    .showColor = function&#123;
+        return .color;
+    &#125;;
+    .showDoor = showDoor();//每个 Car 对象共享同一个 showDoor 方法版本(方法有自己的作用域，不用担心变量被共享)
+&#125;
+
+alert( Car("red",).showColor());//通过构造器创建一个对象并调用其对象方法
+</code></pre>
+<p>上面出现的问题就是语义不够清除,体现不出类的封装性,改进为 prototype 模式</p>
+<h3 id="4-通过Function对象实现创建对象"><a title="4.通过Function对象实现创建对象" class="headerlink" href="#4-通过Function对象实现创建对象"></a><strong>4.通过Function对象实现创建对象</strong></h3><p>我们知道每声明一个函数实际是创建了一个Function 实例 <a target="_blank" rel="noopener" href="http://segmentfault.com/a/1190000003848925">JS 函数</a>.</p>
+<pre><code>function function_name(param1,param2)&#123;alert(param1);&#125;
+//等价于
+ function_name =  Function("param1","pram2","alert(param1);");
+</code></pre>
+<pre><code> Car2 =  Function("sColor","iDoors",
+         "this.color = sColor;"+
+         "this.doors = iDoors;"+
+         "this.showColor = function()&#123; return this.color; &#125;"
+);
+alert( Car2("blue",).showColor());
+</code></pre>
+<h3 id="5-prototype模式"><a title="5.prototype模式" class="headerlink" href="#5-prototype模式"></a><strong>5.prototype模式</strong></h3><ul>
+<li>类通过 prototype 属性添加的属性与方法都是绑定在这个类的 prototype 域(实际为一个 Prototype 对象)中，绑定到这个域中的属性与方法只有一个版本，只会创建一次.</li>
+<li>类的实例对象可以直接像调用自己的属性一样调用该类的 prototype 域中的属性与方法，类可以通过调用 prototype 属性来间接调用prototype 域内的属性与方法.</li>
+</ul>
+<p>注意：通过类实例化出对象后对象内无 prototype 属性，但对象可直接像访问属性一样的访问类的 prototype 域的内容，实例对象有个私有属性__proto__,__proto__属性内含有类的 prototype 域内的属性与方法</p>
+<pre><code>方法
+function &#123;&#125;//用空构造函数设置类名
+Car3.prototype.color = "blue";//每个对象都共享相同属性
+Car3.prototype.doors = ;
+Car3.prototype.drivers =  Array("Mike","John");
+Car3.prototype.showColor = function&#123;
+    alert(.color);
+&#125;;//每个对象共享一个方法版本，省内存。
+
+ car3_1 =  Car3();
+ car3_2 =  Car3();
+
+alert(car3_1.color);//blue
+alert(car3_2.color);//blue
+alert(Car3.prototype.color);//blue
+
+car3_1.drivers.push("Bill");
+alert(car3_1.drivers);//"Mike","John","Bill"
+alert(car3_2.drivers);//"Mike","John","Bill"
+alert(Car3.prototype.drivers);//"Mike","John","Bill"
+
+//直接修改实例对象的属性,解析器会先去找实例对象是否有这个属性(不会去找实例对象的 _proto_ 属性内的那些类的 prototype 属性，而是直接查看这个实例是否有对应的属性(与_proto_同级))
+//如果没有则直接给这个实例对象添加该属性，但不会修改类的prototype域的同名属性，既实例对象的_proto_属性内的那些类 prototype 域属性不会被修改
+car3_1.color = "red";//car3_1对象内无名为 color 的对象属性，故将该属性添加到该对象上
+
+//解析器对实例对象读取属性值的时候会先查找该实例有无同名的直接属性
+//如果没有，则查找__proto__属性内保存的那些 当前类的 prototype 域的属性
+//有就返回，无则继续查找是否有原型链中的对应的方法属性
+//有就返回，无则返回undefined
+alert(car3_1.color);//red
+alert(car3_2.color);//blue
+alert(car3_2.color2);//undefined
+
+//直接修改类的 prototype 域内的属性，不会影响该类的实例对象的对象属性，但会影响实例对象的_proto_属性(_proto_属性内存放的是类的 prototype 域的内容)
+Car3.prototype.color = "black";
+alert(car3_1.color);//red 该对象有同名的直接属性，故不会去_proto_属性内查找类的 prototype 域的属性
+alert(car3_2.color);//black 受影响
+
+//直接修改实例对象的方法,解析器会先去找实例对象是否有这个方法(不会去找实例对象的 _proto_ 属性内的那些类的 prototype 域的方法，而是直接查看这个实例是否有对应的方法(与_proto_同级))
+//如果没有则直接给这个实例对象添加该方法，但不会修改类的prototype域的同名方法，既实例对象的_proto_属性内的那些类 prototype 域方法不会被修改
+//car3_1对象内无名为 showColor 的对象方法属性，故将该方法属性添加到该对象上
+car3_1.showColor = function  &#123;
+    alert("new function");
+&#125;
+//解析器对实例对象调用方法属性的时候会先查找该实例有无同名的直接方法属性
+//如果没有，则查找_proto_属性内保存的那些 当前类的 prototype 域的方法属性
+//有就返回，无则继续查找是否有原型链中的对应的方法属性
+//找到就返回,无则报错
+
+car3_1.showColor();//new function
+car3_2.showColor();//blue
+car3_1.abcd();//直接报错
+
+//直接修改类的 prototype 域内的方法属性，不会影响该类的实例对象的方法属性，但会影响实例对象的_proto_属性(_proto_属性内存放的是类的 prototype 域的内容)
+Car3.prototype.showColor = function  &#123;
+    alert("second function");
+&#125;
+car3_1.showColor();//new function 该对象有同名的方法属性，故不会去_proto_属性内查找类的 prototype 域的方法属性
+car3_2.showColor();//second function 受影响
+</code></pre>
+<p>可以看出使用该方法虽然说打打减少了内存的浪费,但依旧有问题,某个对象的属性一旦改变,所有由该类实例化得到的对象的__proto__内属性值也会跟着变(实为引用),改进如下</p>
+<h3 id="6-构造器方式与原型方式的混合模式"><a title="6.构造器方式与原型方式的混合模式" class="headerlink" href="#6-构造器方式与原型方式的混合模式"></a><strong>6.构造器方式与原型方式的混合模式</strong></h3><pre><code>//每个对象有专属的属性不会与其他对象共享
+function (sColor,iDoors)&#123;
+    ._color = sColor;//私有属性变量名称头加下划线标识
+    ._doors = iDoors;
+    .drivers =  Array("Mike","John");//公有属性标识
+&#125;
+//所有对象共享一个方法版本，减少内存浪费
+Car4.prototype.showColor = function  &#123;
+    alert(._color);
+&#125;;
+
+ car4_1 =  Car4("red",);
+ car4_2 =  Car4("blue",);
+
+car4_1.drivers.push("Bill");
+
+alert(car4_1.drivers);//"Mike","John","Bill"
+alert(car4_2.drivers);//"Mike","John"
+</code></pre>
+<p>这也是常用的创建对象方式之一</p>
+<h3 id="7-动态原型模式"><a title="7.动态原型模式" class="headerlink" href="#7-动态原型模式"></a><strong>7.动态原型模式</strong></h3><pre><code>function (sColor,iDoors,iMpg)&#123;
+    .color = sColor;
+    .doors = iDoors;
+    .mpg = iMpg;
+    .drivers =  Array("Mike","John");
+
+    //使用标志(_initialized)来判断是否已给原型赋予了任何方法,保证方法永远只被创建并赋值一次
+    (typeof Car5._initialized == "undefined")&#123;//因为这里的标记是附加在类上,故如果后期直接对其进行修改,还是有可能出现再次创建的情况
+        Car5.prototype.showColor = function  &#123;//为Car5添加一个存放在 prototype 域的方法
+            alert(.color);
+        &#125;;
+        Car5._initialized = ;//设置一个静态属性
+    &#125;
+&#125;
+ car5_1 =  Car5("red",,);
+ car5_2 =  Car5("red",,);
+</code></pre>
+<p>这种模式使得定义类像强类型语言例如 java 等语言的定义模式</p>
+<h3 id="8-混合工厂模式"><a title="8.混合工厂模式" class="headerlink" href="#8-混合工厂模式"></a><strong>8.混合工厂模式</strong></h3><pre><code>function &#123;
+     oTempCar =  Object;
+    oTempCar.color = "blue";
+    oTempCar.doors = ;
+    oTempCar.showColor = function  &#123;
+        alert(.color);
+    &#125;;
+    return oTempCar;
+&#125;
+ car6 =  Car6();
+</code></pre>
+<p>由于在 Car6()构造函数内部调用了 new 运算符,所以将忽略第二个 new 运算符(位于构造函数之外),</p>
+<p>在构造函数内部创建的对象被传递回变量car6,这种方式在对象方法的内部管理方面与经典方式(工厂方法)有着相同的问题.应尽量避免</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF%E4%B8%8ENode-js/">前端与Node.js</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/javascript/">javascript</a><a href="/tags/面向对象/">面向对象</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E6%B5%85%E8%B0%88%20JS%20%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%208%20%E7%A7%8D%E6%A8%A1%E5%BC%8F%20-%20%E5%89%8D%E7%AB%AF%E5%B0%8F%E7%99%BD%E8%8F%9C%E7%9A%84%E7%83%B9%E9%A5%AA%E6%8C%87%E5%8D%97%20-%20SegmentFault/" data-title="浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/每位开发人员都应铭记的10句编程谚语/" title="每位开发人员都应铭记的10句编程谚语">
+  <strong>上一篇：</strong><br/>
+  <span>
+  每位开发人员都应铭记的10句编程谚语</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/直接将google进行本地映射，不进行域名解析，加速访问/"  title="直接将google进行本地映射，不进行域名解析，加速访问">
+ <strong>下一篇：</strong><br/> 
+ <span>直接将google进行本地映射，不进行域名解析，加速访问
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault/" data-title="浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E6%B5%85%E8%B0%88%20JS%20%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%208%20%E7%A7%8D%E6%A8%A1%E5%BC%8F%20-%20%E5%89%8D%E7%AB%AF%E5%B0%8F%E7%99%BD%E8%8F%9C%E7%9A%84%E7%83%B9%E9%A5%AA%E6%8C%87%E5%8D%97%20-%20SegmentFault/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%85%E8%B0%88-JS-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84-8-%E7%A7%8D%E6%A8%A1%E5%BC%8F-%E5%89%8D%E7%AB%AF%E5%B0%8F%E7%99%BD%E8%8F%9C%E7%9A%84%E7%83%B9%E9%A5%AA%E6%8C%87%E5%8D%97-SegmentFault"><span class="toc-number">1.</span> <span class="toc-text">浅谈 JS 创建对象的 8 种模式 - 前端小白菜的烹饪指南 - SegmentFault</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%85%E8%B0%88-JS-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84-8-%E7%A7%8D%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">浅谈 JS 创建对象的 8 种模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Object-%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.1.</span> <span class="toc-text">1.Object 模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.2.</span> <span class="toc-text">2.工厂模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.3.</span> <span class="toc-text">3.构造器模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%80%9A%E8%BF%87Function%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.0.4.</span> <span class="toc-text">4.通过Function对象实现创建对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-prototype%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.5.</span> <span class="toc-text">5.prototype模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9E%84%E9%80%A0%E5%99%A8%E6%96%B9%E5%BC%8F%E4%B8%8E%E5%8E%9F%E5%9E%8B%E6%96%B9%E5%BC%8F%E7%9A%84%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.6.</span> <span class="toc-text">6.构造器方式与原型方式的混合模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%8A%A8%E6%80%81%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.7.</span> <span class="toc-text">7.动态原型模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E6%B7%B7%E5%90%88%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.0.8.</span> <span class="toc-text">8.混合工厂模式</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

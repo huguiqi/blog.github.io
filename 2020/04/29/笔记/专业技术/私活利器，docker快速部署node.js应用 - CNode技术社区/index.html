@@ -1,0 +1,1119 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>私活利器，docker快速部署node.js应用 - CNode技术社区 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="私活利器，docker快速部署node.js应用 - CNode技术社区nodejs 私活利器，docker快速部署node.js应用 - CNode技术社区  私活利器，docker快速部署node.js应用  发布于 2 年前 作者 DoubleSpout 25995 次浏览 最后一次编辑是 1 年前     最近研究了几天docker的快速部署，感觉很有新意，非常轻量级和方便，打算在公司推广">
+<meta property="og:type" content="article">
+<meta property="og:title" content="私活利器，docker快速部署node.js应用 - CNode技术社区">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E7%A7%81%E6%B4%BB%E5%88%A9%E5%99%A8%EF%BC%8Cdocker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2node.js%E5%BA%94%E7%94%A8%20-%20CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="私活利器，docker快速部署node.js应用 - CNode技术社区nodejs 私活利器，docker快速部署node.js应用 - CNode技术社区  私活利器，docker快速部署node.js应用  发布于 2 年前 作者 DoubleSpout 25995 次浏览 最后一次编辑是 1 年前     最近研究了几天docker的快速部署，感觉很有新意，非常轻量级和方便，打算在公司推广">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-03-12T15:39:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="nodejs">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/私活利器，docker快速部署node.js应用 - CNode技术社区/" title="私活利器，docker快速部署node.js应用 - CNode技术社区" itemprop="url">私活利器，docker快速部署node.js应用 - CNode技术社区</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%81%E6%B4%BB%E5%88%A9%E5%99%A8%EF%BC%8Cdocker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2node-js%E5%BA%94%E7%94%A8-CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA"><span class="toc-number">1.</span> <span class="toc-text">私活利器，docker快速部署node.js应用 - CNode技术社区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%81%E6%B4%BB%E5%88%A9%E5%99%A8%EF%BC%8Cdocker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2node-js%E5%BA%94%E7%94%A8-CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA-1"><span class="toc-number">2.</span> <span class="toc-text">私活利器，docker快速部署node.js应用 - CNode技术社区</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="私活利器，docker快速部署node-js应用-CNode技术社区"><a title="私活利器，docker快速部署node.js应用 - CNode技术社区" class="headerlink" href="#私活利器，docker快速部署node-js应用-CNode技术社区"></a>私活利器，docker快速部署node.js应用 - CNode技术社区</h1><p><code>nodejs</code></p>
+<h1 id="私活利器，docker快速部署node-js应用-CNode技术社区-1"><a title="私活利器，docker快速部署node.js应用 - CNode技术社区" class="headerlink" href="#私活利器，docker快速部署node-js应用-CNode技术社区-1"></a>私活利器，docker快速部署node.js应用 - CNode技术社区</h1><p>  私活利器，docker快速部署node.js应用  发布于 2 年前 作者 <a target="_blank" rel="noopener" href="https://cnodejs.org/user/DoubleSpout">DoubleSpout</a> 25995 次浏览 最后一次编辑是 1 年前 </p>
+<p>   最近研究了几天docker的快速部署，感觉很有新意，非常轻量级和方便，打算在公司推广一下，解放运维，省得每次部署一台新服务器都去跑安装脚本了，对于我们开发人员也是好事情，无需写太多重复的部署文档，直接将docker的images丢上服务器就可以运行了。</p>
+<p>可能还有一些同学不了解docker这个项目，docker是由go语言编写的，一个快速部署的轻量级虚拟技术项目，他允许开发人员将自己的程序和运行环境一起打包，制作成一个docker的image（镜像），这样部署到服务器上，也只需要下载这个image就可以将程序跑起来，免去每次都安装各种依赖和环境的麻烦，还能够做到应用程序之间的隔离，因为我们公司部署的python程序，这样一来我也省去了每次都到新服务器配置 vitualenv了。</p>
+<p>官网地址：<a target="_blank" rel="noopener" href="http://www.docker.com/">http://www.docker.com/</a></p>
+<p>如此看来docker非常适合做小巧的外包项目，免去每次都为客户配置一遍运行环境，费时费力。</p>
+<p>一、安装： 安装很简单，直接进入下载页面，根据自己的操作系统下载相对应的安装包即可，下面说一下windows安装：</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://docs.docker.com/installation/windows/">https://docs.docker.com/installation/windows/</a></p>
+<p>在安装docker时，会附带安装git和VirtualBox，所以可能安装时间稍微长一些，安装完毕重启系统，以管理员身份进入命令行，就可以使用进入linux虚拟机命令 “boot2docker” ，由于docker目前的镜像只针对linux，所以windows下面必须安装虚拟机才能使用。</p>
+<p>第一次使用boot2docker start，会出现错误：</p>
+<pre><code>Failed machine "boot2docker-vm" machine does  exist
+</code></pre>
+<p>没关系，这是因为没有boot2docker iso的镜像所致，执行：</p>
+<pre><code>    $ boot2docker init
+</code></pre>
+<p>就可以初始化镜像，耐心等待下载并安装完毕后，我们继续执行开启虚拟机。</p>
+<pre><code>    $ boot2docker start 
+</code></pre>
+<p>在windows下是无法直接使用cmd窗口来操作linux系统的，所以我们需要进入linux虚拟机来操作docker，执行：</p>
+<pre><code>    $ boot2docker ssh
+</code></pre>
+<p>就可以进入linux虚拟机，如果要退出并关闭虚拟机，执行如下命令：</p>
+<pre><code>
+    $ boot2docker stop
+</code></pre>
+<p>调试时查看虚拟机ip地址，后面部署测试环境会用到：</p>
+<pre><code>    $ boot2docker ip
+    192.16859.103
+</code></pre>
+<p>我们可以通过ssh的ip地址192.168.59.103，用户名 docker，密码 tcuser，登录到虚拟机中去。</p>
+<p>如果不幸长时间无法init成功，说明镜像被GFW挡住了，手动去github上下载镜像，地址为：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/boot2docker/boot2docker/releases">https://github.com/boot2docker/boot2docker/releases</a></p>
+<p>如果还是无法下载成功，我是好心人，把1.1.2版本的boot2docker.iso镜像丢到了百度云上：</p>
+<p><a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1c01qieG">http://pan.baidu.com/s/1c01qieG</a></p>
+<p>下载完毕之后放到目录：</p>
+<pre><code>\Users\你\.boot2docker\boot2docker
+</code></pre>
+<p>然后再执行</p>
+<pre><code>    $ boot2docker init
+</code></pre>
+<p>二、下载镜像，安装环境 我们先执行如下命令，启动虚拟机：</p>
+<pre><code>    $ boot2docker start
+    Waiting VM to be started...........StartedDocker client does  run on WindowsPlease"boot2docker" to SSH  the VM instead
+</code></pre>
+<p>如果我们的物理机内存低于4G,那么跑这个boot2docker可能需要手动设置内存占用大小：</p>
+<pre><code>    $ boot2docker start 
+</code></pre>
+<p>我们利用命令就可以进入linux虚拟机了</p>
+<pre><code>    $ boot2docker ssh 
+                            ## ## ##       ==## ## ## ##      ===""""""""""""""""/  ===- ~~~
+               \______ o          __/
+                  \____\______
+     _                 _   ____     _            _
+    __   ___   ___ ___ \ __ ___   ___ _____ _ __
+    '_ \ / _ \ / _ \| __| __) / _` |/ _ \ / __| |/ / _ \ '_____\__\_\___
+    boot2docker
+    master 740106c
+</code></pre>
+<p>执行 docker 命令，会有一个命令列表，里面列出了所有 docker 支持的功能，列表如下：</p>
+<pre><code>Commands
+        attach    Attach to a running container
+        build     Build an image Dockerfile
+        commit    Create image  a container's changes
+        ... ...
+</code></pre>
+<p>下面会对一些常用的命令进行示例说明，我们可以通过如下命令，先查找centos的镜像，并把他下载下来</p>
+<pre><code>    $ docker search centos #查找centos名字的镜像
+    $ docker pull centos #下载官方纯净版本的centos镜像
+</code></pre>
+<p>在调用search命令时，你会看到有好多centos包，他们都是这样的/，这些不在根目录的镜像都是非官方的，是其他用户提交到docker hub上去的，耐心等待片刻我们就可以将centos的镜像拉下来了。</p>
+<p>如果脸黑，镜像又不幸被墙，那么试试加上下面的hosts：</p>
+<pre><code>54.234135.251docker54.234135.251registry1.docker
+</code></pre>
+<p>成功下载好centos镜像之后，我们可以利用如下命令来查看镜像列表：</p>
+<pre><code>    $ docker images
+    REPOSITORY          TAG                 IMAGE ID            CREATED
+    VIRTUAL SIZE
+    centos              centos6             b1bd49907d55         weeks ago
+    212.5 MB
+    centos              centos7             b157b77b1a65         weeks ago
+    243.7 MB
+    centos              latest              b157b77b1a65         weeks ago
+    243.7
+</code></pre>
+<p>接下来我们就利用centos7这个镜像输出一段 hello world</p>
+<pre><code>    $ docker run b15 'Hello world'Hello world
+</code></pre>
+<p>注意这里的 b15，他表示centos7这个images的id，不用全部打全，只要保证输入的id前几位能找到唯一镜像即可，这点很赞。 稍微复杂一点的例子：</p>
+<pre><code>    $ docker run  "while true; do echo hello world; sleep 1; done"
+</code></pre>
+<p>-i表示同步container的stdin，-t表示同步container的输出，-d表示deamon，以后台启动这个container，执行这个container是永远不会停止的，每一秒钟都会输出hello world。</p>
+<p>至于什么是container，container和image的关系我们下一段再说，列出镜像的历史：</p>
+<pre><code>    $docker history image_name
+</code></pre>
+<p>三、安装环境 在开始第三段介绍之前，有必要说几个利用windows cmd窗口的小技巧。</p>
+<p>1、如果想要使用标记选中功能，你会发现，当我们进入 boot2docker ssh 之后，鼠标对窗口的右键是无效的，所以想要利用标记选中窗口内的文字得这么弄：“点击左上角图标-&gt;编辑-&gt;标记”，这样就可以使用标记了</p>
+<p>2、如果从其他地方复制了命令，但是窗口没有右键无法粘贴怎么办？用和1相同的办法：“点击左上角图标-&gt;编辑-&gt;粘贴”。</p>
+<p>3、坑爹的windws如果命令太长，在boot2docker ssh里换行会错位的，在“点击左上角图标-&gt;属性-&gt;布局-&gt;屏幕缓冲区大小和窗口大小”的数值，保证长的命令也在一行内就没有问题了，注意要重启cmd窗口。</p>
+<p>接下来我们简单说明一下image和container的关系，image顾名思义就是镜像的意思，我们把他理解为一个执行环境（env），当我们执行了docker run命令之后，dock就会根据当前的image创建一个新的container，container更像是一个操作或者程序运行的一个沙箱，他们互相独立，但是都运行在image创建的执行环境之上，根据上一段我们执行了2个run的任务，也就创建了2个独立的container，我们通过命令</p>
+<pre><code>    $ docker ps #查看当前运行的container
+    $ docker ps #查看所有的container
+
+    CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS                      PORTS               NAMES
+    d1eca89869d0        centoscentos7      'while tr   13 minutes ago      Exited (0) 7 minutes ago                                          distracted_mcclintock
+    0b71024c8a95        centos:centos7      /bin/sh -c 'while minutes ago      Exited minutes ago                        pensive_meitner
+    79a488c9cfb6        centoscentos7      console                 minutes ago                                                      sick_babbage
+    06f43c19d10a        centoscentos7      'Hello wor   25 minutes ago      Exited (0) 25 minutes ago                       berserk_einstein
+</code></pre>
+<p>我们可以分别利用命令对image和container进行删除</p>
+<pre><code>    $ docker rm #删除container
+    $ docker rmi #删除image
+    $ docker rm `docker ps -a -q`#删除所有容器
+</code></pre>
+<p>这样执行一次run就创建一个container，势必会造成大量的无用的container，可能我不需要持久化保存container，如果在docker run命令加上 –rm=true 选项，那当这个container执行完毕，将自动自己删除，保证了container数量不会泛滥增长。</p>
+<p>我们之前下载纯净版centos7是没有任何第三方软件的，包括wget，ping等命令都要通过yum工具来重新安装，我们当然不想每次都重新安装这些东西，我不仅希望要把一些常用的库安装到的image中去，同时还希望把程序运行的环境也安装进去，所以image更像是一个系统的模版。</p>
+<p>你会发现，当你执行如下命令，wget命令时安装成功了，但是当你下次执行wget命令时，又会报错，说找不到这个命令，到底是怎么回事呢？</p>
+<pre><code>    $ docker run t b15 yum install y wget #通过yum工具安装wget命令#安装完毕后，执行wget会报没有这个命令
+    $ docker run t b15 wget http//www.baidu.com"wget" executable file  found  $PATH
+</code></pre>
+<p>为什么会出现这个问题呢？答案就是我们上面所说的那样，每次执行docker run都会去独立的创建一个新的container来执行程序，所以我们必须手动把这些对container的更改提交成一个新的image，才能够依据这个image执行wget操作。</p>
+<p>我们先把当前所有的container都删除，然后直接登录到container的bash命令窗口中去，免得每次都去输入docker run了</p>
+<pre><code>    $ docker run bash
+    bash
+</code></pre>
+<p>这样我们进入了一个新的container，依据centos7作为模板，我们将要在其上面安装wget工具，直接执行</p>
+<pre><code>    $ yum install y wget
+</code></pre>
+<p>安装完毕之后，我们执行exit退出container 输入docker ps -a 我们找到刚才安装过wget工具的container ID，我们要把这个container重新做成一个新的image模版，这个模版将带wget命令。</p>
+<pre><code>    $ docker ps a
+    CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+    26cc82ad29af        centoscentos7       minutes ago       Exited seconds ago                       desperate_mccarthy
+</code></pre>
+<p>我们执行如下命令，将一个安装过软件的container提交为一个image</p>
+<pre><code>    $ docker commit centos7
+    60cd26c6ca1e753bf77aa913ed7b826767a678b75f6dd8421353f6c0899d3e5e
+</code></pre>
+<p>我们查看当前image镜像的列表：</p>
+<pre><code>centos7        latest              60cd26c6ca1e seconds ago      304.6 MB
+    centos              centos6             b1bd49907d55         weeks ago         212.5 MB
+    centos              centos7             b157b77b1a65         weeks ago         243.7 MB
+    centos              latest              b157b77b1a65         weeks ago         243.7
+</code></pre>
+<p>你会发现多了一行我们刚才提交的 wget-centos7 的image镜像记录，现在我们执行这个镜像的wget命令，看看会不会报错</p>
+<pre><code>    $ docker run  wget http//www.baidu.com//www.baidu.com/Resolvingbaidubaidu180.9733.108180.9733.107Connecting to wwwbaidubaidu180.9733.108 connected
+    HTTP request sent awaiting response
+</code></pre>
+<p>执行完毕后，docker自动删除这个container，并且至今报错的wget命令无法找到也不会出错了。</p>
+<p>第二种安装环境的办法，类似脚本安装，我们预先录入好一系列安装脚本，可以让docker帮我们依次执行这些安装脚本，然后生成image，例如有安装脚本Dockerfile：</p>
+<pre><code># This is a comment
+    FROM centos
+    MAINTAINER doublespout doublespout@gmailgmail
+    RUN yum install y wget
+</code></pre>
+<p>我们执行如下命令进行创建images</p>
+<pre><code>    $ mkdir wget
+    $ cd wget
+    $ vi Dockerfile#将上面内容复制进去
+    $ docker build "doublespout/wget"#将看到安装脚本的执行输出，安装完成后，执行 docker images 就可以看到我们刚才创建的镜像了
+    docker images
+</code></pre>
+<p>container 和 host 文件互相拷贝：</p>
+<p>1、从container往host拷贝文件：</p>
+<pre><code>    docker cp &lt;container_id&gt;/root/hello
+</code></pre>
+<p>2、从host往container里拷贝文件，比较麻烦一点，首先停止Contaitner（当然不停止也能拷贝）</p>
+<pre><code>    docker stop &lt;container_name_or_ID&gt;
+</code></pre>
+<p>然后执行拷贝操作，执行完成之后就能看到Contaitner里有这个文件拉</p>
+<pre><code>#执行命令找到程序pidContainerIDdocker inspect format &lt;container_name_or_ID&gt;docker/&lt;ContainerID/tmp/
+</code></pre>
+<p>四、发布应用程序 我们根据上一段的步骤，手动将node.js环境装好container并且发布成image，并保存”app.js”文件到”/var/nodejs/app.js”，文件内容为：</p>
+<pre><code>require'http'createServerfunctionwriteHead'Content-Type''text/plain''Hello World\n'listen//注意这边不能和官网示例那样监听127.0.0.1
+    console'Server running at http://0.0.0.0:1337/'
+</code></pre>
+<p>执行如下命令，运行container：</p>
+<pre><code>    $ docker run nodeapp  fa node nodejs#32bac9ed8ba055c935bd641d23097a36a573a243ee942358fd74dc4140308bc6
+</code></pre>
+<p>其中fa是我创建的镜像id，这个值因人而异，name参数是给这个container取名字，必须是唯一的。</p>
+<p>-p参数就是类似端口映射的功能，将主机的端口1337映射到contianer的1337端口，我们可以运行 docker ps，查看正在运行的container，打开浏览器，就能够看到 hello world了。</p>
+<p>用同样的方法就可以将我们开发好的应用快速部署到生产服务器上去了。如果在docker run命令需要设置cpu的支持数和权重值可以这样：</p>
+<pre><code>shares         CPU shares relative weightcpuset which to allow execution 
+</code></pre>
+<p>另外一个小敲门，如果我想要进入一个在运行中的docker container时，可以使用 docker attach，连上这个container的输入和输出。</p>
+<p>五、将多个 container 连接起来</p>
+<p>我现在先下载一个redis数据库image，这也是以后做项目的常规用法，数据库单独用一个image，程序一个image，利用docker的link属性将他们连接起来。</p>
+<pre><code>    $ docker pull redis #下载官方的redis镜像，耐心等待一段时间
+</code></pre>
+<p>接着我们执行命令启动redis镜像到一个container，开启redis-server持久化服务</p>
+<pre><code>    $ docker run name redisserver d redis redisserver appendonly yes
+</code></pre>
+<p>然后我们再启动一个redis镜像的container作为客户端连接它</p>
+<pre><code>    $ docker run link redisserverredis rm redis bash
+
+    redis7441b8880e4e7441b8880e4edata$ env  #想要知道当前我们在主机还是container，注意$前面的host和name
+    REDIS_PORT_6379_TCP_PROTOtcp
+    HOSTNAME7441b8880e4exterm
+    REDIS_NAME/boring_perlman/redis
+    REDIS_PORT_6379_TCP_ADDR172.17#redis服务器ip
+    REDIS_PORT_6379_TCP_PORT#redis服务器端口/usr/local/usr/local/usr//usr//sbin:/bin
+    PWD/data
+    REDIS_PORT_6379_TCP=tcp:/172.17
+    SHLVL
+    REDIS_PORT//172.17.0.34:6379env
+
+    $ redis"$REDIS_PORT_6379_TCP_ADDR""$REDIS_PORT_6379_TCP_PORT"172.17#成功连入redis数据库服务器172.17172.17
+</code></pre>
+<p>通过这样的方法，我们就可以将发布的应用程序和数据库分开，单独进行管理，以后对数据库进行升级或者对程序进行调整两者都没有冲突，系统环境变量我们可以通过程序的os模块来获得。</p>
+<p>六、文件卷标加载 比如我们想要一个日志文件保存目录，如果直接写入container，那样image升级之后，日志文件处理就比较麻烦了，所以就需要将主机的文件卷标挂载到container中去，挂载方法如下：</p>
+<pre><code>    $ docker run volume  centos ls etc
+    boot2docker  hostname     ldconf     passwd      securetty  sysconfig
+    default      hosts        mke2fsconf    pcmcia       services   sysctlconf
+    fstab        hostsallow  modprobeconf  profile      shadow     udev
+    group        hostsdeny   motd           profiled    shadow    version
+    groupd       mtab           protocols    shells
+    gshadow      inittab      netconfig      rcd         skel
+    gshadow     issue        nsswitchconf  resolvconf  ssl
+    hostconf    ldcache  passwd         rpc          sudoers
+</code></pre>
+<p>如果想要挂载后的文件是只读，需要在这样挂载：</p>
+<pre><code>#read only
+</code></pre>
+<p>我们也可以挂载其他container中的文件系统，需要用到 -volumes-from 参数，我们先创建一个container，他共享/var/目录给其他container。</p>
+<pre><code>    $ docker run name nodedev  fa node nodejs
+</code></pre>
+<p>然后我们启动一个ls-var的container来挂载nodedev共享的目录：</p>
+<pre><code>    $ docker run volumes nodedev aaa1 centos ls 
+    adm    db     games   kerberos  local  log   nis     opt       run    tmp  yp
+    cache  empty  gopher  lib          mail  nodejs  preserve  spool  
+</code></pre>
+<p>我们打印var目录，会发现多了一个nodejs的目录，就是从nodedev中的container挂载过来的。其实我们挂载其他container的路径都是在根目录上的。</p>
+<p>七、发布到docker hub上去</p>
+<p>我们做完镜像，就需要将镜像发布到docker hub上，供服务器下载然后运行，这类似git仓库，将自己开发的东西丢到云服务器上，然后自己在其他机器或者其他开发者可以下载镜像，并且从这个镜像开始运行程序或者再进行2次制作镜像。</p>
+<p>我们需要先登录docker帐号，执行：</p>
+<pre><code>    $ docker login #输入你在docker官网注册的帐号和密码就可以登录了
+    $ docker push &lt;用户名&gt;/&lt;镜像名&gt;#将你制作的镜像提交到docker hub上
+</code></pre>
+<p>非官方不允许直接提交根目录镜像，所以必须以&lt;用户名&gt;/&lt;镜像名&gt;这样的方式提交，比如 doublespout/dev 这样</p>
+<p>docker快速部署介绍完毕了，总结一下，要创建一个简单项目使用的步骤： 1、安装配置docker</p>
+<p>2、pull镜像，安装程序执行环境</p>
+<p>3、pull数据库镜像</p>
+<p>4、开发程序</p>
+<p>5、push 程序的镜像</p>
+<p>6、服务器安装配置docker</p>
+<p>7、运行数据库镜像</p>
+<p>8、运行程序镜像，并且把数据库镜像link进来，并且挂载主机的日志目录或其他上传目录。</p>
+<p>使用了docker以后，环境配置只需一次，免去了开发部署一套，测试部署一套，生产又部署一套的麻烦，以后程序搬家也是非常简单。</p>
+<p>最后分享一个小敲门，如何像使用linux虚拟机那样运行一个container，比如我我们想要直接登录container执行多个任务，又不想直接借助 docker run 命令，以后我们还想登录到这个container来查看运行情况，比如执行top，ps -aux命令等等。</p>
+<pre><code>   $ docker run bash
+   $ docker attach 
+</code></pre>
+<p>这样我们就可以通过进入container来调试程序了。但是一旦执行ctrl+d或者exit，container就将退出，这个方法也只适用于开发调试的时候。 最后请跳出 container 是一个小的vps的概念，详见另一篇文章.</p>
+<p><a target="_blank" rel="noopener" href="http://snoopyxdy.blog.163.com/blog/static/601174402014720113318508/">不要用ssh连接直接到你的container</a><a target="_blank" rel="noopener" href="http://snoopyxdy.blog.163.com/blog/static/60117440201472193821661/">常用的Dockerfile命令示例</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF%E4%B8%8ENode-js/">前端与Node.js</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/nodejs/">nodejs</a><a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E7%A7%81%E6%B4%BB%E5%88%A9%E5%99%A8%EF%BC%8Cdocker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2node.js%E5%BA%94%E7%94%A8%20-%20CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA/" data-title="私活利器，docker快速部署node.js应用 - CNode技术社区 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/笔记 来自 永嘉花园 在 上海市/" title="笔记 来自 永嘉花园 在 上海市">
+  <strong>上一篇：</strong><br/>
+  <span>
+  笔记 来自 永嘉花园 在 上海市</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/笔记/"  title="笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/私活利器，docker快速部署node.js应用 - CNode技术社区/" data-title="私活利器，docker快速部署node.js应用 - CNode技术社区" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E7%A7%81%E6%B4%BB%E5%88%A9%E5%99%A8%EF%BC%8Cdocker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2node.js%E5%BA%94%E7%94%A8%20-%20CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%81%E6%B4%BB%E5%88%A9%E5%99%A8%EF%BC%8Cdocker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2node-js%E5%BA%94%E7%94%A8-CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA"><span class="toc-number">1.</span> <span class="toc-text">私活利器，docker快速部署node.js应用 - CNode技术社区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%81%E6%B4%BB%E5%88%A9%E5%99%A8%EF%BC%8Cdocker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2node-js%E5%BA%94%E7%94%A8-CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA-1"><span class="toc-number">2.</span> <span class="toc-text">私活利器，docker快速部署node.js应用 - CNode技术社区</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,1210 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>月增千万的数据，我用单体+单库扛下了所有~ | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="月增千万的数据，我用单体+单库扛下了所有~数据库 单体单库 月增千万的数据，我用单体+单库扛下了所有~   点击关注    Java基基   2023-02-12 11:55 发表于上海 点击上方“Java基基”，选择“设为星标” 做积极的人，而不是积极废人！ 每天&amp;nbsp;14:00&amp;nbsp;更新文章，每天掉亿点点头发… 源码精品专栏 &amp;nbsp;  原创 | Java 2021&amp;nbsp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="月增千万的数据，我用单体+单库扛下了所有~">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93+%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="月增千万的数据，我用单体+单库扛下了所有~数据库 单体单库 月增千万的数据，我用单体+单库扛下了所有~   点击关注    Java基基   2023-02-12 11:55 发表于上海 点击上方“Java基基”，选择“设为星标” 做积极的人，而不是积极废人！ 每天&amp;nbsp;14:00&amp;nbsp;更新文章，每天掉亿点点头发… 源码精品专栏 &amp;nbsp;  原创 | Java 2021&amp;nbsp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-1.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-2.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-3.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-4.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-5.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-6.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-7.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-02T02:14:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="单体单库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/月增千万的数据，我用单体+单库扛下了所有~/" title="月增千万的数据，我用单体+单库扛下了所有~" itemprop="url">月增千万的数据，我用单体+单库扛下了所有~</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89"><span class="toc-number">1.</span> <span class="toc-text">月增千万的数据，我用单体+单库扛下了所有~</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89-1"><span class="toc-number">2.</span> <span class="toc-text">月增千万的数据，我用单体+单库扛下了所有~</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%BA%90%E8%87%AA%E4%BA%8E%E8%BD%AF%E7%A1%AC%E7%BB%93%E5%90%88%E7%9A%84%E7%89%B9%E6%AE%8A%E4%B8%9A%E5%8A%A1"><span class="toc-number">2.1.</span> <span class="toc-text">1. 源自于软硬结合的特殊业务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1%E3%80%81%E9%A1%B9%E7%9B%AE%E7%9A%84%E9%9A%BE%E7%82%B9"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.1、项目的难点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2%E3%80%81%E6%96%B9%E6%A1%88%E7%9A%84%E6%8E%A2%E8%AE%A8"><span class="toc-number">2.1.2.</span> <span class="toc-text">1.2、方案的探讨</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%8C%89%E6%9C%88%E5%88%86%E8%A1%A8%E6%96%B9%E6%A1%88%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5"><span class="toc-number">2.2.</span> <span class="toc-text">2.  按月分表方案的落地实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E3%80%81%E5%88%A9%E7%94%A8%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%AE%9E%E7%8E%B0%E6%8C%89%E6%9C%88%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.1、利用存储过程实现按月动态创建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2%E3%80%81%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E6%97%B6%E8%83%BD%E5%A4%9F%E6%A0%B9%E6%8D%AE%E6%9C%88%E4%BB%BD%E6%8F%92%E5%85%A5%E5%AF%B9%E5%BA%94%E8%A1%A8"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2、写入数据时能够根据月份插入对应表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%8C%89%E6%9C%88%E5%88%86%E8%A1%A8%E5%90%8E%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.3.</span> <span class="toc-text">3. 按月分表后要解决的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1%E3%80%81%E6%A0%B9%E6%8D%AE%E6%B5%81%E6%B0%B4%E5%8F%B7%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE"><span class="toc-number">2.3.1.</span> <span class="toc-text">3.1、根据流水号查询数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2%E3%80%81%E6%8C%89%E6%97%B6%E9%97%B4%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE"><span class="toc-number">2.3.2.</span> <span class="toc-text">3.2、按时间范围查询数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1%E3%80%81%E5%BE%97%E5%88%B0%E4%B8%A4%E4%B8%AA%E6%97%A5%E6%9C%9F%E4%B9%8B%E9%97%B4%E7%9A%84%E6%89%80%E6%9C%89%E8%A1%A8%E5%90%8D"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">3.2.1、得到两个日期之间的所有表名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2%E3%80%81%E6%A0%B9%E6%8D%AE%E8%A1%A8%E5%90%8D%E9%9B%86%E5%90%88%E7%94%9F%E6%88%90%E5%AF%B9%E5%BA%94%E7%9A%84SQL%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.3.2.2.</span> <span class="toc-text">3.2.2、根据表名集合生成对应的SQL语句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3%E3%80%81%E5%AE%9E%E7%8E%B0%E6%8C%89%E6%97%B6%E9%97%B4%E5%81%9A%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2%E7%9A%84API%E6%8E%A5%E5%8F%A3"><span class="toc-number">2.3.2.3.</span> <span class="toc-text">3.2.3、实现按时间做范围查询的API接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4%E3%80%81%E6%8C%89%E6%97%B6%E9%97%B4%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%BB%93"><span class="toc-number">2.3.2.4.</span> <span class="toc-text">3.2.4、按时间范围查询数据小结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BA%93%E5%86%85%E5%88%86%E8%A1%A8%E7%AF%87%E6%80%BB%E7%BB%93"><span class="toc-number">2.4.</span> <span class="toc-text">4. 库内分表篇总结</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="月增千万的数据，我用单体-单库扛下了所有"><a title="月增千万的数据，我用单体+单库扛下了所有~" class="headerlink" href="#月增千万的数据，我用单体-单库扛下了所有"></a>月增千万的数据，我用单体+单库扛下了所有~</h1><p><code>数据库</code> <code>单体单库</code></p>
+<h1 id="月增千万的数据，我用单体-单库扛下了所有-1"><a title="月增千万的数据，我用单体+单库扛下了所有~" class="headerlink" href="#月增千万的数据，我用单体-单库扛下了所有-1"></a>月增千万的数据，我用单体+单库扛下了所有~</h1><p>   点击关注    <a href="#">Java基基</a>   <em>2023-02-12 11:55</em> <em>发表于上海</em><br> 点击上方“Java基基”，选择“设为星标”</p>
+<p>做积极的人，而不是积极废人！</p>
+<p>每天&nbsp;<strong>14:00</strong>&nbsp;更新文章，每天掉亿点点头发…</p>
+<p>源码精品专栏</p>
+<p>&nbsp;</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;chksm=fa496f8ecd3ee698f4954c00efb80fe955ec9198fff3ef4011e331aa37f55a6a17bc8c0335a8&amp;scene=21#wechat_redirect">原创 | Java 2021&nbsp;超神之路，很肝~</a></li>
+<li><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247486264&amp;idx=1&amp;sn=475ac3f1ef253a33daacf50477203c80&amp;chksm=fa497489cd3efd9f7298f5da6aad0c443ae15f398436aff57cb2b734d6689e62ab43ae7857ac&amp;scene=21#wechat_redirect">中文详细注释的开源项目</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247484647&amp;idx=1&amp;sn=9eb7e47d06faca20d530c70eec3b8d5c&amp;chksm=fa497b56cd3ef2408f807e66e0903a5d16fbed149ef7374021302901d6e0260ad717d903e8d4&amp;scene=21#wechat_redirect">RPC 框架 Dubbo 源码解析</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247485054&amp;idx=2&amp;sn=9f3b85f7b8454634da6c5c2ded9b4dba&amp;chksm=fa4979cfcd3ef0d9d2dd92d8d1bd8f1553abc6e2095a5d743e0b2c2afe4955ea2bbbd7a4b79d&amp;token=55862109&amp;lang=zh_CN&amp;scene=21#wechat_redirect">网络应用框架 Netty 源码解析</a></li>
+<li><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247486256&amp;idx=1&amp;sn=81daccd3fcd2953456c917630636fb26&amp;chksm=fa497481cd3efd97d9239f5eab060e49dea9876a6046eadba0effb878d2fb51f3ba5733e4c0b&amp;scene=21#wechat_redirect">消息中间件 RocketMQ 源码解析</a></li>
+<li><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247486257&amp;idx=1&amp;sn=4d3c9c675f8833157641a2e0b48e498c&amp;chksm=fa497480cd3efd96fe17975b0b8b141e87fd0a62673e6a30b501460de80b3eb997056f09de08&amp;scene=21#wechat_redirect">数据库中间件 Sharding-JDBC 和 MyCAT 源码解析</a></li>
+<li><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247486258&amp;idx=1&amp;sn=ae5665ae9c3002b53f87cab44948a096&amp;chksm=fa497483cd3efd950514da5a37160e7fd07f0a96f39265cf7ba3721985e5aadbdcbe7aafc34a&amp;scene=21#wechat_redirect">作业调度中间件 Elastic-Job 源码解析</a></li>
+<li><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247486259&amp;idx=1&amp;sn=b023cf3dbf97e5da59db2f4ee632f5a6&amp;chksm=fa497482cd3efd9402d71469f71863f71a6998b27e12ca2e00446b8178d79dcef0721d8e570a&amp;scene=21#wechat_redirect">分布式事务中间件 TCC-Transaction 源码解析</a></li>
+<li><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247486260&amp;idx=1&amp;sn=8f14c0c191d6f8df6eb34202f4ad9708&amp;chksm=fa497485cd3efd93937143a648bc1b530bc7d1f6f8ad4bf2ec112ffe34dee80b474605c22db0&amp;scene=21#wechat_redirect">Eureka 和 Hystrix 源码解析</a></li>
+<li><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247486261&amp;idx=1&amp;sn=bd69f26aadfc826f6313ffbb95e44ee5&amp;chksm=fa497484cd3efd92352d6fb3d05ccbaebca2fafed6f18edbe5be70c99ba088db5c8a7a8080c1&amp;scene=21#wechat_redirect">Java 并发源码</a></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">来源：juejin.cn/post/</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">7169098754719481864</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;chksm=fa496f8ecd3ee698f4954c00efb80fe955ec9198fff3ef4011e331aa37f55a6a17bc8c0335a8&amp;scene=21&amp;token=899450012&amp;lang=zh_CN#wechat_redirect">1. 源自于软硬结合的特殊业务</a><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;chksm=fa496f8ecd3ee698f4954c00efb80fe955ec9198fff3ef4011e331aa37f55a6a17bc8c0335a8&amp;scene=21&amp;token=899450012&amp;lang=zh_CN#wechat_redirect">1.1、项目的难点</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;chksm=fa496f8ecd3ee698f4954c00efb80fe955ec9198fff3ef4011e331aa37f55a6a17bc8c0335a8&amp;scene=21&amp;token=899450012&amp;lang=zh_CN#wechat_redirect">1.2、方案的探讨</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;chksm=fa496f8ecd3ee698f4954c00efb80fe955ec9198fff3ef4011e331aa37f55a6a17bc8c0335a8&amp;scene=21&amp;token=899450012&amp;lang=zh_CN#wechat_redirect">2. &nbsp;按月分表方案的落地实践</a><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;chksm=fa496f8ecd3ee698f4954c00efb80fe955ec9198fff3ef4011e331aa37f55a6a17bc8c0335a8&amp;scene=21&amp;token=899450012&amp;lang=zh_CN#wechat_redirect">2.1、利用存储过程实现按月动态创建表</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;chksm=fa496f8ecd3ee698f4954c00efb80fe955ec9198fff3ef4011e331aa37f55a6a17bc8c0335a8&amp;scene=21&amp;token=899450012&amp;lang=zh_CN#wechat_redirect">2.2、写入数据时能够根据月份插入对应表</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;chksm=fa496f8ecd3ee698f4954c00efb80fe955ec9198fff3ef4011e331aa37f55a6a17bc8c0335a8&amp;scene=21&amp;token=899450012&amp;lang=zh_CN#wechat_redirect">3. 按月分表后要解决的问题</a><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;chksm=fa496f8ecd3ee698f4954c00efb80fe955ec9198fff3ef4011e331aa37f55a6a17bc8c0335a8&amp;scene=21&amp;token=899450012&amp;lang=zh_CN#wechat_redirect">3.1、根据流水号查询数据</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;chksm=fa496f8ecd3ee698f4954c00efb80fe955ec9198fff3ef4011e331aa37f55a6a17bc8c0335a8&amp;scene=21&amp;token=899450012&amp;lang=zh_CN#wechat_redirect">3.2、按时间范围查询数据</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;chksm=fa496f8ecd3ee698f4954c00efb80fe955ec9198fff3ef4011e331aa37f55a6a17bc8c0335a8&amp;scene=21&amp;token=899450012&amp;lang=zh_CN#wechat_redirect">4. 库内分表篇总结</a></li>
+</ul>
+<hr>
+<p>分库分表实战内容基本上很少有人去分享，在网上能够搜出来的也大多属于一些方法论，但大部分技术开发真正缺少的恰恰是这些实操经验，所以后续的内容多以实践为主，携手诸位真正彻底悟透分库分表相关的技术。</p>
+<p>尤其是对于库内分表这块的分享，当你去搜索单表数据增长过快该如何处理时，一般都会推荐你做分表处理，但你几乎找不到较为全面的实操教学，网上讲述分表技术更多是停留在表面的理论概念层次做阐述，而本章中则会结合自身之前接触的一个项目业务，再对库内分表技术进行全面阐述~</p>
+<h2 id="1-源自于软硬结合的特殊业务"><a title="1. 源自于软硬结合的特殊业务" class="headerlink" href="#1-源自于软硬结合的特殊业务"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">1. 源自于软硬结合的特殊业务</a></h2><p>在讲本次主题之前，先来聊聊之前碰到的这个业务，这个业务比较特殊，相信很多小伙伴从未碰到过，这种业务本身用户量大，甚至可以说用户量非常非常少，因为业务的起源来自于一款硬件设备，但具体的设备类型由于某些缘故就不透露了，可以理解成是下面这个东东：<img loading="lazy" alt="640.jpg" src="/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640.jpg"></p>
+<p>虽然当时的硬件设备并不是这个，但也和它很类似，相信大家但凡在超市购过物都认识它，也就是超市收银台的收银机，当时我们是对外提供了一千台设备，这种设备通常一台只有一个用户，所以当时整个系统上线后所有的用户加起来，涵盖后台管理员、超级管理员账号在内，也不过<code>1200</code>个用户，这个用户规模相较于常见业务而言属实不多。</p>
+<blockquote>
+<p>而当时我们需要负责的就是：为这些设备开发一个操作系统，这里不是指<code>Windows、Linux、Mac</code>这类嵌入式的底层系统，而是给机器的操作员开发一个操作界面，就类似于诸位在超市购物时，超市收银员用手操作的那个界面。</p>
+</blockquote>
+<p>因为这些机器本身会安装一个带<code>UI</code>的系统，里面也支持安装一些软件，我们的软件会以<code>GUI</code>的形式嵌入这些设备，当时我要干的就是直接开发<code>API</code>接口，然后提供给<code>GUI</code>界面界面调用。本质上就属一个前后端分离的项目，只不过前端从原本的<code>Web</code>界面变成了<code>GUI</code>界面。</p>
+<blockquote>
+<p>大家听起来这个项目是不是特别容易完成，用户量又少代表不需要考虑并发，也不会存在太大的流量冲击，性能要求也不会太高，似乎就是一个简简单单的单体增删改查项目呀？但事情远没有表面这么简单，诸位请接着往下看。</p>
+</blockquote>
+<h3 id="1-1、项目的难点"><a title="1.1、项目的难点" class="headerlink" href="#1-1、项目的难点"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">1.1、项目的难点</a></h3><p>起初当我收到通知要负责这个需求时，从表面浅显的想了一下，似乎发现也不是太难，就是一个单体项目的<code>CRUD</code>工作，以我这手出神入化的<code>CV</code>大法，<code>Hlod</code>住它简直轻轻松松，因此当时也没想太多就直接接手了，项目初期由于团队每位成员经验都很丰富，各自凭借着个人的<code>Copy</code>神功，项目的开发进度可谓是一骑千里，但慢慢的问题来了，而且这个问题还不小！</p>
+<blockquote>
+<p>当时大概对外预计分发<code>1000</code>台机器，每台机器正式投入运营后，预估单日会产生<code>500~600</code>条数据的产出，套到前面的举例中，也就是大概会向几百个超市投放共计<code>1000</code>台收银机，每个收银台平均下来之后，大概单日内会有<code>500~600</code>个顾客结账！</p>
+</blockquote>
+<p>这里咱们做个数学题：现在有<code>1000</code>台机器，每台机器单日就算产生<code>500</code>条数据：<code>1000 * 500 = 500000</code>，这也就意味着单日的账单表中会新增<code>50W</code>条流水数据，单月整个账单表的数据增长量为：<code>50W * 30 = 1500W</code>！</p>
+<blockquote>
+<p>单月数据增长<code>1500W</code>的概念不言而喻，这也就代表着一年的数据增长量为<code>1500W * 12 = 1.8E</code>，这批机器投入后预估最少会运行三年起步，甚至十年乃至更久，同时第一批次就要投入<code>1000</code>台，后面可能还会有第二批次、第三批次…..的投入。</p>
+</blockquote>
+<p><code>50W</code>只是最低的账单流水数据量，后续正式运营后可能数据量更大，此时架构的设计就成了难题！</p>
+<h3 id="1-2、方案的探讨"><a title="1.2、方案的探讨" class="headerlink" href="#1-2、方案的探讨"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">1.2、方案的探讨</a></h3><p>基本上当时团队的成员中，没人在此之前碰过这类需求，因此开了一个研讨会，去决定该如何将具体的方案落地，这里有人也许会说，数据量这么大，快上分布式/微服务啊！但实则解决不了这个问题，<code>Why</code>？因为项目整体的用户量并不大，最多同一时刻也才<code>1000</code>并发请求，就算这个并发量再增大几个级别，这里用单体架构优化好了也能够抗住，所以问题并不在业务系统的架构上面，而是在数据落库这方面。</p>
+<blockquote>
+<p>这里直接用分库可以吗？答案是也不行，<code>Why</code>？因为整个项目中只有账单表才有这么大的数据量，其他的用户表、系统表、功能菜单表、后台表……，基本上不会有太大的数据量，所以直接做分库也没必要，属实有些浪费资源。</p>
+</blockquote>
+<p>有小伙伴可能想到了！在之前的文章中好像聊过《MySQL的表分区技术》，这里可以按月份对流水表做分区呀！乍一听似乎像那么一回事，但依旧不行，因为第一批机器投入后，单月预计就会产生<code>1500W</code>条数据，后续可能会增加机器数量，因此单月的数据量达到<code>2000W、3000W.....</code>都有可能，如果按月做表分区，每个分区里面都有几千万条数据，一张账单表的流水随着时间推移，数据量甚至会达到几十亿！</p>
+<blockquote>
+<p>一张表中存储几十亿条数据，这基本上不现实，虽然<code>InnoDB</code>在数据页为<code>16KB</code>尺寸下，单表最多能存储<code>64TB</code>数据，有可能这几十亿条数据真的能存下去，但查询时的性能简直令人头大，并且最关键的是不方便后续对数据做维护、管理、备份和迁移工作。</p>
+</blockquote>
+<p>因此经过一番探讨后，最后决定选择了表分区技术的进阶版实现，即单库内做水平分表，按月份对数据做分表，也就是将账单表分为<code>month_bills_202210、month_bills_202211、month_bills_202212.......</code>以月份结尾的多张表，每个月的账单流水数据最终都会插入到各自的月份表中。</p>
+<blockquote>
+<p>最终架构定型为：<strong>业务系统使用单体架构 + 数据库使用单库 + 流水表按月份做水平分表。</strong></p>
+</blockquote>
+<blockquote>
+<p>基于 Spring Boot + MyBatis Plus + Vue &amp; Element 实现的后台管理系统 + 用户小程序，支持 RBAC 动态权限、多租户、数据权限、工作流、三方登录、支付、短信、商城等功能</p>
+<ul>
+<li>项目地址：<a target="_blank" rel="noopener" href="https://github.com/YunaiV/ruoyi-vue-pro">https://github.com/YunaiV/ruoyi-vue-pro</a></li>
+<li>视频教程：<a target="_blank" rel="noopener" href="https://doc.iocoder.cn/video/">https://doc.iocoder.cn/video/</a></li>
+</ul>
+</blockquote>
+<h2 id="2-按月分表方案的落地实践"><a title="2. &nbsp;按月分表方案的落地实践" class="headerlink" href="#2-按月分表方案的落地实践"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">2. &nbsp;按月分表方案的落地实践</a></h2><p>在上一阶段中已经决定好了具体的方案，但又该如何将方案落地呢？首先咱们先把方案落地的思路捋清楚：</p>
+<ul>
+<li>①能够自动按月创建一张月份账单表，从而将每月的流水数据写入进去。</li>
+<li>②写入数据时，能够根据当前的日期，选择对应的月份账单表并插入数据。</li>
+</ul>
+<p>实现了上面两个需求后，整个方案近乎落地了一半，但接下来该如何去实现相应功能呢？咱们一点点来动手实现。</p>
+<h3 id="2-1、利用存储过程实现按月动态创建表"><a title="2.1、利用存储过程实现按月动态创建表" class="headerlink" href="#2-1、利用存储过程实现按月动态创建表"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">2.1、利用存储过程实现按月动态创建表</a></h3><p>创建表的<code>SQL</code>语句大家都不陌生，按月份创建表之前，自然也需要一份原生创建表的<code>DDL</code>语句，如下：</p>
+<pre><code>CREATE&nbsp;TABLE&nbsp;`month_bills_202211`&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;&nbsp;`month_bills_id`&nbsp;int(8)&nbsp;NOT&nbsp;NULL&nbsp;AUTO_INCREMENT&nbsp;COMMENT&nbsp;'账单ID',&nbsp;&nbsp;&nbsp;&nbsp;`serial_number`&nbsp;varchar(50)&nbsp;NOT&nbsp;NULL&nbsp;COMMENT&nbsp;'流水号',&nbsp;&nbsp;&nbsp;&nbsp;`bills_info`&nbsp;text&nbsp;NOT&nbsp;NULL&nbsp;COMMENT&nbsp;'账单详情',&nbsp;&nbsp;&nbsp;&nbsp;`pay_money`&nbsp;decimal(10,3)&nbsp;NOT&nbsp;NULL&nbsp;COMMENT&nbsp;'支付金额',&nbsp;&nbsp;&nbsp;&nbsp;`machine_serial_no`&nbsp;varchar(20)&nbsp;NOT&nbsp;NULL&nbsp;COMMENT&nbsp;'收银机器',&nbsp;&nbsp;&nbsp;&nbsp;`bill_date`&nbsp;timestamp&nbsp;NOT&nbsp;NULL&nbsp;COMMENT&nbsp;'账单日期',&nbsp;&nbsp;&nbsp;&nbsp;`bill_comment`&nbsp;varchar(100)&nbsp;NULL&nbsp;DEFAULT&nbsp;'无'&nbsp;COMMENT&nbsp;'账单备注',&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY&nbsp;KEY&nbsp;(`month_bills_id`)&nbsp;USING&nbsp;BTREE,&nbsp;UNIQUE&nbsp;`serial_number`&nbsp;(`serial_number`),&nbsp;KEY&nbsp;`bill_date`&nbsp;(`bill_date`))ENGINE&nbsp;=&nbsp;InnoDB&nbsp;CHARACTER&nbsp;SET&nbsp;=&nbsp;utf8&nbsp;COLLATE&nbsp;=&nbsp;utf8_general_ci&nbsp;ROW_FORMAT&nbsp;=&nbsp;Compact;
+</code></pre>
+<p>上述的语句会创建一张月份账单表，这张表主要包含七个字段，如下：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>简介</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>month_bills_id</code></td>
+<td>月份账单ID</td>
+<td>主要作为月份账单表的主键字段</td>
+</tr>
+<tr>
+<td><code>serial_number</code></td>
+<td>流水号</td>
+<td>所有账单流水数据的唯一流水号</td>
+</tr>
+<tr>
+<td><code>bills_info</code></td>
+<td>账单详情</td>
+<td>顾客本次订单中，购买的所有商品详情数据</td>
+</tr>
+<tr>
+<td><code>pay_money</code></td>
+<td>支付金额</td>
+<td>本次顾客共计消费的总金额</td>
+</tr>
+<tr>
+<td><code>machine_serial_no</code></td>
+<td>收银机器</td>
+<td>负责结算顾客订单的收银机器</td>
+</tr>
+<tr>
+<td><code>bill_date</code></td>
+<td>账单日期</td>
+<td>本次账单的结算日期</td>
+</tr>
+<tr>
+<td><code>bill_comment</code></td>
+<td>账单备注</td>
+<td>账单的额外备注</td>
+</tr>
+</tbody></table>
+<p>其中注意的几个小细节：</p>
+<ul>
+<li>①日期字段使用的是<code>timestamp</code>类型，而并非<code>datetime</code>，因为前者更省空间。</li>
+<li>②账单详情字段用的是<code>text</code>类型，因为这个字段可能会出现很多的信息。</li>
+<li>③定义了一个和表没有关系的自增字段作为主键，用于维护聚簇索引树的结构。</li>
+</ul>
+<p>除开有上述七个字段外，还有三个索引：</p>
+<table>
+<thead>
+<tr>
+<th>索引字段</th>
+<th>索引类型</th>
+<th>索引作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>month_bills_id</code></td>
+<td>主键索引</td>
+<td>主要作用就是用来维护聚簇索引树</td>
+</tr>
+<tr>
+<td><code>serial_number</code></td>
+<td>唯一索引</td>
+<td>当需要根据流水号查询数据时使用</td>
+</tr>
+<tr>
+<td><code>bill_date</code></td>
+<td>唯一联合索引</td>
+<td>当需要根据日期查询数据时使用</td>
+</tr>
+</tbody></table>
+<p>到这里就有了最基本的建表语句，主要是用来创建第一张月份账单表，如果想要实现动态按照每月建表的话，还需要用到存储过程来实现，接着来写一个存储过程。</p>
+<p>最终撰写出的存储过程如下：</p>
+<pre><code>DELIMITER&nbsp;//&nbsp;DROP&nbsp;PROCEDURE&nbsp;IF&nbsp;EXISTS&nbsp;create_table_by_month&nbsp;//CREATE&nbsp;PROCEDURE&nbsp;`create_table_by_month`()BEGIN&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;用于记录下一个月份是多久&nbsp;&nbsp;&nbsp;&nbsp;DECLARE&nbsp;nextMonth&nbsp;varchar(20);&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;用于记录创建表的SQL语句&nbsp;&nbsp;&nbsp;&nbsp;DECLARE&nbsp;createTableSQL&nbsp;varchar(5210);&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;执行创建表的SQL语句后，获取表的数量&nbsp;&nbsp;&nbsp;&nbsp;DECLARE&nbsp;tableCount&nbsp;int;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;用于记录要生成的表名&nbsp;&nbsp;&nbsp;&nbsp;DECLARE&nbsp;tableName&nbsp;varchar(20);&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;用于记录表的前缀&nbsp;&nbsp;&nbsp;&nbsp;DECLARE&nbsp;table_prefix&nbsp;varchar(20);&nbsp;&nbsp;--&nbsp;获取下个月的日期并赋值给nextMonth变量&nbsp;&nbsp;SELECT&nbsp;SUBSTR(&nbsp;&nbsp;&nbsp;&nbsp;replace(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATE_ADD(CURDATE(),&nbsp;INTERVAL&nbsp;1&nbsp;MONTH),&nbsp;&nbsp;&nbsp;&nbsp;'-',&nbsp;''),&nbsp;&nbsp;1,&nbsp;6)&nbsp;INTO&nbsp;@nextMonth;&nbsp;&nbsp;--&nbsp;设置表前缀变量值为td_user_banks_log_&nbsp;&nbsp;set&nbsp;@table_prefix&nbsp;=&nbsp;'month_bills_';&nbsp;&nbsp;--&nbsp;定义表的名称=表前缀+月份，即&nbsp;month_bills_2022112&nbsp;这个格式&nbsp;&nbsp;SET&nbsp;@tableName&nbsp;=&nbsp;CONCAT(@table_prefix,&nbsp;@nextMonth);&nbsp;&nbsp;--&nbsp;定义创建表的SQL语句&nbsp;&nbsp;set&nbsp;@createTableSQL=concat("create&nbsp;table&nbsp;if&nbsp;not&nbsp;exists&nbsp;",@tableName,"(&nbsp;&nbsp;&nbsp;&nbsp;`month_bills_id`&nbsp;int(8)&nbsp;NOT&nbsp;NULL&nbsp;AUTO_INCREMENT&nbsp;COMMENT&nbsp;'账单ID',&nbsp;&nbsp;&nbsp;&nbsp;`serial_number`&nbsp;varchar(50)&nbsp;NOT&nbsp;NULL&nbsp;COMMENT&nbsp;'流水号',&nbsp;&nbsp;&nbsp;&nbsp;`bills_info`&nbsp;text&nbsp;NOT&nbsp;NULL&nbsp;COMMENT&nbsp;'账单详情',&nbsp;&nbsp;&nbsp;&nbsp;`pay_money`&nbsp;decimal(10,3)&nbsp;NOT&nbsp;NULL&nbsp;COMMENT&nbsp;'支付金额',&nbsp;&nbsp;&nbsp;&nbsp;`machine_serial_no`&nbsp;varchar(20)&nbsp;NOT&nbsp;NULL&nbsp;COMMENT&nbsp;'收银机器',&nbsp;&nbsp;&nbsp;&nbsp;`bill_date`&nbsp;timestamp&nbsp;NOT&nbsp;NULL&nbsp;DEFAULT&nbsp;now()&nbsp;COMMENT&nbsp;'账单日期',&nbsp;&nbsp;&nbsp;&nbsp;`bill_comment`&nbsp;varchar(100)&nbsp;NULL&nbsp;DEFAULT&nbsp;'无'&nbsp;COMMENT&nbsp;'账单备注',&nbsp;&nbsp;&nbsp;PRIMARY&nbsp;KEY&nbsp;(`month_bills_id`)&nbsp;USING&nbsp;BTREE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNIQUE&nbsp;`serial_number`&nbsp;(`serial_number`),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KEY&nbsp;`bill_date`&nbsp;(`bill_date`)&nbsp;&nbsp;&nbsp;)&nbsp;ENGINE&nbsp;=&nbsp;InnoDB&nbsp;&nbsp;&nbsp;&nbsp;CHARACTER&nbsp;SET&nbsp;=&nbsp;utf8&nbsp;&nbsp;&nbsp;&nbsp;COLLATE&nbsp;=&nbsp;utf8_general_ci&nbsp;&nbsp;&nbsp;&nbsp;ROW_FORMAT&nbsp;=&nbsp;Compact;");&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;使用&nbsp;PREPARE&nbsp;关键字来创建一个预备执行的SQL体&nbsp;&nbsp;PREPARE&nbsp;create_stmt&nbsp;from&nbsp;@createTableSQL;&nbsp;&nbsp;&nbsp;--&nbsp;使用&nbsp;EXECUTE&nbsp;关键字来执行上面的预备SQL体：create_stmt&nbsp;&nbsp;EXECUTE&nbsp;create_stmt;&nbsp;&nbsp;--&nbsp;释放掉前面创建的SQL体（减少内存占用）&nbsp;&nbsp;DEALLOCATE&nbsp;PREPARE&nbsp;create_stmt;&nbsp;&nbsp;--&nbsp;执行完建表语句后，查询表数量并保存再&nbsp;tableCount&nbsp;变量中&nbsp;&nbsp;SELECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COUNT(1)&nbsp;INTO&nbsp;@tableCount&nbsp;&nbsp;&nbsp;FROM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;information_schema.`TABLES`&nbsp;&nbsp;&nbsp;WHERE&nbsp;TABLE_NAME&nbsp;=&nbsp;@tableName;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;查询一下对应的表是否已存在&nbsp;&nbsp;SELECT&nbsp;@tableCount&nbsp;'tableCount';END&nbsp;//delimiter&nbsp;;
+</code></pre>
+<p>上述这个存储过程比较长，但基本上都写好了注释，所以阅读起来应该还是比较轻松的，也包括该存储过程在<code>MySQL5.1、8.0</code>版本中都测试过，所以大家也可以直接用，主要拆解一下里面较为难理解的一句<code>SQL</code>，如下：</p>
+<pre><code>SELECT&nbsp;SUBSTR(&nbsp;&nbsp;&nbsp;&nbsp;replace(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATE_ADD(CURDATE(),&nbsp;INTERVAL&nbsp;1&nbsp;MONTH),&nbsp;&nbsp;&nbsp;&nbsp;'-',&nbsp;''),1,&nbsp;6)&nbsp;INTO&nbsp;@nextMonth;
+</code></pre>
+<p>这条语句执行之后会生成一个<code>202212</code>这样的月份数字，主要用来作为表名的后缀，以此来区分不同的表，但里面用了几个函数组合出了该效果，下面做一下拆解，如下：</p>
+<pre><code>--&nbsp;在当前日期的基础上增加一个月，如2022-11-12&nbsp;23:46:11，会得到2022-12-12&nbsp;23:46:11select&nbsp;DATE_ADD(CURDATE(),&nbsp;INTERVAL&nbsp;1&nbsp;MONTH);--&nbsp;使用空字符代替日期中的&nbsp;-&nbsp;符号，得到&nbsp;20221212&nbsp;23:46:11&nbsp;这样的效果select&nbsp;replace('2022-12-12&nbsp;23:46:11',&nbsp;'-',&nbsp;'');--&nbsp;对字符串做截取，获取第一位到第六位，得到&nbsp;202212&nbsp;这样的效果select&nbsp;SUBSTR("20221212&nbsp;23:46:11",1,6);
+</code></pre>
+<p>经过上述拆解之后大家应该能看的很清楚，最终每次调用该存储过程时，都会基于当前数据库的时间，然后向后增加一个月，同时将格式转化为<code>YYYYMM</code>格式，接下来调用该存储过程，如下：</p>
+<pre><code>call&nbsp;create_table_by_month();+------------+|&nbsp;tableCount&nbsp;|+------------+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;|+------------+
+</code></pre>
+<p>当返回的值为<code>1</code>而并非<code>0</code>时，就表示已经在数据库中查到了前面通过存储过程创建的表，即表示动态创建表的存储过程可以生效！接着为了能够每月定时触发，可以在<code>MySQL</code>中注册一个每月执行一次的定时事件，如下：</p>
+<pre><code>create&nbsp;EVENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`create_table_by_month_event`&nbsp;&nbsp;--&nbsp;创建一个定时器ON&nbsp;SCHEDULE&nbsp;EVERY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;MONTH&nbsp;--&nbsp;每间隔一个月执行一次STARTS&nbsp;&nbsp;&nbsp;&nbsp;'2022-11-28&nbsp;00:00:00'&nbsp;--&nbsp;从2022-11-28&nbsp;00:00:00后开始ON&nbsp;COMPLETION&nbsp;&nbsp;&nbsp;&nbsp;PRESERVE&nbsp;ENABLE&nbsp;&nbsp;--&nbsp;执行完成之后不删除定时器DO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;call&nbsp;create_table_by_month();&nbsp;--&nbsp;每次触发定时器时执行的语句
+</code></pre>
+<p><code>MySQL5.1</code>版本中除开引入了存储过程/函数、触发器的支持外，还引入了定时器的技术，也就是支持定时执行一条<code>SQL</code>，此时咱们可借助<code>MySQL</code>自带的定时器来定时调用之前的存储过程，最终实现按月定时创建表的需求！</p>
+<p>但定时器在使用之前，需要先查看定时器是否开启，如下：<code>show variables like 'event_scheduler';</code>如果是<code>OFF</code>关闭状态，需要通过<code>set global event_scheduler = 1 | on;</code>命令开启。 如果想要永久生效，<code>MySQL8.0</code>以下的版本可找到<code>my.ini/my.conf</code>文件，然后找到<code>[mysqld]</code>的区域，再里面多加入一行<code>event_scheduler = ON</code>的配置即可。</p>
+<p>这里再附上一些管理定时器的命令：</p>
+<pre><code>--&nbsp;查看创建的定时器show&nbsp;events;select&nbsp;*&nbsp;from&nbsp;mysql.event;select&nbsp;*&nbsp;from&nbsp;information_schema.EVENTS;--&nbsp;删除一个定时器drop&nbsp;event&nbsp;定时器名称;--&nbsp;关闭一个定时器任务alter&nbsp;event&nbsp;定时器名称&nbsp;on&nbsp;COMPLETION&nbsp;PRESERVE&nbsp;DISABLE;&nbsp;&nbsp;--&nbsp;开启一个定时器任务alter&nbsp;event&nbsp;定时器名称&nbsp;on&nbsp;COMPLETION&nbsp;PRESERVE&nbsp;ENABLE;&nbsp;
+</code></pre>
+<p>经过上述几步后，就能够让<code>MySQL</code>自己按月创建表了，但为啥我会将定时器的时间设置为<code>2022-11-28 00:00:00</code>这个时间后开始呢？因为<code>202211</code>这张表我已经手动建立了，不将建立表的工作放在月初一号执行，这是因为前面的存储过程是创建下月表，而不是创建当月表，同时月底提前创建下月表，还能提高容错率，在<code>MySQL</code>定时器故障的情况下，能预留人工介入的时间。</p>
+<h3 id="2-2、写入数据时能够根据月份插入对应表"><a title="2.2、写入数据时能够根据月份插入对应表" class="headerlink" href="#2-2、写入数据时能够根据月份插入对应表"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">2.2、写入数据时能够根据月份插入对应表</a></h3><p>作为一个后端项目，必然还需要搭建客户端，这里用<code>SpringBoot+MyBatis</code>来快速构建一个单体项目（最后会给出完整源码），这里需要注意，月份账单表对应的实体类中要多出一个<code>targetTable</code>字段，如下：</p>
+<pre><code>public&nbsp;class&nbsp;MonthBills&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;月份账单表ID&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;Integer&nbsp;monthBillsId;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;账单流水号&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;String&nbsp;serialNumber;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;支付金额&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;BigDecimal&nbsp;payMoney;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;收银机器&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;String&nbsp;machineSerialNo;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;账单日期&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;Date&nbsp;billDate;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;账单详情&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;String&nbsp;billsInfo;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;账单备注&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;String&nbsp;billComment;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;要操作的目标表&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;String&nbsp;targetTable;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;省略构造方法和Get/Set方法.....&#125;
+</code></pre>
+<p>上述的实体类与之前的表字段结构几乎完全相同，但会多出一个<code>targetTable</code>属性，后续会用来记录要操作的目标表，接着再撰写一个工具类，如下：</p>
+<pre><code>public&nbsp;class&nbsp;TableTimeUtils&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;/*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;使用ThreadLocal来确保线程安全，或者可以使用Java8新引入的DateTimeFormatter类：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;monthTL：负责将一个日期处理成&nbsp;YYYYMM&nbsp;格式&nbsp;&nbsp;&nbsp;&nbsp;*/&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;ThreadLocal&lt;SimpleDateFormat&gt;&nbsp;monthTL&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ThreadLocal.withInitial(()&nbsp;-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;SimpleDateFormat("YYYYMM"));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;表的前缀&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;String&nbsp;tablePrefix&nbsp;=&nbsp;"month_bills_";&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;将一个日期格式化为YYYYMM格式&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;String&nbsp;getYearMonth(Date&nbsp;date)&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;monthTL.get().format(date);&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;获取目标数据的表名（操作单条数据公用的方法：增删改查）&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;void&nbsp;getDataByTable(MonthBills&nbsp;monthBills)&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;获取传入对象的时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date&nbsp;billDate&nbsp;=&nbsp;monthBills.getBillDate();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;根据该对象中的时间，计算出要操作的表名后缀&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;yearMonth&nbsp;=&nbsp;getYearMonth(billDate);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;将表前缀和后缀拼接，得到完整的表名，如：month_bills_202211&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;monthBills.setTargetTable(tablePrefix&nbsp;+&nbsp;yearMonth);&nbsp;&nbsp;&nbsp;&nbsp;&#125;&#125;
+</code></pre>
+<p>这个工具类主要负责处理日期的时间格式，以及用来定位要操作的目标表名，对于日期格式化类：<code>SimpleDateFormat</code>由于是线程不安全的，所以使用<code>ThreadLocal</code>来确保线程安全！上述工具类中主要提供了两个基础方法：</p>
+<ul>
+<li><code>getYearMonth()</code>：将一个日期格式化成<code>YYYYMM</code>格式。</li>
+<li><code>getDataByTable()</code>：获取单条数据操作时的表名。</li>
+</ul>
+<p>有了工具类后，接着来撰写<code>Dao、Mapper</code>层的代码，如下：</p>
+<pre><code>@Mapper@Repositorypublic&nbsp;interface&nbsp;MonthBillsMapper&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;deleteByPrimaryKey(Integer&nbsp;monthBillsId);&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;insertSelective(MonthBills&nbsp;record);&nbsp;&nbsp;&nbsp;&nbsp;MonthBills&nbsp;selectByPrimaryKey(Integer&nbsp;monthBillsId);&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;updateByPrimaryKeySelective(MonthBills&nbsp;record);&#125;
+</code></pre>
+<p>上述是月份账单表对应的<code>Dao/Mapper</code>接口，因为我这里是通过<code>MyBatis</code>的逆向工程文件自动生成的，所以名字就是上面那样，我这边未成更改，接着来看看对应的<code>xml</code>文件，如下：</p>
+<pre><code>&lt;insert&nbsp;id="insertSelective"&nbsp;parameterType="com.zhuzi.dbMachineSubmeter.entity.MonthBills"&gt;insert&nbsp;into&nbsp;$&#123;targetTable&#125;&lt;trim&nbsp;prefix="("&nbsp;suffix=")"&nbsp;suffixOverrides=","&nbsp;&gt;&nbsp;&nbsp;&lt;if&nbsp;test="monthBillsId&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;month_bills_id,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="serialNumber&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;serial_number,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="payMoney&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;pay_money,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="machineSerialNo&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;machine_serial_no,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="billDate&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;bill_date,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="billComment&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;bill_comment,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="billsInfo&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;bills_info,&nbsp;&nbsp;&lt;/if&gt;&lt;/trim&gt;&lt;trim&nbsp;prefix="values&nbsp;("&nbsp;suffix=")"&nbsp;suffixOverrides=","&nbsp;&gt;&nbsp;&nbsp;&lt;if&nbsp;test="monthBillsId&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;#&#123;monthBillsId,jdbcType=INTEGER&#125;,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="serialNumber&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;#&#123;serialNumber,jdbcType=VARCHAR&#125;,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="payMoney&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;#&#123;payMoney,jdbcType=DECIMAL&#125;,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="machineSerialNo&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;#&#123;machineSerialNo,jdbcType=VARCHAR&#125;,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="billDate&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;#&#123;billDate,jdbcType=TIMESTAMP&#125;,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="billComment&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;#&#123;billComment,jdbcType=VARCHAR&#125;,&nbsp;&nbsp;&lt;/if&gt;&nbsp;&nbsp;&lt;if&nbsp;test="billsInfo&nbsp;!=&nbsp;null"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;#&#123;billsInfo,jdbcType=LONGVARCHAR&#125;,&nbsp;&nbsp;&lt;/if&gt;&lt;/trim&gt;&lt;/insert&gt;
+</code></pre>
+<p>上述这么大一长串，其实也不是俺手敲的，依旧是<code>MyBatis</code>逆向工程生成的代码，但我对其中的一处稍微做了改动，如下：</p>
+<pre><code>--&nbsp;原本生成的代码是：insert&nbsp;into&nbsp;month_bills_202211--&nbsp;然后被我改成了：insert&nbsp;into&nbsp;$&#123;targetTable&#125;
+</code></pre>
+<p>还记得最开始的实体类中，咱们多添加的那个<code>targetTable</code>属性嘛？在这里会根据该字段的值动态的去操作不同月份的表，接着来写一下<code>Service</code>层的接口和实现类，如下：</p>
+<pre><code>//&nbsp;Service接口（目前里面只有一个方法）public&nbsp;interface&nbsp;IMonthBillsService&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;insert(MonthBills&nbsp;monthBills);&#125;//&nbsp;Service实现类@Servicepublic&nbsp;class&nbsp;MonthBillsServiceImpl&nbsp;implements&nbsp;IMonthBillsService&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;@Autowired&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;MonthBillsMapper&nbsp;billsMapper;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;int&nbsp;insert(MonthBills&nbsp;monthBills)&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;获取要插入数据的表名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TableTimeUtils.getDataByTable(monthBills);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;返回插入数据的状态&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;billsMapper.insertSelective(monthBills);&nbsp;&nbsp;&nbsp;&nbsp;&#125;&#125;
+</code></pre>
+<p>在<code>service</code>层目前仅实现了一个插入数据的方法，其中的逻辑也非常简单，仅仅在调用<code>Dao</code>层的插入方法之前，获取了一下当前这条数据要插入的表名，最后来看看<code>Controller/API</code>层，如下：</p>
+<pre><code>@RestController@RequestMapping("/bills")public&nbsp;class&nbsp;MonthBillsAPI&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;@Autowired&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;IMonthBillsService&nbsp;billsService;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;账单结算的API&nbsp;&nbsp;&nbsp;&nbsp;@RequestMapping("/settleUp")&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;String&nbsp;settleUp(MonthBills&nbsp;monthBills)&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;设置账单交易时间为当前时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;monthBills.setBillDate(new&nbsp;Date(System.currentTimeMillis()));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;使用UUID随机生成一个流水号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;monthBills.setSerialNumber(monthBills.getMachineSerialNo()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;System.currentTimeMillis());&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;调用新增账单数据的service方法&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(billsService.insert(monthBills)&nbsp;&gt;&nbsp;0)&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;"&gt;&gt;&gt;&gt;账单结算成功&lt;&lt;&lt;&lt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;"&gt;&gt;&gt;&gt;账单结算失败&lt;&lt;&lt;&lt;";&nbsp;&nbsp;&nbsp;&nbsp;&#125;&#125;
+</code></pre>
+<p>在<code>API</code>层主要对外提供了一个账单结算的接口，这里为了方便测试，所以对于请求方式的处理就没那么严谨了，在调用该接口后，会先获取一下当前系统时间作为账单时间，接着会随机生成一个<code>UUID</code>作为流水号，最后就会调用<code>service</code>层的<code>insert()</code>方法。</p>
+<blockquote>
+<p>到这里为止就搭建出了一个最简单的<code>WEB</code>接口，接着来做一个小小的测试，这里为了方便就不用专门的<code>PostMan</code>工具了，就通过浏览器简单的调试一下，接口如下：<code>http://localhost:8080/bills/settleUp?billsInfo=白玉竹子*3：9999.999&amp;payMoney=9999.999&amp;machineSerialNo=NF-002-X</code></p>
+</blockquote>
+<p>最终测试效果图如下：</p>
+<p><img loading="lazy" alt="640-1.jpg" src="/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-1.jpg"></p>
+<p>效果很明显，确实做到了咱们需要的效果，接着来看看控制台输出的<code>SQL</code>日志，如下：</p>
+<p><img loading="lazy" alt="640-2.jpg" src="/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-2.jpg"></p>
+<p>主要可以观察到，原本<code>xml</code>中的动态表名，最终会根据月份被替换为具体的表名，最后再来看看数据库中的表是否真正插入了数据，如下：<img loading="lazy" alt="640-3.jpg" src="/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-3.jpg"></p>
+<p>因为之前测试过一次，因此表中早有了一条数据，主要观察第二条，的确是咱们刚刚测试时插入的数据，这也就意味着咱们按月动态插入的需求已经实现。</p>
+<blockquote>
+<p>但看到这里估计绝大部分小伙伴略微有些懵，毕竟一通代码下来看起来，尤其是不在<code>IDEA</code>工具里面，没那么方便调试，因此最后画一个执行流程图，提供给诸位来梳理整体思路！</p>
+</blockquote>
+<p><img loading="lazy" alt="640-4.jpg" src="/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-4.jpg"></p>
+<p>执行流程</p>
+<ul>
+<li>①客户端调用结算接口，传入相关的账单数据，即账单详情、账单金额、收银机器。</li>
+<li>②<code>API</code>层会先获取当前系统时间作为账单交易的时间，然后调用<code>Service</code>层的插入方法。</li>
+<li>③<code>Service</code>层会先根据账单交易时间，获取到数据具体要插入的表名，接着调用<code>Dao</code>层接口。</li>
+<li>④<code>Dao</code>层会根据上层传递过来的表名，生成具体的<code>SQL</code>语句，然后执行插入数据的操作。</li>
+</ul>
+<blockquote>
+<p>基于 Spring Cloud Alibaba + Gateway + Nacos + RocketMQ + Vue &amp; Element 实现的后台管理系统 + 用户小程序，支持 RBAC 动态权限、多租户、数据权限、工作流、三方登录、支付、短信、商城等功能</p>
+<ul>
+<li>项目地址：<a target="_blank" rel="noopener" href="https://github.com/YunaiV/yudao-cloud">https://github.com/YunaiV/yudao-cloud</a></li>
+<li>视频教程：<a target="_blank" rel="noopener" href="https://doc.iocoder.cn/video/">https://doc.iocoder.cn/video/</a></li>
+</ul>
+</blockquote>
+<h2 id="3-按月分表后要解决的问题"><a title="3. 按月分表后要解决的问题" class="headerlink" href="#3-按月分表后要解决的问题"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">3. 按月分表后要解决的问题</a></h2><p>上述已经将最基础的需求做了简单实现，那么接着再分析一下这些月份账单表还会有哪些需求呢？</p>
+<ul>
+<li>①除去最基本的新增操作外，还会有删除、修改、查询账单的需求。</li>
+<li>②一般账单表中的流水数据，都会支持按时间进行范围查询操作。</li>
+</ul>
+<p>上述这两个需求会是账单表中还会存在的操作，对于第一点也比较容易实现，就是要求客户端在修改、删除、查询数据时，都必须携带上对应的时间，一般客户端的修改、删除操作都是基于先查询出数据的基础之上的，而一般查询数据都会按照月份进行查询，或者根据流水号进行查询。</p>
+<h3 id="3-1、根据流水号查询数据"><a title="3.1、根据流水号查询数据" class="headerlink" href="#3-1、根据流水号查询数据"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">3.1、根据流水号查询数据</a></h3><p>还记得前面对于流水号的设计嘛？前面没有太过说明，这里咱们单独拧出来聊一聊：</p>
+<pre><code>setSerialNumber(monthBills.getMachineSerialNo()+System.currentTimeMillis());
+</code></pre>
+<p>这里使用了收银机器序列号+时间戳作为账单流水号，因为同一台机器在同一时间内，绝对只能对一个账单进行结算，所以再结合递增的时间戳，就能够得到一个全局唯一的流水号。<code>System.currentTimeMillis()</code>获取到的时间戳是<code>13</code>位数字，会放在机器序列号的后面，那接下来如果客户端要根据流水号查询账单数据，又该如何定位具体的表呢？首先需要在工具类中撰写一个新的方法：</p>
+<pre><code>//&nbsp;根据流水号得到表名public&nbsp;static&nbsp;void&nbsp;getTableBySerialNumber(MonthBills&nbsp;monthBills)&#123;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;获取流水号的后13位（时间戳）&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;timeMillis&nbsp;=&nbsp;monthBills.getSerialNumber().&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;substring(monthBills.getSerialNumber().length()&nbsp;-&nbsp;13);&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;将字符串类型的时间戳转换为long类型&nbsp;&nbsp;&nbsp;&nbsp;long&nbsp;millis&nbsp;=&nbsp;Long.parseLong(timeMillis);&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;调用getYearMonth()方法获取时间戳中的年月&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;yearMonth&nbsp;=&nbsp;getYearMonth(new&nbsp;Date(millis));&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;用表的前缀名拼接年月，得到最终要操作的表名&nbsp;&nbsp;&nbsp;&nbsp;monthBills.setTargetTable(tablePrefix&nbsp;+&nbsp;yearMonth);&#125;
+</code></pre>
+<p>上面这个方法实际上很简单，就是先解析流水号中的时间戳，然后根据时间戳得到具体的年月，最后拼接表的前缀名，得到最终需要操作的表名，接着来写一下<code>Dao</code>层代码，如下：</p>
+<pre><code>&lt;!--&nbsp;在MonthBillsMapper中多定义一个接口：&nbsp;--&gt;&lt;!--&nbsp;MonthBills&nbsp;selectBySerialNumber(MonthBills&nbsp;record);&nbsp;--&gt;&lt;!--&nbsp;定义返回的结果集&nbsp;--&gt;&lt;resultMap&nbsp;id="ResultMapMonthBills"&nbsp;type="com.zhuzi.dbMachineSubmeter.entity.MonthBills"&nbsp;&gt;&lt;constructor&nbsp;&gt;&nbsp;&nbsp;&lt;idArg&nbsp;column="month_bills_id"&nbsp;jdbcType="INTEGER"&nbsp;javaType="java.lang.Integer"&nbsp;/&gt;&nbsp;&nbsp;&lt;arg&nbsp;column="serial_number"&nbsp;jdbcType="VARCHAR"&nbsp;javaType="java.lang.String"&nbsp;/&gt;&nbsp;&nbsp;&lt;arg&nbsp;column="pay_money"&nbsp;jdbcType="DECIMAL"&nbsp;javaType="java.math.BigDecimal"&nbsp;/&gt;&nbsp;&nbsp;&lt;arg&nbsp;column="machine_serial_no"&nbsp;jdbcType="VARCHAR"&nbsp;javaType="java.lang.String"&nbsp;/&gt;&nbsp;&nbsp;&lt;arg&nbsp;column="bill_date"&nbsp;jdbcType="TIMESTAMP"&nbsp;javaType="java.util.Date"&nbsp;/&gt;&nbsp;&nbsp;&lt;arg&nbsp;column="bill_comment"&nbsp;jdbcType="VARCHAR"&nbsp;javaType="java.lang.String"&nbsp;/&gt;&nbsp;&nbsp;&lt;arg&nbsp;column="bills_info"&nbsp;jdbcType="LONGVARCHAR"&nbsp;javaType="java.lang.String"&nbsp;/&gt;&lt;/constructor&gt;&lt;/resultMap&gt;&lt;!--&nbsp;定义字段列表&nbsp;--&gt;&lt;sql&nbsp;id="Base_Column_List"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;month_bills_id,&nbsp;serial_number,&nbsp;bills_info,&nbsp;pay_money,&nbsp;machine_serial_no,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bill_date,&nbsp;bill_comment&lt;/sql&gt;&lt;!--&nbsp;编写对应的查询语句,这里依旧是通过&nbsp;$&#123;targetTable&#125;&nbsp;动态表名做查询&nbsp;--&gt;&lt;select&nbsp;id="selectBySerialNumber"&nbsp;resultMap="ResultMapMonthBills"&nbsp;&nbsp;&nbsp;&nbsp;parameterType="com.zhuzi.dbMachineSubmeter.entity.MonthBills"&nbsp;&gt;select&nbsp;&lt;include&nbsp;refid="Base_Column_List"&nbsp;/&gt;from&nbsp;$&#123;targetTable&#125;where&nbsp;serial_number&nbsp;=&nbsp;#&#123;serial_number,jdbcType=VARCHAR&#125;&lt;/select&gt;
+</code></pre>
+<p>接着来写一下<code>Service</code>层的代码，如下：</p>
+<pre><code>//&nbsp;在IMonthBillsService接口中多定义一个方法MonthBills&nbsp;selectBySerialNumber(MonthBills&nbsp;monthBills);//&nbsp;在MonthBillsServiceImpl实现类中撰写具体的实现@Overridepublic&nbsp;MonthBills&nbsp;selectBySerialNumber(MonthBills&nbsp;monthBills)&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;根据流水号获取要查询数据的具体表名&nbsp;&nbsp;&nbsp;&nbsp;TableTimeUtils.getTableBySerialNumber(monthBills);&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;调用Dao层根据流水号查询数据的方法&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;billsMapper.selectBySerialNumber(monthBills);&#125;
+</code></pre>
+<p>这里的实现尤为简单，仅调用了一下前面写的工具类方法，获取了一下要查询数据的动态表名，接着再来写一下<code>API</code>层的接口，如下：</p>
+<pre><code>//&nbsp;根据流水号查询数据的API@RequestMapping("/selectBySerialNumber")public&nbsp;String&nbsp;selectBySerialNumber(MonthBills&nbsp;monthBills)&#123;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;调用Service层根据流水号查询数据的方法&nbsp;&nbsp;&nbsp;&nbsp;MonthBills&nbsp;result&nbsp;=&nbsp;billsService.selectBySerialNumber(monthBills);&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(result&nbsp;!=&nbsp;null)&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;result.toString();&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;"&gt;&gt;&gt;&gt;未查询到流水号对应的数据&lt;&lt;&lt;&lt;";&#125;
+</code></pre>
+<p>接着来做一下测试，调用地址如下：</p>
+<ul>
+<li><code>http://localhost:8080/bills/selectBySerialNumber?serialNumber=NF-002-X1668494222684</code></li>
+</ul>
+<p>测试效果图如下：<img loading="lazy" alt="640-5.jpg" src="/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-5.jpg"></p>
+<blockquote>
+<p>此时会发现，根据流水号查询数据的效果就实现啦，这里主要是得设计好流水号的组成，其中一定要包含一个时间戳在内，这样就能够通过解析流水号的方式，得到具体要查询数据的表名，否则根据流水号查询数据的动作将异乎寻常的困难，因为需要把全部表扫描一次才能得到数据。</p>
+</blockquote>
+<p>设计好根据流水号查询数据后，对于修改和删除的操作则不再重复撰写啦！因为过程也大致相同，就是在修改、删除时，同样先根据流水号定位到具体要操作的表，接着再去对应表中做相应操作即可。</p>
+<h3 id="3-2、按时间范围查询数据"><a title="3.2、按时间范围查询数据" class="headerlink" href="#3-2、按时间范围查询数据"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">3.2、按时间范围查询数据</a></h3><p>按时间范围查询账单的流水数据，这是所有后台管理系统中都支持的功能，在这个项目中也不例外，但想要实现这个功能，则必须要有先实现两个功能：</p>
+<ul>
+<li>①能够根据用户输入的两个时间范围，得到两个日期之间的所有表名。</li>
+<li>②能够根据第①步中得到的表名，生成对应的查询语句，能够在单张表、多张表中通用。</li>
+</ul>
+<p>上述这两个需求实际上实现起来也并不难，接着来一起做一下！</p>
+<h4 id="3-2-1、得到两个日期之间的所有表名"><a title="3.2.1、得到两个日期之间的所有表名" class="headerlink" href="#3-2-1、得到两个日期之间的所有表名"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">3.2.1、得到两个日期之间的所有表名</a></h4><p>想要实现这个功能，那必然需要再在工具类中撰写一个方法，如下：</p>
+<pre><code>//&nbsp;获取按时间范围查询时，两个日期之间，所有月份账单表的表名public&nbsp;static&nbsp;List&lt;String&gt;&nbsp;getRangeQueryByTables(String&nbsp;startTime,&nbsp;String&nbsp;endTime)&#123;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;声明一个日期格式化类&nbsp;&nbsp;&nbsp;&nbsp;SimpleDateFormat&nbsp;sdf&nbsp;=&nbsp;new&nbsp;SimpleDateFormat("yyyy-MM");&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;声明保存表名的集合&nbsp;&nbsp;&nbsp;&nbsp;List&lt;String&gt;&nbsp;tables&nbsp;=&nbsp;new&nbsp;ArrayList&lt;&gt;();&nbsp;&nbsp;&nbsp;&nbsp;try&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;将两个传入的字符日期转换成日期类型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date&nbsp;startDate&nbsp;=&nbsp;sdf.parse(startTime);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date&nbsp;endDate&nbsp;=&nbsp;sdf.parse(endTime);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//用&nbsp;Calendar&nbsp;进行日期比较判断&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calendar&nbsp;calendar&nbsp;=&nbsp;Calendar.getInstance();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(startDate.getTime()&nbsp;&lt;=&nbsp;endDate.getTime())&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;把生成的月份拼接表前缀名，加入到集合中&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tables.add(tablePrefix&nbsp;+&nbsp;monthTL.get().format(startDate));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;设置日期，并把比对器的日期增加一月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;calendar.setTime(startDate);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;calendar.add(Calendar.MONTH,&nbsp;1);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;获取增加后的日期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startDate&nbsp;=&nbsp;calendar.getTime();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;catch&nbsp;(ParseException&nbsp;e)&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;返回两个日期之间的所有表名&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;tables;&#125;
+</code></pre>
+<p>该方法需要传入两个参数，即两个字符串类型的时间，接着会通过<code>Calendar</code>工具类，对两个日期的大小做判断，当开始日期小于结束日期时，则会直接将表前缀名与年月拼接，得到一张月份账单表的表名，接着会对开始日期加一个月，然后继续重复上一步……，直至得到两日期之间的所有表名。</p>
+<h4 id="3-2-2、根据表名集合生成对应的SQL语句"><a title="3.2.2、根据表名集合生成对应的SQL语句" class="headerlink" href="#3-2-2、根据表名集合生成对应的SQL语句"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">3.2.2、根据表名集合生成对应的SQL语句</a></h4><p>想要实现这个功能其实也非常简单，只需要做一堆判断即可，再在工具类中写一个方法：</p>
+<pre><code>//&nbsp;根据日期生成SQL语句的方法public&nbsp;static&nbsp;String&nbsp;getRangeQuerySQL(String&nbsp;startTime,&nbsp;String&nbsp;endTime)&#123;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;先获取两个日期之间的所有表名&nbsp;&nbsp;&nbsp;&nbsp;List&lt;String&gt;&nbsp;tables&nbsp;=&nbsp;getRangeQueryByTables(startTime,&nbsp;endTime);&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;提前创建一个字符串对象保存SQL语句&nbsp;&nbsp;&nbsp;&nbsp;StringBuffer&nbsp;sql&nbsp;=&nbsp;new&nbsp;StringBuffer();&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;如果查询的两个日期是同一张表，则直接生成&nbsp;BETWEEN&nbsp;AND&nbsp;的SQL语句&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(tables.size()&nbsp;==&nbsp;1)&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sql.append("select&nbsp;*&nbsp;from&nbsp;")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append(tables.get(0))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append("&nbsp;where&nbsp;bill_date&nbsp;BETWEEN&nbsp;'")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append(startTime)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append("'&nbsp;AND&nbsp;'")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append(endTime)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append("';");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;如果本次范围查询的两个日期之间有多张表&nbsp;&nbsp;&nbsp;&nbsp;&#125;else&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;则用for循环遍历所有表名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(String&nbsp;table&nbsp;:&nbsp;tables)&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;对于第一张表则只需要查询开始日期之后的数据&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(table.equals(tables.get(0)))&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sql.append("select&nbsp;*&nbsp;from&nbsp;")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append(table)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append("&nbsp;where&nbsp;bill_date&nbsp;&gt;&nbsp;'")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append(startTime)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append("'&nbsp;union&nbsp;all&nbsp;");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;对于最后一张表只需要查询结束日期之前的数据&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;if&nbsp;(table.equals(tables.get(tables.size()-1)))&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sql.append("select&nbsp;*&nbsp;from&nbsp;")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append(table)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append("&nbsp;where&nbsp;bill_date&nbsp;&lt;&nbsp;'")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append(endTime)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append("';");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;对于其他表则获取所有数据&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;else&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sql.append("select&nbsp;*&nbsp;from&nbsp;")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append(table)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.append("'&nbsp;union&nbsp;all&nbsp;");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;返回最终生成的SQL语句&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;sql.toString();&#125;
+</code></pre>
+<p>这个方法看起来似乎有些长，但其实功能也非常简单，如下：</p>
+<ul>
+<li>①如果两个日期在一个月内，则生成<code>BETWEEN AND</code>的查询语句。</li>
+<li>如果两个日期间隔了多月，则用<pre><code>for
+</code></pre>
+  循环遍历前面得到的表名：<ul>
+<li>如果是第一张表，则只需要查询开始日期之后的数据，再用<code>union all</code>拼接后面的语句。</li>
+</ul>
+</li>
+<li>如果是最后一张表，则只需要查询结束日期之前的数据，以<code>;</code>分号结尾即可。</li>
+<li>如果是中间的表，则查询对应的所有数据，接着继续用<code>union all</code>拼接其他语句。</li>
+</ul>
+<p>接着做个简单的小测试，效果如下：<img loading="lazy" alt="640-6.jpg" src="/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-6.jpg"></p>
+<p>很明显，通过这两个方法，可以实现最初咱们提出的两个需求，实现这两个基础功能后，接着套入到前面的项目中~</p>
+<h4 id="3-2-3、实现按时间做范围查询的API接口"><a title="3.2.3、实现按时间做范围查询的API接口" class="headerlink" href="#3-2-3、实现按时间做范围查询的API接口"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">3.2.3、实现按时间做范围查询的API接口</a></h4><p>依旧按照之前的步骤，先定义<code>Dao</code>层的接口和<code>.xml</code>文件，如下：</p>
+<pre><code>//&nbsp;定义一个返回多条数据的接口List&lt;MonthBills&gt;&nbsp;rangeQueryByDate(@Param("sql")&nbsp;String&nbsp;sql);&lt;select&nbsp;id="rangeQueryByDate"&nbsp;resultMap="ResultMapMonthBills"&nbsp;&nbsp;&nbsp;&nbsp;parameterType="java.lang.String"&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;$&#123;sql&#125;&nbsp;&nbsp;&lt;/select&gt;
+</code></pre>
+<p>主要观察<code>xml</code>文件中的代码，因为这里需要实现自定义<code>SQL</code>的执行，所以将<code>SQL</code>语句的生成工作放在了外部完成，在<code>xml</code>中仅需将对应的<code>SQL</code>语句发给<code>MySQL</code>执行，并接收返回结果即可，接着来写一下<code>Service</code>层的接口和实现：</p>
+<pre><code>//&nbsp;在IMonthBillsService接口中多定义一个方法List&lt;MonthBills&gt;&nbsp;rangeQueryByDate(String&nbsp;startTime,&nbsp;String&nbsp;endTime);//&nbsp;在MonthBillsServiceImpl实现类中撰写具体的实现@Overridepublic&nbsp;List&lt;MonthBills&gt;&nbsp;rangeQueryByDate(String&nbsp;startTime,&nbsp;String&nbsp;endTime)&nbsp;&#123;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;获取范围查询时的SQL语句&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;sql&nbsp;=&nbsp;TableTimeUtils.getRangeQuerySQL(startTime,endTime);&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;billsMapper.rangeQueryByDate(sql);&#125;
+</code></pre>
+<p>其实核心工作已经在之前的工具类中完成了，这里仅需调用工具类中，生成两个日期之间的查询语句即可，接着再写一下<code>API</code>层的对外接口，就大功告成啦！如下：</p>
+<pre><code>//&nbsp;按照范围查询两个日期之间的所有账单数据@RequestMapping("/rangeQueryByTime")public&nbsp;String&nbsp;rangeQueryByTime(@RequestParam("start")&nbsp;String&nbsp;start,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@RequestParam("end")String&nbsp;end)&#123;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;调用Service层根据流水号查询数据的方法&nbsp;&nbsp;&nbsp;&nbsp;List&lt;MonthBills&gt;&nbsp;bills&nbsp;=&nbsp;billsService.rangeQueryByDate(start,&nbsp;end);&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(bills&nbsp;!=&nbsp;null)&#123;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;bills.toString();&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;"&gt;&gt;&gt;&gt;指定的日期中没有账单数据&lt;&lt;&lt;&lt;";&#125;
+</code></pre>
+<p>在这里面仅仅只是调用了<code>Service</code>层的方法而已，接下来测试一下，测试地址为：</p>
+<ul>
+<li><code>localhost:8080/bills/rangeQueryByTime?start=2022-11-01&amp;end=2022-11-30</code></li>
+</ul>
+<p>最终效果如下：</p>
+<p><img loading="lazy" alt="640-7.jpg" src="/images/notes/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE-%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/640-7.jpg"></p>
+<p>因为我表中就两条数据，所以就做了一个单月表的测试，这里单月账单表的数据查询无误，大家也可以再建立一张其他月份的账单表，效果也是照样没有问题的~</p>
+<h4 id="3-2-4、按时间范围查询数据小结"><a title="3.2.4、按时间范围查询数据小结" class="headerlink" href="#3-2-4、按时间范围查询数据小结"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">3.2.4、按时间范围查询数据小结</a></h4><p>其实这里的做法仅仅只是为了给大家演示效果，之前的实际业务中远比这更加复杂，因为每张月份账单表会有上千万条数据，不可能一次性查询几张、几十张的月份账单表，这样对于网络、资源的开销太大。</p>
+<blockquote>
+<p>实际业务中，一方面会限制查询的日期范围，最多只允许客户查询近六月的账单流水。另一方面还会结合数据分页，也就是每页仅显示<code>20</code>条数据，随着用户的翻页动作触发后，才会对每张不同的月份账单表做查询。</p>
+</blockquote>
+<p>对于这种会批量查询所有账单表的业务，基本上是查询一些流水交易金额的统计数据，而且也仅是提供给后台系统操作，用于定时跑批去生成统计数据，如近一周、一月、一季、半年、一年的交易金额、账单总量…..等这类需求。</p>
+<blockquote>
+<p>这里给大家实现这个需求的目的在于：<strong>让大家理解按月做了水平分表后，该如何查询多张表的数据。</strong></p>
+</blockquote>
+<h2 id="4-库内分表篇总结"><a title="4. 库内分表篇总结" class="headerlink" href="#4-库内分表篇总结"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247487551&amp;idx=1&amp;sn=18f64ba49f3f0f9d8be9d1fdef8857d9&amp;scene=21#wechat_redirect">4. 库内分表篇总结</a></h2><p>看到这里，对于库内分表篇的内容也接近了尾声，有小伙伴也许会疑惑：那如果我每月的数据量更大怎么办呢？比如前面的例子中，如果再投入了多批机器怎么办？每月的数据量达到<code>3000W、6000W.....</code>甚至上亿怎么办？</p>
+<p>如若你存在这块的顾虑，其实大可不必担心，因为咱们既然可以按月分表，那能否按半月为周期分表呢？能否按星期分表呢？能否以三天、一天为一个维度分表呢？答案显然是可以的，所以数据量无论有多大，都可能按不同的周期来划分表。</p>
+<p>不过一般对于库内分表的场景会很少用到，毕竟库中只有某些表的数据量较大时，才会选用这种方案，如果整库的数据量较大、访问压力较高，则会直接采用分库方案（不过本篇的内容，对于一些身处东南亚的朋友，应该用的还是比较频繁的~）。</p>
+<p>其实库内分表除开本文讲解的方式外，大家通过整合<code>Sharding-JDBC</code>框架来实现会更加轻松，但那样会导致依赖变多，所以如果你项目中不需要用到太多的分表，则可采用本文这种方式实现。</p>
+<hr>
+<hr>
+<p>欢迎加入我的知识星球，一起探讨架构，交流源码。加入方式，<strong>长按下方二维码噢</strong>：</p>
+<p>已在知识星球更新源码解析如下：</p>
+<p>最近更新《芋道 SpringBoot 2.X 入门》系列，已经 101 余篇，覆盖了&nbsp;MyBatis、Redis、MongoDB、ES、分库分表、读写分离、SpringMVC、Webflux、权限、WebSocket、Dubbo、RabbitMQ、RocketMQ、Kafka、性能测试等等内容。</p>
+<p>提供近 3W 行代码的 SpringBoot 示例，以及超 6W 行代码的电商微服务项目。</p>
+<p>获取方式：点“<strong>在看</strong>”，关注公众号并回复&nbsp;<strong>666</strong>&nbsp;领取，更多内容陆续奉上。</p>
+<pre><code>文章有帮助的话，在看，转发吧。谢谢支持哟 (*^__^*）
+</code></pre>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/数据库/">数据库</a><a href="/tags/单体单库/">单体单库</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93+%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/" data-title="月增千万的数据，我用单体+单库扛下了所有~ | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/有线连接-宿主机跟VirtualBox中的Linux互相通信/" title="有线连接-宿主机跟VirtualBox中的Linux互相通信">
+  <strong>上一篇：</strong><br/>
+  <span>
+  有线连接-宿主机跟VirtualBox中的Linux互相通信</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/权限系统概要/"  title="权限系统概要">
+ <strong>下一篇：</strong><br/> 
+ <span>权限系统概要
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/月增千万的数据，我用单体+单库扛下了所有~/" data-title="月增千万的数据，我用单体+单库扛下了所有~" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93+%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89~/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89"><span class="toc-number">1.</span> <span class="toc-text">月增千万的数据，我用单体+单库扛下了所有~</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%88%E5%A2%9E%E5%8D%83%E4%B8%87%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%88%91%E7%94%A8%E5%8D%95%E4%BD%93-%E5%8D%95%E5%BA%93%E6%89%9B%E4%B8%8B%E4%BA%86%E6%89%80%E6%9C%89-1"><span class="toc-number">2.</span> <span class="toc-text">月增千万的数据，我用单体+单库扛下了所有~</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%BA%90%E8%87%AA%E4%BA%8E%E8%BD%AF%E7%A1%AC%E7%BB%93%E5%90%88%E7%9A%84%E7%89%B9%E6%AE%8A%E4%B8%9A%E5%8A%A1"><span class="toc-number">2.1.</span> <span class="toc-text">1. 源自于软硬结合的特殊业务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1%E3%80%81%E9%A1%B9%E7%9B%AE%E7%9A%84%E9%9A%BE%E7%82%B9"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.1、项目的难点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2%E3%80%81%E6%96%B9%E6%A1%88%E7%9A%84%E6%8E%A2%E8%AE%A8"><span class="toc-number">2.1.2.</span> <span class="toc-text">1.2、方案的探讨</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%8C%89%E6%9C%88%E5%88%86%E8%A1%A8%E6%96%B9%E6%A1%88%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5"><span class="toc-number">2.2.</span> <span class="toc-text">2.  按月分表方案的落地实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E3%80%81%E5%88%A9%E7%94%A8%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%AE%9E%E7%8E%B0%E6%8C%89%E6%9C%88%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.1、利用存储过程实现按月动态创建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2%E3%80%81%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E6%97%B6%E8%83%BD%E5%A4%9F%E6%A0%B9%E6%8D%AE%E6%9C%88%E4%BB%BD%E6%8F%92%E5%85%A5%E5%AF%B9%E5%BA%94%E8%A1%A8"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2、写入数据时能够根据月份插入对应表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%8C%89%E6%9C%88%E5%88%86%E8%A1%A8%E5%90%8E%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.3.</span> <span class="toc-text">3. 按月分表后要解决的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1%E3%80%81%E6%A0%B9%E6%8D%AE%E6%B5%81%E6%B0%B4%E5%8F%B7%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE"><span class="toc-number">2.3.1.</span> <span class="toc-text">3.1、根据流水号查询数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2%E3%80%81%E6%8C%89%E6%97%B6%E9%97%B4%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE"><span class="toc-number">2.3.2.</span> <span class="toc-text">3.2、按时间范围查询数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1%E3%80%81%E5%BE%97%E5%88%B0%E4%B8%A4%E4%B8%AA%E6%97%A5%E6%9C%9F%E4%B9%8B%E9%97%B4%E7%9A%84%E6%89%80%E6%9C%89%E8%A1%A8%E5%90%8D"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">3.2.1、得到两个日期之间的所有表名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2%E3%80%81%E6%A0%B9%E6%8D%AE%E8%A1%A8%E5%90%8D%E9%9B%86%E5%90%88%E7%94%9F%E6%88%90%E5%AF%B9%E5%BA%94%E7%9A%84SQL%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.3.2.2.</span> <span class="toc-text">3.2.2、根据表名集合生成对应的SQL语句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3%E3%80%81%E5%AE%9E%E7%8E%B0%E6%8C%89%E6%97%B6%E9%97%B4%E5%81%9A%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2%E7%9A%84API%E6%8E%A5%E5%8F%A3"><span class="toc-number">2.3.2.3.</span> <span class="toc-text">3.2.3、实现按时间做范围查询的API接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4%E3%80%81%E6%8C%89%E6%97%B6%E9%97%B4%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%BB%93"><span class="toc-number">2.3.2.4.</span> <span class="toc-text">3.2.4、按时间范围查询数据小结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BA%93%E5%86%85%E5%88%86%E8%A1%A8%E7%AF%87%E6%80%BB%E7%BB%93"><span class="toc-number">2.4.</span> <span class="toc-text">4. 库内分表篇总结</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

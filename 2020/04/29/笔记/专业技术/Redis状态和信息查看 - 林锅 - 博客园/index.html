@@ -1,0 +1,1012 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>Redis状态和信息查看 - 林锅 - 博客园 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="Redis状态和信息查看 - 林锅 - 博客园Redis状态和信息查看转自：http:&#x2F;&#x2F;my.oschina.net&#x2F;tongyufu&#x2F;blog&#x2F;405612 &amp;nbsp; redis-cli连接服务器后，使用info命令查看Redis信息和状态：   INFO [section] 以一种易于解释（parse）且易于阅读的格式，返回关于 Redis 服务器的各种信息和统计数值。 通过给定可选的参">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis状态和信息查看 - 林锅 - 博客园">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%20-%20%E6%9E%97%E9%94%85%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="Redis状态和信息查看 - 林锅 - 博客园Redis状态和信息查看转自：http:&#x2F;&#x2F;my.oschina.net&#x2F;tongyufu&#x2F;blog&#x2F;405612 &amp;nbsp; redis-cli连接服务器后，使用info命令查看Redis信息和状态：   INFO [section] 以一种易于解释（parse）且易于阅读的格式，返回关于 Redis 服务器的各种信息和统计数值。 通过给定可选的参">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B-%E6%9E%97%E9%94%85-%E5%8D%9A%E5%AE%A2%E5%9B%AD/copycode.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B-%E6%9E%97%E9%94%85-%E5%8D%9A%E5%AE%A2%E5%9B%AD/550333-20160108171926903-1944297967.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-11-12T10:38:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B-%E6%9E%97%E9%94%85-%E5%8D%9A%E5%AE%A2%E5%9B%AD/copycode.gif">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/Redis状态和信息查看 - 林锅 - 博客园/" title="Redis状态和信息查看 - 林锅 - 博客园" itemprop="url">Redis状态和信息查看 - 林锅 - 博客园</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B-%E6%9E%97%E9%94%85-%E5%8D%9A%E5%AE%A2%E5%9B%AD"><span class="toc-number">1.</span> <span class="toc-text">Redis状态和信息查看 - 林锅 - 博客园</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B"><span class="toc-number">1.1.</span> <span class="toc-text">Redis状态和信息查看</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="Redis状态和信息查看-林锅-博客园"><a title="Redis状态和信息查看 - 林锅 - 博客园" class="headerlink" href="#Redis状态和信息查看-林锅-博客园"></a>Redis状态和信息查看 - 林锅 - 博客园</h1><h2 id="Redis状态和信息查看"><a title="Redis状态和信息查看" class="headerlink" href="#Redis状态和信息查看"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/linguoguo/p/5114014.html">Redis状态和信息查看</a></h2><p>转自：<a target="_blank" rel="noopener" href="http://my.oschina.net/tongyufu/blog/405612">http://my.oschina.net/tongyufu/blog/405612</a></p>
+<p>&nbsp;</p>
+<p>redis-cli连接服务器后，使用info命令查看Redis信息和状态：</p>
+<p><img loading="lazy" alt="copycode.gif" src="/images/notes/Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B-%E6%9E%97%E9%94%85-%E5%8D%9A%E5%AE%A2%E5%9B%AD/copycode.gif"></p>
+<hr>
+<p><strong>INFO [section]</strong></p>
+<p>以一种易于解释（parse）且易于阅读的格式，返回关于 Redis 服务器的各种信息和统计数值。</p>
+<p>通过给定可选的参数&nbsp;section&nbsp;，可以让命令只返回某一部分的信息：</p>
+<ul>
+<li>server&nbsp;部分记录了 Redis 服务器的信息，它包含以下域：<ul>
+<li>redis_version&nbsp;: Redis 服务器版本</li>
+<li>redis_git_sha1&nbsp;: Git SHA1</li>
+<li>redis_git_dirty&nbsp;: Git dirty flagapp</li>
+<li>os&nbsp;: Redis 服务器的宿主操作系统</li>
+<li>arch_bits&nbsp;: 架构（32 或 64 位）</li>
+<li>multiplexing_api&nbsp;: Redis 所使用的事件处理机制</li>
+<li>gcc_version&nbsp;: 编译 Redis 时所使用的 GCC 版本</li>
+<li>process_id&nbsp;: 服务器进程的 PID</li>
+<li>run_id&nbsp;: Redis 服务器的随机标识符（用于 Sentinel 和集群）</li>
+<li>tcp_port&nbsp;: TCP/IP 监听端口</li>
+<li>uptime_in_seconds&nbsp;: 自 Redis 服务器启动以来，经过的秒数</li>
+<li>uptime_in_days&nbsp;: 自 Redis 服务器启动以来，经过的天数</li>
+<li>lru_clock&nbsp;: 以分钟为单位进行自增的时钟，用于 LRU 管理</li>
+</ul>
+</li>
+<li>clients&nbsp;部分记录了已连接客户端的信息，它包含以下域：<ul>
+<li>connected_clients&nbsp;: 已连接客户端的数量（不包括通过从属服务器连接的客户端）</li>
+<li>client_longest_output_list&nbsp;: 当前连接的客户端当中，最长的输出列表</li>
+<li>client_longest_input_buf&nbsp;: 当前连接的客户端当中，最大输入缓存</li>
+<li>blocked_clients&nbsp;: 正在等待阻塞命令（BLPOP、BRPOP、BRPOPLPUSH）的客户端的数量</li>
+</ul>
+</li>
+<li><blockquote>
+<p>在理想情况下，&nbsp;used_memory_rss&nbsp;的值应该只比&nbsp;used_memory&nbsp;稍微高一点儿。</p>
+<p>当&nbsp;rss&nbsp;&gt;&nbsp;used&nbsp;，且两者的值相差较大时，表示存在（内部或外部的）内存碎片。</p>
+<p>内存碎片的比率可以通过&nbsp;mem_fragmentation_ratio&nbsp;的值看出。</p>
+<p>当&nbsp;used&nbsp;&gt;&nbsp;rss&nbsp;时，表示 Redis 的部分内存被操作系统换出到交换空间了，在这种情况下，操作可能会产生明显的延迟。</p>
+<p>Because Redis does not have control over how its allocations are mapped to memory pages, highused_memory_rss&nbsp;is often the result of a spike in memory usage.</p>
+<p>当 Redis 释放内存时，分配器可能会，也可能不会，将内存返还给操作系统。</p>
+<p>如果 Redis 释放了内存，却没有将内存返还给操作系统，那么&nbsp;used_memory&nbsp;的值可能和操作系统显示的 Redis 内存占用并不一致。</p>
+<p>查看&nbsp;used_memory_peak&nbsp;的值可以验证这种情况是否发生。<br>  memory&nbsp;部分记录了服务器的内存信息，它包含以下域：</p>
+</blockquote>
+<ul>
+<li>used_memory&nbsp;: 由 Redis 分配器分配的内存总量，以字节（byte）为单位</li>
+<li>used_memory_human&nbsp;: 以人类可读的格式返回 Redis 分配的内存总量</li>
+<li>used_memory_rss&nbsp;: 从操作系统的角度，返回 Redis 已分配的内存总量（俗称常驻集大小）。这个值和&nbsp;top&nbsp;、&nbsp;ps等命令的输出一致。</li>
+<li>used_memory_peak&nbsp;: Redis 的内存消耗峰值（以字节为单位）</li>
+<li>used_memory_peak_human&nbsp;: 以人类可读的格式返回 Redis 的内存消耗峰值</li>
+<li>used_memory_lua&nbsp;: Lua 引擎所使用的内存大小（以字节为单位）</li>
+<li>mem_fragmentation_ratio&nbsp;:&nbsp;used_memory_rss&nbsp;和&nbsp;used_memory&nbsp;之间的比率</li>
+<li>mem_allocator&nbsp;: 在编译时指定的， Redis 所使用的内存分配器。可以是 libc 、 jemalloc 或者 tcmalloc 。</li>
+</ul>
+</li>
+<li>如果 AOF 持久化功能处于开启状态，那么这个部分还会加上以下域：<br>  persistence&nbsp;部分记录了跟&nbsp;RDB&nbsp;持久化和&nbsp;AOF&nbsp;持久化有关的信息，它包含以下域：<ul>
+<li>aof_current_size&nbsp;: AOF 文件目前的大小。</li>
+<li>aof_base_size&nbsp;: 服务器启动时或者 AOF 重写最近一次执行之后，AOF 文件的大小。</li>
+<li>aof_pending_rewrite&nbsp;: 一个标志值，记录了是否有 AOF 重写操作在等待 RDB 文件创建完毕之后执行。</li>
+<li>aof_buffer_length&nbsp;: AOF 缓冲区的大小。</li>
+<li>aof_rewrite_buffer_length&nbsp;: AOF 重写缓冲区的大小。</li>
+<li>aof_pending_bio_fsync&nbsp;: 后台 I/O 队列里面，等待执行的&nbsp;fsync&nbsp;调用数量。</li>
+<li>aof_delayed_fsync&nbsp;: 被延迟的&nbsp;fsync&nbsp;调用数量。</li>
+<li>loading&nbsp;: 一个标志值，记录了服务器是否正在载入持久化文件。</li>
+<li>rdb_changes_since_last_save&nbsp;: 距离最近一次成功创建持久化文件之后，经过了多少秒。</li>
+<li>rdb_bgsave_in_progress&nbsp;: 一个标志值，记录了服务器是否正在创建 RDB 文件。</li>
+<li>rdb_last_save_time&nbsp;: 最近一次成功创建 RDB 文件的 UNIX 时间戳。</li>
+<li>rdb_last_bgsave_status&nbsp;: 一个标志值，记录了最近一次创建 RDB 文件的结果是成功还是失败。</li>
+<li>rdb_last_bgsave_time_sec&nbsp;: 记录了最近一次创建 RDB 文件耗费的秒数。</li>
+<li>rdb_current_bgsave_time_sec&nbsp;: 如果服务器正在创建 RDB 文件，那么这个域记录的就是当前的创建操作已经耗费的秒数。</li>
+<li>aof_enabled&nbsp;: 一个标志值，记录了 AOF 是否处于打开状态。</li>
+<li>aof_rewrite_in_progress&nbsp;: 一个标志值，记录了服务器是否正在创建 AOF 文件。</li>
+<li>aof_rewrite_scheduled&nbsp;: 一个标志值，记录了在 RDB 文件创建完毕之后，是否需要执行预约的 AOF 重写操作。</li>
+<li>aof_last_rewrite_time_sec&nbsp;: 最近一次创建 AOF 文件耗费的时长。</li>
+<li>aof_current_rewrite_time_sec&nbsp;: 如果服务器正在创建 AOF 文件，那么这个域记录的就是当前的创建操作已经耗费的秒数。</li>
+<li>aof_last_bgrewrite_status&nbsp;: 一个标志值，记录了最近一次创建 AOF 文件的结果是成功还是失败。</li>
+</ul>
+</li>
+<li>stats&nbsp;部分记录了一般统计信息，它包含以下域：<ul>
+<li>total_connections_received&nbsp;: 服务器已接受的连接请求数量。</li>
+<li>total_commands_processed&nbsp;: 服务器已执行的命令数量。</li>
+<li>instantaneous_ops_per_sec&nbsp;: 服务器每秒钟执行的命令数量。</li>
+<li>rejected_connections&nbsp;: 因为最大客户端数量限制而被拒绝的连接请求数量。</li>
+<li>expired_keys&nbsp;: 因为过期而被自动删除的数据库键数量。</li>
+<li>evicted_keys&nbsp;: 因为最大内存容量限制而被驱逐（evict）的键数量。</li>
+<li>keyspace_hits&nbsp;: 查找数据库键成功的次数。</li>
+<li>keyspace_misses&nbsp;: 查找数据库键失败的次数。</li>
+<li>pubsub_channels&nbsp;: 目前被订阅的频道数量。</li>
+<li>pubsub_patterns&nbsp;: 目前被订阅的模式数量。</li>
+<li>latest_fork_usec&nbsp;: 最近一次&nbsp;fork()&nbsp;操作耗费的毫秒数。</li>
+</ul>
+</li>
+<li>如果当前服务器是一个从服务器的话，那么这个部分还会加上以下域：<br>  如果同步操作正在进行，那么这个部分还会加上以下域：<br>  如果主从服务器之间的连接处于断线状态，那么这个部分还会加上以下域：<br>  以下是一些总会出现的域：<br>  对于每个从服务器，都会添加以下一行信息：<br>  replication&nbsp;: 主/从复制信息<ul>
+<li>slaveXXX&nbsp;: ID、IP 地址、端口号、连接状态</li>
+<li>connected_slaves&nbsp;: 已连接的从服务器数量。</li>
+<li>master_link_down_since_seconds&nbsp;: 主从服务器连接断开了多少秒。</li>
+<li>master_sync_left_bytes&nbsp;: 距离同步完成还缺少多少字节数据。</li>
+<li>master_sync_last_io_seconds_ago&nbsp;: 距离最近一次因为 SYNC 操作而进行 I/O 已经过去了多少秒。</li>
+<li>master_host&nbsp;: 主服务器的 IP 地址。</li>
+<li>master_port&nbsp;: 主服务器的 TCP 监听端口号。</li>
+<li>master_link_status&nbsp;: 复制连接当前的状态，&nbsp;up&nbsp;表示连接正常，&nbsp;down&nbsp;表示连接断开。</li>
+<li>master_last_io_seconds_ago&nbsp;: 距离最近一次与主服务器进行通信已经过去了多少秒钟。</li>
+<li>master_sync_in_progress&nbsp;: 一个标志值，记录了主服务器是否正在与这个从服务器进行同步。</li>
+<li>role&nbsp;: 如果当前服务器没有在复制任何其他服务器，那么这个域的值就是&nbsp;master&nbsp;；否则的话，这个域的值就是slave&nbsp;。注意，在创建复制链的时候，一个从服务器也可能是另一个服务器的主服务器。</li>
+</ul>
+</li>
+<li>cpu&nbsp;部分记录了 CPU 的计算量统计信息，它包含以下域：<ul>
+<li>used_cpu_sys&nbsp;: Redis 服务器耗费的系统 CPU 。</li>
+<li>used_cpu_user&nbsp;: Redis 服务器耗费的用户 CPU 。</li>
+<li>used_cpu_sys_children&nbsp;: 后台进程耗费的系统 CPU 。</li>
+<li>used_cpu_user_children&nbsp;: 后台进程耗费的用户 CPU 。</li>
+</ul>
+</li>
+<li>commandstats&nbsp;部分记录了各种不同类型的命令的执行统计信息，比如命令执行的次数、命令耗费的 CPU 时间、执行每个命令耗费的平均 CPU 时间等等。对于每种类型的命令，这个部分都会添加一行以下格式的信息：<ul>
+<li>cmdstat_XXX:calls=XXX,usec=XXX,usecpercall=XXX</li>
+</ul>
+</li>
+<li>cluster&nbsp;部分记录了和集群有关的信息，它包含以下域：<ul>
+<li>cluster_enabled&nbsp;: 一个标志值，记录集群功能是否已经开启。</li>
+</ul>
+</li>
+<li>keyspace&nbsp;部分记录了数据库相关的统计信息，比如数据库的键数量、数据库已经被删除的过期键数量等。对于每个数据库，这个部分都会添加一行以下格式的信息：<ul>
+<li>dbXXX:keys=XXX,expires=XXX</li>
+</ul>
+</li>
+</ul>
+<p>除上面给出的这些值以外，&nbsp;section&nbsp;参数的值还可以是下面这两个：</p>
+<ul>
+<li>all&nbsp;: 返回所有信息</li>
+<li>default&nbsp;: 返回默认选择的信息</li>
+</ul>
+<p>当不带参数直接调用&nbsp;<a target="_blank" rel="noopener" href="http://redisdoc.com/server/info.html#info">INFO</a>&nbsp;命令时，使用&nbsp;default&nbsp;作为默认参数。</p>
+<p>不同版本的 Redis 可能对返回的一些域进行了增加或删减。</p>
+<p>因此，一个健壮的客户端程序在对&nbsp;<a target="_blank" rel="noopener" href="http://redisdoc.com/server/info.html#info">INFO</a>&nbsp;命令的输出进行分析时，应该能够跳过不认识的域，并且妥善地处理丢失不见的域。</p>
+<ul>
+<li><strong>可用版本：</strong></li>
+<li><blockquote>
+<p>= 1.0.0</p>
+</blockquote>
+</li>
+<li><strong>时间复杂度：</strong></li>
+<li>O(1)</li>
+<li><strong>返回值：</strong></li>
+<li><a href="%22%E5%A4%8D%E5%88%B6%E4%BB%A3%E7%A0%81%22"><img loading="lazy" alt="550333-20160108171926903-1944297967.png" src="/images/notes/Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B-%E6%9E%97%E9%94%85-%E5%8D%9A%E5%AE%A2%E5%9B%AD/550333-20160108171926903-1944297967.png"></a><br>   1 # Server<br>   2 redis_version:2.8.4<br>   3 redis_git_sha1:00000000<br>   4 redis_git_dirty:0<br>   5 redis_build_id:8f6097d7914679ca<br>   6 redis_mode:standalone<br>   7 os:Linux 3.13.0-37-generic i686<br>   8 arch_bits:32<br>   9 multiplexing_api:epoll<br>  10 gcc_version:4.8.2<br>  11 process_id:1380<br>  12 run_id:c57b3c410a00d9a7ee3b2cf9eb72479d8097f328<br>  13 tcp_port:6379<br>  14 uptime_in_seconds:30905<br>  15 uptime_in_days:0<br>  16 hz:10<br>  17 lru_clock:520960<br>  18 config_file:/etc/redis/redis.conf<br>  19<br>  20 # Clients<br>  21 connected_clients:1<br>  22 client_longest_output_list:0<br>  23 client_biggest_input_buf:0<br>  24 blocked_clients:0<br>  25<br>  26 # Memory<br>  27 used_memory:423880<br>  28 used_memory_human:413.95K<br>  29 used_memory_rss:7495680<br>  30 used_memory_peak:386096<br>  31 used_memory_peak_human:377.05K<br>  32 used_memory_lua:22528<br>  33 mem_fragmentation_ratio:17.68<br>  34 mem_allocator:jemalloc-3.4.1<br>  35<br>  36 # Persistence<br>  37 loading:0<br>  38 rdb_changes_since_last_save:0<br>  39 rdb_bgsave_in_progress:0<br>  40 rdb_last_save_time:1452244404<br>  41 rdb_last_bgsave_status:ok<br>  42 rdb_last_bgsave_time_sec:0<br>  43 rdb_current_bgsave_time_sec:-1<br>  44 aof_enabled:0<br>  45 aof_rewrite_in_progress:0<br>  46 aof_rewrite_scheduled:0<br>  47 aof_last_rewrite_time_sec:-1<br>  48 aof_current_rewrite_time_sec:-1<br>  49 aof_last_bgrewrite_status:ok<br>  50<br>  51 # Stats<br>  52 total_connections_received:3<br>  53 total_commands_processed:2<br>  54 instantaneous_ops_per_sec:0<br>  55 rejected_connections:0<br>  56 sync_full:0<br>  57 sync_partial_ok:0<br>  58 sync_partial_err:0<br>  59 expired_keys:0<br>  60 evicted_keys:0<br>  61 keyspace_hits:1<br>  62 keyspace_misses:0<br>  63 pubsub_channels:0<br>  64 pubsub_patterns:0<br>  65 latest_fork_usec:984<br>  66<br>  67 # Replication<br>  68 role:master<br>  69 connected_slaves:0<br>  70 master_repl_offset:0<br>  71 repl_backlog_active:0<br>  72 repl_backlog_size:1048576<br>  73 repl_backlog_first_byte_offset:0<br>  74 repl_backlog_histlen:0<br>  75<br>  76 # CPU<br>  77 used_cpu_sys:2.31<br>  78 used_cpu_user:3.26<br>  79 used_cpu_sys_children:0.00<br>  80 used_cpu_user_children:0.00<br>  81<br>  82 # Keyspace<br>  83 db0:keys=1,expires=0,avg_ttl=0<br>  <a href="%22%E5%A4%8D%E5%88%B6%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a><br>  具体请参见下面的测试代码。</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%20-%20%E6%9E%97%E9%94%85%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/" data-title="Redis状态和信息查看 - 林锅 - 博客园 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/Redis 横向扩展案例/" title="Redis 横向扩展案例">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Redis 横向扩展案例</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/RESTEasy入门/"  title="RESTEasy入门">
+ <strong>下一篇：</strong><br/> 
+ <span>RESTEasy入门
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/Redis状态和信息查看 - 林锅 - 博客园/" data-title="Redis状态和信息查看 - 林锅 - 博客园" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%20-%20%E6%9E%97%E9%94%85%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B-%E6%9E%97%E9%94%85-%E5%8D%9A%E5%AE%A2%E5%9B%AD"><span class="toc-number">1.</span> <span class="toc-text">Redis状态和信息查看 - 林锅 - 博客园</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B"><span class="toc-number">1.1.</span> <span class="toc-text">Redis状态和信息查看</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

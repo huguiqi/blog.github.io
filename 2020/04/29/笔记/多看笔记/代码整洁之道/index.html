@@ -1,0 +1,1165 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>代码整洁之道 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="代码整洁之道代码整洁之道.mobi马丁(Robert C. Martin)2022-08-29 08:45:56 如果说需求规约原则教给了我们什么，那就是归置良好的需求就像代码一样正式，也能作为代码的可执行测试来使用。 注：好的需求可以直接用来写测试 2022-08-29 08:50:39 勒布朗（LeBlanc）法则：稍后等于永不（Later equals never）。 注：什么狗屁老外提出来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码整洁之道">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%A4%9A%E7%9C%8B%E7%AC%94%E8%AE%B0/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="代码整洁之道代码整洁之道.mobi马丁(Robert C. Martin)2022-08-29 08:45:56 如果说需求规约原则教给了我们什么，那就是归置良好的需求就像代码一样正式，也能作为代码的可执行测试来使用。 注：好的需求可以直接用来写测试 2022-08-29 08:50:39 勒布朗（LeBlanc）法则：稍后等于永不（Later equals never）。 注：什么狗屁老外提出来">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-05-10T06:21:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/多看笔记/代码整洁之道/" title="代码整洁之道" itemprop="url">代码整洁之道</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93"><span class="toc-number">1.</span> <span class="toc-text">代码整洁之道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93-mobi"><span class="toc-number">1.1.</span> <span class="toc-text">代码整洁之道.mobi</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A9%AC%E4%B8%81-Robert-C-Martin"><span class="toc-number">1.1.0.0.1.</span> <span class="toc-text">马丁(Robert C. Martin)</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="代码整洁之道"><a title="代码整洁之道" class="headerlink" href="#代码整洁之道"></a>代码整洁之道</h1><h2 id="代码整洁之道-mobi"><a title="代码整洁之道.mobi" class="headerlink" href="#代码整洁之道-mobi"></a><a target="_blank" rel="noopener" href="http://代码整洁之道.mobi/">代码整洁之道.mobi</a></h2><h5 id="马丁-Robert-C-Martin"><a title="马丁(Robert C. Martin)" class="headerlink" href="#马丁-Robert-C-Martin"></a>马丁(Robert C. Martin)</h5><p>2022-08-29 08:45:56</p>
+<p>如果说需求规约原则教给了我们什么，那就是归置良好的需求就像代码一样正式，也能作为代码的可执行测试来使用。</p>
+<p><strong>注：</strong>好的需求可以直接用来写测试</p>
+<p>2022-08-29 08:50:39</p>
+<p>勒布朗（LeBlanc）法则：稍后等于永不（Later equals never）。</p>
+<p><strong>注：</strong>什么狗屁老外提出来就啥啥理论了，没听过明日歌吗</p>
+<p>2022-08-29 08:54:48</p>
+<p>程序员遵从不了解混乱风险的经理的意愿，也是不专业的做法。</p>
+<p>2022-08-29 08:57:27</p>
+<p>整洁的代码简单直接。整洁的代码如同优美的散文。整洁的代码从不隐藏设计者的意图，充满了干净利落的抽象和直截了当的控制语句。</p>
+<p>2022-08-29 08:58:39</p>
+<p>整洁的代码应可由作者之外的开发者阅读和增补。它应当有单元测试和验收测试。它使用有意义的命名。它只提供一种而非多种做一件事的途径。它只有尽量少的依赖关系，而且要明确地定义和提供清晰、尽量少的API</p>
+<p>2022-08-29 09:02:00</p>
+<p>能通过所有测试； 没有重复代码； 体现系统中的全部设计理念； 包括尽量少的实体，比如类、方法、函数等。</p>
+<p><strong>注：</strong>简洁代码特征顺序</p>
+<p>2022-08-29 09:04:26</p>
+<p>减少重复代码，提高表达力，提早构建简单抽象。这就是我写整洁代码的方法。</p>
+<p>2022-08-29 09:09:28</p>
+<p>读与写花费时间的比例超过10:1。写新代码时，我们一直在读旧代码。</p>
+<p>2022-08-31 07:45:07</p>
+<p>言到意到。意到言到。</p>
+<p>2022-08-31 07:50:13</p>
+<p>只有程序员才会读你的代码。所以，尽管用那些计算机科学（Computer Science，CS）术语、算法名、模式名、数学术语吧。</p>
+<p>2022-08-31 08:00:05</p>
+<p>只要短名称足够清楚，就要比长名称好。别给名称添加不必要的语境。</p>
+<p>2022-08-31 08:09:16</p>
+<p>如今，用上了精致的字体和宽大的显示器，一屏里面可以显示100行，每行能容纳150个字符。每行都不应该有150个字符那么长。函数也不该有100行那么长，20行封顶最佳。</p>
+<p>2022-08-31 08:11:15</p>
+<p>if语句、else语句、while语句等，其中的代码块应该只有一行。该行大抵应该是一个函数调用语句。这样不但能保持函数短小，而且，因为块内调用的函数拥有较具说明性的名称，从而增加了文档上的价值。</p>
+<p>2022-08-31 08:11:39</p>
+<p>这也意味着函数不应该大到足以容纳嵌套结构。所以，函数的缩进层级不该多于一层或两层。当然，这样的函数易于阅读和理解。</p>
+<p>2022-08-31 08:12:04</p>
+<p>函数应该做一件事。做好这件事。只做这一件事。</p>
+<p>2022-08-31 08:13:48</p>
+<p>要确保函数只做一件事，函数中的语句都要在同一抽象层级上。</p>
+<p>2022-08-31 08:17:43</p>
+<p>将switch语句埋到抽象工厂[9]底下，不让任何人看到。</p>
+<p>2022-08-31 08:18:42</p>
+<p>对于switch语句，我的规矩是如果只出现一次，用于创建多态对象，而且隐藏在某个继承关系中，在系统其他部分看不到，就还能容忍[G23]。</p>
+<p>2022-08-31 08:21:38</p>
+<p>最理想的参数数量是零（零参数函数），其次是一（单参数函数），再次是二（双参数函数），应尽量避免三（三参数函数）。有足够特殊的理由才能用三个以上参数（多参数函数）——所以无论如何也不要这么做。</p>
+<p>2022-08-31 08:27:00</p>
+<p>标识参数丑陋不堪。向函数传入布尔值简直就是骇人听闻的做法。</p>
+<p>2022-08-31 08:29:45</p>
+<p>assertEquals(expected, actual)这样的二元函数也有其问题。你有多少次会搞错actual和expected的位置呢？这两个参数没有自然的顺序。expected在前，actual在后，只是一种需要学习的约定罢了。</p>
+<p>2022-08-31 08:31:20</p>
+<p>例如，设想assertEquals有三个参数：assertEquals(message, expected, actual)。有多少次，你读到 message，错以为它是expected呢？我就常栽在这个三元函数上。实际上，每次我看到这里，总会绕半天圈子，最后学会了忽略message参数。</p>
+<p>2022-09-01 08:23:09</p>
+<p>public boolean set(String attribute, String value);</p>
+<p><strong>注：</strong>可以当做面试题问</p>
+<p>2022-09-01 08:24:29</p>
+<p>指令式函数返回错误码轻微违反了指令与询问分隔的规则</p>
+<p>2022-09-01 08:24:39</p>
+<p>这不会引起动词/形容词混淆，但却导致更深层次的嵌套结构。当返回错误码时，就是在要求调用者立刻处理错误。</p>
+<p>2022-09-01 08:27:32</p>
+<p>使用异常替代错误码，新异常就可以从异常类派生出来，无需重新编译或重新部署[12]。</p>
+<p>2022-09-01 08:28:29</p>
+<p>重复可能是软件中一切邪恶的根源。</p>
+<p>2022-09-01 08:29:17</p>
+<p>许多原则与实践规则都是为控制与消除重复而创建</p>
+<p>2022-09-01 08:29:37</p>
+<p>面向对象编程是如何将代码集中到基类，从而避免了冗余。面向方面编程（Aspect Oriented Programming）、面向组件编程（Component Oriented Programming）多少也都是消除重复的一种策略。看来，自子程序发明以来，软件开发领域的所有创新都是在不断尝试从源代码中消灭重复。</p>
+<p>2022-09-01 08:33:05</p>
+<p>什么也比不上放置良好的注释来得有用。什么也不会比乱七八糟的注释更有本事搞乱一个模块。什么也不会比陈旧、提供错误信息的注释更有破坏性。 注释并不像辛德勒的名单。它们并不“纯然地好”。</p>
+<p>实际上，注释最多也就是一种必须的恶。若编程语言足够有表达力，或者我们长于用这些语言来表达意图，就不那么需要注释——也许根本不需要。</p>
+<p>2022-09-01 08:33:26</p>
+<p>注释的恰当用法是弥补我们在用代码表达意图时遭遇的失败。</p>
+<p>2022-09-01 08:33:50</p>
+<p>每次写注释，你都该做个鬼脸，感受自己在表达能力上的失败</p>
+<p>2022-09-01 08:34:17</p>
+<p>代码在变动，在演化。从这里移到那里。彼此分离、重造又合到一处。很不幸，注释并不总是随之变动——不能总是跟着走。注释常常会与其所描述的代码分隔开来，孑然飘零，越来越不准确。</p>
+<p>2022-09-01 08:35:34</p>
+<p>更主张把力气用在写清楚代码上，直接保证无须编写注释。 不准确的注释要比没注释坏得多。它们满口胡言。它们预期的东西永不能实现。它们设定了无需也不应再遵循的旧规则。 真实只在一处地方有：代码。只有代码能忠实地告诉你它做的事。那是唯一真正准确的信息来源。所以，尽管有时也需要注释，我们也该多花心思尽量减少注释量。</p>
+<p>2022-09-01 08:35:49</p>
+<p>写注释的常见动机之一是糟糕的代码的存在</p>
+<p>2022-09-01 08:37:39</p>
+<p>带有少量注释的整洁而有表达力的代码，要比带有大量注释的零碎而复杂的代码像样得多。与其花时间编写解释你搞出的糟糕的代码的注释，不如花时间清洁那堆糟糕的代码。</p>
+<p><strong>注：</strong>这里把不需要大量注释原因讲得很好</p>
+<p>2022-09-01 19:55:30</p>
+<p>20世纪60年代，曾经有那么一段时间，注释掉的代码可能有用。但我们已经拥有优良的源代码控制系统如此之久，这些系统可以为我们记住不要的代码。我们无需再用注释来标记，删掉即可，它们丢不了。我担保。</p>
+<p>2022-09-01 20:03:20</p>
+<p>没有一个超过500行，多数都小于200行。Tomcat和Ant则有些文件达到数千行，将近一半文件长于200行。</p>
+<p>2022-09-01 20:04:51</p>
+<p>如果说空白行隔开了概念，靠近的代码行则暗示了它们之间的紧密关系。所以，紧密相关的代码应该互相靠近</p>
+<p>2022-09-01 20:13:23</p>
+<p>概念相关的代码应该放到一起。相关性越强，彼此之间的距离就该越短。</p>
+<p>2022-09-01 20:14:02</p>
+<p>一般而言，我们想自上向下展示函数调用依赖顺序。也就是说，被调用的函数应该放在执行调用的函数下面</p>
+<p>2022-09-01 20:14:10</p>
+<p>这样就建立了一种自顶向下贯穿源代码模块的良好信息流。</p>
+<p>2022-09-01 20:16:12</p>
+<p>应该尽力保持代码行短小。死守80个字符的上限有点僵化，而且我也并不反对代码行长度达到100个字符或120个字符。再多的话，大抵就是肆意妄为了。</p>
+<p><strong>注：</strong>80—120个字符最佳</p>
+<p>2022-09-02 07:55:52</p>
+<p>将变量设置为私有（private）有一个理由：我们不想其他人依赖这些变量。我们还想在心血来潮时能自由修改其类型或实现。</p>
+<p>2022-09-02 07:58:23</p>
+<p>我们不愿曝露数据细节，更愿意以抽象形态表述数据。</p>
+<p>2022-09-02 08:02:25</p>
+<p>过程式代码（使用数据结构的代码）便于在不改动既有数据结构的前提下添加新函数。面向对象代码便于在不改动既有函数的前提下添加新类。</p>
+<p>2022-09-02 08:13:59</p>
+<p>下列代码[3]违反了得墨忒耳律（除了违反其他规则之外），因为它调用了getOptions( )返回值的getScratchDir( )函数，又调用了getScratchDir( )返回值的getAbsolutePath( )方法。 final String outputDir = ctxt.getOptions().getScratchDir().getAbsolutePath();</p>
+<p><strong>注：</strong>链式编程不就是这种风格吗</p>
+<p>2022-09-02 08:14:29</p>
+<p>这类代码常被称作火车失事，因为它看起来就像是一列火车。这类连串的调用通常被认为是肮脏的风格，应该避免[G36]</p>
+<p>2022-09-02 08:21:45</p>
+<p>这些代码是否违反得墨忒耳律，取决于ctxt、Options和ScratchDir是对象还是数据结构。如果是对象，则它们的内部结构应当隐藏而不曝露，而有关其内部细节的知识就明显违反了得墨忒耳律。如果ctxt、Options和ScratchDir只是数据结构，没有任何行为，则它们自然会曝露其内部结构，得墨忒耳律也就不适用了。 属性访问器函数的使用把问题搞复杂了。如果像下面这样写代码，我们大概就不会提及对得墨忒耳律的违反。 final String outputDir = ctxt.options.scratchDir.absolutePath;</p>
+<p><strong>注：</strong>链式编程是没有违反得默忒耳律，因为链式编程针对的是数据结构类的值对象</p>
+<p>2022-09-02 08:45:45</p>
+<p>最为精练的数据结构，是一个只有公共变量、没有函数的类。这种数据结构有时被称为数据传送对象，或DTO（Data Transfer Objects）。DTO是非常有用的结构，尤其是在与数据库通信、或解析套接字传递的消息之类场景中。在应用程序代码里一系列将原始数据转换为数据库的翻译过程中，它们往往是排头兵。</p>
+<p>2022-09-02 08:53:34</p>
+<p>，当错误发生时，程序员就有责任确保代码照常工作。</p>
+<p>2022-09-02 09:04:14</p>
+<p>可控异常的代价就是违反开放/闭合原则[1]。如果你在方法中抛出可控异常，而catch语句在三个层级之上，你就得在catch语句和抛出异常处之间的每个方法签名中声明该异常。这意味着对软件中较低层级的修改，都将波及较高层级的签名</p>
+<p>2022-09-14 08:33:00</p>
+<p>能把代码写得那样简洁吗？能。可以修改ExpenseReportDAO，使其总是返回MealExpense对象。如果没有餐食消耗，就返回一个返回餐食补贴的MealExpense对象。 public class PerDiemMealExpenses implements MealExpenses { public int getTotal() { // return the per diem default } } 这种手法叫做特例模式（SPECIAL CASE PATTERN，[Fowler]）。创建一个类或配置一个对象，用来处理特例。你来处理特例，客户代码就不用应付异常行为了。异常行为被封装到特例对象中。</p>
+<p>2022-09-14 08:45:18</p>
+<p>整洁代码是可读的，但也要强固。可读与强固并不冲突。如果将错误处理隔离看待，独立于主要逻辑之外，就能写出强固而整洁的代码。做到这一步，我们就能单独处理它，也极大地提升了代码的可维护性。</p>
+<p>2022-09-14 08:58:39</p>
+<p>谁都知道TDD要求我们在编写生产代码前先编写单元测试。但这条规则只是冰山之巅。看看下列三定律[2]： 定律一 在编写不能通过的单元测试前，不可编写生产代码。 定律二 只可编写刚好无法通过的单元测试，不能编译也算不通过。 定律三 只可编写刚好足以通过当前失败测试的生产代码。 这三条定律将你限制在大概30秒一个的循环中。测试与生产代码一起编写，测试只比生产代码早写几秒钟。</p>
+<p>2022-09-14 09:00:36</p>
+<p>这样写程序，我们每天就会编写数十个测试，每个月编写数百个测试，每年编写数千个测试。这样写程序，测试将覆盖所有生产代码。测试代码量足以匹敌生产代码量，导致令人生畏的管理问题。</p>
+<p><strong>注：</strong>未来维护单元测试是头疼的事情</p>
+<p>2022-09-14 09:12:33</p>
+<p>，测试必须随生产代码的演进而修改。测试越脏，就越难修改。测试代码越缠结，你就越有可能花更多时间塞进新测试，而不是编写新生产代码。修改生产代码后，旧测试就会开始失败，而测试代码中乱七八糟的东西将阻碍代码再次通过。于是，测试变得就像是不断翻番的债务。</p>
+<p>2022-09-14 09:13:14</p>
+<p>没有了测试代码组，他们就失去了确保对代码的改动能如愿工作的能力。没有了测试代码组，他们就无法确保对系统某个部分的修改不会影响到系统的其他部分。故障率开始增加。随着并非出自有意的故障越来越多，他们开始害怕做改动。</p>
+<p>2022-09-14 09:14:23</p>
+<p>测试代码和生产代码一样重要。它可不是二等公民。它需要被思考、被设计和被照料。它该像生产代码一般保持整洁。</p>
+<p>2022-09-14 09:15:22</p>
+<p>整洁的测试有什么要素？有三个要素：可读性，可读性和可读性。在单元测试中，可读性甚至比在生产代码中还重要。</p>
+<p>2022-09-14 09:21:03</p>
+<p>有些事你大概永远不会在生产环境中做，而在测试环境中做却完全没问题。通常这关乎内存或CPU效率的问题，不过却永远不会与整洁有关。</p>
+<p>2022-09-20 08:40:43</p>
+<p>我们并不建议总是以这种方式封装Map的使用。我们建议不要将Map（或在边界上的其他接口）在系统中传递。如果你使用类似Map这样的边界接口，就把它保留在类或近亲类中。避免从公共API中返回边界接口，或将边界接口作为参数传递给公共API。</p>
+<p>2022-09-21 22:27:13</p>
+<p>我们通过代码中少数几处引用第三方边界接口的位置来管理第三方边界。可以像我们对待Map那样包装它们，也可以使用ADAPTER模式将我们的接口转换为第三方提供的接口。采用这两种方式，代码都能更好地与我们沟通，在边界两边推动内部一致的用法，当第三方代码有改动时修改点也会更少。</p>
+<p>2022-09-21 22:34:15</p>
+<p>注意，我修改了那些函数的名称，以符合given-when-then[6]约定。这让测试更易阅读。不幸的是，如此分解测试，导致了许多重复代码的出现。 可以利用模板方法（TEMPLATE METHOD）[7]模式，将given/when部分放到基类中，将 then 部分放到派生类中，消除代码重复问题。或者，我们也可以创建一个完整的单独测试类，把given和when部分放到@Before函数中，把when部分放到每个@Test函数中。但对于这个小问题，这看来有点太机械。最后，我还是保留了代码清单9-2那种多个断言的形式。 我认为，单个断言是个好准则[8]。我通常都会创建支持这条准则的特定领域测试语言，如代码清单9-5所示。不过，我也不害怕在单个测试中放入一个以上断言。我认为，最好的说法是单个测试中的断言数量应该最小化。</p>
+<p>2022-09-22 08:19:39</p>
+<p>整洁的测试还遵循以下5条规则，这5条规则的首字母构成了本节标题： 快速（Fast） 测试应该够快。测试应该能快速运行。测试运行缓慢，你就不会想要频繁地运行它。如果你不频繁运行测试，就不能尽早发现问题，也无法轻易修正，从而也不能轻而易举地清理代码。最终，代码就会腐坏。 独立（Independent） 测试应该相互独立。某个测试不应为下一个测试设定条件。你应该可以单独运行每个测试，及以任何顺序运行测试。当测试互相依赖时，头一个没通过就会导致一连串的测试失败，使问题诊断变得困难，隐藏了下级错误。 可重复（Repeatable） 测试应当可在任何环境中重复通过。你应该能够在生产环境、质检环境中运行测试，也能够在无网络的列车上用笔记本电脑运行测试。如果测试不能在任意环境中重复，你就总会有个解释其失败的接口。当环境条件不具备时，你也会无法运行测试。 自足验证（Self-Validating） 测试应该有布尔值输出。无论是通过或失败，你不应该查看日志文件来确认测试是否通过。你不应该手工对比两个不同文本文件来确认测试是否通过。如果测试不能自足验证，对失败的判断就会变得依赖主观，而运行测试也需要更长的手工操作时间。 及时（Timely） 测试应及时编写。单元测试应该恰好在使其通过的生产代码之前编写。如果在编写生产代码之后编写测试，你会发现生产代码难以测试。</p>
+<p>2022-09-22 08:26:38</p>
+<p>关于类的第一条规则是类应该短小。第二条规则是还要更短小。不，我们并不是要重弹“函数”一章的论调。就像函数一样，在设计类时，首要规条就是要更短小。和函数一样，马上有个问题出现，那就是“多小合适呢？” 对于函数，我们通过计算代码行数衡量大小。对于类，我们采用不同的衡量方法，</p>
+<p>2022-09-22 08:28:19</p>
+<p>代码清单10-1给出了某个类的轮廓。SuperDashboard类曝露大概70个公共方法。大多数开发者都会同意，这实在是太长了。有些开发者或许会将SuperDashboard类指为“神的类”。</p>
+<p><strong>注：</strong>哈哈，神类</p>
+<p>2022-09-22 08:32:07</p>
+<p>类应该只有少量实体变量。类中的每个方法都应该操作一个或多个这种变量。通常而言，方法操作的变量越多，就越黏聚到类上。如果一个类中的每个变量都被每个方法所使用，则该类具有最大的内聚性。</p>
+<p>2022-09-22 08:32:37</p>
+<p>一般来说，创建这种极大化内聚类是既不可取也不可能的；另一方面，我们希望内聚性保持在较高位置。内聚性高，意味着类中的方法和变量互相依赖、互相结合成一个逻辑整体。</p>
+<p>2022-09-22 08:38:01</p>
+<p>如果有些函数想要共享某些变量，为什么不让它们拥有自己的类呢？当类丧失了内聚性，就拆分它！ 所以，将大函数拆为许多小函数，往往也是将类拆分为多个小类的时机。程序会更加有组织，也会拥有更为透明的结构。</p>
+<p>2022-09-22 08:41:40</p>
+<p>，从1页多增加到了将近3页。这有几个原因。其一，重构后的程序采用了更长、更有描述性的变量名。其二，重构后的程序将函数和类声明当作是给代码添加注释的一种手段。其三，我们采用了空格和格式技巧让程序更可读。</p>
+<p><strong>注：</strong>重构并不一定使代码变少，重构是为了可读性和可扩展</p>
+<p>2022-09-22 08:42:54</p>
+<p>对于多数系统，修改将一直持续。每处修改都让我们冒着系统其他部分不能如期望般工作的风险。在整洁的系统中，我们对类加以组织，以降低修改的风险。</p>
+<p>2022-09-22 08:49:46</p>
+<p>我们希望将系统打造成在添加或修改特性时尽可能少惹麻烦的架子。在理想系统中，我们通过扩展系统而非修改现有代码来添加新特性。</p>
+<p>2022-09-22 08:56:18</p>
+<p>通过降低连接度，我们的类就遵循了另一条类设计原则，依赖倒置原则（Dependency Inversion Principle，DIP）[6]。本质而言，DIP认为类应当依赖于抽象而不是依赖于具体细节</p>
+<p>2022-09-22 09:06:14</p>
+<p>有一种强大的机制可以实现分离构造与使用，那就是依赖注入（Dependency Injection，DI），控制反转（Inversion of Control，IoC）在依赖管理中的一种应用手段[3]。</p>
+<p>2022-09-22 09:06:37</p>
+<p>控制反转将第二权责从对象中拿出来，转移到另一个专注于此的对象中，从而遵循了单一权责原则</p>
+<p>2022-09-22 09:07:57</p>
+<p>JNDI查找是DI的一种“部分”实现。在JNDI中，对象请求目录服务器提供一种符合某个特定名称的“服务”。 MyService myService = (MyService)(jndiContext.lookup(“NameOfMyService”)); 调用对象并不控制真正返回对象的类别（当然前提是它实现了恰当的接口），但调用对象仍然主动分解了依赖。</p>
+<p><strong>注：</strong>这个要看一下</p>
+<p>2022-09-22 09:09:51</p>
+<p>Spring框架提供了最有名的Java DI容器[4]。用户在XML配置文件中定义互相关联的对象，然后用Java代码请求特定的对象。稍后我们就会看到例子。 但延后初始化的好处是什么呢？这种手段在DI中也有其作用。首先，多数DI容器在需要对象之前并不构造对象。其次，许多这类容器提供调用工厂或构造代理的机制，而这种机制可为延迟赋值或类似的优化处理所用[5]。</p>
+<p><strong>注：</strong>spring非常值得研究</p>
+<p>2022-09-22 19:01:26</p>
+<p>最佳的系统架构由模块化的关注面领域组成，每个关注面均用纯Java（或其他语言）对象实现。不同的领域之间用最不具有侵害性的方面或类方面工具整合起来。这种架构能测试驱动，就像代码一样。</p>
+<p>2022-09-22 19:05:28</p>
+<p>在所有的抽象层级上，意图都应该清晰可辨。只有在编写POJO并使用类方面的机制来无损地组合其他关注面时，这种事情才会发生。 无论是设计系统或单独的模块，别忘了使用大概可工作的最简单方案。</p>
+<p>2022-09-22 19:09:22</p>
+<p>全面测试并持续通过所有测试的系统，就是可测试的系统。看似浅显，但却重要。不可测试的系统同样不可验证。不可验证的系统，绝不应部署。</p>
+<p>2022-09-22 19:09:52</p>
+<p>遵循SRP的类，测试起来较为简单。测试编写得越多，就越能持续走向编写较易测试的代码。所以，确保系统完全可测试能帮助我们创建更好的设计。</p>
+<p>2022-09-22 19:10:06</p>
+<p>紧耦合的代码难以编写测试。同样，编写测试越多，就越会遵循DIP之类规则，使用依赖注入、接口和抽象等工具尽可能减少耦合。如此一来，设计就有长足进步。</p>
+<p>2022-09-22 19:10:32</p>
+<p>有了测试，就能保持代码和类的整洁，方法就是递增式地重构代码。添加了几行代码后，就要暂停，琢磨一下变化了的设计。设计退步了吗？如果是，就要清理它，并且运行测试，保证没有破坏任何东西。测试消除了对清理代码就会破坏代码的恐惧。</p>
+<p>2022-09-22 19:10:52</p>
+<p>在重构过程中，可以应用有关优秀软件设计的一切知识。提升内聚性，降低耦合度，切分关注面，模块化系统性关注面，缩小函数和类的尺寸，选用更好的名称，如此等等。这也是应用简单设计后三条规则的地方：消除重复，保证表达力，尽可能减少类和方法的数量。</p>
+<p>2022-09-22 19:14:40</p>
+<p>中的其他成员也许会发现进一步抽象新方法的机会，并且在其他场景中复用之。“小规模复用”可大量降低系统复杂性。要想实现大规模复用，必须理解如何实现小规模复用。</p>
+<p>2022-09-22 19:18:06</p>
+<p>“对象是过程的抽象。线程是调度的抽象。”</p>
+<p>2022-09-22 19:19:19</p>
+<p>并发是一种解耦策略</p>
+<p>2022-09-22 19:19:38</p>
+<p>解耦目的与时机能明显地改进应用程序的吞吐量和结构。</p>
+<p>2022-09-22 19:23:46</p>
+<p>下面是一些有关编写并发软件的中肯说法： 并发会在性能和编写额外代码上增加一些开销； 正确的并发是复杂的，即便对于简单的问题也是如此； 并发缺陷并非总能重现，所以常被看做偶发事件[2]而忽略，未被当做真的缺陷看待； 并发常常需要对设计策略的根本性修改。</p>
+<p>2022-09-22 19:39:07</p>
+<p>13.3.3 推论：使用数据复本 避免共享数据的好方法之一就是一开始就避免共享数据。在某些情形下，有可能复制对象并以只读方式对待。在另外的情况下，有可能复制对象，从多个线程收集所有复本的结果，并在单个线程中合并这些结果。 如果有避免共享数据的简易手段，结果代码就会大大减少导致错误的可能。你可能会关心创建额外对象的成本。值得试验一下看看那是否真是个问题。然而，假使使用对象复本能避免代码同步执行，则因避免了锁定而省下的价值有可能补偿得上额外的创建成本和垃圾收集开销。</p>
+<p><strong>注：</strong>这就解释了代码分层策略中值对象为什么要进行dto,entity,vo的转换了</p>
+<p>2022-09-22 19:41:03</p>
+<p>13.3.4 推论：线程应尽可能地独立 让每个线程在自己的世界中存在，不与其他线程共享数据。每个线程处理一个客户端请求，从不共享的源头接纳所有请求数据，存储为本地变量。这样一来，每个线程都像是世界中的唯一线程，没有同步需要</p>
+<p>2022-09-22 19:42:26</p>
+<p>实际上，在几乎所有情况下，ConcurrentHashMap实现都比HashMap表现得好。它还支持同步并发读写，也拥有支持非线程安全的合成操作的方法。</p>
+<p>2022-09-23 08:06:46</p>
+<p>有几种在并发应用中切分行为</p>
+<p>2022-09-23 08:07:00</p>
+<p>13.5.1 生产者-消费者模型</p>
+<p>2022-09-23 08:22:47</p>
+<p>13.5.2 读者-作者模型</p>
+<p>2022-09-23 08:22:53</p>
+<p>挑战之处在于平衡读者线程和作者线程的需求，实现正确操作，提供合理的吞吐量，避免线程饥饿。</p>
+<p>2022-09-23 08:27:20</p>
+<p>13.5.3 宴席哲学家 [11] 想象一下，一群哲学家环坐在圆桌旁。每个哲学家的左手边放了一把叉子。桌面中央摆着一大碗意大利面。哲学家们思索良久，直至肚子饿了。每个人都要拿起叉子吃饭。但除非手上有两把叉子，否则就没法进食。如果左边或右边的哲学家已经取用一把叉子，中间这位就得等到别人吃完、放回叉子。每位哲学家吃完后，就将两把叉子放回桌面，直到肚子再饿。 用线程代替哲学家，用资源代替叉子，就变成了许多企业级应用中进程竞争资源的情形。如果没有用心设计，这种竞争式系统就会遭遇死锁、活锁、吞吐量和效率降低等问题。 你可能遇到的并发问题，大多数都是这三个问题的变种。请研究并使用这些算法，这样，遇到并发问题时你就能有解决问题的准备了。 建议：学习这些基础算法，理解其解决方案。</p>
+<p><strong>注：</strong>哲学家问题本质上是共享资源问题</p>
+<p>2022-09-23 08:29:54</p>
+<p>同步方法之间的依赖会导致并发代码中的狡猾缺陷。Java 语言有synchronized概念，可以用来保护单个方法。然而，如果在同一共享类中有多个同步方法，系统就可能写得不太正确了[12]。 建议：避免使用一个共享对象的多个方法。 有时必须使用一个共享对象的多个方法。在这种情况发生时，有3种写对代码的手段： 基于客户端的锁定——客户端代码在调用第一个方法前锁定服务端，确保锁的范围覆盖了调用最后一个方法的代码； 基于服务端的锁定——在服务端内创建锁定服务端的方法，调用所有方法，然后解锁。让客户端代码调用新方法； 适配服务端——创建执行锁定的中间层。这是一种基于服务端的锁定的例子，但不修改原始服务端代码。</p>
+<p><strong>注：</strong>同步方法之间依赖</p>
+<p>2022-09-23 08:38:02</p>
+<p>有一大堆问题要考虑。下面是一些精练的建议： 将伪失败看作可能的线程问题； 先使非线程代码可工作； 编写可插拔的线程代码； 编写可调整的线程代码； 运行多于处理器数量的线程； 在不同平台上运行； 调整代码并强迫错误发生。</p>
+<p><strong>注：</strong>值得研究与思考</p>
+<p>2022-09-23 08:38:58</p>
+<p>建议：不要将系统错误归咎于偶发事件。</p>
+<p>2022-09-23 08:40:27</p>
+<p>建议：编写可插拔的线程代码，这样就能在不同的配置环境下运行。</p>
+<p>2022-09-23 09:00:54</p>
+<p>不同的线程策略影响了代码的执行。在不同环境中，多线程代码的行为也不一样[16]。应该在所有可能部署的环境中运行测试。</p>
+<p>2022-09-23 09:01:07</p>
+<p>建议：尽早并经常地在所有目标平台上运行线程代码。</p>
+<p>2022-09-23 09:02:49</p>
+<p>怎么才能增加捕捉住如此罕见之物的机会？可以装置代码，增加对 Object.wait( )、Object.sleep( )、Object.yield( )和Object.priority( )等方法的调用，改变代码执行顺序</p>
+<p>2022-09-23 09:03:18</p>
+<p>有两种装置代码的方法： 硬编码； 自动化。</p>
+<p>2022-09-23 09:09:04</p>
+<p>可以使用Aspect-Oriented Framework、CGLIB或ASM之类工具通过编程来装置代码。例如，可以使用有单个方法的类：</p>
+<p><strong>注：</strong>自动装载异动代码框架，好好找找</p>
+<p>2022-09-23 09:09:43</p>
+<p>一种叫做ConTest[18]的工具，由IBM开发，能做类似的事情，但做法却稍微复杂些。</p>
+<p><strong>注：</strong>类似这种框架要好好找找</p>
+<p>2022-09-23 09:09:53</p>
+<p>建议：使用异动策略搜出错误。</p>
+<p>2022-09-27 08:58:15</p>
+<p>第一要诀是遵循单一权责原则。将系统切分为分离了线程相关代码和线程无关代码的POJO。确保在测试线程相关代码时只是在测试，没有做其他事情。线程相关代码应该保持短小和目的集中。</p>
+<p>2022-09-28 09:25:50</p>
+<p>内联修改</p>
+<p>2022-09-29 08:52:32</p>
+<p>C1：不恰当的信息 让注释传达本该更好地在源代码控制系统、问题追踪系统或任何其他记录系统中保存的信息，是不恰当的。例如，修改历史记录只会用大量过时而无趣的文本搞乱源代码文件。通常，作者、最后修改时间、SPR数等元数据不该在注释中出现。注释只应该描述有关代码和设计的技术性信息。 C2：废弃的注释 过时、无关或不正确的注释就是废弃的注释。注释会很快过时。最好别编写将被废弃的注释。如果发现废弃的注释，最好尽快更新或删除掉。废弃的注释会远离它们曾经描述的代码，变成代码中无关和误导的浮岛。 C3：冗余注释 如果注释描述的是某种充分自我描述了的东西，那么注释就是多余的</p>
+<p>2022-09-29 08:53:50</p>
+<p>C4：糟糕的注释 值得编写的注释，也值得好好写。如果要编写一条注释，就花时间保证写出最好的注释。字斟句酌。使用正确的语法和拼写。别闲扯，别画蛇添足，保持简洁。 C5：注释掉的代码 看到被注释掉的代码会令我抓狂。谁知道它有多旧？谁知道它有没有意义？没人会删除它，因为大家都假设别人需要它或是有进一步计划。 那样的代码就这样腐烂掉，随着时间推移，越来越与系统没关系。它调用不复存在的函数。它使用已改名的变量。它遵循已被废弃的约定。它污染了所属的模块，分散了想要读它的人的注意力。注释掉的代码纯属厌物。 看到注释掉的代码，就删除它！别担心，源代码控制系统还会记得它。如果有人真的需要，可以签出较前的版本。别被它搞到死去活来。</p>
+<p>2022-09-29 08:56:24</p>
+<p>F1：过多的参数 函数的参数量应该少。没参数最好，一个次之，两个、三个再次之。三个以上的参数非常值得质疑，应坚决避免。（参见前文“函数参数”一节。） F2：输出参数 输出参数违反直觉。读者期望参数用于输入而非输出。如果函数非要修改什么东西的状态不可，就修改它所在对象的状态好了。（参见前文“输出参数”一节。） F3：标识参数 布尔值参数大声宣告函数做了不止一件事。它们令人迷惑，应该消灭掉。（参见前文“标识参数”一节。）</p>
+<p>2022-09-29 08:56:37</p>
+<p>F4：死函数 永不被调用的方法应该丢弃。保留死代码纯属浪费。别害怕删除函数</p>
+<p>2022-09-29 09:00:47</p>
+<p>G5：重复 有一条本书提到的最重要的规则之一，你应该非常严肃地对待。实际上，每位编写有关软件设计的作者都提到这条规则。Dave Thomas和Andy Hunt称之为DRY原则（Don’t Repeat Yourself，别重复自己）[3]。Kent Beck 将它列为极限编程核心原则之一，并称之为“一次，也只一次” 。Ron Jeffries将这条规则列在第二位，地位只低于通过所有测试。</p>
+<p>2022-09-29 09:03:31</p>
+<p>G8：信息过多 设计良好的模块有着非常小的接口，让你能事半功倍。设计低劣的模块有着广阔、深入的接口，你不得不事倍功半。设计良好的接口并不提供许多需要依靠的函数，所以耦合度也较低。设计低劣的借口提供大量你必须调用的函数，耦合度较高。 优秀的软件开发人员学会限制类或模块中暴露的接口数量。类中的方法越少越好。函数知道的变量越少越好。类拥有的实体变量越少越好。 隐藏你的数据。隐藏你的工具函数。隐藏你的常量和你的临时变量。不要创建拥有大量方法或大量实体变量的类。不要为子类创建大量受保护变量和函数。尽力保持接口紧凑。通过限制信息来控制耦合度。 G9：死代码 死代码就是不执行的代码。可以在检查不会发生的条件的if语句体中找到。可以在从不抛出异常的try语句的catch块中找到。可以在从不被调用的小工具方法中找到，也可以在永不会发生的switch/case条件中找到。 死代码的问题是过不久它就会发出臭味。时间越久，味道就越酸臭。这是因为，在设计改变时，死代码不会随之更新。它还能通过编译，但并不会遵循较新的约定或规则。它编写的时候，系统是另一番模样。如果你找到死代码，就体面地埋葬它，将它从系统中删除掉。 G10：垂直分隔 变量和函数应该在靠近被使用的地方定义。本地变量应该正好在其首次被使用的位置上面声明，垂直距离要短。本地变量不该在其被使用之处几百行以外声明。 私有函数应该刚好在其首次被使用的位置下面定义。私有函数属于整个类，但我们还是要限制调用和定义之间的垂直距离。找个私有函数，应该只是从其首次被使用处往下看一点那么简单。 G11：前后不一致 从一而终。这可以追溯到最小惊异原则。小心选择约定，一旦选中，就小心持续遵循。 如果在特定函数中用名为response的变量来持有HttpServletResponse对象，则在其他用到 HttpServletResponse 对象的函数中也用同样的变量名。如果将某个方法命名为processVerificationRequest，则给处理其他请求类型的方法取类似的名字，例如processDeletion Request。 如此简单的前后一致，一旦坚决贯彻，就能让代码更加易于阅读和修改。 G12：混淆视听 没有实现的默认构造器有何用处呢？它只会用无意义的杂碎搞乱对代码的理解。没有用到的变量，从不调用的函数，没有信息量的注释，等等，这些都是应该移除的废物。保持源文件整洁，良好地组织，不被搞乱。</p>
+<p>2022-09-29 09:06:50</p>
+<p>G13：人为耦合</p>
+<p>2022-09-29 09:13:52</p>
+<p>G16：晦涩的意图</p>
+<p>2022-09-29 09:13:58</p>
+<p>G15：选择算子参数</p>
+<p>2022-09-29 09:14:15</p>
+<p>G14：特性依恋</p>
+<p>2022-09-29 09:15:26</p>
+<p>G17：位置错误的权责</p>
+<p>2022-09-29 09:17:19</p>
+<p>G18：不恰当的静态方法</p>
+<p>2022-09-29 09:18:17</p>
+<p>G19：使用解释性变量</p>
+<p>2022-09-29 09:19:28</p>
+<p>G20：函数名称应该表达其行为</p>
+<p>2022-09-29 09:19:47</p>
+<p>G21：理解算法</p>
+<p>2022-09-29 09:21:03</p>
+<p>G23：用多态替代If/Else或Switch/Case</p>
+<p>2022-09-30 08:35:45</p>
+<p>G29：避免否定性条件</p>
+<p>2022-09-30 08:35:54</p>
+<p>G28：封装条件</p>
+<p>2022-09-30 08:36:01</p>
+<p>G30：函数只该做一件事</p>
+<p>2022-09-30 08:36:49</p>
+<p>G31：掩蔽时序耦合</p>
+<p>2022-09-30 08:39:22</p>
+<p>G33：封装边界条件</p>
+<p>2022-09-30 08:39:42</p>
+<p>G34：函数应该只在一个抽象层级上</p>
+<p>2022-09-30 08:42:11</p>
+<p>G35：在较高层级放置可配置数据</p>
+<p>2022-09-30 08:43:14</p>
+<p>G36：避免传递浏览 通常我们不想让某个模块了解太多其协作者的信息。更具体地说，如果A与B协作，B与 C 协作，我们不想让使用 A的模块了解 C的信息。（例如，我们不想写类似a.getB( ).getC( ).doSomething( )的代码。） 这就是所谓得墨忒耳律。The Pragmatic Programmers（中译版《程序员修炼之道》）称之为“编写害羞代码</p>
+<p>2022-09-30 08:55:06</p>
+<p>N6：避免编码 不应在名称中包括类型或作用范围信息。在如今的开发环境中，m_或f之类前缀完全无用。类似vis_（表示图形系统）之类的项目或子系统名称也属多余。当今的开发环境不用纠缠于名称也能提供这些信息。不要用匈牙利语命名法污染你的名称。</p>
+<p>2022-09-30 08:57:20</p>
+<p>如果吞吐量与I/O有关，则并发编程能提升运行效率。当系统的某个部分在等待I/O，另一部分就可以利用等待的时间处理其他事务，从而更有效地利用了CPU能力。</p>
+<p>2022-09-30 09:04:13</p>
+<p>Executors.newFixedThreadPool(availableThreads</p>
+<p><strong>注：</strong>用这个构造器是有问题的，什么问题忘记了</p>
+<hr>
+<p>多看笔记 来自多看阅读 for Kindle</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%A4%9A%E7%9C%8B%E7%AC%94%E8%AE%B0/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/" data-title="代码整洁之道 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/多看笔记/《教父》三部曲典藏版套装/" title="《教父》三部曲典藏版套装">
+  <strong>上一篇：</strong><br/>
+  <span>
+  《教父》三部曲典藏版套装</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/多看笔记/kindle笔记与标记/"  title="kindle笔记与标记">
+ <strong>下一篇：</strong><br/> 
+ <span>kindle笔记与标记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/多看笔记/代码整洁之道/" data-title="代码整洁之道" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%A4%9A%E7%9C%8B%E7%AC%94%E8%AE%B0/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93"><span class="toc-number">1.</span> <span class="toc-text">代码整洁之道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93-mobi"><span class="toc-number">1.1.</span> <span class="toc-text">代码整洁之道.mobi</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A9%AC%E4%B8%81-Robert-C-Martin"><span class="toc-number">1.1.0.0.1.</span> <span class="toc-text">马丁(Robert C. Martin)</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

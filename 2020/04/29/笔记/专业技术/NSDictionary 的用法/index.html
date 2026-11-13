@@ -1,0 +1,956 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>NSDictionary 的用法 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="NSDictionary 的用法obj-c NSDictionary NSDictionary &amp; NSMutableDictionary Tutorialby&amp;nbsp;Ravishanker Kusuma&amp;nbsp;in&amp;nbsp;Tutorials&amp;nbsp;Mar 7th 2014&amp;nbsp;·&amp;nbsp;1 Comment In this Tutorial, I have cov">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSDictionary 的用法">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/NSDictionary%20%E7%9A%84%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="NSDictionary 的用法obj-c NSDictionary NSDictionary &amp; NSMutableDictionary Tutorialby&amp;nbsp;Ravishanker Kusuma&amp;nbsp;in&amp;nbsp;Tutorials&amp;nbsp;Mar 7th 2014&amp;nbsp;·&amp;nbsp;1 Comment In this Tutorial, I have cov">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2015-08-16T11:10:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="obj-c">
+<meta property="article:tag" content="NSDictionary">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/NSDictionary 的用法/" title="NSDictionary 的用法" itemprop="url">NSDictionary 的用法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NSDictionary-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">NSDictionary 的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NSDictionary-amp-NSMutableDictionary-Tutorial"><span class="toc-number">2.</span> <span class="toc-text">NSDictionary &amp; NSMutableDictionary Tutorial</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-DIFFERENCE-BETWEEN-NSDICTIONARY-AND-NSMUTABLEDICTIONARY"><span class="toc-number">2.0.1.</span> <span class="toc-text">1) DIFFERENCE BETWEEN NSDICTIONARY AND NSMUTABLEDICTIONARY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-HOW-TO-CREATE-NSDICTIONARY-WITH-KEY-AND-VALUES"><span class="toc-number">2.0.2.</span> <span class="toc-text">2) HOW TO CREATE NSDICTIONARY WITH KEY AND VALUES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-CONVERT-NSDICTIONARY-TO-NSMUTABLEDICTIONARY"><span class="toc-number">2.0.3.</span> <span class="toc-text">3) CONVERT NSDICTIONARY TO NSMUTABLEDICTIONARY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-SIZE-OF-A-DICTIONARY"><span class="toc-number">2.0.4.</span> <span class="toc-text">4) SIZE OF A DICTIONARY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-ADDING-AND-REMOVING-ENTRIES-TO-NSMUTABLEDICTIONARY"><span class="toc-number">2.0.5.</span> <span class="toc-text">5) ADDING AND REMOVING ENTRIES TO NSMUTABLEDICTIONARY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-ACCESSING-NSDICTIONARY-KEY-AND-VALUES"><span class="toc-number">2.0.6.</span> <span class="toc-text">6) ACCESSING NSDICTIONARY KEY AND VALUES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-ENUMERATING-DICTIONARIES"><span class="toc-number">2.0.7.</span> <span class="toc-text">7) ENUMERATING DICTIONARIES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-COMPARING-DICTIONARIES"><span class="toc-number">2.0.8.</span> <span class="toc-text">8) COMPARING DICTIONARIES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-SORT-DICTIONARIES"><span class="toc-number">2.0.9.</span> <span class="toc-text">9) SORT DICTIONARIES</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="NSDictionary-的用法"><a title="NSDictionary 的用法" class="headerlink" href="#NSDictionary-的用法"></a>NSDictionary 的用法</h1><p><code>obj-c</code> <code>NSDictionary</code></p>
+<h1 id="NSDictionary-amp-NSMutableDictionary-Tutorial"><a title="NSDictionary &amp; NSMutableDictionary Tutorial" class="headerlink" href="#NSDictionary-amp-NSMutableDictionary-Tutorial"></a><a target="_blank" rel="noopener" href="http://hayageek.com/nsdictionary-nsmutabledictionary/">NSDictionary &amp; NSMutableDictionary Tutorial</a></h1><p>by&nbsp;<a title="Posts by Ravishanker Kusuma" target="_blank" rel="noopener" href="http://hayageek.com/author/rskusuma/">Ravishanker Kusuma</a>&nbsp;in&nbsp;<a title="Tutorials" target="_blank" rel="noopener" href="http://hayageek.com/category/tutorial/">Tutorials</a>&nbsp;Mar 7th 2014&nbsp;·&nbsp;<a target="_blank" rel="noopener" href="http://hayageek.com/nsdictionary-nsmutabledictionary/#disqus_thread">1 Comment</a></p>
+<p>In this Tutorial, I have covered the most useful methods of<strong>NSDictionary</strong>&nbsp;and&nbsp;<strong>NSMutableDictionary</strong>&nbsp;with examples.</p>
+<p><strong>Below is the list of examples</strong></p>
+<p><a target="_blank" rel="noopener" href="http://hayageek.com/nsdictionary-nsmutabledictionary/#nsdictionary-difference">1 Difference between NSDictionary and NSMutableDictionary</a></p>
+<p><a target="_blank" rel="noopener" href="http://hayageek.com/nsdictionary-nsmutabledictionary/#nsdictionary-create">2) How to create NSDictionary with key and values</a></p>
+<p><a target="_blank" rel="noopener" href="http://hayageek.com/nsdictionary-nsmutabledictionary/#nsdictionary-convert">3) Convert NSDictionary to NSMutableDictionary</a></p>
+<p><a target="_blank" rel="noopener" href="http://hayageek.com/nsdictionary-nsmutabledictionary/#nsdictionary-size">4) Size of a Dictionary</a></p>
+<p><a target="_blank" rel="noopener" href="http://hayageek.com/nsdictionary-nsmutabledictionary/#nsdictionary-add">5) Adding and Removing entries to NSMutableDictionary</a></p>
+<p><a target="_blank" rel="noopener" href="http://hayageek.com/nsdictionary-nsmutabledictionary/#nsdictionary-remove">6) Accessing NSDictionary Key and values</a></p>
+<p><a target="_blank" rel="noopener" href="http://hayageek.com/nsdictionary-nsmutabledictionary/#nsdictionary-enumerate">7) Enumerating Dictionaries</a></p>
+<p><a target="_blank" rel="noopener" href="http://hayageek.com/nsdictionary-nsmutabledictionary/#nsdictionary-compare">8) Comparing Dictionaries</a></p>
+<p><a href="">9) Sort Dictionaries</a></p>
+<p>&nbsp;</p>
+<h3 id="1-DIFFERENCE-BETWEEN-NSDICTIONARY-AND-NSMUTABLEDICTIONARY"><a title="1) DIFFERENCE BETWEEN NSDICTIONARY AND NSMUTABLEDICTIONARY" class="headerlink" href="#1-DIFFERENCE-BETWEEN-NSDICTIONARY-AND-NSMUTABLEDICTIONARY"></a>1) DIFFERENCE BETWEEN NSDICTIONARY AND NSMUTABLEDICTIONARY</h3><p>In Objective-C ,&nbsp;<strong>NSDictionary</strong>&nbsp;is the most common used class. In NSDictionary, Entries are stored in the form of key value pairs. A Dictionary can hold NSNumber, NSString, NSArray, ..etc and their mutable objects.</p>
+<p>Below is the simple Dictionary in JSON format.</p>
+<p>|1<br>2<br>3<br>4<br>5<br>|<code>&#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``"name"``:</code> <code>"Hayagreeva"``,&nbsp;</code> <code>//String</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``"age"``: 3,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>//Number</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``"date"``:</code> <code>"2008-02-16T10:06:00Z"</code>&nbsp; <code>//Date</code><br><code>&#125;</code></p>
+<p>|<br>|—–|———————————————————————————————————————————————-|</p>
+<p>A bit complex Dictionary is below. Dictionary contains an array,and that array contains dictionary.</p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>|<code>&#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``"name"``:</code> <code>"Hayagreeva"``,</code> <code>//String</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``"age"``: 3,&nbsp;</code> <code>//Number</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``"subjects"``: &#123;&nbsp;</code> <code>//Array</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"rhymes"``: &#123;&nbsp;&nbsp;</code> <code>//Dictionary 1</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"test1"``: 10,</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"test2"``: 20,</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"test3"``: 30</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``&#125;,</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"games"``: &#123;&nbsp;</code> <code>//Dictionary 2</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"test1"``: 40,</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"test2"``: 50,</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"test3"``: 60</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``&#125;,</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"crayoning"``: &#123;</code> <code>//Dictionary 3</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"test1"``: 70,</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"test2"``: 80,</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"test3"``: 90</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``&#125;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``&#125;,</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``"date"``:</code> <code>"2008-02-16T10:06:00Z"</code>&nbsp; <code>//Date</code><br><code>&#125;</code></p>
+<p>|<br>|———————————–|——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p><strong>Main Difference is:</strong></p>
+<p>NSMutableDictionary is derived from NSDictionary, it has all the methods of NSDictionary.</p>
+<p>NSMutableDictionary is mutable( can be modified) but NSDictionary is immutable (can not be modified).</p>
+<p>&nbsp;</p>
+<h3 id="2-HOW-TO-CREATE-NSDICTIONARY-WITH-KEY-AND-VALUES"><a title="2) HOW TO CREATE NSDICTIONARY WITH KEY AND VALUES" class="headerlink" href="#2-HOW-TO-CREATE-NSDICTIONARY-WITH-KEY-AND-VALUES"></a>2) HOW TO CREATE NSDICTIONARY WITH KEY AND VALUES</h3><p>To create a dictionary you can use static methods, or initialization methods.</p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>|<code>Static</code> <code>methods``:</code><br><code>+ (instancetype)dictionary;</code><br><code>+ (instancetype)dictionaryWithObject:(``id``)object</code> <code>forKey``:(``id</code> <code>&lt;NSCopying&gt;)key;</code><br><code>+ (instancetype)dictionaryWithObjectsAndKeys:(``id``)firstObject, ...</code> <code>nil``;</code><br><code>+ (instancetype)dictionaryWithObjects:(``NSArray</code> <code>*)objects</code> <code>forKeys``:(``NSArray</code> <code>*)keys;</code><br><code>+ (instancetype)dictionaryWithDictionary:(``NSDictionary</code> <code>*)dict;</code><br>&nbsp;<br><code>Init</code> <code>Methods``:</code><br><code>- (instancetype)init;</code><br><code>- (instancetype)initWithObjectsAndKeys:(``id``)firstObject, ...</code> <code>nil``;</code><br><code>- (instancetype)initWithObjects:(``NSArray</code> <code>*)objects</code> <code>forKeys``:(``NSArray</code> <code>*)keys;</code><br><code>- (instancetype)initWithDictionary:(``NSDictionary</code> <code>*)otherDictionary;</code></p>
+<p>|<br>|—————|————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————-|</p>
+<p><strong>how to create a dictionary example:</strong></p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>|<code>NSString</code> <code>* key``1</code> <code>=``@"name"``;</code><br><code>NSString</code> <code>* obj``1</code> <code>=``@"Hayagreeva"``;</code><br><code>NSString</code> <code>* key``2</code> <code>=``@"age"``;</code><br><code>NSNumber</code> <code>* obj``2</code> <code>=[``NSNumber</code> <code>numberWithInt``:``3``];</code><br>&nbsp;<br><code>//1.Empty dictionary. @&#123;&#125; dictionary representation and it is not for NSMuableDictionary</code><br><code>NSDictionary</code> <code>* dict``1</code> <code>=[``NSDictionary</code> <code>dictionary``];</code><br><code>NSDictionary</code> <code>* dict``2</code> <code>=[[``NSDictionary</code> <code>alloc``]</code> <code>init``];</code><br><code>NSDictionary</code> <code>* dict``3</code> <code>= @&#123;&#125;;</code><br>&nbsp;<br><code>//2.Dictionary with Single Object and Key</code><br><code>NSDictionary</code> <code>* dict``4</code> <code>=[``NSDictionary</code> <code>dictionaryWithObject``:obj``1</code> <code>forKey``:key``1``];</code><br><code>NSDictionary</code> <code>* dict``5</code> <code>=@&#123;key``1``:obj``1``&#125;;</code><br>&nbsp;<br><code>//3.Dictionary with Multiple Object and Keys</code><br><code>//Objects and keys are sequentially terminated with nil</code><br><code>NSDictionary</code> <code>* dict``6</code> <code>= [NSDictionary</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>dictionaryWithObjectsAndKeys``:obj``1``,key``1``,obj``2``,key``2``,nil];</code><br>&nbsp;<br><code>NSDictionary</code> <code>* dict``7</code> <code>=[[``NSDictionary</code> <code>alloc``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>initWithObjectsAndKeys``:obj``1``,key``1``,obj``2``,key``2``,nil] ;</code><br>&nbsp;<br><code>//3.Dictionary with Multiple Object and Keys</code><br><code>NSDictionary</code> <code>*dict``8</code> <code>=[NSDictionary</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>dictionaryWithObjects``:@[obj``1``,obj``2``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>forKeys``:@[key``1``,key``2``]];</code><br><code>NSDictionary</code> <code>*dict``9</code> <code>=[[``NSDictionary</code> <code>alloc``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>initWithObjects``:@[obj``1``,obj``2``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>forKeys``:@[key``1``,key``2``]];</code><br><code>NSDictionary</code> <code>* dict``1``0</code> <code>=@&#123;key``1``:obj``1``,key``2``:obj``2``&#125;;</code><br>&nbsp;<br><code>//@[obj1,obj2] is the array representation.&nbsp; dict6,dict7,dict8 are same.</code><br><code>NSDictionary</code> <code>*dict``1``1</code> <code>=[[``NSDictionary</code> <code>alloc``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>initWithObjects``:[``NSArray</code> <code>arrayWithObjects``:obj``1``,obj``2``,nil]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>forKeys``:[``NSArray</code> <code>arrayWithObjects``:key``1``,key``2``,nil]];</code><br>&nbsp;<br><code>//4.Dictionary with another Dictionary</code><br><code>//@[obj1,obj2] is the array representation.&nbsp; dict6,dict7,dict8 are same.</code><br><code>NSDictionary</code> <code>*dict``1``2``=[``NSDictionary</code> <code>dictionaryWithDictionary``:dict``8``];</code><br><code>NSDictionary</code> <code>*dict``1``3``=[[``NSDictionary</code> <code>alloc``]</code> <code>initWithDictionary``:dict``8``];</code></p>
+<p>|<br>|———————————————————————–|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p><em><strong>Note</strong>: You can use same methods to create NSMutableDictionary.&nbsp;<strong>@{}</strong>&nbsp;representation is only for NSDictionary.</em></p>
+<p>&nbsp;</p>
+<h3 id="3-CONVERT-NSDICTIONARY-TO-NSMUTABLEDICTIONARY"><a title="3) CONVERT NSDICTIONARY TO NSMUTABLEDICTIONARY" class="headerlink" href="#3-CONVERT-NSDICTIONARY-TO-NSMUTABLEDICTIONARY"></a>3) CONVERT NSDICTIONARY TO NSMUTABLEDICTIONARY</h3><p>NSDictionary is mutable, So if you want to make any modifications to that you need to convert it as NSMutableDictionary and make changes.</p>
+<p>To convert NSDictionary to NSMutableDictionary, you can use the method&nbsp;<strong>mutableCopy</strong></p>
+<p><strong>Example:</strong></p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>|<code>NSDictionary</code> <code>* dict = [NSDictionary</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>dictionaryWithObjects``:@[``@"Ravi"``,``@"33"``,``@"India"``,``@"India"``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>forKeys``:@[``@"name"``,``@"age"``,``@"location"``,``@"country"``]];</code><br><code>//You can not do this</code><br><code>//[dict setValue:@"XXX" forKey:@"YYY"];</code><br>&nbsp;<br><code>NSDictionary</code> <code>* mutable =[dict</code> <code>mutableCopy``];</code><br><code>//You set value</code><br><code>[mutable</code> <code>setValue``:``@"XXX"</code> <code>forKey``:``@"YYY"``];</code></p>
+<p>|<br>|———|——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p>&nbsp;</p>
+<h3 id="4-SIZE-OF-A-DICTIONARY"><a title="4) SIZE OF A DICTIONARY" class="headerlink" href="#4-SIZE-OF-A-DICTIONARY"></a>4) SIZE OF A DICTIONARY</h3><p>You can use&nbsp;<strong>count</strong>&nbsp;properity to get the size of a dictionary. Below is the example.</p>
+<p>|1<br>2<br>|<code>NSDictionary</code> <code>*dict =[[``NSDictionary</code> <code>alloc``]</code> <code>initWithObjects``:@[``@"Ravi"``,``@"33"``]</code> <code>forKeys``:@[``@"name"``,``@"age"``]];</code><br><code>NSLog(``@"Dictionary Size =%d"``,dict``.count``);</code></p>
+<p>|<br>|–|——————————————————————————————————————————————————————————————-|</p>
+<p>&nbsp;</p>
+<h3 id="5-ADDING-AND-REMOVING-ENTRIES-TO-NSMUTABLEDICTIONARY"><a title="5) ADDING AND REMOVING ENTRIES TO NSMUTABLEDICTIONARY" class="headerlink" href="#5-ADDING-AND-REMOVING-ENTRIES-TO-NSMUTABLEDICTIONARY"></a>5) ADDING AND REMOVING ENTRIES TO NSMUTABLEDICTIONARY</h3><p><strong>5.1) Adding Entries</strong></p>
+<p>You can add entries to NSMutableDictionary using the following methods:</p>
+<p>|1<br>2<br>3<br>4<br>|<code>- (``void``)setObject:(``id``)anObject</code> <code>forKey``:(``id</code> <code>&lt;NSCopying&gt;)aKey;</code><br><code>- (``void``)setObject:(``id``)obj</code> <code>forKeyedSubscript``:(``id</code> <code>&lt;NSCopying&gt;)key NS_AVAILABLE(``1``0``_``8``,</code> <code>6``_``0``);</code><br><code>- (``void``)addEntriesFromDictionary:(``NSDictionary</code> <code>*)otherDictionary;</code><br><code>- (``void``)setValue:(``id``)value</code> <code>forKey``:(``NSString</code> <code>*)key;</code></p>
+<p>|<br>|—-|——————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|</p>
+<p><strong>Example:</strong></p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>|<code>NSMutableDictionary</code> <code>*dict =[[``NSMutableDictionary</code> <code>alloc``]</code> <code>init``];</code><br><code>//1. using setValue</code><br><code>[dict</code> <code>setValue``:``@"Hayagreeva"</code> <code>forKey``:``@"name"``];</code><br>&nbsp;<br><code>//2. using setObject</code><br><code>[dict</code> <code>setObject``:[``NSNumber</code> <code>numberWithInt``:``3``]</code> <code>forKey``:``@"age"``];</code><br><code>[dict</code> <code>setObject``:[``NSDate</code> <code>date``]</code> <code>forKey``:``@"date"``];</code><br>&nbsp;<br><code>//3 adding entries using subscript</code><br><code>dict[``@"city"``]=``@"Hyderabad"``;</code><br>&nbsp;<br><code>//3). Adding Objects from Another Dictionary</code><br><code>[dict</code> <code>addEntriesFromDictionary``:[NSMutableDictionary</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>dictionaryWithObjectsAndKeys``:</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``@"India"``,``@"location"``,</code> <code>nil``]];</code></p>
+<p>|<br>|———————|————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p><strong>5.1) Removing Entries</strong></p>
+<p>You can remove entries from&nbsp;<strong>NSMutableDictionary</strong>&nbsp;using the following methods.</p>
+<p>|1<br>2<br>3<br>|<code>- (``void``)removeObjectForKey:(``id``)aKey;</code><br><code>- (``void``)removeObjectsForKeys:(``NSArray</code> <code>*)keyArray;</code><br><code>- (``void``)removeAllObjects;</code></p>
+<p>|<br>|—|—————————————————————————————————————————————-|</p>
+<p><strong>Example:</strong></p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>|<code>NSMutableDictionary * dict = [NSMutableDictionary</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``dictionaryWithObjects:@[@``"Ravi"``,@``"33"``,@``"India"``,@``"India"``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``forKeys:@[@``"name"``,@``"age"``,@``"location"``,@``"country"``]];</code><br>&nbsp;<br><code>//1``. Remove entry with given key</code><br><code>[dict removeObjectForKey:@``"city"``];</code><br>&nbsp;<br><code>NSLog(@``"Dict =%@"``,dict);</code><br>&nbsp;<br><code>//2``. Remove Entries with given keys.</code><br><code>[dict removeObjectsForKeys:@[@``"location"``,@``"age"``]];</code><br>&nbsp;<br><code>NSLog(@``"Dict =%@"``,dict);</code><br>&nbsp;<br><code>//3``. Remove all the entries</code><br><code>[dict removeAllObjects];</code><br><code>NSLog(@``"Dict =%@"``,dict);</code></p>
+<p>|<br>|————————-|———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p>&nbsp;</p>
+<h3 id="6-ACCESSING-NSDICTIONARY-KEY-AND-VALUES"><a title="6) ACCESSING NSDICTIONARY KEY AND VALUES" class="headerlink" href="#6-ACCESSING-NSDICTIONARY-KEY-AND-VALUES"></a>6) ACCESSING NSDICTIONARY KEY AND VALUES</h3><p><strong>5.1) Access Values using with Given key</strong></p>
+<p>Values are accessed using&nbsp;<strong>array subscript</strong>&nbsp;or&nbsp;<strong>objectForKey</strong>&nbsp;method. List of methods for accessing keys and values.</p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>|<code>- (``id``)objectForKey:(``id``)aKey;</code><br><code>- (``id``)valueForKey:(``NSString</code> <code>*)key;</code><br>&nbsp;<br><code>//to access all keys or objects</code><br><code>- (``NSArray</code> <code>*)allValues;</code><br><code>- (``NSArray</code> <code>*)allKeys;</code><br><code>- (``NSArray</code> <code>*)allKeysForObject:(``id``)anObject;</code></p>
+<p>|<br>|——-|———————————————————————————————————————————————————————————————————————————|</p>
+<p><strong>Example:</strong></p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>|<code>NSMutableDictionary</code> <code>* dict = [NSMutableDictionary</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>dictionaryWithObjects``:@[``@"Ravi"``,``@"33"``,``@"India"``,``@"India"``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>forKeys``:@[``@"name"``,``@"age"``,``@"location"``,``@"country"``]];</code><br><code>&nbsp;&nbsp;&nbsp;``//1.using objectForKey</code><br><code>&nbsp;&nbsp;&nbsp;``NSString</code> <code>* name = [dict</code> <code>objectForKey``:``@"name"``];</code><br>&nbsp;<br><code>&nbsp;&nbsp;&nbsp;``//2. using array subscript</code><br><code>&nbsp;&nbsp;&nbsp;``NSString</code> <code>* location = dict[``@"location"``];</code><br>&nbsp;<br><code>&nbsp;&nbsp;&nbsp;``//3. using valueForKey</code><br><code>&nbsp;&nbsp;&nbsp;``NSString</code> <code>* age =[dict</code> <code>valueForKey``:``@"age"``];</code><br>&nbsp;<br><code>&nbsp;&nbsp;&nbsp;``//4. Access all the values&nbsp; as array</code><br><code>&nbsp;&nbsp;&nbsp;``NSArray</code> <code>* values =[dict</code> <code>allValues``];</code><br><code>&nbsp;&nbsp;&nbsp;``for</code> <code>(``id</code> <code>value</code> <code>in</code> <code>values) &#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``NSLog(``@"value =%@"``,value);</code><br><code>&nbsp;&nbsp;&nbsp;``&#125;</code><br>&nbsp;<br><code>&nbsp;&nbsp;&nbsp;``//5. Access all the keys</code><br><code>&nbsp;&nbsp;&nbsp;``NSArray</code> <code>* keys =[dict</code> <code>allKeys``];</code><br>&nbsp;<br><code>&nbsp;&nbsp;&nbsp;``for``(``NSString</code> <code>* key</code> <code>in</code> <code>keys)</code><br><code>&nbsp;&nbsp;&nbsp;``&#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``NSString</code> <code>* value =[dict</code> <code>objectForKey``:key];</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``NSLog(``@"key=%@, value=%@"``,key, value);</code><br><code>&nbsp;&nbsp;&nbsp;``&#125;</code><br>&nbsp;<br><code>&nbsp;&nbsp;&nbsp;``//6. Access keys with given object</code><br><code>&nbsp;&nbsp;&nbsp;``NSArray</code> <code>* skeys =[dict</code> <code>allKeysForObject``:``@"India"``];</code><br><code>&nbsp;&nbsp;&nbsp;``for</code> <code>(``NSString</code> <code>* key</code> <code>in</code> <code>skeys) &#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``NSLog(``@"key =%@"``,key);</code><br><code>&nbsp;&nbsp;&nbsp;``&#125;</code></p>
+<p>|<br>|——————————————————-|——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|</p>
+<p>&nbsp;</p>
+<h3 id="7-ENUMERATING-DICTIONARIES"><a title="7) ENUMERATING DICTIONARIES" class="headerlink" href="#7-ENUMERATING-DICTIONARIES"></a>7) ENUMERATING DICTIONARIES</h3><p>To enumerate Dictionaries, you can use the following the methods:</p>
+<p>|1<br>2<br>3<br>4<br>|<code>- (``NSEnumerator</code> <code>*)keyEnumerator;</code><br><code>- (``NSEnumerator</code> <code>*)objectEnumerator;</code><br><code>- (``void``)enumerateKeysAndObjectsUsingBlock:(``void</code> <code>(^)(``id</code> <code>key,</code> <code>id</code> <code>obj,</code> <code>BOOL</code> <code>*stop))block NS_AVAILABLE(``1``0``_``6``,</code> <code>4``_``0``);</code><br><code>- (``void``)enumerateKeysAndObjectsWithOptions:(NSEnumerationOptions)opts</code> <code>usingBlock``:(``void</code> <code>(^)(``id</code> <code>key,</code> <code>id</code> <code>obj,</code> <code>BOOL</code> <code>*stop))block NS_AVAILABLE(``1``0``_``6``,</code> <code>4``_``0``);</code></p>
+<p>|<br>|—-|————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|</p>
+<p><strong>Example:</strong></p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>|<code>NSMutableDictionary</code> <code>* dict = [NSMutableDictionary</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>dictionaryWithObjects``:@[``@"33"``,``@"India"``,``@"India"``,``@"Ravi"``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>forKeys``:@[``@"age"``,``@"location"``,``@"country"``,``@"name"``]];</code><br>&nbsp;<br><code>//Enumerator using keys</code><br><code>NSEnumerator</code> <code>*kEnumerator = [dict</code> <code>keyEnumerator``];</code><br><code>id</code> <code>key=nil;</code><br><code>while``(key =[kEnumerator</code> <code>nextObject``])</code><br><code>&#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``NSLog(``@"Key =%@"``,key);</code><br><code>&#125;</code><br>&nbsp;<br><code>//Enumerator using values</code><br><code>NSEnumerator</code> <code>*oEnumerator = [dict</code> <code>objectEnumerator``];</code><br><code>id</code> <code>value=nil;</code><br><code>while``(value =[oEnumerator</code> <code>nextObject``])</code><br><code>&#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``NSLog(``@"Value =%@"``,value);</code><br><code>&#125;</code><br>&nbsp;<br><code>//Enumerate using code block</code><br><code>[dict</code> <code>enumerateKeysAndObjectsUsingBlock``:^(``id</code> <code>key,</code> <code>id</code> <code>obj,</code> <code>BOOL</code> <code>*stop)</code><br><code>&#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``NSLog(``@"%@:%@"``,key,obj);</code><br><code>&#125;];</code></p>
+<p>|<br>|—————————————–|————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p>&nbsp;</p>
+<h3 id="8-COMPARING-DICTIONARIES"><a title="8) COMPARING DICTIONARIES" class="headerlink" href="#8-COMPARING-DICTIONARIES"></a>8) COMPARING DICTIONARIES</h3><p><strong>isEqualToDictionary</strong>&nbsp;method is used to compare dictionaries. It returns YES, if two dictionaries</p>
+<p>are equal.</p>
+<p><strong>Example</strong>:</p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>|<code>NSMutableDictionary</code> <code>* dict``1</code> <code>= [NSMutableDictionary</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>dictionaryWithObjects``:@[``@"Ravi"``,``@"33"``,``@"India"``,``@"India"``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>forKeys``:@[``@"name"``,``@"age"``,``@"location"``,``@"country"``]];</code><br><code>NSMutableDictionary</code> <code>* dict``2</code> <code>= [NSMutableDictionary</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>dictionaryWithObjects``:@[``@"33"``,``@"India"``,``@"India"``,``@"Ravi"``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>forKeys``:@[``@"age"``,``@"location"``,``@"country"``,``@"name"``]];</code><br>&nbsp;<br><code>NSMutableDictionary</code> <code>* dict``3</code> <code>= [NSMutableDictionary</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>dictionaryWithObjects``:@[``@"Hayagreeva"``,``@"2"``,``@"India"``,``@"India"``]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>forKeys``:@[``@"name"``,``@"age"``,``@"location"``,``@"country"``]];</code><br><code>if``([dict``1</code> <code>isEqualToDictionary``:dict``2``])</code><br><code>&#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``NSLog(``@" dict 1 and dict 2 are equal"``);</code><br><code>&#125;</code><br><code>if``(![dict``1</code> <code>isEqualToDictionary``:dict``3``])</code><br><code>&#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``NSLog(``@" dict 1 and dict 3 are not equal"``);</code><br><code>&#125;</code></p>
+<p>|<br>|—————————|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p>&nbsp;</p>
+<h3 id="9-SORT-DICTIONARIES"><a title="9) SORT DICTIONARIES" class="headerlink" href="#9-SORT-DICTIONARIES"></a>9) SORT DICTIONARIES</h3><p>We can sort the dictionaries using the following methods.</p>
+<p>|1<br>2<br>3<br>|<code>- (``NSArray</code> <code>*)keysSortedByValueUsingSelector:(``SEL``)comparator;</code><br><code>- (``NSArray</code> <code>*)keysSortedByValueUsingComparator:(NSComparator)cmptr NS_AVAILABLE(``1``0``_``6``,</code> <code>4``_``0``);</code><br><code>- (``NSArray</code> <code>*)keysSortedByValueWithOptions:(NSSortOptions)opts</code> <code>usingComparator``:(NSComparator)cmptr NS_AVAILABLE(``1``0``_``6``,</code> <code>4``_``0``);</code></p>
+<p>|<br>|—|———————————————————————————————————————————————————————————————————————————————————————————————————————————————-|</p>
+<p><strong>Sort NSDictionary example:</strong></p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>|<code>NSMutableDictionary</code> <code>* services = [[``NSMutableDictionary</code> <code>alloc``]</code> <code>init``];</code><br><code>[services</code> <code>setObject``:``@"Mail"</code> <code>forKey``:``@"Yahoo"``];</code><br><code>[services</code> <code>setObject``:``@"Windows"</code> <code>forKey``:``@"Microsoft"``];</code><br><code>[services</code> <code>setObject``:``@"Social"</code> <code>forKey``:``@"Facebook"``];</code><br><code>[services</code> <code>setObject``:``@"Search"</code> <code>forKey``:``@"Google"``];</code><br>&nbsp;<br><code>//sort by values</code><br><code>NSArray</code> <code>* keys = [services</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code> <code>keysSortedByValueUsingComparator``:</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``^NSComparisonResult(``id</code> <code>obj``1``,</code> <code>id</code> <code>obj``2``) &#123;</code><br>&nbsp;<br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``//return [obj2 compare:obj1]; //descending</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``return</code> <code>[obj``1</code> <code>compare``:obj``2``];</code> <code>//ascending</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``&#125;];</code><br><code>for``(``NSString</code> <code>*key</code> <code>in</code> <code>keys)</code><br><code>&#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``NSLog(``@"%@:%@"``,key,[services</code> <code>objectForKey``:key]);</code><br><code>&#125;</code><br>&nbsp;<br><code>//Sort using Default comparator</code><br><code>NSArray</code> <code>* keys``2</code> <code>= [services</code> <code>keysSortedByValueUsingSelector``:``@selector``(compare:)];</code><br><code>for``(``NSString</code> <code>*key</code> <code>in</code> <code>keys``2``)</code><br><code>&#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``NSLog(``@"%@:%@"``,key,[services</code> <code>objectForKey``:key]);</code><br><code>&#125;</code></p>
+<p>|<br>|—————————————–|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————-|</p>
+<p>If you want to use custom selector method with&nbsp;<strong>keysSortedByValueUsingSelector</strong>&nbsp;, you need to add that method in<strong>NSString</strong>&nbsp;using Categories. Below is the code.</p>
+<p>|1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>|<code>@implementation</code> <code>NSString</code> <code>(Sort)</code><br><code>//compare starts from second character.ignore first character</code><br><code>- (NSComparisonResult)customeCompare:(``NSString</code> <code>*)string</code><br><code>&#123;</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``NSString</code> <code>* str``1</code> <code>=[``self</code> <code>substringFromIndex``:``1``];</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``NSString</code> <code>* str``2</code> <code>= [string</code> <code>substringFromIndex``:``1``];</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;``return</code> <code>[str``1</code> <code>compare``:str``2``];</code><br><code>&#125;</code></p>
+<p>|<br>|——–|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/obj-c/">obj-c</a><a href="/tags/NSDictionary/">NSDictionary</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/NSDictionary%20%E7%9A%84%E7%94%A8%E6%B3%95/" data-title="NSDictionary 的用法 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/MySQL用户管理：添加用户、授权、删除用户 - 陈树义 - 博客园/" title="MySQL用户管理：添加用户、授权、删除用户 - 陈树义 - 博客园">
+  <strong>上一篇：</strong><br/>
+  <span>
+  MySQL用户管理：添加用户、授权、删除用户 - 陈树义 - 博客园</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/MySQL用户权限管理_grant usage on _._ to-CSDN博客/"  title="MySQL用户权限管理_grant usage on *.* to-CSDN博客">
+ <strong>下一篇：</strong><br/> 
+ <span>MySQL用户权限管理_grant usage on *.* to-CSDN博客
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/NSDictionary 的用法/" data-title="NSDictionary 的用法" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/NSDictionary%20%E7%9A%84%E7%94%A8%E6%B3%95/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NSDictionary-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">NSDictionary 的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NSDictionary-amp-NSMutableDictionary-Tutorial"><span class="toc-number">2.</span> <span class="toc-text">NSDictionary &amp; NSMutableDictionary Tutorial</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-DIFFERENCE-BETWEEN-NSDICTIONARY-AND-NSMUTABLEDICTIONARY"><span class="toc-number">2.0.1.</span> <span class="toc-text">1) DIFFERENCE BETWEEN NSDICTIONARY AND NSMUTABLEDICTIONARY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-HOW-TO-CREATE-NSDICTIONARY-WITH-KEY-AND-VALUES"><span class="toc-number">2.0.2.</span> <span class="toc-text">2) HOW TO CREATE NSDICTIONARY WITH KEY AND VALUES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-CONVERT-NSDICTIONARY-TO-NSMUTABLEDICTIONARY"><span class="toc-number">2.0.3.</span> <span class="toc-text">3) CONVERT NSDICTIONARY TO NSMUTABLEDICTIONARY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-SIZE-OF-A-DICTIONARY"><span class="toc-number">2.0.4.</span> <span class="toc-text">4) SIZE OF A DICTIONARY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-ADDING-AND-REMOVING-ENTRIES-TO-NSMUTABLEDICTIONARY"><span class="toc-number">2.0.5.</span> <span class="toc-text">5) ADDING AND REMOVING ENTRIES TO NSMUTABLEDICTIONARY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-ACCESSING-NSDICTIONARY-KEY-AND-VALUES"><span class="toc-number">2.0.6.</span> <span class="toc-text">6) ACCESSING NSDICTIONARY KEY AND VALUES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-ENUMERATING-DICTIONARIES"><span class="toc-number">2.0.7.</span> <span class="toc-text">7) ENUMERATING DICTIONARIES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-COMPARING-DICTIONARIES"><span class="toc-number">2.0.8.</span> <span class="toc-text">8) COMPARING DICTIONARIES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-SORT-DICTIONARIES"><span class="toc-number">2.0.9.</span> <span class="toc-text">9) SORT DICTIONARIES</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,1501 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧ASCII 过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M  [ascii](http:&#x2F;&#x2F;www.blogs8.cn&#x2F;tags&#x2F;ascii)   [过滤](http:&#x2F;&#x2F;www.blogs8.cn&#x2F;tags&#x2F;%E8%BF%87%E6%BB%A4)   [字符](h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E8%BF%87%E6%BB%A4ASCII%E7%A0%81%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%A7%81%E5%AD%97%E7%AC%A6,%20ASCII%E4%B8%89%E9%83%A8%E5%88%86,%20%E5%90%84%E6%8E%A7%E5%88%B6%E5%AD%97%E7%AC%A6%E8%AF%A6%E8%A7%A3,%20%E5%8E%BB%5E@,%5EM%20-%20%E5%8D%9A%E5%AE%A2%E5%90%A7/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧ASCII 过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M  [ascii](http:&#x2F;&#x2F;www.blogs8.cn&#x2F;tags&#x2F;ascii)   [过滤](http:&#x2F;&#x2F;www.blogs8.cn&#x2F;tags&#x2F;%E8%BF%87%E6%BB%A4)   [字符](h">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2017-08-30T07:38:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="ASCII">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧/" title="过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧" itemprop="url">过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4ASCII%E7%A0%81%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%A7%81%E5%AD%97%E7%AC%A6-ASCII%E4%B8%89%E9%83%A8%E5%88%86-%E5%90%84%E6%8E%A7%E5%88%B6%E5%AD%97%E7%AC%A6%E8%AF%A6%E8%A7%A3-%E5%8E%BB-M-%E5%8D%9A%E5%AE%A2%E5%90%A7"><span class="toc-number">1.</span> <span class="toc-text">过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4ASCII%E7%A0%81%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%A7%81%E5%AD%97%E7%AC%A6-ASCII%E4%B8%89%E9%83%A8%E5%88%86-%E5%90%84%E6%8E%A7%E5%88%B6%E5%AD%97%E7%AC%A6%E8%AF%A6%E8%A7%A3-%E5%8E%BB-M"><span class="toc-number">2.</span> <span class="toc-text">过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4ASCII%E7%A0%81%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%A7%81%E5%AD%97%E7%AC%A6"><span class="toc-number">2.0.1.</span> <span class="toc-text">过滤ASCII码中的不可见字符</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="过滤ASCII码中的不可见字符-ASCII三部分-各控制字符详解-去-M-博客吧"><a title="过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧" class="headerlink" href="#过滤ASCII码中的不可见字符-ASCII三部分-各控制字符详解-去-M-博客吧"></a>过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧</h1><p><code>ASCII</code></p>
+<h1 id="过滤ASCII码中的不可见字符-ASCII三部分-各控制字符详解-去-M"><a title="过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M" class="headerlink" href="#过滤ASCII码中的不可见字符-ASCII三部分-各控制字符详解-去-M"></a>过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M</h1><pre><code>  [ascii](http://www.blogs8.cn/tags/ascii)   [过滤](http://www.blogs8.cn/tags/%E8%BF%87%E6%BB%A4)   [字符](http://www.blogs8.cn/tags/%E5%AD%97%E7%AC%A6)   
+</code></pre>
+<p> 今天产品部同事报告了一个BUG，经过调试发现，由于用户输入的字符串中，包含字符0x1E, 也就是”记录分隔符”(Record Separator, Notepad++ 显示为[RS])，导致JavaScript XML解析遭遇错误。于是就想在字符串中过滤掉这些没多大用途的字符，同时又要保留部分常用的字符，例如换行，回车和水平制表符。于是写了下面一个 PHP 函数：</p>
+<pre><code>/**
+* 清理字符串中的部分不可见控制字符
+*
+* @param string $string 待处理字符串
+* @return string 处理后的字符串
+* @author fising(at)qq.com
+*/
+public static function clearInvisibleCharacter($string = '')
+&#123;
+/* 排除 tab, \n, \r 三个字符 */
+$do_not_searches = array(chr(9), chr(10), chr(13));
+/* 需清理的字符列表 */
+$searches = array(); 
+for ($i = 0; $i &lt;= 31; $i++)
+&#123;
+if (!in_array(chr($i), $do_not_searches))
+&#123;
+$searches[] = chr($i);
+&#125;
+&#125; 
+$searches[] = chr(127); 
+return str_replace($searches, '', $string);
+&#125;
+</code></pre>
+<h3 id="过滤ASCII码中的不可见字符"><a title="过滤ASCII码中的不可见字符" class="headerlink" href="#过滤ASCII码中的不可见字符"></a>过滤ASCII码中的不可见字符</h3><p>上面所说的“不可见字符”，其实属于ascii码中的控制字符，它们是0到31、以及127，分别代表什么可查询ascii码表。</p>
+<p>&nbsp;在展示页面前，将文字中的控制字符改为空格(ascii&nbsp;32)</p>
+<pre><code>public static String filter(String content)&#123;
+if (content != null &amp;&amp; content.length() &gt; 0) &#123;
+char[] contentCharArr = content.toCharArray();
+for (int i = 0; i &lt; contentCharArr.length; i++) &#123;
+if (contentCharArr[i] &lt; 0x20 || contentCharArr[i] == 0x7F) &#123;
+contentCharArr[i] = 0x20;
+&#125;
+&#125;
+return new String(contentCharArr);
+&#125;
+return "";
+&#125;
+</code></pre>
+<p>【什么是Function Code功能码或&nbsp;Function Character功能字符】</p>
+<p>ASCII字符集，大家都知道吧，最基本的包含了128个字符。其中前32个，0-31，即0x00-0x1F，都是不可见字符。这些字符，就叫做控制字符。</p>
+<p>这些字符没法打印出来，但是每个字符，都对应着一个特殊的控制功能的字符，简称功能字符或功能码Function Code。</p>
+<p>简言之：ASCII中前32个字符，统称为Function Code功能字符。</p>
+<p>此外，由于ASCII中的127对应的是Delete，也是不可见的，所以，此处根据笔者的理解，也可以归为Function Code。</p>
+<p>此类字符，对应不同的“功能”，起到一定的“控制作用”，所以，称为控制字符。</p>
+<p>关于每个控制字符的控制功能缩写，参见下表：</p>
+<p>表格1</p>
+<p>ASCII中的控制字符</p>
+<p>|十</p>
+<p>进制</p>
+<p>|十六</p>
+<p>进制</p>
+<p>|控制</p>
+<p>字符</p>
+<p>|转义</p>
+<p>字符*</p>
+<p>|说明</p>
+<pre><code>                                       |Ctrl +
+</code></pre>
+<p>下列字母&nbsp;*</p>
+<p>|<br>|——|——–|——–|———|———————————————–|—————-|<br>|0</p>
+<pre><code> |00
+
+  |NUL
+
+ |\0
+
+   |Null character(空字符)
+
+                     |@ (Shift + 2)
+</code></pre>
+<p>   |<br>|1</p>
+<pre><code> |01
+
+  |SOH
+
+ |&nbsp;        |Start of Header(标题开始)
+
+                  |A
+
+           |
+</code></pre>
+<p>|2</p>
+<pre><code> |02
+
+  |STX
+
+ |&nbsp;        |Start of Text(正文开始)
+
+                    |B
+
+           |
+</code></pre>
+<p>|3</p>
+<pre><code> |03
+
+  |ETX
+
+ |&nbsp;        |End of Text(正文结束)
+
+                      |C
+
+           |
+</code></pre>
+<p>|4</p>
+<pre><code> |04
+
+  |EOT
+
+ |&nbsp;        |End of Transmission(传输结束)
+
+              |D
+
+           |
+</code></pre>
+<p>|5</p>
+<pre><code> |05
+
+  |ENQ
+
+ |&nbsp;        |Enquiry(请求)
+
+                              |E
+
+           |
+</code></pre>
+<p>|6</p>
+<pre><code> |06
+
+  |ACK
+
+ |&nbsp;        |Acknowledgment(收到通知/响应)
+
+              |F
+
+           |
+</code></pre>
+<p>|7</p>
+<pre><code> |07
+
+  |BEL
+
+ |\a
+
+   |Bell(响铃)
+
+                                 |G
+
+           |
+</code></pre>
+<p>|8</p>
+<pre><code> |08
+
+  |BS
+
+  |\b
+
+   |Backspace(退格)
+
+                            |H
+
+           |
+</code></pre>
+<p>|9</p>
+<pre><code> |09
+
+  |HT
+
+  |\t
+
+   |Horizontal Tab(水平制表符)
+
+                 |I
+
+           |
+</code></pre>
+<p>|10</p>
+<pre><code>|0A
+
+  |LF
+
+  |\n
+
+   |Line feed(换行键)
+
+                          |J
+
+           |
+</code></pre>
+<p>|11</p>
+<pre><code>|0B
+
+  |VT
+
+  |\v
+
+   |Vertical Tab(垂直制表符)
+
+                   |K
+
+           |
+</code></pre>
+<p>|12</p>
+<pre><code>|0C
+
+  |FF
+
+  |\f
+
+   |Form feed(换页键)
+
+                          |L
+
+           |
+</code></pre>
+<p>|13</p>
+<pre><code>|0D
+
+  |CR
+
+  |\r
+
+   |Carriage return(回车键)
+
+                    |M
+
+           |
+</code></pre>
+<p>|14</p>
+<pre><code>|0E
+
+  |SO
+
+  |&nbsp;        |Shift Out(不用切换)
+
+                        |N
+
+           |
+</code></pre>
+<p>|15</p>
+<pre><code>|0F
+
+  |SI
+
+  |&nbsp;        |Shift In(启用切换)
+
+                         |O
+
+           |
+</code></pre>
+<p>|16</p>
+<pre><code>|10
+
+  |DLE
+
+ |&nbsp;        |Data Link Escape(数据链路转义)
+
+             |P
+
+           |
+</code></pre>
+<p>|17</p>
+<pre><code>|11
+
+  |DC1
+
+ |&nbsp;        |Device Control 1(设备控制1) /XON(Transmit On)
+</code></pre>
+<p>  |Q</p>
+<pre><code>           |
+</code></pre>
+<p>|18</p>
+<pre><code>|12
+
+  |DC2
+
+ |&nbsp;        |Device Control 2(设备控制2)
+
+                |R
+
+           |
+</code></pre>
+<p>|19</p>
+<pre><code>|13
+
+  |DC3
+
+ |&nbsp;        |Device Control 3(设备控制3) /XOFF(Transmit Off)
+</code></pre>
+<p>|S</p>
+<pre><code>           |
+</code></pre>
+<p>|20</p>
+<pre><code>|14
+
+  |DC4
+
+ |&nbsp;        |Device Control 4(设备控制4)
+
+                |T
+
+           |
+</code></pre>
+<p>|21</p>
+<pre><code>|15
+
+  |NAK
+
+ |&nbsp;        |Negative Acknowledgement(拒绝接收/无响应)
+
+  |U
+
+           |
+</code></pre>
+<p>|22</p>
+<pre><code>|16
+
+  |SYN
+
+ |&nbsp;        |Synchronous Idle(同步空闲)
+
+                 |V
+
+           |
+</code></pre>
+<p>|23</p>
+<pre><code>|17
+
+  |ETB
+
+ |&nbsp;        |End of Trans the Block(传输块结束)
+
+         |W
+
+           |
+</code></pre>
+<p>|24</p>
+<pre><code>|18
+
+  |CAN
+
+ |&nbsp;        |Cancel(取消)
+
+                               |X
+
+           |
+</code></pre>
+<p>|25</p>
+<pre><code>|19
+
+  |EM
+
+  |&nbsp;        |End of Medium(已到介质末端/介质存储已满)
+
+   |Y
+
+           |
+</code></pre>
+<p>|26</p>
+<pre><code>|1A
+
+  |SUB
+
+ |&nbsp;        |Substitute(替补/替换)
+
+                      |Z
+
+           |
+</code></pre>
+<p>|27</p>
+<pre><code>|1B
+
+  |ESC
+
+ |\e
+
+   |Escape(溢出/逃离/取消)
+
+                     |[
+
+           |
+</code></pre>
+<p>|28</p>
+<pre><code>|1C
+
+  |FS
+
+  |&nbsp;        |File Separator(文件分割符)
+
+                 |\
+
+           |
+</code></pre>
+<p>|29</p>
+<pre><code>|1D
+
+  |GS
+
+  |&nbsp;        |Group Separator(分组符)
+
+                    |]
+
+           |
+</code></pre>
+<p>|30</p>
+<pre><code>|1E
+
+  |RS
+
+  |&nbsp;        |Record Separator(记录分隔符)
+
+               |^ (Shit + 6)
+
+|
+</code></pre>
+<p>|31</p>
+<pre><code>|1F
+
+  |US
+
+  |&nbsp;        |Unit Separator(单元分隔符)
+
+                 |_ (Shift + -)
+</code></pre>
+<p>   |<br>|32</p>
+<pre><code>|20
+
+  |SP
+
+  |&nbsp;        |White space
+
+                                |[Space] *
+
+   |
+</code></pre>
+<p>|127</p>
+<p>   |7F</p>
+<pre><code>  |DEL
+
+ |&nbsp;        |Delete(删除)
+
+                               |?*
+
+          |
+</code></pre>
+<p>注(*)：</p>
+<p>1.&nbsp;转义字符：即在C语言中或其他地方如何表示。</p>
+<p>2.&nbsp;用键盘输入控制字符：其中，32是空格键，都不需要加Ctrl键，即可直接输入。</p>
+<p>3.127是Delete键,除了可以用键盘上的删除键输入，也可以用Ctrl+？输入。</p>
+<p>4.&nbsp;可以通过&nbsp;“Ctrl+对应按键”实现上述控制字符的输入,&nbsp;你可能遇到的一些，比如:用Ctrl+V输入SYNC，Ctrl+M输入Enter（当然也可以直接用Enter键，但是在Windows下面，其可能会发送两个字符：CR和LF），Ctrl+Q输入XON，Ctrl+S输入XOFF等等。</p>
+<p>其具体每个控制字符的含义，详解介绍如下：</p>
+<p>【ASCII中的Function/Control Code功能字符的详细含义】</p>
+<p><em>0 – NUL –&nbsp;NULl�_�_字符</em>_/_<em>空字符</em></p>
+<p>ASCII字符集中的空字符，NULL，起初本意可以看作为NOP（中文意为空操作，就是啥都不做的意思），此位置可以忽略一个字符。</p>
+<p>之所以有这个空字符，主要是用于计算机早期的记录信息的纸带，此处留个NUL字符，意思是先占这个位置，以待后用，比如你哪天想起来了，在这个位置在放一个别的啥字符之类的。</p>
+<p>后来呢，NUL字符被用于C语言中，字符串的终结符，当一个字符串中间出现NUL / NULL，代码里面表现为\0，的时候，就意味着这个是一个字符串的结尾了。这样就方便按照自己需求去定义字符串，多长都行，当然只要你内存放得下，然后最后加一个\0,&nbsp;即空字符，意思是当前字符串到此结束。</p>
+<p>_1 – SOH –&nbsp;Start</p>
+<p>Of&nbsp;Heading�<em>�_标题开始</em></p>
+<p>如果信息沟通交流主要以命令和消息的形式的话，SOH就可以用于标记每个消息的开始。</p>
+<p>1963年，最开始ASCII标准中，把此字符定义为Start of Message，后来又改为现在的Start Of Heading。</p>
+<p>现在，这个SOH常见于主从（master-slave）模式的RS232的通信中，一个主设备，以SOH开头，和从设备进行通信。这样方便从设备在数据传输出现错误的时候，在下一次通信之前，去实现重新同步（resynchronize）。如果没有一个清晰的类似于SOH这样的标记，去标记每个命令的起始或开头的话，那么重新同步，就很难实现了。</p>
+<p><em>2 – STX –&nbsp;Start&nbsp;Of&nbsp;Text�_�_文本开始</em></p>
+<p><em>3 – ETX –&nbsp;End Of&nbsp;Text�_�_文本结束</em></p>
+<p>通过某种通讯协议去传输的一个数据（包），称为一帧的话，常会包含一个帧头，包含了寻址信息，即你是要发给谁，要发送到目的地是哪里，其后跟着真正要发送的数据内容。</p>
+<p>而STX，就用于标记这个数据内容的开始。接下来是要传输的数据，最后是ETX，表明数据的结束。</p>
+<p>其中，中间具体传输的数据内容，ASCII规范并没有去定义，其和你所用的传输协议，具体自己要传什么数据有关。</p>
+<p>|帧头</p>
+<pre><code>           |数据或文本内容
+
+                                          |                   |                          |                   |
+</code></pre>
+<p>|——————-|————————————————————|——————-|————————–|——————-|<br>|SOH（表明帧头开始）</p>
+<p>|。。。。（帧头信息，比如包含了目的地址，表明你发送给谁等等）</p>
+<p>|STX（表明数据开始）</p>
+<p>|。。。（真正要传输的数据）</p>
+<p>|ETX（表明数据结束）</p>
+<p>|</p>
+<p>不过其中有趣的是，1963年，ASCII标准最初版本的时候，把现在的STX叫做EOA（End Of Address），ETX叫做（End Of Message）。这是因为，最早的时候，一个消息中，总是包含一个开始符和一个终止符。现在的新的定义，使得可以去发送一个固定长度的命令，而只用一个SOH表明帧头开始即可，而不需要再加上一个命令终止符或帧头结束符。</p>
+<p>总结一下：</p>
+<p>一般发送一个消息，包含了一个帧头和后面真正要传的数据。</p>
+<p>而对于帧头，属于控制类的信息，这部分之前属于命令，后面的真实要传的数据属于数据。即消息=帧头+数据。</p>
+<p>而之前的命令都要有个开始符和结束符，这样就是：</p>
+<p>消息</p>
+<p>=&nbsp;帧头</p>
+<p>+&nbsp;要传的数据</p>
+<p>=&nbsp;帧头开始+帧头信息+帧头结束&nbsp;</p>
+<p>+&nbsp;要传的数据</p>
+<p>而现在新的定义，使得只需要：</p>
+<p>消息</p>
+<p>=&nbsp;帧头&nbsp;+要传的数据</p>
+<p>= SOH（表明帧头开始）+帧头信息&nbsp;</p>
+<p>+&nbsp;要传的数据</p>
+<p>= SOH（表明帧头开始）+帧头信息&nbsp;</p>
+<ul>
+<li>STX +&nbsp;数据内容+ETX</li>
+</ul>
+<p>就可以少用一个帧头结束符。</p>
+<p>而如今，在很多协议中，也常见到，一个固定长度的帧头，后面紧接着就是数据了，而没有所谓的帧头结束符之类的东西去区分帧头和数据。</p>
+<p><em>4 – EOT –&nbsp;End&nbsp;Of&nbsp;Transmission�_�_传输结束</em></p>
+<p><em>5 – ENQ –&nbsp;ENQuiry�_�_请求</em></p>
+<p><em>6 – ACK –&nbsp;ACKnowledgment�_�_回应</em>_/_<em>响应</em></p>
+<p><em>7 – BEL – [audible]&nbsp;BELl</em></p>
+<p>在ASCII字符集中，BEL，是个比较有意思的东东。因为其原先本意不是用来数据编码的，于此相反，ASCII中的其他字符，都是用于字符编码（即用什么字符，代表什么含义）或者起到控制设备的作用。BEL用一个可以听得见的声音，来吸引人们的注意，其原打算即用于计算机也用于一些设备，比如打印机等。C语言里面也支持此BEL，用\a来实现这个响铃。</p>
+<p><em>8 – BS –&nbsp;BackSpace�_�_退格键</em></p>
+<p>退格键的功能，随着时间变化，意义也变得不同了。</p>
+<p>起初，意思是，在打印机和电传打字机上，往回移动一格光标，以起到强调该字符的作用。比如你想要打印一个a，然后加上退格键后，就成了aBS^。在机械类打字机上，此方法能够起到实际的强调字符的作用，但是对于后来的CTR下时期来说，就无法起到对应效果了。</p>
+<p>而现代所用的退格键，不仅仅表示光标往回移动了一格，同时也删除了移动后该位置的字符。在C语言中，退格键可以用\b表示。</p>
+<p><em>9 – HT –&nbsp;Horizontal&nbsp;Tab�_�_水平制表符</em></p>
+<p>ASCII中的HT控制符的作用是用于布局的。</p>
+<p>其控制输出设备前进到下一个表格去处理。而制表符Table/Tab的宽度也是灵活不固定的，只不过，多数设备上，制表符Tab的宽度都预定义为8。水平制表符HT不仅能减少数据输入者的工作量，对于格式化好的文字来说，还能够减少存储空间，因为一个Tab键，就代替了8个空格，所以说省空间。</p>
+<p>对于省空间的优点，我们现在来看，可能会觉得可笑，因为现在存储空间已足够大，一般来说根本不会需要去省那么点可怜的存储空间，但是实际上在计算机刚发明的时候，存储空间（主要指的是内存）极其有限也极其昂贵，而且像ZIP等压缩方法也还没发明呢，所以对于当时来说，对于存储空间，那是能够省一点是一点，省任何一点，都是好的，也都是不容易的，省空间就是省钱啊。</p>
+<p>C语言中，用\t表示制表符。</p>
+<p><em>10 – LF –&nbsp;Line&nbsp;Feed�_�_换行</em></p>
+<p>LF，直译为（给打印机等）喂一行，意思就是所说的，换行。</p>
+<p>换行字符，是ASCII字符集中，被误用的字符中的其中一个。</p>
+<p>LF的最原始的含义是，移动打印机的头到下一行。而另外一个ASCII字符，CR（Carriage Return）才是将打印机的头，移到最左边即一行的开始，行首。很多串口协议和MS-DOS及Windows操作系统，也都是这么实现的。</p>
+<p>而于此不同，对于C语言和Unix操作系统，其重新定义了LF字符的含义为新行，即LF和CR的组合才能表达出的，回车且换行的意思。</p>
+<p>虽然你可以争论哪种用法是错的，但是，不可否认，是从程序的角度出发，C语言和Unix对此LF的含义实现显得就很自然，而MS-DOS的实现更接近于LF的本意。</p>
+<p>如果最开始ASCII标准中，及定义&nbsp;CF也定义newline，那样意思会清楚，会更好理理解：</p>
+<p>LF表示物理上的，设备控制方面的移动到下一行（并没有移动到行首）；</p>
+<p>新行（newline）表示逻辑上文本分隔符，即回车换行。</p>
+<p>不过呢，现在人们常将LF用做newline新行的功能，而大多数文本编辑软件也都可以处理单个LF或者CR/LF的组合了。</p>
+<p>LF在C语言中，用\n表示。</p>
+<p><em>11 – VT –&nbsp;Vertical&nbsp;Tab�_�_垂直制表符</em></p>
+<p>垂直制表符，类似于水平制表符Tab，目的是为了减少布局中的工作，同时也减少了格式化字符时所需要存储字符的空间。VT控制码用于跳到下一个标记行。说实话，还真没看到有些地方需要用这个VT呢，因为一般在换行的时候，都是用LF代替VT了。</p>
+<p><em>12 – FF –&nbsp;Form&nbsp;Feed</em></p>
+<p><em>换页</em></p>
+<p>设计换页键，是用来控制打印机行为的。当打印机收到此键码的时候，打印机移动到下一页。不同的设备的终端对此控制码所表现的行为各不同。有些会去清除屏幕，而其他有的只是显示^L字符或者是只是新换一行而已。Shell脚本程序Bash和Tcsh的实现方式是，把FF看作是一个清除屏幕的命令。C语言程序中用\f表示FF（换页）。</p>
+<p><em>13 – CR – Carriage return�_�_机器的滑动部分</em><em>/<strong>底座__返回</strong>&nbsp;-&gt;�_�_回车</em></p>
+<p>CR回车的原意是让打印头回到左边界，并没有移动到下一行。</p>
+<p>随着时间流逝，后来人把CR的意思弄成了Enter键，用于示意输入完毕。在数据以屏幕显示的情况下，人们在Enter的同时，也希望把光标移动到下一行。因此C语言和Unix操作系统，重新定义了LF的意思，使其表示为移动到下一行。当输入CR去存储数据的时候，软件也常常隐式地将其转换为LF。</p>
+<p><em>14 – SO –&nbsp;Shift&nbsp;Out�_�_不用切换</em></p>
+<p><em>15 – SI –&nbsp;Shift&nbsp;In</em></p>
+<p><em>启用切换</em></p>
+<p>早在1960s年代，定义ASCII字符集的人，就已经懂得了，设计字符集不单单可以用于英文字符集，也要能应用于外文字符集，是很重要的。</p>
+<p>定义Shift In&nbsp;和Shift Out的含义，即考虑到了此点。</p>
+<p>最开始，其意为在西里尔语和拉丁语之间切换。西里尔ASCII定义中，KOI-7用到了Shift字符。拉丁语用Shift去改变打印机的字体。在此种用途中，SO用于产生双倍宽度的字符，而用SI打印压缩的字体。</p>
+<p><em>16 – DLE –&nbsp;Data&nbsp;Link&nbsp;Escape�_�_数据链路转义</em></p>
+<p>有时候，我们需要在正在进行的通信过程中去发送一些控制字符。但是，总有一些情况下，这些控制字符却被看成了普通的数据流，而没有起到对应的控制效果。而ASCII标准中，定义DLE来解决这类问题。</p>
+<p>如果数据流中检测到了DLE，数据接收端则对其后面接下来的数据流中的字符，另作处理。而关于具体如何处理这些字符，ASCII规范中则没有具体定义，而只是弄了个DLE去打断正常数据的处理，告诉接下来的数据，要特殊对待。根据Modem中的Hayes通信协议DLE定义为“无声+++无声”。以我的观点，这样可能会更好：如果Hayes协议没有把DLE处理为嵌入通讯的无声状态，那样就符合现存的标准了。然而Hayes的开发者却觉得+++用的频率要远高于原始的DLE，所以才这么定义了。</p>
+<p><em>17 – DC1 –&nbsp;Device&nbsp;Control 1 / XON – Transmission on</em></p>
+<p>这个ASCII控制字符尽管原先定义为DC1，</p>
+<p>但是现在常表示为XON，用于串行通信中的软件流控制。其主要作用为，在通信被控制码XOFF中断之后，重新开始信息传输。用过串行终端的人应该还记得，当有时候数据出错了，按Ctrl+Q（等价于XON）有时候可以起到重新传输的效果。这是因为，此Ctrl+Q键盘序列实际上就是产生XON控制码，其可以将那些由于终端或者主机方面，由于偶尔出现的错误的XOFF控制码而中断的通信解锁，使其正常通信。</p>
+<p><em>18 – DC2 –&nbsp;Device&nbsp;Control 2</em></p>
+<p><em>19 – DC3 –&nbsp;Device&nbsp;Control 3 / XOFF – Transmission off�_�_传输中断</em></p>
+<p><em>20 – DC4 –&nbsp;Device&nbsp;Control 4</em></p>
+<p><em>21 – NAK –&nbsp;Negative&nbsp;AcKnowledgment�_�_负面响应</em><em>-&gt;�_�_无响应</em><em>,�_�_非正常响应</em></p>
+<p><em>22 – SYN –&nbsp;SYNchronous idle</em></p>
+<p><em>23 – ETB –&nbsp;End of&nbsp;Transmission&nbsp;Block�_�_块传输中止</em></p>
+<p><em>24 – CAN –&nbsp;CANcel�_�_取消</em></p>
+<p><em>25 – EM –&nbsp;End of&nbsp;Medium</em></p>
+<p><em>已到介质末端，介质存储已满</em></p>
+<p>EM用于，当数据存储到达串行存储介质末尾的时候，就像磁带或磁头滚动到介质末尾一样。其用于表述数据的逻辑终点，即不必非要是物理上的达到数据载体的末尾。</p>
+<p><em>26 – SUB –&nbsp;SUBstitute character__替补</em>_/_<em>替换</em></p>
+<p><em>27 – ESC –&nbsp;ESCape�_�_逃离</em>_/_<em>取消</em></p>
+<p>字符Escape，是ASCII标准的首创的，由Bob Bemer提议的。用于开始一段控制码的扩展字符。如此，即可以不必将所有可能想得到的字符都放到ASCII标准中了。因为，新的技术可能需要新的控制命令，而ESC可以用作这些字符命令的起始标志。ESC广泛用于打印机和终端，去控制设备设置，比如字体，字符位置和颜色等等。如果最开始的ASCII标准中，没有定义ESC，估计ASCII标准早就被其他标准所替代了，因为其没有包含这些新出现的字符，所以肯定会有其他新的标准出现，用于表示这些字符的。即，ESC给开发者提供了，可以根据需要而定义新含义的字符的可能。</p>
+<p><em>28 – FS –&nbsp;File&nbsp;Separator�_�_文件分隔符</em></p>
+<p>文件分隔符是个很有意思的控制字符，因为其可以让我们看到1960s年代的时候，计算机技术是如何组织的。我们现在，习惯于随即访问一些存储介质，比如RAM，磁盘，但是在定义ASCII标准的那个年代，大部分数据还是顺序的，串行的，而不是随机访问的。此处所说的串行的，不仅仅指的是串行通信，还指的是顺序存储介质，比如穿孔卡片，纸带，磁带等。在串行通信的时代，设计这么一个用于表示文件分隔符的控制字符，用于分割两个单独的文件，是一件很明智的事情。而FS的原因就在于此。</p>
+<p><em>29 – GS –&nbsp;Group&nbsp;Separator__分组符</em></p>
+<p>ASCII定义控制字符的原因中，其中一条就是考虑到了数据存储方面的情况。大部分情况下，数据库的建立，都和表有关，包含了对应的记录。同一个表中的所有的记录，属于同一类型。不同的表中的记录，属于对应的不同的类型。而分组符GS就是用来分隔串行数据存储系统中的不同的组。值得注意的是，当时还没有使用word的表格，当时ASCII时代的人，把他叫做组。</p>
+<p><em>30 – RS –&nbsp;Record&nbsp;Separator__记录分隔符</em></p>
+<p>记录分隔符RS用于分隔在一个组或表内的多个记录。</p>
+<p><em>31 – US –&nbsp;Unit&nbsp;Separator�_�_单元分隔符</em></p>
+<p>在ASCII定义中，在数据库中所存储的，最小的数据项，叫做Unit单元。而现在我们称其field域。单元分隔符US用于分割串行数据存储环境下的不同的域。</p>
+<p>现在大部分的数据库实现，要求大部分类型都拥有固定的长度。</p>
+<p>尽管大部分时候可能用不到，但是对于每一个域，却都要分配足够大的空间，用于存放最大可能的成员变量。这样的做法，占用了大量的存储空间，而US控制码允许域具有可变的长度。在1960s年代，数据存储空间很有限，用US这个单元分隔符，将不同单元分隔开，这样就可以实现更高效地存储那些宝贵的数据。另一方面，串行存储的存储效率，远低于RAM和磁盘中所实现的表格存储。我个人无法想象，如果现在的数据，还是存储在自带或者带滚轮的磁带上，会是何种景象。</p>
+<p><em>32 – SP – White&nbsp;SPace�_�_空格键</em></p>
+<p>也许你会争论说，空格键是否真的能算是一个控制字符？因为现在在普通文字中使用空格键是如此常见。</p>
+<p>但是，既然水平制表符和退格键在ASCII中，都被叫做控制字符了，那么我觉得也很自然地，可以把空格键（向前的空格）也叫做控制字符，毕竟，其本身并不代表一个真正的可见的字符，而仅仅只是很常用于输出设备，用于处理位置前向移动一格，清除当前位置的内容而已。在很多程序中，比如字符处理程序，白空格同样可能从导致行尾转到下一行行首，而网络浏览器将多个空格组合成单个空格输出。</p>
+<p>所以，这更加坚定了我的想法，觉得完全可以把空格看成是一个控制字符，而不仅仅是一个很独特的普通字符。</p>
+<p><em>127 – DEL –&nbsp;DELete</em></p>
+<p><em>删除</em></p>
+<p>有人也许会问，为何ASCII字符集中的控制字符的值都是很小的，即0-32，而DEL控制字符的值却很大，是127。这是由于这个特殊的字符是为纸带而定义的。而在那个时候，绝大多数的纸带，都是用7个孔洞去编码数据的。而127这个值所对应的二进制值为111 1111b，表示所有7个比特位都是高，所以，将DEL用在现存的纸带上时，所有的洞就都被穿孔了，就把已经存在的数据都擦出掉了，就起到了对应的删除的作用了。</p>
+<p>【各种字符的标准的读法/叫法】</p>
+<p>常见ASCII字符，以及其他非常见的字符，Unicode中的字符，其他特殊字符等等，这些字符的英文叫法，可以去Unicode官方找到：</p>
+<p><a target="_blank" rel="noopener" href="http://www.unicode.org/charts/#symbols">http://www.unicode.org/charts/#symbols</a></p>
+<p>比如：</p>
+<p>ASCII字符/字母的叫法/读法</p>
+<p>如何读</p>
+<p>：</p>
+<ol>
+<li>C0 Control and Basic Latin Range：0000-007F</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="http://www.unicode.org/charts/PDF/U0000.pdf">http://www.unicode.org/charts/PDF/U0000.pdf</a></p>
+<p>2.Alphabetic Presentation Forms Range：FB00-FB4F</p>
+<p><a target="_blank" rel="noopener" href="http://www.unicode.org/charts/PDF/UFB00.pdf">http://www.unicode.org/charts/PDF/UFB00.pdf</a></p>
+<p>3.&nbsp;<a target="_blank" rel="noopener" href="http://www.unicode.org/charts/PDF/UFE30.pdf">CJK Compatibility Forms</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.unicode.org/charts/PDF/UFE30.pdf">http://www.unicode.org/charts/PDF/UFE30.pdf</a></p>
+<p>4.<a target="_blank" rel="noopener" href="http://www.unicode.org/charts/PDF/UFF00.pdf">Fullwidth ASCII Punctuation</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.unicode.org/charts/PDF/UFF00.pdf">http://www.unicode.org/charts/PDF/UFF00.pdf</a></p>
+<p>【引用】</p>
+<p>1.C0 and C1 control codes</p>
+<p><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/C0_and_C1_control_codes">http://en.wikipedia.org/wiki/C0_and_C1_control_codes</a></p>
+<ol start="2">
+<li>Control Character</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Control_character">http://en.wikipedia.org/wiki/Control_character</a></p>
+<p>3．</p>
+<p><a target="_blank" rel="noopener" href="http://www.lammertbies.nl/comm/info/ascii-characters.html">ASCII character map</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.lammertbies.nl/comm/info/ascii-characters.html">http://www.lammertbies.nl/comm/info/ascii-characters.html</a></p>
+<p>4．</p>
+<p><a target="_blank" rel="noopener" href="http://baike.baidu.com/view/15482.htm">百度百科：ASCII</a></p>
+<p><a target="_blank" rel="noopener" href="http://baike.baidu.com/view/15482.htm">http://baike.baidu.com/view/15482.htm</a></p>
+<p>5.&nbsp;<a target="_blank" rel="noopener" href="http://www.dreamdu.com/xhtml/ascii/">ASCII编码表</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.dreamdu.com/xhtml/ascii/">http://www.dreamdu.com/xhtml/ascii/</a></p>
+<p>Vim里常见的几个不可见字符：</p>
+<p>^@ = 0x00 Null值</p>
+<p>^I = 0x09 水平制表</p>
+<p>^J = 0x0A 换行</p>
+<p>^M = 0x0D 回车</p>
+<p>ASCII码大致可以分作三部分组成。</p>
+<ul>
+<li>第一部分：ASCII非打印控制字符表</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;ASCII表上的数字0–31分配给了控制字符，用于控制像打印机等一些外围设备。例如，12代表换页/新页功能。此命令指示打印机跳到下一页的开头。（参详ASCII码表中0-31）</p>
+<ul>
+<li>第二部分：ASCII打印字符</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;数字 32–126 分配给了能在键盘上找到的字符，当您查看或打印文档时就会出现。数字127代表 DELETE 命令。（参详ASCII码表中32-127）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;ASCII码表 0-127</p>
+<ul>
+<li>第三部分：扩展ASCII打印字符</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;扩展的ASCII字符满足了对更多字符的需求。扩展的ASCII包含ASCII中已有的128个字符（数字0–32显示在下图中），又增加了128个字符，总共是256个。即使有了这些更多的字符，许多语言还是包含无法压缩到256个字符中的符号。因此，出现了一些ASCII的变体来囊括地区性字符和符号。例如，许多软件程序把ASCII表（又称作ISO8859-1）用于北美、西欧、澳大利亚和非洲的语言。</p>
+<p>去掉^M回车:&nbsp;</p>
+<p>:%s/^M//g # &nbsp;vi中将^M替换成回车。&nbsp;</p>
+<p>$ sed -e ‘s/^M//g’ myfile.txt &nbsp;#直接操作文件</p>
+<p>注意：这里的“^M”要使用“CTRL-V CTRL-M”生成，而不是直接键入“^M”。</p>
+<p>去掉^@:&nbsp;</p>
+<p>sed -r ‘s/\x0//g’ file&gt;file1</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux%E4%B8%8E%E8%BF%90%E7%BB%B4/">Linux与运维</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/ASCII/">ASCII</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E8%BF%87%E6%BB%A4ASCII%E7%A0%81%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%A7%81%E5%AD%97%E7%AC%A6,%20ASCII%E4%B8%89%E9%83%A8%E5%88%86,%20%E5%90%84%E6%8E%A7%E5%88%B6%E5%AD%97%E7%AC%A6%E8%AF%A6%E8%A7%A3,%20%E5%8E%BB%5E@,%5EM%20-%20%E5%8D%9A%E5%AE%A2%E5%90%A7/" data-title="过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/详解js面向对象编程 - trigkit4 - SegmentFault/" title="详解js面向对象编程 - trigkit4 - SegmentFault">
+  <strong>上一篇：</strong><br/>
+  <span>
+  详解js面向对象编程 - trigkit4 - SegmentFault</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/邀请_ 7组织的分享已共享给你/"  title="邀请: 7组织的分享已共享给你">
+ <strong>下一篇：</strong><br/> 
+ <span>邀请: 7组织的分享已共享给你
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧/" data-title="过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E8%BF%87%E6%BB%A4ASCII%E7%A0%81%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%A7%81%E5%AD%97%E7%AC%A6,%20ASCII%E4%B8%89%E9%83%A8%E5%88%86,%20%E5%90%84%E6%8E%A7%E5%88%B6%E5%AD%97%E7%AC%A6%E8%AF%A6%E8%A7%A3,%20%E5%8E%BB%5E@,%5EM%20-%20%E5%8D%9A%E5%AE%A2%E5%90%A7/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4ASCII%E7%A0%81%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%A7%81%E5%AD%97%E7%AC%A6-ASCII%E4%B8%89%E9%83%A8%E5%88%86-%E5%90%84%E6%8E%A7%E5%88%B6%E5%AD%97%E7%AC%A6%E8%AF%A6%E8%A7%A3-%E5%8E%BB-M-%E5%8D%9A%E5%AE%A2%E5%90%A7"><span class="toc-number">1.</span> <span class="toc-text">过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M - 博客吧</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4ASCII%E7%A0%81%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%A7%81%E5%AD%97%E7%AC%A6-ASCII%E4%B8%89%E9%83%A8%E5%88%86-%E5%90%84%E6%8E%A7%E5%88%B6%E5%AD%97%E7%AC%A6%E8%AF%A6%E8%A7%A3-%E5%8E%BB-M"><span class="toc-number">2.</span> <span class="toc-text">过滤ASCII码中的不可见字符, ASCII三部分, 各控制字符详解, 去^@,^M</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4ASCII%E7%A0%81%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%A7%81%E5%AD%97%E7%AC%A6"><span class="toc-number">2.0.1.</span> <span class="toc-text">过滤ASCII码中的不可见字符</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

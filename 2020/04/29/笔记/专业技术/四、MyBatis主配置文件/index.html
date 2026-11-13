@@ -1,0 +1,1471 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>四、MyBatis主配置文件 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="四、MyBatis主配置文件mybatis 四、MyBatis主配置文件在定义sqlSessionFactory时需要指定MyBatis主配置文件： &amp;nbsp; Xml代码&amp;nbsp;&amp;nbsp;  &lt;****bean**&amp;nbsp;id&#x3D;”sqlSessionFactory”&amp;nbsp;class&#x3D;”org.mybatis.spring.SqlSessionFactoryBean”**&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="四、MyBatis主配置文件">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%9B%9B%E3%80%81MyBatis%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="四、MyBatis主配置文件mybatis 四、MyBatis主配置文件在定义sqlSessionFactory时需要指定MyBatis主配置文件： &amp;nbsp; Xml代码&amp;nbsp;&amp;nbsp;  &lt;****bean**&amp;nbsp;id&#x3D;”sqlSessionFactory”&amp;nbsp;class&#x3D;”org.mybatis.spring.SqlSessionFactoryBean”**&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%9B%9B-MyBatis%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/323.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2011-12-08T17:36:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="mybatis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E5%9B%9B-MyBatis%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/323.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/四、MyBatis主配置文件/" title="四、MyBatis主配置文件" itemprop="url">四、MyBatis主配置文件</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81MyBatis%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">四、MyBatis主配置文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81MyBatis%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-1"><span class="toc-number">2.</span> <span class="toc-text">四、MyBatis主配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-properties%E5%B1%9E%E6%80%A7"><span class="toc-number">2.1.</span> <span class="toc-text">4.1 properties属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-settings%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">4.2 settings设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-typeAliases%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D"><span class="toc-number">2.3.</span> <span class="toc-text">4.3 typeAliases类型别名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-typeHandlers%E7%B1%BB%E5%9E%8B%E5%8F%A5%E6%9F%84"><span class="toc-number">2.4.</span> <span class="toc-text">4.4 typeHandlers类型句柄</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-ObjectFactory%E5%AF%B9%E8%B1%A1%E5%B7%A5%E5%8E%82"><span class="toc-number">2.5.</span> <span class="toc-text">4.5 ObjectFactory对象工厂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-plugins%E6%8F%92%E4%BB%B6"><span class="toc-number">2.6.</span> <span class="toc-text">4.6 plugins插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-7-environments%E7%8E%AF%E5%A2%83"><span class="toc-number">2.7.</span> <span class="toc-text">4.7 environments环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-8-mappers%E6%98%A0%E5%B0%84%E5%99%A8"><span class="toc-number">2.8.</span> <span class="toc-text">4.8 mappers映射器</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="四、MyBatis主配置文件"><a title="四、MyBatis主配置文件" class="headerlink" href="#四、MyBatis主配置文件"></a>四、MyBatis主配置文件</h1><p><code>mybatis</code></p>
+<h1 id="四、MyBatis主配置文件-1"><a title="四、MyBatis主配置文件" class="headerlink" href="#四、MyBatis主配置文件-1"></a>四、MyBatis主配置文件</h1><p>在定义sqlSessionFactory时需要指定MyBatis主配置文件：</p>
+<p>&nbsp;</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22"><img loading="lazy" alt="-323.png" src="/images/notes/%E5%9B%9B-MyBatis%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/323.png"></a></p>
+<ol>
+<li><strong>&lt;****bean**&nbsp;id=”sqlSessionFactory”&nbsp;class=”org.mybatis.spring.SqlSessionFactoryBean”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****property**&nbsp;name=”configLocation”&nbsp;value=”classpath:mybatis-config.xml”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****property**&nbsp;name=”dataSource”&nbsp;ref=”dataSource”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****bean****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>MyBatis配置文件中大标签configuration下子标签包括：</p>
+<p>configuration</p>
+<p>|— properties</p>
+<p>|— settings</p>
+<p>|— typeAliases</p>
+<p>|— typeHandlers</p>
+<p>|— objectFactory</p>
+<p>|— plugins</p>
+<p>|— environments</p>
+<p>|— |— environment</p>
+<p>|— |— |— transactionManager</p>
+<p>|— |— |__ dataSource</p>
+<p>|__ mappers</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="4-1-properties属性"><a title="4.1 properties属性" class="headerlink" href="#4-1-properties属性"></a>4.1 properties属性</h2><p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; properties和java的.properties的配置文件有关。配置properties的resource指定.properties的路径，然后再在properties标签下配置property的name和value，则可以替换.properties文件中相应属性值。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li><strong>&lt;****properties**&nbsp;resource=”mysql.properties”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****property**&nbsp;name=”jdbc.driverClassName”&nbsp;value=”com.mysql.jdbc.Driver”**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****property**&nbsp;name=”jdbc.url”&nbsp;value=”jdbc:mysql://localhost:3306/student_manager”**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****property**&nbsp;name=”username”&nbsp;value=”root”**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****property**&nbsp;name=”password”&nbsp;value=”limingnihao”**/&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****properties****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h2 id="4-2-settings设置"><a title="4.2 settings设置" class="headerlink" href="#4-2-settings设置"></a>4.2 settings设置</h2><p>&nbsp;</p>
+<p>&nbsp; &nbsp; 这是MyBatis&nbsp;MyBatis&nbsp;修改操作运行过程细节的重要的步骤。下方这个表格描述了这些设置项、含义和默认值。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>|设置项</p>
+<pre><code>               |描述
+
+                                                                                                                              |允许值
+
+       |默认值
+
+   |
+</code></pre>
+<p>|————————-|————————————————————————————————————————————–|—————–|————-|<br>|cacheEnabled</p>
+<pre><code>         |对在此配置文件下的所有cache&nbsp;进行全局性开/关设置。
+
+                                                                                 |true | false
+
+ |true
+
+     |
+</code></pre>
+<p>|lazyLoadingEnabled</p>
+<pre><code>   |全局性设置懒加载。如果设为‘false’，则所有相关联的都会被初始化加载。
+
+                                                               |true | false
+
+ |true
+
+     |
+</code></pre>
+<p>|aggressiveLazyLoading</p>
+<pre><code>|当设置为‘true’的时候，懒加载的对象可能被任何懒属性全部加载。否则，每个属性都按需加载。
+
+                                            |true | false
+
+ |true
+
+     |
+</code></pre>
+<p>|multipleResultSetsEnabled</p>
+<p>|允许和不允许单条语句返回多个数据集（取决于驱动需求）</p>
+<pre><code>                                                                              |true | false
+
+ |true
+
+     |
+</code></pre>
+<p>|useColumnLabel</p>
+<pre><code>       |使用列标签代替列名称。不同的驱动器有不同的作法。参考一下驱动器文档，或者用这两个不同的选项进行测试一下。
+
+                          |true | false
+
+ |true
+
+     |
+</code></pre>
+<p>|useGeneratedKeys</p>
+<pre><code>     |允许JDBC&nbsp;生成主键。需要驱动器支持。如果设为了true，这个设置将强制使用被生成的主键，有一些驱动器不兼容不过仍然可以执行。
+
+           |true | false
+
+ |false
+
+    |
+</code></pre>
+<p>|autoMappingBehavior</p>
+<pre><code>  |指定MyBatis&nbsp;是否并且如何来自动映射数据表字段与对象的属性。PARTIAL将只自动映射简单的，没有嵌套的结果。FULL&nbsp;将自动映射所有复杂的结果。
+</code></pre>
+<p>  |NONE,</p>
+<p>PARTIAL,</p>
+<p>FULL</p>
+<p>|PARTIAL</p>
+<pre><code>  |
+</code></pre>
+<p>|defaultExecutorType</p>
+<pre><code>  |配置和设定执行器，SIMPLE&nbsp;执行器执行其它语句。REUSE&nbsp;执行器可能重复使用prepared statements&nbsp;语句，BATCH执行器可以重复执行语句和批量更新。
+</code></pre>
+<p>|SIMPLE</p>
+<p>REUSE</p>
+<p>BATCH</p>
+<p> |SIMPLE</p>
+<pre><code>   |
+</code></pre>
+<p>|defaultStatementTimeout</p>
+<p>  |设置一个时限，以决定让驱动器等待数据库回应的多长时间为超时</p>
+<pre><code>                                                                        |正整数
+
+       |Not Set
+</code></pre>
+<p>(null)</p>
+<p>|</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>例如：</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****settings****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****setting**&nbsp;name=”cacheEnabled”&nbsp;value=”true”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****setting**&nbsp;name=”lazyLoadingEnabled”&nbsp;value=”true”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****setting**&nbsp;name=”multipleResultSetsEnabled”&nbsp;value=”true”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****setting**&nbsp;name=”useColumnLabel”&nbsp;value=”true”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****setting**&nbsp;name=”useGeneratedKeys”&nbsp;value=”false”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****setting**&nbsp;name=”enhancementEnabled”&nbsp;value=”false”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****setting**&nbsp;name=”defaultExecutorType”&nbsp;value=”SIMPLE”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****settings****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="4-3-typeAliases类型别名"><a title="4.3 typeAliases类型别名" class="headerlink" href="#4-3-typeAliases类型别名"></a>4.3 typeAliases类型别名</h2><p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>类型别名是Java&nbsp;类型的简称。</p>
+<p>它仅仅只是关联到XML&nbsp;配置，简写冗长的JAVA&nbsp;类名。例如：</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****typeAliases****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****typeAlias**&nbsp;alias=”UserEntity”&nbsp;type=”com.manager.data.model.UserEntity”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****typeAlias**&nbsp;alias=”StudentEntity”&nbsp;type=”com.manager.data.model.StudentEntity”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****typeAlias**&nbsp;alias=”ClassEntity”&nbsp;type=”com.manager.data.model.ClassEntity”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****typeAliases****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; 使用这个配置，“StudentEntity”就能在任何地方代替“com.manager.data.model.StudentEntity”被使用。</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp;&nbsp;对于普通的Java类型，有许多内建的类型别名。它们都是大小写不敏感的，由于重载的名字，要注意原生类型的特殊处理。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>|别名</p>
+<pre><code>            |映射的类型
+
+      |
+</code></pre>
+<p>|——————–|——————–|<br>|_byte_byte</p>
+<pre><code>      |bytebyte
+
+        |
+</code></pre>
+<p>|_long_long</p>
+<pre><code>      |longlong
+
+        |
+</code></pre>
+<p>|_short_short</p>
+<pre><code>    |shortshort
+
+      |
+</code></pre>
+<p>|_int_int</p>
+<pre><code>        |intint
+
+          |
+</code></pre>
+<p>|_integer_integer</p>
+<pre><code>|intint
+
+          |
+</code></pre>
+<p>|_double_double</p>
+<pre><code>  |doubledouble
+
+    |
+</code></pre>
+<p>|_float_float</p>
+<pre><code>    |floatfloat
+
+      |
+</code></pre>
+<p>|_boolean_boolean</p>
+<pre><code>|booleanboolean
+
+  |
+</code></pre>
+<p>|stringstring</p>
+<pre><code>    |StringString
+
+    |
+</code></pre>
+<p>|bytebyte</p>
+<pre><code>        |ByteByte
+
+        |
+</code></pre>
+<p>|longlong</p>
+<pre><code>        |LongLong
+
+        |
+</code></pre>
+<p>|shortshort</p>
+<pre><code>      |ShortShort
+
+      |
+</code></pre>
+<p>|intint</p>
+<pre><code>          |IntegerInteger
+
+  |
+</code></pre>
+<p>|integerinteger</p>
+<pre><code>  |IntegerInteger
+
+  |
+</code></pre>
+<p>|doubledouble</p>
+<pre><code>    |DoubleDouble
+
+    |
+</code></pre>
+<p>|floatfloat</p>
+<pre><code>      |FloatFloat
+
+      |
+</code></pre>
+<p>|booleanboolean</p>
+<pre><code>  |BooleanBoolean
+
+  |
+</code></pre>
+<p>|datedate</p>
+<pre><code>        |DateDate
+
+        |
+</code></pre>
+<p>|decimaldecimal</p>
+<pre><code>  |BigDecimalBigDecimal
+</code></pre>
+<p>|<br>|bigdecimalbigdecimal</p>
+<p>|BigDecimalBigDecimal</p>
+<p>|<br>|objectobject</p>
+<pre><code>    |ObjectObject
+
+    |
+</code></pre>
+<p>|mapmap</p>
+<pre><code>          |MapMap
+
+          |
+</code></pre>
+<p>|hashmaphashmap</p>
+<pre><code>  |HashMapHashMap
+
+  |
+</code></pre>
+<p>|listlist</p>
+<pre><code>        |ListList
+
+        |
+</code></pre>
+<p>|arraylistarraylist</p>
+<p>  |ArrayListArrayList</p>
+<p>  |<br>|collectioncollection</p>
+<p>|CollectionCollection</p>
+<p>|<br>|iteratoriterator</p>
+<pre><code>|IteratorIterator
+
+|
+</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="4-4-typeHandlers类型句柄"><a title="4.4 typeHandlers类型句柄" class="headerlink" href="#4-4-typeHandlers类型句柄"></a>4.4 typeHandlers类型句柄</h2><p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>无论是MyBatis在预处理语句中设置一个参数，还是从结果集中取出一个值时，类型处理器被用来将获取的值以合适的方式转换成Java类型。下面这个表格描述了默认的类型处理器。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>|类型处理器</p>
+<pre><code>                                |Java类型
+
+                          |JDBC类型
+
+                                                      |
+</code></pre>
+<p>|———————————————-|————————————–|——————————————————————|<br>|BooleanTypeHandlerBooleanTypeHandler</p>
+<pre><code>      |BooleanBoolean，booleanboolean
+
+    |任何兼容的布尔值
+
+                                              |
+</code></pre>
+<p>|ByteTypeHandlerByteTypeHandler</p>
+<pre><code>            |ByteByte，bytebyte
+
+                |任何兼容的数字或字节类型
+
+                                      |
+</code></pre>
+<p>|ShortTypeHandlerShortTypeHandler</p>
+<pre><code>          |ShortShort，shortshort
+
+            |任何兼容的数字或短整型
+
+                                        |
+</code></pre>
+<p>|IntegerTypeHandlerIntegerTypeHandler</p>
+<pre><code>      |IntegerInteger，intint
+
+            |任何兼容的数字和整型
+
+                                          |
+</code></pre>
+<p>|LongTypeHandlerLongTypeHandler</p>
+<pre><code>            |LongLong，longlong
+
+                |任何兼容的数字或长整型
+
+                                        |
+</code></pre>
+<p>|FloatTypeHandlerFloatTypeHandler</p>
+<pre><code>          |FloatFloat，floatfloat
+
+            |任何兼容的数字或单精度浮点型
+
+                                  |
+</code></pre>
+<p>|DoubleTypeHandlerDoubleTypeHandler</p>
+<pre><code>        |DoubleDouble，doubledouble
+
+        |任何兼容的数字或双精度浮点型
+
+                                  |
+</code></pre>
+<p>|BigDecimalTypeHandlerBigDecimalTypeHandler</p>
+<pre><code>|BigDecimalBigDecimal
+
+              |任何兼容的数字或十进制小数类型
+
+                                |
+</code></pre>
+<p>|StringTypeHandlerStringTypeHandler</p>
+<pre><code>        |StringString
+
+                      |CHARCHAR和VARCHARVARCHAR类型
+
+                                  |
+</code></pre>
+<p>|ClobTypeHandlerClobTypeHandler</p>
+<pre><code>            |StringString
+
+                      |CLOBCLOB和LONGVARCHARLONGVARCHAR类型
+
+                          |
+</code></pre>
+<p>|NStringTypeHandlerNStringTypeHandler</p>
+<pre><code>      |StringString
+
+                      |NVARCHARNVARCHAR和NCHARNCHAR类型
+
+                              |
+</code></pre>
+<p>|NClobTypeHandlerNClobTypeHandler</p>
+<pre><code>          |StringString
+
+                      |NCLOBNCLOB类型
+
+                                                |
+</code></pre>
+<p>|ByteArrayTypeHandlerByteArrayTypeHandler</p>
+<pre><code>  |byte[]byte[]
+
+                      |任何兼容的字节流类型
+
+                                          |
+</code></pre>
+<p>|BlobTypeHandlerBlobTypeHandler</p>
+<pre><code>            |byte[]byte[]
+
+                      |BLOBBLOB和LONGVARBINARYLONGVARBINARY类型
+
+                      |
+</code></pre>
+<p>|DateTypeHandlerDateTypeHandler</p>
+<pre><code>            |DateDate（java.utiljava.util）
+
+    |TIMESTAMPTIMESTAMP类型
+
+                                        |
+</code></pre>
+<p>|DateOnlyTypeHandlerDateOnlyTypeHandler</p>
+<pre><code>    |DateDate（java.utiljava.util）
+
+    |DATEDATE类型
+
+                                                  |
+</code></pre>
+<p>|TimeOnlyTypeHandlerTimeOnlyTypeHandler</p>
+<pre><code>    |DateDate（java.utiljava.util）
+
+    |TIMETIME类型
+
+                                                  |
+</code></pre>
+<p>|SqlTimestampTypeHandlerSqlTimestampTypeHandler</p>
+<p>|TimestampTimestamp（java.sqljava.sql）</p>
+<p>|TIMESTAMPTIMESTAMP类型</p>
+<pre><code>                                        |
+</code></pre>
+<p>|SqlDateTypeHandlerSqlDateTypeHandler</p>
+<pre><code>      |DateDate（java.sqljava.sql）
+
+      |DATEDATE类型
+
+                                                  |
+</code></pre>
+<p>|SqlTimeTypeHandlerSqlTimeTypeHandler</p>
+<pre><code>      |TimeTime（java.sqljava.sql）
+
+      |TIMETIME类型
+
+                                                  |
+</code></pre>
+<p>|ObjectTypeHandlerObjectTypeHandler</p>
+<pre><code>        |AnyAny
+
+                            |其他或未指定类型
+
+                                              |
+</code></pre>
+<p>|EnumTypeHandlerEnumTypeHandler</p>
+<pre><code>            |EnumerationEnumeration类型
+
+        |VARCHAR-VARCHAR-任何兼容的字符串类型，作为代码存储（而不是索引）。
+</code></pre>
+<p>|</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>你可以重写类型处理器或创建你自己的类型处理器来处理不支持的或非标准的类型。要这样做的话，简单实现TypeHandler接口（org.mybatis.type），然后映射新的类型处理器类到Java类型，还有可选的一个JDBC类型。然后再typeHandlers中添加这个类型处理器。</p>
+<p>新定义的类型处理器将会覆盖已经存在的处理Java的String类型属性和VARCHAR参数及结果的类型处理器。要注意MyBatis不会审视数据库元信息来决定使用哪种类型，所以你必须在参数和结果映射中指定那是VARCHAR类型的字段，来绑定到正确的类型处理器上。这是因为MyBatis直到语句被执行都不知道数据类型的这个现实导致的。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Java代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>public</strong>&nbsp;<strong>class</strong>&nbsp;LimingStringTypeHandler&nbsp;<strong>implements</strong>&nbsp;TypeHandler&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>public</strong>&nbsp;<strong>void</strong>&nbsp;setParameter(PreparedStatement&nbsp;ps,&nbsp;<strong>int</strong>&nbsp;i,&nbsp;Object&nbsp;parameter,&nbsp;JdbcType&nbsp;jdbcType)&nbsp;<strong>throws</strong>&nbsp;SQLException&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(“setParameter&nbsp;-&nbsp;parameter:&nbsp;“&nbsp;+&nbsp;((String)&nbsp;parameter)&nbsp;+&nbsp;“,&nbsp;jdbcType:&nbsp;“&nbsp;+&nbsp;jdbcType.TYPE_CODE);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ps.setString(i,&nbsp;((String)&nbsp;parameter));&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>public</strong>&nbsp;Object&nbsp;getResult(ResultSet&nbsp;rs,&nbsp;String&nbsp;columnName)&nbsp;<strong>throws</strong>&nbsp;SQLException&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(“getResult&nbsp;-&nbsp;columnName:&nbsp;“&nbsp;+&nbsp;columnName);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;rs.getString(columnName);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>public</strong>&nbsp;Object&nbsp;getResult(CallableStatement&nbsp;cs,&nbsp;<strong>int</strong>&nbsp;columnIndex)&nbsp;<strong>throws</strong>&nbsp;SQLException&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(“getResult&nbsp;-&nbsp;columnIndex:&nbsp;“&nbsp;+&nbsp;columnIndex);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;cs.getString(columnIndex);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>在配置文件的typeHandlers中添加typeHandler标签。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****typeHandlers****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****typeHandler**&nbsp;javaType=”String”&nbsp;jdbcType=”VARCHAR”&nbsp;handler=”liming.student.manager.type.LimingStringTypeHandler”**/&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****typeHandlers****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="4-5-ObjectFactory对象工厂"><a title="4.5 ObjectFactory对象工厂" class="headerlink" href="#4-5-ObjectFactory对象工厂"></a>4.5 ObjectFactory对象工厂</h2><p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>每次MyBatis&nbsp;为结果对象创建一个新实例，都会用到ObjectFactory。默认的ObjectFactory&nbsp;与使用目标类的构造函数创建一个实例毫无区别，如果有已经映射的参数，那也可能使用带参数的构造函数。</p>
+<p>如果你重写ObjectFactory&nbsp;的默认操作，你可以通过继承org.apache.ibatis.reflection.factory.DefaultObjectFactory创建一下你自己的。</p>
+<p>ObjectFactory接口很简单。它包含两个创建用的方法，一个是处理默认构造方法的，另外一个是处理带参数构造方法的。最终，setProperties方法可以被用来配置ObjectFactory。在初始化你的ObjectFactory实例后，objectFactory元素体中定义的属性会被传递给setProperties方法。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Java代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>public</strong>&nbsp;<strong>class</strong>&nbsp;LimingObjectFactory&nbsp;<strong>extends</strong>&nbsp;DefaultObjectFactory&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>private</strong>&nbsp;<strong>static</strong>&nbsp;<strong>final</strong>&nbsp;<strong>long</strong>&nbsp;serialVersionUID&nbsp;=&nbsp;-399284318168302833L;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>public</strong>&nbsp;Object&nbsp;create(Class&nbsp;type)&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;<strong>super</strong>.create(type);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>public</strong>&nbsp;Object&nbsp;create(Class&nbsp;type,&nbsp;List&nbsp;constructorArgTypes,&nbsp;List&nbsp;constructorArgs)&nbsp;{&nbsp;&nbsp;
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(“create&nbsp;-&nbsp;type:&nbsp;“&nbsp;+&nbsp;type.toString());&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong>&nbsp;<strong>super</strong>.create(type,&nbsp;constructorArgTypes,&nbsp;constructorArgs);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>public</strong>&nbsp;<strong>void</strong>&nbsp;setProperties(Properties&nbsp;properties)&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(“setProperties&nbsp;-&nbsp;properties:&nbsp;“&nbsp;+&nbsp;properties.toString()&nbsp;+&nbsp;“,&nbsp;someProperty:&nbsp;“&nbsp;+&nbsp;properties.getProperty(“someProperty”));&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>super</strong>.setProperties(properties);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>}</li>
+
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>配置文件中添加objectFactory标签</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****objectFactory**&nbsp;type=”liming.student.manager.configuration.LimingObjectFactory”**&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****property**&nbsp;name=”someProperty”&nbsp;value=”100”**/&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****objectFactory****&gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="4-6-plugins插件"><a title="4.6 plugins插件" class="headerlink" href="#4-6-plugins插件"></a>4.6 plugins插件</h2><p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>MyBatis允许你在某一点拦截已映射语句执行的调用。默认情况下，MyBatis允许使用插件来拦截方法调用：</p>
+<p>&nbsp;</p>
+<ul>
+<li>Executor(update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)</li>
+<li>ParameterHandler(getParameterObject, setParameters)</li>
+<li>ResultSetHandler(handleResultSets, handleOutputParameters)</li>
+<li>StatementHandler(prepare, parameterize, batch, update, query)</li>
+</ul>
+<p>&nbsp;</p>
+<p>这些类中方法的详情可以通过查看每个方法的签名来发现，而且它们的源代码在MyBatis的发行包中有。你应该理解你覆盖方法的行为，假设你所做的要比监视调用要多。如果你尝试修改或覆盖一个给定的方法，你可能会打破MyBatis的核心。这是低层次的类和方法，要谨慎使用插件。</p>
+<p>使用插件是它们提供的非常简单的力量。简单实现拦截器接口，要确定你想拦截的指定签名。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="4-7-environments环境"><a title="4.7 environments环境" class="headerlink" href="#4-7-environments环境"></a>4.7 environments环境</h2><p>MyBatis&nbsp;可以配置多个环境。这可以帮助你SQL&nbsp;映射对应多种数据库等。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="4-8-mappers映射器"><a title="4.8 mappers映射器" class="headerlink" href="#4-8-mappers映射器"></a>4.8 mappers映射器</h2><p>这里是告诉MyBatis&nbsp;去哪寻找映射SQL&nbsp;的语句。可以使用类路径中的资源引用，或者使用字符，输入确切的URL引用。</p>
+<p>例如：</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Xml代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li><strong>&lt;****mappers****&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****mapper**&nbsp;resource=”com/manager/data/maps/UserMapper.xml”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****mapper**&nbsp;resource=”com/manager/data/maps/StudentMapper.xml”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;****mapper**&nbsp;resource=”com/manager/data/maps/ClassMapper.xml”&nbsp;**/&gt;</strong>&nbsp;&nbsp;</li>
+<li><strong>&lt;/****mappers****&gt;</strong></li>
+</ol>
+<p>&nbsp;</p>
+</li></ol>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java%E4%B8%8E%E5%90%8E%E7%AB%AF/">Java与后端</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/mybatis/">mybatis</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%9B%9B%E3%80%81MyBatis%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" data-title="四、MyBatis主配置文件 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/原子操作_与java线程有关_/" title="原子操作(与java线程有关)">
+  <strong>上一篇：</strong><br/>
+  <span>
+  原子操作(与java线程有关)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/启动画面自定义动画/"  title="启动画面自定义动画">
+ <strong>下一篇：</strong><br/> 
+ <span>启动画面自定义动画
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/四、MyBatis主配置文件/" data-title="四、MyBatis主配置文件" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%9B%9B%E3%80%81MyBatis%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81MyBatis%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">四、MyBatis主配置文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81MyBatis%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-1"><span class="toc-number">2.</span> <span class="toc-text">四、MyBatis主配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-properties%E5%B1%9E%E6%80%A7"><span class="toc-number">2.1.</span> <span class="toc-text">4.1 properties属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-settings%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">4.2 settings设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-typeAliases%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D"><span class="toc-number">2.3.</span> <span class="toc-text">4.3 typeAliases类型别名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-typeHandlers%E7%B1%BB%E5%9E%8B%E5%8F%A5%E6%9F%84"><span class="toc-number">2.4.</span> <span class="toc-text">4.4 typeHandlers类型句柄</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-ObjectFactory%E5%AF%B9%E8%B1%A1%E5%B7%A5%E5%8E%82"><span class="toc-number">2.5.</span> <span class="toc-text">4.5 ObjectFactory对象工厂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-plugins%E6%8F%92%E4%BB%B6"><span class="toc-number">2.6.</span> <span class="toc-text">4.6 plugins插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-7-environments%E7%8E%AF%E5%A2%83"><span class="toc-number">2.7.</span> <span class="toc-text">4.7 environments环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-8-mappers%E6%98%A0%E5%B0%84%E5%99%A8"><span class="toc-number">2.8.</span> <span class="toc-text">4.8 mappers映射器</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

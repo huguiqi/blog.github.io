@@ -1,0 +1,1010 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>如何向App Store提交应用 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="如何向App Store提交应用app上传 Ios技术文章收录 【新手教程】如何向App Store提交应用发布于：2013-05-08 15:30阅读数：6396 分享到：新浪微博)腾讯微博)邮件)QQ空间当你克服重重困难终于开发出了自己的App，下一步就是向App Store提交应用了，这时应该如何操作呢？我的App真的准备好提交了？我敢肯定这些问题将会浮现在你的脑海。基于这篇教程，我将告诉">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何向App Store提交应用">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%A6%82%E4%BD%95%E5%90%91App%20Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="如何向App Store提交应用app上传 Ios技术文章收录 【新手教程】如何向App Store提交应用发布于：2013-05-08 15:30阅读数：6396 分享到：新浪微博)腾讯微博)邮件)QQ空间当你克服重重困难终于开发出了自己的App，下一步就是向App Store提交应用了，这时应该如何操作呢？我的App真的准备好提交了？我敢肯定这些问题将会浮现在你的脑海。基于这篇教程，我将告诉">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/333.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/334.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/335.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/336.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/337.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/202.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/203.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/338.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/339.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/340.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/341.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/342.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/343.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/204.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2013-05-15T14:28:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios技术文章收录">
+<meta property="article:tag" content="app上传">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/333.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/如何向App Store提交应用/" title="如何向App Store提交应用" itemprop="url">如何向App Store提交应用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">如何向App Store提交应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%90%E6%96%B0%E6%89%8B%E6%95%99%E7%A8%8B%E3%80%91%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8"><span class="toc-number">1.1.</span> <span class="toc-text">【新手教程】如何向App Store提交应用</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="如何向App-Store提交应用"><a title="如何向App Store提交应用" class="headerlink" href="#如何向App-Store提交应用"></a>如何向App Store提交应用</h1><p><code>app上传</code> <code>Ios技术文章收录</code></p>
+<h2 id="【新手教程】如何向App-Store提交应用"><a title="【新手教程】如何向App Store提交应用" class="headerlink" href="#【新手教程】如何向App-Store提交应用"></a>【新手教程】如何向App Store提交应用</h2><p>发布于：2013-05-08 15:30阅读数：6396</p>
+<p><a target="_blank" rel="noopener" href="http://www.jiathis.com/share/">分享到：</a><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%22">新浪微博</a>)<a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E8%85%BE%E8%AE%AF%E5%BE%AE%E5%8D%9A%22">腾讯微博</a>)<a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E9%82%AE%E4%BB%B6%22">邮件</a>)<a href="%22%E5%88%86%E4%BA%AB%E5%88%B0QQ%E7%A9%BA%E9%97%B4%22">QQ空间</a><br>当你克服重重困难终于开发出了自己的App，下一步就是向App Store提交应用了，这时应该如何操作呢？我的App真的准备好提交了？我敢肯定这些问题将会浮现在你的脑海。基于这篇教程，我将告诉</p>
+<p>“”</p>
+<p><a href="">阅读器</a></p>
+<p><img loading="lazy" alt="-333.png" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/333.png"></p>
+<p>&nbsp;<br>作者：Bart Jacobs<br>当你克服重重困难终于开发出了自己的App，下一步就是向App Store提交应用了，这时应该如何操作呢？我的App真的准备好提交了？我敢肯定这些问题将会浮现在你的脑海。基于这篇教程，我将告诉你一个完整的提交过程。</p>
+<p>&nbsp;</p>
+<p><strong>推荐阅读：</strong><a target="_blank" rel="noopener" href="http://www.cocoachina.com/special/market.html"><strong>App Store提交上线和市场推广专题</strong></a></p>
+<p>&nbsp;</p>
+<p><strong>介绍</strong></p>
+<p>我们都知道苹果审核的过程就像是在“黑箱”操作，但这并不妨碍你为这个审核过程做一些事先的准备。苹果的App Store审核指南已经告诉你哪些是允许的，哪些是不允许的。当你第一次提交你的应用到苹果的时候，这是一个令人兴奋而但又伤脑筋的过程。即使再有经验的开发者也会措手不及，毕竟这事不像写代码每天都干。</p>
+<p>&nbsp;</p>
+<p><strong>前提</strong></p>
+<p>在向App Store提交应用的前提是你已经成为苹果iOS开发者项目成员之一，你已经向苹果缴纳了99美元/年的费用。<a target="_blank" rel="noopener" href="https://developer.apple.com/programs/ios/">你可以通过此链接注册成为苹果iOS开发者项目成员</a>。点击<strong>Enroll Now</strong>按钮。</p>
+<p><img loading="lazy" alt="-334.png" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/334.png"></p>
+<p>&nbsp;图1.注册成为iOS开发者</p>
+<p><strong>1.你的应用已经准备好了吗？</strong></p>
+<p>Step1.测试</p>
+<p>写完最后一行代码或者执行完最后一个功能并不意味着你的App已经完成了，你是否让你的应用在多个设备上进行测试了？你的应用是否有内存泄露的问题？你的应用程序是否总是崩溃？这几年，iOS设备市场规模增长迅猛，你必须保证你的应用已经在尽可能多的设备上通过测试。常见的问题比如你是否在iPhone 5的4寸屏幕到iPad Mini的7.9寸屏幕上都通过了测试。</p>
+<p>&nbsp;</p>
+<p>iOS模拟器非常有用，但它是在Mac上运行的，内存和处理能力要比你口袋中的手机强大很多，一款iPhone 3GS和iPhone 5的性能差别更不用多说。作为iOS开发者，你可不能冒着风险长期使用一款过时的iOS设备来创建和维护App，即便App可以在老的iOS设备上很好地运行，但不代表也可以在新设备上跑的顺畅。</p>
+<p>&nbsp;</p>
+<p>苹果的审核是封闭的，但能减少不完善的性能表现给用户带来的糟糕体检。如果你的应用时常崩溃，或者启动后不久运行速递变得缓慢迟滞，那在向App Store提交之前你还有不少工作要做。即便苹果审核人员不能发现App存在的问题，但用户会发现。如果用户体验很差，那么用户会给你的差评或者低分，进一步影响到应用的销售和下载。</p>
+<p>&nbsp;</p>
+<p>Step2.规则和指南</p>
+<p>就像我前面所说的，苹果为开发者提供了很多文档资料，开发者尤其要注意<a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/#documentation/userexperience/conceptual/mobilehig/Introduction/Introduction.html">iOS人机交互指南</a>和<a target="_blank" rel="noopener" href="https://developer.apple.com/appstore/resources/approval/guidelines.html">App Store审核指南</a>，不过不少开发者没有精力或者难以静下心来认真研读这些文档，那么你的应用将会因为这些文档中列出的要求而被一再拒绝。</p>
+<p>&nbsp;</p>
+<p>再退一步说，即便你没有研读iOS人机交互指南和App Store审核指南，但开发者也要知道大家常说的那些规则，如下我列出了一些你的应用应该和不应该做的事情。</p>
+<p>你的应用：</p>
+<p>不能崩溃</p>
+<p>不能使用私有API，</p>
+<p>不能复制原生app的功能，</p>
+<p>应该使用IAP（应用内付费）金融交易</p>
+<p>不能在用户不知情的情况下使用相机或者麦克风</p>
+<p>应该使用有版权的图片</p>
+<p>&nbsp;</p>
+<p>这些只是上边所说的文档内容中很小的一部分。iOS人机交互指南和App Store审核指南内容更多是非常琐碎的。但有的小地方你也许会不经意的违反。比如，在苹果使用启用自家地图之前，MapKit framework使用的是谷歌地图，用户也非常清楚谷歌的logo会放在每张地图的左下角，如果你的应用的用户界面覆盖了谷歌的logo，那么苹果就会拒绝你的应用。虽然这非常琐碎，但也是不少开发者经常“犯错误”的地方。</p>
+<p><strong>2.预先准备</strong></p>
+<p>在你开始将程序提交到App Store之前，你需要有一个App ID，一个有效的发布证书，以及一个有效的Provisioning profile。下面来看看它们各自的作用。</p>
+<p>&nbsp;</p>
+<p>Step 1: App ID（应用ID）</p>
+<p>App ID是识别不同应用程序的唯一标示符。每个app都需要一个App ID或者app标识。目前有两种类型的App标识：一个是精确的App ID（<strong>explicit App ID</strong>），一个是通配符App ID（<strong>wildcard App ID</strong>）。使用通配符的App ID可以用来构建和安装多个程序。尽管通配符App ID非常方便，但是一个精确的App ID也是需要的，尤其是当App使用iCloud 或者使用其他iOS功能的时候，比如Game Center、Push Notifications或者IAP。</p>
+<p>&nbsp;</p>
+<p>如果你不确定什么样的App ID适合你的项目，我推荐你读下苹果关于这一主题的文档：<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/#qa/qa1713/_index.html">Technical Note QA1713</a>。</p>
+<p>&nbsp;</p>
+<p>Step 2: Distribution Certificate(发布证书)</p>
+<p>iOS应用都有一个安全证书用于验证开发者身份和签名。为了可以向App Store提交app，你需要创建一个iOS provisioning profile 。首先需要创建一个distribution certificate（发布证书），过程类似于创建一个development certificate（开发证书）。如果你已经在实体设备上测试你的App，那么你对创建development certificate就已经很熟悉了。</p>
+<p>&nbsp;</p>
+<p>如果对此不熟悉，我建议你读下<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/#documentation/IDEs/Conceptual/AppDistributionGuide/CodeSigningYourApps/CodeSigningYourApps.html">苹果关于signing certificates和provisioning profiles的详细指导</a>。</p>
+<p>&nbsp;</p>
+<p>Step 3: Provisioning Profile(配置文件)</p>
+<p>一旦你创建了App ID和distribution certificate，你可以创建一个iOS provisioning profile以方便在App Store中销售你的App。不过，你不能使用和ad hoc distribution相同的provisioning profile。你需要为App Store分销创建一个单独的provisioning profile，如果你使用通配符App ID，那么你的多个app就可以使用相同的provisioning profile。</p>
+<p>&nbsp;</p>
+<p>Step 4: Build Settings(生成设置)</p>
+<p>配置App ID、distribution certificate 和provisioning profile已经完成，是时候配置Xcode中target的build settings了。在Xcode&nbsp;<strong>Project&nbsp; Navigator</strong>的targets列表中选择一个target，打开顶部的<strong>Build Settings</strong>选项，然后更新一下<strong>Code Signing</strong>来跟之前创建的distribution provisioning profile相匹配。最近添加的provisioning profiles有时候不会立马就在build settings的<strong>Code Signing</strong>中看到，重启一下Xcode就可以解决这个问题。</p>
+<p><img loading="lazy" alt="-335.png" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/335.png"></p>
+<p>图2：配置Target的Build Settings</p>
+<p>Step 5: Deployment Target(部署目标)</p>
+<p>非常有必要说下deployment target，Xcode中每个target都有一个deployment target，它可以指出app可以运行的最小版本。不过，一旦应用在App Store中生效，再去修改deployment target，你要考虑到一定后果。如果你在更新app的时候提高了deployment target，但是已经购买应用的用户并没有遇到新的deployment target，那么应用就不能在用户的移动设备上运行。如果用户通过iTunes (不是设备)下载了一个更新过的app，然后替代了设备上原先的版本，最后却发现新版本不能在设备上运行，这确实是个问题。</p>
+<p>&nbsp;</p>
+<p>对此我有两个方法</p>
+<p>(1) 当你决定提高现有app的deployment target时，要在新版本的版本注释中进行说明。如果你提前告知用户，那么至少有一点，你已经尽力阻止问题的发生了。</p>
+<p>&nbsp;</p>
+<p>(2) 对于一款新app，我经常会把deployment target设置为最近发布的系统版本。因为新iOS版本发布后，渗透率的增长速度是令人难以置信的。很多人认为提高deployment target会失去大部分市场，这个说法并不准确，比如iOS 6，<a target="_blank" rel="noopener" href="http://gigaom.com/2012/10/22/1-month-later-ios-6-adoption-hits-61-percent-in-u-s-canada/">iOS 6发布后一个月，超过60%的设备已经进行了更新</a>。但对Android而言，就是另外一回事了，<a target="_blank" rel="noopener" href="http://thenextweb.com/google/2012/11/02/android-4-1-jelly-bean-hits-2-7-adoption-ics-at-25-8-gingerbread-still-on-over-half-of-devices/">Android用户并不会像iOS用户那样热衷于更新操作系统版本</a>。</p>
+<p><strong>3. Assets(资源包)</strong></p>
+<p>Step 1: Icons(图标)</p>
+<p>Icon是App中不可分割的一部分，你要确保icon尺寸不会出现差错。</p>
+<p>iTunes Artwork: 1024px x 1024px (required)</p>
+<p>iPad/iPad Mini: 72px x 72px&nbsp;<strong>and</strong>&nbsp;114px x 114px (required)</p>
+<p>iPhone/iPod Touch: 57px x 57px&nbsp;<strong>and�</strong>�114px x 114px (required)</p>
+<p>Search Icon: 29px x 29px&nbsp;<strong>and</strong>&nbsp;58px x 58px (optional)</p>
+<p>Settings Application: 50px x 50px&nbsp;<strong>and</strong>&nbsp;100px x 100px (optional)</p>
+<p>&nbsp;</p>
+<p>Step 2: 屏幕截图</p>
+<p>屏幕截图的作用不言而喻，你可以为每个app上传5张截图，虽然至少需要上传一张，可能很少有人会只上传一张图片。另外，你还需要分别为iPhone/iPod Touch和iPad/iPad Mini准备不同的屏幕截图。这也是不小的工作量，但却能展示应用的另一面。Shiny Development开发的一款售价6.99美元的Mac软件<a target="_blank" rel="noopener" href="http://shinydevelopment.com/status-magic/">Status Magic</a>可以为你节省不少时间。Status Magic可以帮你把状态栏放在截图的正确位置。</p>
+<p>&nbsp;</p>
+<p>屏幕截图和icon是应用给用户的第一感觉，直接关系到用户会不会购买。不过，你所上传的屏幕截图也不一定非得是实际的截图，看看<a target="_blank" rel="noopener" href="https://itunes.apple.com/us/app/wheres-my-water/id449735650">Where’s My Water?</a>&nbsp;截图可以通过使用此策略，更具吸引力和说服力。</p>
+<p>&nbsp;</p>
+<p>Step 3: 元数据</p>
+<p>在提交应用之前，要管理好app的元数据，包括1应用名称、2版本号、3主要类别，4简洁的描述，5关键词，6.支持URL。如果你需要更新应用，你还要提供新增加的版本内容。</p>
+<p>&nbsp;</p>
+<p>如果你的应用需要注册吗，你还得向苹果提供一个测试账户或者demo账户，这样审核人员就能很快进入app，而不用再注册账号。</p>
+<p>&nbsp;</p>
+<p><strong>4. 提交准备</strong></p>
+<p>Xcode 4以后，开发者提交应用的过程就简单多了，可以直接使用Xcode进行提交。首先在<a target="_blank" rel="noopener" href="https://itunesconnect.apple.com/">iTunes Connect</a>中创建app，访问iTunes Connect，使用你的iOS开发者账号登陆，点击右边的“<strong>Manage Your Apps</strong>”，点击左上角的“<strong>Add New App</strong>”，选择“<strong>iOS App</strong>”，然后完成表格。</p>
+<p><img loading="lazy" alt="-336.png" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/336.png"></p>
+<p>&nbsp;</p>
+<p>图3.浏览iTunes Connect页面<br>Step 1: 完成基本信息</p>
+<p>出现在App Store中App的名字要做到独一无二, 这个名字可以不同于主屏幕icon下边的名字，不过推荐使用相同的名字。</p>
+<p>&nbsp;</p>
+<p><strong>SKU Number</strong>是一个用来识别app的特殊字符串。我经常使用app的bundle identifier。最下边是app的<strong>Bundle ID</strong>，你可以从下来菜单中选择通配符App ID或者准确的App ID。</p>
+<p><img loading="lazy" alt="-337.png" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/337.png"></p>
+<p>图4.指定名称、SKU Number以及Bundle ID</p>
+<p>&nbsp;</p>
+<p>Step 2:价格和有效性</p>
+<p>下一步，确定app的价格和有效性。苹果已经确定好了价格梯度，所以你不需要分别选择各个国家中app售价，你只需要指定在哪个国家的应用商店出售即可。在App Store显示这款应用之后，这一过程中填的信息还可以被修改，也就是说你可以更改价格，并且不需要提交或更新。</p>
+<p><img loading="lazy" alt="-202.jpg" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/202.jpg"></p>
+<p>图5.指定价格和有效性<br>Step 3: 元数据</p>
+<p>我们已经说过元数据了，不过还没有说应用评级。根据应用的内容和功能，苹果会给应用一定评级，比如很多应用是4+，500px是17+。除了告诉用户app的内容和功能，也可以让孩子的父母放心。</p>
+<p>&nbsp;</p>
+<p>如果你的应用等级跟内容不符合，苹果也会拒绝你的应用。</p>
+<p><img loading="lazy" alt="-203.jpg" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/203.jpg"></p>
+<p>图6.键入应用元数据和评级</p>
+<p>&nbsp;Step 4: 准备上传二进制文件</p>
+<p>提交完app的元数据后，你会看到关于app的一些摘要信息，你应该在提交之前看看app的版本。点击“<strong>View Details</strong>”按钮，再点击右上角的“<strong>Ready to Upload Binary</strong>”。然后系统会问你一个或几个关于app的问题，完成后，你会看到提示信息，告诉你准备上传二进制文件。app的状态就变成“<strong>Waiting for Upload</strong>”。</p>
+<p><img loading="lazy" alt="-338.png" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/338.png"></p>
+<p>图7.App概要</p>
+<p>&nbsp;<strong>5. 上传二进制文件</strong></p>
+<p>为了上传程序，需要为程序创建一个archive。你只能在一台真实设备上创建一个<strong>archive</strong>。如果你在active scheme中选择了iOS Simulator，那么在Xcode的Product菜单中Archive选项是灰色不可选的。连接一台iOS设备到Mac机器上，然后在active scheme中选择这台设备，然后选择Xcode中Product菜单里面的Archive。</p>
+<p><img loading="lazy" alt="-339.png" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/339.png"></p>
+<p>图8.使用Xcode对应用程序进行归档（Archiving）</p>
+<p>&nbsp;如果一切正常的话，现在你会获得一个archive，并且Xcode的<strong>Organizer</strong>会自动打开，并显示出刚刚生成的archive。在列表中选中archive，然后点击右边的“<strong>Distribute</strong>”按钮。在显示出来的画面中，选择“<strong>Submit to the iOS App Store</strong>”。然后输入你的iOS开发者账号进行认证。接着选择<strong>Application�</strong>�和<strong>Code Signing Identity</strong>。</p>
+<p>&nbsp;</p>
+<p>应用程序的二进制文件会上传到苹果的服务器中——在这个过程中，你的程序同样需要被验证。如果在验证过程中遇到了错误，程序的提交流程就会失败。验证处理非常有用，如果程序中有一些错误，苹果的 App Store评审团会告诉你具体原因。</p>
+<p><img loading="lazy" alt="-340.png" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/340.png"></p>
+<p>图9.使用Xcode对应用程序进行归档（Archiving）<br>&nbsp;<br><img loading="lazy" alt="-341.png" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/341.png"></p>
+<p>图10.把应用提交至iOS App Store<br>&nbsp;<br><img loading="lazy" alt="-342.png" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/342.png"></p>
+<p>图11.键入iOS开发者<br>&nbsp;<br><img loading="lazy" alt="-343.png" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/343.png"></p>
+<p>图12.选择Application和Code Signing Identity<br>&nbsp;<br><img loading="lazy" alt="-204.jpg" src="/images/notes/%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/204.jpg"></p>
+<p>图13.验证失败会有错误提示</p>
+<p><strong>6.等�</strong>�</p>
+<p>上传完成后，app状态就变成“<strong>Waiting for Review</strong>”了。</p>
+<p>&nbsp;</p>
+<p><strong>总结</strong></p>
+<p>新应用提交过程比较长，只是更新的话就很快了。如果你的应用需要进行本地化就会涉及到很多，因为一些基本的信息都需要进行本地化。不过，这个过程是值得的，毕竟更多的用户会给你带来更多下载和利润。</p>
+<p>&nbsp;</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios技术文章收录/">Ios技术文章收录</a><a href="/tags/app上传/">app上传</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%A6%82%E4%BD%95%E5%90%91App%20Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/" data-title="如何向App Store提交应用 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/天猫技术团队使用 React Native 代替 H5 实现产品化落地/" title="天猫技术团队使用 React Native 代替 H5 实现产品化落地">
+  <strong>上一篇：</strong><br/>
+  <span>
+  天猫技术团队使用 React Native 代替 H5 实现产品化落地</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/如何去解决fatal_ refusing to merge unrelated histories - 难不难的博客 - CSDN博客/"  title="如何去解决fatal: refusing to merge unrelated histories - 难不难的博客 - CSDN博客">
+ <strong>下一篇：</strong><br/> 
+ <span>如何去解决fatal: refusing to merge unrelated histories - 难不难的博客 - CSDN博客
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/如何向App Store提交应用/" data-title="如何向App Store提交应用" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%A6%82%E4%BD%95%E5%90%91App%20Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">如何向App Store提交应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%90%E6%96%B0%E6%89%8B%E6%95%99%E7%A8%8B%E3%80%91%E5%A6%82%E4%BD%95%E5%90%91App-Store%E6%8F%90%E4%BA%A4%E5%BA%94%E7%94%A8"><span class="toc-number">1.1.</span> <span class="toc-text">【新手教程】如何向App Store提交应用</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

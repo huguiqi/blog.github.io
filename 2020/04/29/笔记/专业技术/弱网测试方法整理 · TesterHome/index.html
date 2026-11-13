@@ -1,0 +1,905 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>弱网测试方法整理 · TesterHome | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="弱网测试方法整理 · TesterHome前端测试 弱网测试方法整理  Tank007 · 发布于 2017年2月10日 · 最后由 Raynor 回复于 3 月前 · 8964 次阅读  本帖已被设为精华帖！  背景:昨天和几个同事讨论弱网测试方法，发现并不是很多人在没有公司专门开发的弱网工具的前提下，知道如何去进行弱网的模拟测试，于是就整理了以下几种测试方法，供大家参考！  下面只是对弱网设置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="弱网测试方法整理 · TesterHome">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86%20%C2%B7%20TesterHome/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="弱网测试方法整理 · TesterHome前端测试 弱网测试方法整理  Tank007 · 发布于 2017年2月10日 · 最后由 Raynor 回复于 3 月前 · 8964 次阅读  本帖已被设为精华帖！  背景:昨天和几个同事讨论弱网测试方法，发现并不是很多人在没有公司专门开发的弱网工具的前提下，知道如何去进行弱网的模拟测试，于是就整理了以下几种测试方法，供大家参考！  下面只是对弱网设置">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/346.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/347.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/348.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/349.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/350.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/351.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/352.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/353.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/354.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/355.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2017-06-01T07:34:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/346.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/弱网测试方法整理 · TesterHome/" title="弱网测试方法整理 · TesterHome" itemprop="url">弱网测试方法整理 · TesterHome</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-%C2%B7-TesterHome"><span class="toc-number">1.</span> <span class="toc-text">弱网测试方法整理 · TesterHome</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95-%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">前端测试 弱网测试方法整理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">背景:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E8%A6%81%E7%82%B9"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">弱网测试要点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E5%88%A9%E7%94%A8%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7charles%E8%BF%9B%E8%A1%8C%E5%BC%B1%E7%BD%91%E8%AE%BE%E7%BD%AE%EF%BC%8C%E9%80%82%E7%94%A8PC%E7%AB%AF%E5%92%8C%E7%A7%BB%E5%8A%A8%E7%AB%AF%EF%BC%88IOS%EF%BC%8FAndroid%EF%BC%89"><span class="toc-number">2.0.0.3.1.</span> <span class="toc-text">方法一：利用抓包工具charles进行弱网设置，适用PC端和移动端（IOS／Android）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%EF%BC%8C%E9%80%82%E7%94%A8web%E7%AB%AF"><span class="toc-number">2.0.0.3.2.</span> <span class="toc-text">方法二：使用chrome浏览器的开发者工具，适用web端</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%89%8B%E6%9C%BA%E8%87%AA%E5%B8%A6%E7%9A%84%E9%99%90%E9%80%9F%E5%8A%9F%E8%83%BD%EF%BC%8C%E5%8F%AA%E9%80%82%E7%94%A8IOS%E8%AE%BE%E5%A4%87"><span class="toc-number">2.0.0.3.3.</span> <span class="toc-text">方法三：使用手机自带的限速功能，只适用IOS设备</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%9B%9B%EF%BC%9A%E9%9C%80%E8%A6%81%E7%A1%AC%E4%BB%B6%E8%AE%BE%E5%A4%87%EF%BC%88%E8%B7%AF%E7%94%B1%E5%99%A8%E6%88%96%E8%80%85%E7%BD%91%E5%8D%A1%EF%BC%89"><span class="toc-number">2.0.0.3.4.</span> <span class="toc-text">方法四：需要硬件设备（路由器或者网卡）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%95%B0%E6%8D%AE%EF%BC%9A"><span class="toc-number">2.0.0.4.</span> <span class="toc-text">参考数据：</span></a></li></ol></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="弱网测试方法整理-·-TesterHome"><a title="弱网测试方法整理 · TesterHome" class="headerlink" href="#弱网测试方法整理-·-TesterHome"></a>弱网测试方法整理 · TesterHome</h1><h1 id="前端测试-弱网测试方法整理"><a title="前端测试 弱网测试方法整理" class="headerlink" href="#前端测试-弱网测试方法整理"></a>前端测试 弱网测试方法整理</h1><p>  <a target="_blank" rel="noopener" href="https://testerhome.com/Tank007">Tank007</a> · 发布于 2017年2月10日 · 最后由 <a target="_blank" rel="noopener" href="https://testerhome.com/Raynor">Raynor</a> 回复于 3 月前 · 8964 次阅读<br>  本帖已被设为精华帖！ </p>
+<h4 id="背景"><a title="背景:" class="headerlink" href="#背景"></a>背景:</h4><p>昨天和几个同事讨论弱网测试方法，发现并不是很多人在没有公司专门开发的弱网工具的前提下，知道如何去进行弱网的模拟测试，于是就整理了以下几种测试方法，供大家参考！</p>
+<p> 下面只是对弱网设置的界面进行了简单的介绍，有兴趣的童鞋可以深入研究，另外还有一些弱网模拟的数据本文主要摘录自网上，每个公司可能会不一样，如果对测试方法或者数据有什么建议，也欢迎指正，大家共同学习。</p>
+<h4 id="弱网测试要点"><a title="弱网测试要点" class="headerlink" href="#弱网测试要点"></a>弱网测试要点</h4><p><a target="_blank" rel="noopener" href="https://testerhome.com/uploads/photo/2017/3ece7b413a889bdc8c79549b9723bb48.png!large"><img loading="lazy" alt="-346.png" src="/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/346.png"></a></p>
+<h4 id="方法"><a title="方法" class="headerlink" href="#方法"></a>方法</h4><h5 id="方法一：利用抓包工具charles进行弱网设置，适用PC端和移动端（IOS／Android）"><a title="方法一：利用抓包工具charles进行弱网设置，适用PC端和移动端（IOS／Android）" class="headerlink" href="#方法一：利用抓包工具charles进行弱网设置，适用PC端和移动端（IOS／Android）"></a>方法一：利用抓包工具charles进行弱网设置，适用PC端和移动端（IOS／Android）</h5><p>1.以charles 4.0版本为例，打开Proxy-&gt;Throttle Settings</p>
+<p><a target="_blank" rel="noopener" href="https://testerhome.com/uploads/photo/2017/74e1c83ee24104e147827f57dc448669.png!large"><img loading="lazy" alt="-347.png" src="/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/347.png"></a></p>
+<p>2.打开Throttle Settings界面如下</p>
+<p><a target="_blank" rel="noopener" href="https://testerhome.com/uploads/photo/2017/18aafd969071fb577d679ca9f9345e10.png!large"><img loading="lazy" alt="-348.png" src="/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/348.png"></a></p>
+<p>3.charles的预设已经有常用的网速模拟设置，根据需要设置即可，当然也可以自己添加预设，自己去研究吧。</p>
+<p>PS：fiddle抓包弱网模拟，FaceBook工具ATC弱网模拟，可参考这篇<a target="_blank" rel="noopener" href="http://blog.csdn.net/swordgirl2011/article/details/51765237">文�</a>�</p>
+<h5 id="方法二：使用chrome浏览器的开发者工具，适用web端"><a title="方法二：使用chrome浏览器的开发者工具，适用web端" class="headerlink" href="#方法二：使用chrome浏览器的开发者工具，适用web端"></a>方法二：使用chrome浏览器的开发者工具，适用web端</h5><p>1.打开开发者工具</p>
+<p><a target="_blank" rel="noopener" href="https://testerhome.com/uploads/photo/2017/43b268060f9a7fccb2fe4c2c7a9b3ec3.png!large"><img loading="lazy" alt="-349.png" src="/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/349.png"></a></p>
+<p>2.打开Network，点击No throttling下拉框</p>
+<p><a target="_blank" rel="noopener" href="https://testerhome.com/uploads/photo/2017/910468a507e2e12b7cb3e08e398f7556.png!large"><img loading="lazy" alt="-350.png" src="/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/350.png"></a></p>
+<p>一样有很多的预设，可根据自己的需要选择，也支持自定义添加</p>
+<p><a target="_blank" rel="noopener" href="https://testerhome.com/uploads/photo/2017/457ad6da0cf614bf1b8ff098f2114e72.png!large"><img loading="lazy" alt="-351.png" src="/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/351.png"></a></p>
+<h5 id="方法三：使用手机自带的限速功能，只适用IOS设备"><a title="方法三：使用手机自带的限速功能，只适用IOS设备" class="headerlink" href="#方法三：使用手机自带的限速功能，只适用IOS设备"></a>方法三：使用手机自带的限速功能，只适用IOS设备</h5><p>1.打开IOS设备，设置-&gt;开发者-&gt;NETWORK LINK CONDITIONER</p>
+<p><a target="_blank" rel="noopener" href="https://testerhome.com/uploads/photo/2017/d64e778655102d233110e322bab02c1c.png!large"><img loading="lazy" alt="-352.png" src="/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/352.png"></a></p>
+<p>2.打开Status进入后，选择预设或者自定义设置</p>
+<p><a target="_blank" rel="noopener" href="https://testerhome.com/uploads/photo/2017/71edef6d6d030ffbfef7202e1801e7fe.png!large"><img loading="lazy" alt="-353.png" src="/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/353.png"></a></p>
+<h5 id="方法四：需要硬件设备（路由器或者网卡）"><a title="方法四：需要硬件设备（路由器或者网卡）" class="headerlink" href="#方法四：需要硬件设备（路由器或者网卡）"></a>方法四：需要硬件设备（路由器或者网卡）</h5><p>主要工具：NEWT／ATC／WANem</p>
+<p>这里就不详细介绍了，每一个工具的使用，都能单独写一篇文档了，下面提供了两个链接供大家参考！</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/youce/article/details/51890371">点我查看相关资料1</a></p>
+<p><a target="_blank" rel="noopener" href="https://testerhome.com/topics/482">点我查看相关资料2</a></p>
+<h4 id="参考数据："><a title="参考数据：" class="headerlink" href="#参考数据："></a>参考数据：</h4><p><a target="_blank" rel="noopener" href="https://testerhome.com/uploads/photo/2017/e4099bdb5b354a0eaacf569cba006039.png!large"><img loading="lazy" alt="-354.png" src="/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/354.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://testerhome.com/uploads/photo/2017/a73e4ab9d51093b0d4ab9dd025f1c75b.png!large"><img loading="lazy" alt="-355.png" src="/images/notes/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-TesterHome/355.png"></a></p>
+<p><a target="_blank" rel="noopener" href="http://www.doc88.com/p-3015598697603.html">数据来源链接</a></p>
+<p>  「保留所有权利，禁止转载」 </p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86%20%C2%B7%20TesterHome/" data-title="弱网测试方法整理 · TesterHome | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/开源中国 Maven 库/" title="开源中国 Maven 库">
+  <strong>上一篇：</strong><br/>
+  <span>
+  开源中国 Maven 库</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/尝试 ES6 中的箭头函数 _ JerryQu 的小站/"  title="尝试 ES6 中的箭头函数 | JerryQu 的小站">
+ <strong>下一篇：</strong><br/> 
+ <span>尝试 ES6 中的箭头函数 | JerryQu 的小站
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/弱网测试方法整理 · TesterHome/" data-title="弱网测试方法整理 · TesterHome" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86%20%C2%B7%20TesterHome/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86-%C2%B7-TesterHome"><span class="toc-number">1.</span> <span class="toc-text">弱网测试方法整理 · TesterHome</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95-%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">前端测试 弱网测试方法整理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">背景:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%B1%E7%BD%91%E6%B5%8B%E8%AF%95%E8%A6%81%E7%82%B9"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">弱网测试要点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E5%88%A9%E7%94%A8%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7charles%E8%BF%9B%E8%A1%8C%E5%BC%B1%E7%BD%91%E8%AE%BE%E7%BD%AE%EF%BC%8C%E9%80%82%E7%94%A8PC%E7%AB%AF%E5%92%8C%E7%A7%BB%E5%8A%A8%E7%AB%AF%EF%BC%88IOS%EF%BC%8FAndroid%EF%BC%89"><span class="toc-number">2.0.0.3.1.</span> <span class="toc-text">方法一：利用抓包工具charles进行弱网设置，适用PC端和移动端（IOS／Android）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%EF%BC%8C%E9%80%82%E7%94%A8web%E7%AB%AF"><span class="toc-number">2.0.0.3.2.</span> <span class="toc-text">方法二：使用chrome浏览器的开发者工具，适用web端</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%89%8B%E6%9C%BA%E8%87%AA%E5%B8%A6%E7%9A%84%E9%99%90%E9%80%9F%E5%8A%9F%E8%83%BD%EF%BC%8C%E5%8F%AA%E9%80%82%E7%94%A8IOS%E8%AE%BE%E5%A4%87"><span class="toc-number">2.0.0.3.3.</span> <span class="toc-text">方法三：使用手机自带的限速功能，只适用IOS设备</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%9B%9B%EF%BC%9A%E9%9C%80%E8%A6%81%E7%A1%AC%E4%BB%B6%E8%AE%BE%E5%A4%87%EF%BC%88%E8%B7%AF%E7%94%B1%E5%99%A8%E6%88%96%E8%80%85%E7%BD%91%E5%8D%A1%EF%BC%89"><span class="toc-number">2.0.0.3.4.</span> <span class="toc-text">方法四：需要硬件设备（路由器或者网卡）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%95%B0%E6%8D%AE%EF%BC%9A"><span class="toc-number">2.0.0.4.</span> <span class="toc-text">参考数据：</span></a></li></ol></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

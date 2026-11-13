@@ -1,0 +1,1038 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>iOS -- 适配iPhone5界面(autosizing属性) | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="iOS – 适配iPhone5界面(autosizing属性)Ios适配 Ios技术文章收录 &amp;nbsp;### iOS – 适配iPhone5界面(autosizing属性) 分类：&amp;nbsp;iOS2013-04-11 18:00&amp;nbsp;448人阅读448人阅读&amp;nbsp;评论(0)评论(0)&amp;nbsp;收藏&amp;nbsp;举报目录(?)[+] 如何应用autosizing属性使iOS应用程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS -- 适配iPhone5界面(autosizing属性)">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%20--%20%E9%80%82%E9%85%8DiPhone5%E7%95%8C%E9%9D%A2_autosizing%E5%B1%9E%E6%80%A7_/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="iOS – 适配iPhone5界面(autosizing属性)Ios适配 Ios技术文章收录 &amp;nbsp;### iOS – 适配iPhone5界面(autosizing属性) 分类：&amp;nbsp;iOS2013-04-11 18:00&amp;nbsp;448人阅读448人阅读&amp;nbsp;评论(0)评论(0)&amp;nbsp;收藏&amp;nbsp;举报目录(?)[+] 如何应用autosizing属性使iOS应用程序">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2013-11-13T02:33:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios技术文章收录">
+<meta property="article:tag" content="Ios适配">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/iOS -- 适配iPhone5界面_autosizing属性_/" title="iOS -- 适配iPhone5界面(autosizing属性)" itemprop="url">iOS -- 适配iPhone5界面(autosizing属性)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS-%E2%80%93-%E9%80%82%E9%85%8DiPhone5%E7%95%8C%E9%9D%A2-autosizing%E5%B1%9E%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">iOS – 适配iPhone5界面(autosizing属性)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BA%94%E7%94%A8autosizing%E5%B1%9E%E6%80%A7%E4%BD%BFiOS%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%95%8C%E9%9D%A2%E9%80%82%E9%85%8DiPhone5"><span class="toc-number">1.0.1.</span> <span class="toc-text">如何应用autosizing属性使iOS应用程序界面适配iPhone5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http-blog-csdn-net-linzhiji-article-details-8000048"><span class="toc-number">1.0.2.</span> <span class="toc-text">http:&#x2F;&#x2F;blog.csdn.net&#x2F;linzhiji&#x2F;article&#x2F;details&#x2F;8000048</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http-blog-csdn-net-linzhiji-article-details-8000125"><span class="toc-number">1.0.3.</span> <span class="toc-text">http:&#x2F;&#x2F;blog.csdn.net&#x2F;linzhiji&#x2F;article&#x2F;details&#x2F;8000125</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="iOS-–-适配iPhone5界面-autosizing属性"><a title="iOS – 适配iPhone5界面(autosizing属性)" class="headerlink" href="#iOS-–-适配iPhone5界面-autosizing属性"></a>iOS – 适配iPhone5界面(autosizing属性)</h1><p><code>Ios适配</code> <code>Ios技术文章收录</code></p>
+<p>&nbsp;### <a target="_blank" rel="noopener" href="http://blog.csdn.net/jy578154186_/article/details/8789606">iOS – 适配iPhone5界面(autosizing属性)</a></p>
+<p>分类：&nbsp;<a target="_blank" rel="noopener" href="http://blog.csdn.net/jy578154186_/article/category/1360379">iOS</a>2013-04-11 18:00&nbsp;448人阅读448人阅读&nbsp;<a target="_blank" rel="noopener" href="http://blog.csdn.net/jy578154186_/article/details/8789606#comments">评论</a>(0)<a target="_blank" rel="noopener" href="http://blog.csdn.net/jy578154186_/article/details/8789606#comments">评论</a>(0)&nbsp;<a href="%22%E6%94%B6%E8%97%8F%22">收藏</a>&nbsp;<a title="举报" target="_blank" rel="noopener" href="http://blog.csdn.net/jy578154186_/article/details/8789606#report">举报</a><br>目录<a title="系统根据文章中H1到H6标签自动生成文章目录" target="_blank" rel="noopener" href="http://blog.csdn.net/jy578154186_/article/details/8789606#">(?)</a><a title="展开" target="_blank" rel="noopener" href="http://blog.csdn.net/jy578154186_/article/details/8789606#">[+]</a></p>
+<h3 id="如何应用autosizing属性使iOS应用程序界面适配iPhone5"><a title="如何应用autosizing属性使iOS应用程序界面适配iPhone5" class="headerlink" href="#如何应用autosizing属性使iOS应用程序界面适配iPhone5"></a><a target="_blank" rel="noopener" href="http://blog.csdn.net/gckjdev/article/details/8072484">如何应用autosizing属性使iOS应用程序界面适配iPhone5</a></h3><p>另外两篇适配iphone5文章：</p>
+<h3 id="http-blog-csdn-net-linzhiji-article-details-8000048"><a title="http://blog.csdn.net/linzhiji/article/details/8000048" class="headerlink" href="#http-blog-csdn-net-linzhiji-article-details-8000048"></a><a target="_blank" rel="noopener" href="http://blog.csdn.net/linzhiji/article/details/8000048">http://blog.csdn.net/linzhiji/article/details/8000048</a></h3><h3 id="http-blog-csdn-net-linzhiji-article-details-8000125"><a title="http://blog.csdn.net/linzhiji/article/details/8000125" class="headerlink" href="#http-blog-csdn-net-linzhiji-article-details-8000125"></a><a target="_blank" rel="noopener" href="http://blog.csdn.net/linzhiji/article/details/8000125">http://blog.csdn.net/linzhiji/article/details/8000125</a></h3><p>第一篇<br>iphone4程序适配iphone5方法，先安iphone4模拟器上的ui写程序所有空间都是ib脱的，什么也不用管。直到程序写好需要适配的时候在为每个xib文件复制一份改为iphone5的ui大小，重新布局，在对应类的.m文件里面initwithcoud：方法里面添加一个判断在编码时，尽量不要写死480，根据屏当前屏幕（[UIScreen mainScreen].bounds）选择size能在分辨率改变时省去不少麻烦。&nbsp;</p>
+<p>stackoverflow上代码，如何判断iphone 5</p>
+<p><strong>[html]</strong>&nbsp;<a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/linzhiji/article/details/8000048#">view plain</a><a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/linzhiji/article/details/8000048#">copy</a></p>
+<ol>
+<li>#define&nbsp;IS_IPHONE_5&nbsp;(&nbsp;fabs(&nbsp;(&nbsp;double&nbsp;)[&nbsp;[&nbsp;UIScreen&nbsp;mainScreen&nbsp;]&nbsp;bounds&nbsp;].size.height&nbsp;-&nbsp;(&nbsp;double&nbsp;)568&nbsp;)&nbsp;<strong>&lt;</strong>&nbsp;<strong>DBL_EPSILON</strong>&nbsp;)</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>如果要兼任ipad</p>
+<p><strong>[html]</strong>&nbsp;<a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/linzhiji/article/details/8000048#">view plain</a><a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/linzhiji/article/details/8000048#">copy</a></p>
+<ol>
+<li><strong>&lt;****p**&nbsp;class=”p1”**]] &gt;</strong>#define&nbsp;IS_WIDESCREEN&nbsp;(&nbsp;fabs(&nbsp;(&nbsp;double&nbsp;)[&nbsp;[&nbsp;UIScreen&nbsp;mainScreen&nbsp;]&nbsp;bounds&nbsp;].size.height&nbsp;-&nbsp;(&nbsp;double&nbsp;)<strong>&lt;****span**&nbsp;class=”s1”**]] &gt;<strong>568</strong>&lt;/****span****]] &gt;</strong>&nbsp;)&nbsp;<strong>&lt;**&nbsp;*<em>DBL_EPSILON**&nbsp;)**&lt;/****p****]] &gt;</em>***&lt;****p**&nbsp;class=”p1”**]] &gt;</strong>#define&nbsp;IS_IPHONE&nbsp;(&nbsp;[&nbsp;[&nbsp;[&nbsp;UIDevice&nbsp;currentDevice&nbsp;]&nbsp;model&nbsp;]&nbsp;isEqualToString:&nbsp;@<strong>&lt;****span**&nbsp;class=”s2”**]] &gt;</strong>“iPhone”<strong>&lt;/****span****]] &gt;</strong>&nbsp;]&nbsp;)<strong>&lt;/<strong><strong>p</strong><strong>]] &gt;</strong></strong>&lt;****p**&nbsp;class=”p1”**]] &gt;</strong>#define&nbsp;IS_IPHONE_SIMULATOR&nbsp;(&nbsp;[&nbsp;[&nbsp;[&nbsp;UIDevice&nbsp;currentDevice&nbsp;]&nbsp;model&nbsp;]&nbsp;isEqualToString:&nbsp;@<strong>&lt;****span**&nbsp;class=”s2”**]] &gt;</strong>“iPhone&nbsp;Simulator”<strong>&lt;/****span****]] &gt;</strong>&nbsp;]&nbsp;)<strong>&lt;/<strong><strong>p</strong><strong>]] &gt;</strong></strong>&lt;****p**&nbsp;class=”p1”**]] &gt;</strong>#define&nbsp;IS_IPOD&nbsp;&nbsp;&nbsp;(&nbsp;[&nbsp;[&nbsp;[&nbsp;UIDevice&nbsp;currentDevice&nbsp;]&nbsp;model&nbsp;]&nbsp;isEqualToString:&nbsp;@<strong>&lt;****span**&nbsp;class=”s2”**]] &gt;</strong>“iPod&nbsp;touch”<strong>&lt;/****span****]] &gt;</strong>&nbsp;]&nbsp;)<strong>&lt;/<strong><strong>p</strong><strong>]] &gt;</strong></strong>&lt;****p**&nbsp;class=”p1”**]] &gt;</strong>#define&nbsp;IS_IPHONE_5&nbsp;(&nbsp;((IS_IPHONE)&nbsp;||&nbsp;(IS_IPHONE_SIMULATOR))&nbsp;&amp;&amp;&nbsp;IS_WIDESCREEN&nbsp;)<strong>&lt;/****p****]] &gt;</strong></li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>第二篇<br>1.判断当前设备是iPad还是iPhone\iPod```</p>
+<pre><code>
+1. if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)&#123;
+2. NSLog(@"The Device is a iPad!");
+3. &#125;else&#123;
+4. NSLog(@"Not a iPad the device!");
+5. &#125;
+</code></pre>
+<p>2.设置横屏或者竖屏或者横竖屏</p>
+<pre><code>
+</code></pre>
+<pre><code>
+1. - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+2. &#123; 
+3. //横屏
+4. //return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+5. //竖屏
+6. //return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+7. //横竖屏
+8. //return YES;
+9. &#125;
+</code></pre>
+<p>iOS5和iOS6横竖屏同时支持<br>iOS6中抛弃了如下这个方法</p>
+<pre><code>
+</code></pre>
+<pre><code>
+1. - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+</code></pre>
+<p>为了同时支持iOS5和iOS6横竖屏切换，可用如下方法或代码</p>
+<pre><code>
+</code></pre>
+<pre><code>
+1. 1 info.plist 中 Supported interface orientations中加入所有方向的支持
+2. 2 AppDelegate中加入方法
+3. -(NSUInteger)application:(UIApplication *)application
+4. supportedInterfaceOrientationsForWindow:(UIWindow *)window&#123;
+5. return UIInterfaceOrientationMaskAll;
+6. &#125; iOS6中为了后续支持任何方向的旋转
+7. 3 任何你想控制旋转的界面中加入方法
+8. // iOS6.0
+9. -(NSUInteger)supportedInterfaceOrientations&#123; 
+10. return UIInterfaceOrientationMaskPortrait; // 可以修改为任何方向
+11. &#125;
+12. -(BOOL)shouldAutorotate&#123; 
+13. return YES;
+14. &#125;
+15. // iOS5.0
+16. -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation&#123; 
+17. return (toInterfaceOrientation == UIInterfaceOrientationPortrait); // 可以修改为任何方向
+18. &#125;
+19. 这样你的app就可以同时支持iOS5和iOS6系统的横竖屏切换了
+</code></pre>
+<pre><code>
+</code></pre>
+<p>3.导入旧工程，解决Xcode4.5以后模拟器屏幕不旋转问题</p>
+<pre><code>
+</code></pre>
+<pre><code>
+1. if ([[[UIDevice currentDevice] systemVersion] floatValue] **]] &gt;**= 6.0)&#123;
+2. self.window.rootViewController = navigationCtrl;
+3. &#125;else&#123;
+4. [self.window addSubview:navigationCtrl.view];
+5. &#125;
+</code></pre>
+<p>4.支持iPhone5:添加Retina4 launch image”<a href="mailto:Default-568h@2x.png">Default-568h@2x.png</a>“<br>图片尺寸：</p>
+<pre><code>
+</code></pre>
+<pre><code>
+1. Default.png 320x480 
+2. Default@2x.png 640x960 
+3. Default-568h@2x.png 640x1136
+</code></pre>
+<p>5.根据iPhone5的宽和高，判断当前设备是不是iPhone5</p>
+<pre><code>
+</code></pre>
+<pre><code>
+1. CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+2. CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
+3. if ((screenWidth==568)||(screenHeight==568)) &#123;
+4. isiPhone5 = YES;
+5. &#125;
+</code></pre>
+<p>注意：iPhone5的高是568，取得屏幕大小用</p>
+<pre><code>
+</code></pre>
+<pre><code>
+1. [UIScreen mainScreen].bounds
+</code></pre>
+<pre><code>
+第三篇
+iPhone5的屏幕为320＊568，而之前的iPhone均为320＊480。由于屏幕大小的变化，使得原来开发的应用在iPhone5上面看的话，会留下上下两条黑边，除此之外，很多页面的布局也乱了。
+
+实际上，最好的方法是，为iPhone5增加一个新的xib，重新布局UI，这样子才能根据iPhone5屏幕的分辨率来进行UI设计，也是最好的解决方法。但是这种方法耗费的时间成本太大。本文提供一个快速的适配iPhone5的方法。(无需监测设备型号，无需增加xib)。
+
+1、消除上下黑边：如果你原来的程序是适应320＊480的话，在iPhone5上面运行的结果如下，可以看到上下有两条黑边。如下图所示：
+
+![-154.jpg](/images/notes/iOS-适配iPhone5界面_autosizing属性_/154.jpg)
+
+采用xcode4.5，编译你的程序，会有一行warnning，如下所示：
+
+![-155.jpg](/images/notes/iOS-适配iPhone5界面_autosizing属性_/155.jpg)
+
+点击这个warnning，即弹出：
+
+![-156.jpg](/images/notes/iOS-适配iPhone5界面_autosizing属性_/156.jpg)
+
+点击add按钮即可。
+
+经过上面这个步骤之后，我们可以看到上下两条黑边不见了。
+
+2、controller里面的view布局：我们看到运行在iPhone5上的程序，布局有些地方乱了。这是由于布局的原因引起的。每个从view继承下来的类，都有一个autosizing的属性，我们可以通过autosizing属性的调正来改变我们的布局来适配iPhone5。如下图：
+
+![-157.jpg](/images/notes/iOS-适配iPhone5界面_autosizing属性_/157.jpg)
+
+我们可以看到，autosizing在xib中可以直接设置，图中显示的是上下左右四个方向的缩进，以及中间的上下拉伸属性。
+
+我们先来看看上下左右的缩进，虚线表示按比例缩进，实线表示按于边界距离固定缩进。
+
+中间的横向箭头如果为实线，则表示当前的view的宽度和其superView的宽度保持比例缩放；如果是虚线，则表示当前view的宽度保持不变。
+
+中间的纵向箭头如果为实线，则表示当前的view的高度和其superView的高度保持比例缩放；如果是虚线，则表示当前view的高度保持不变。
+
+我们在第一个步骤中，会将controller里面的view自动拉伸到iPhone5的分辨率。所以，我们的xib还是借用原来的xib不用改动。而对于view中的subviews，则要修改其autosizing的属性，以保证当view拉伸的时候，这些subviews也能跟着“动”起来。
+
+3、如果有自定义的view并且是通过代码add到其他的view上去的话，则需要通过代码来设置autosizing的属性。autosizing有六种属性可以设置，分别如下：
+
+UIViewAutoresizingFlexibleTopMargin:与superView上边界保持动态距离(按比例)
+
+UIViewAutoresizingFlexibleBottomMargin:与superView下边界保持动态距离(按比例)
+
+UIViewAutoresizingFlexibleLeftMargin:与superView左边界保持动态距离(按比例)
+
+UIViewAutoresizingFlexibleRightMargin:与superView右边界保持动态距离(按比例)
+
+UIViewAutoresizingFlexibleWidth:与superView宽度成比例
+
+UIViewAutoresizingFlexibleHeight:与superView高度成比例
+
+4、我们经常会在controller里面实现一个方法，即showInView，即把当前controller的view显示作为subview到其他view上去，如果你是想覆盖整个屏幕，则在showInView方法中应该使用下面语句来适配iPhone5：
+
+**[cpp]**&nbsp;[view plain](http://blog.csdn.net/gckjdev/article/details/8072484# "view plain")[copy](http://blog.csdn.net/gckjdev/article/details/8072484# "copy")
+
+1. (**void**)showInView:(UIView*)view&nbsp;&nbsp;
+2. &#123;&nbsp;&nbsp;
+3. &nbsp;&nbsp;self.frame=&nbsp;view.bounds;&nbsp;&nbsp;
+4. &nbsp;&nbsp;//&nbsp;your&nbsp;codes.&nbsp;&nbsp;&nbsp;
+5. &nbsp;&nbsp;//&nbsp;........&nbsp;&nbsp;&nbsp;
+6. &#125;&nbsp;&nbsp;
+
+同时，将controller里的view的autosizing设置成按宽度和高度拉伸的即可。
+
+注意：在适配iPhone5的时候，要注意不要去监测设备的型号或者是设备类型，因为我们是对像素做适配，而不是对某种机型做适配。你可以使用[[UIScreen mainScreen] bounds]来获取当前设备屏幕大小。
+</code></pre>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios技术文章收录/">Ios技术文章收录</a><a href="/tags/Ios适配/">Ios适配</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%20--%20%E9%80%82%E9%85%8DiPhone5%E7%95%8C%E9%9D%A2_autosizing%E5%B1%9E%E6%80%A7_/" data-title="iOS -- 适配iPhone5界面(autosizing属性) | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/hydra docker版本 - 知乎/" title="hydra docker版本 - 知乎">
+  <strong>上一篇：</strong><br/>
+  <span>
+  hydra docker版本 - 知乎</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/git生成ssh key及本地解决多个ssh key的问题 - Bubblings Blog/"  title="git生成ssh key及本地解决多个ssh key的问题 - Bubblings Blog">
+ <strong>下一篇：</strong><br/> 
+ <span>git生成ssh key及本地解决多个ssh key的问题 - Bubblings Blog
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/iOS -- 适配iPhone5界面_autosizing属性_/" data-title="iOS -- 适配iPhone5界面(autosizing属性)" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%20--%20%E9%80%82%E9%85%8DiPhone5%E7%95%8C%E9%9D%A2_autosizing%E5%B1%9E%E6%80%A7_/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS-%E2%80%93-%E9%80%82%E9%85%8DiPhone5%E7%95%8C%E9%9D%A2-autosizing%E5%B1%9E%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">iOS – 适配iPhone5界面(autosizing属性)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BA%94%E7%94%A8autosizing%E5%B1%9E%E6%80%A7%E4%BD%BFiOS%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%95%8C%E9%9D%A2%E9%80%82%E9%85%8DiPhone5"><span class="toc-number">1.0.1.</span> <span class="toc-text">如何应用autosizing属性使iOS应用程序界面适配iPhone5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http-blog-csdn-net-linzhiji-article-details-8000048"><span class="toc-number">1.0.2.</span> <span class="toc-text">http:&#x2F;&#x2F;blog.csdn.net&#x2F;linzhiji&#x2F;article&#x2F;details&#x2F;8000048</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http-blog-csdn-net-linzhiji-article-details-8000125"><span class="toc-number">1.0.3.</span> <span class="toc-text">http:&#x2F;&#x2F;blog.csdn.net&#x2F;linzhiji&#x2F;article&#x2F;details&#x2F;8000125</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

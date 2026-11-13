@@ -1,0 +1,977 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区nodejs 快速搭建 Node.js 开发环境以及加速 npm在公交车上刷微博，还是有很多同学在咨询:  如何快速搭建 node 开发环境 npm 超慢 github 无法打开的问题  于是我觉得应该写一篇文章解答所有这些起步问题，让新同学也能顺顺利利入门。 快速搭建 Node.js 开发环境如果你想长期做 node 开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%20Node.js%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E5%8A%A0%E9%80%9F%20npm%20-%20CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区nodejs 快速搭建 Node.js 开发环境以及加速 npm在公交车上刷微博，还是有很多同学在咨询:  如何快速搭建 node 开发环境 npm 超慢 github 无法打开的问题  于是我觉得应该写一篇文章解答所有这些起步问题，让新同学也能顺顺利利入门。 快速搭建 Node.js 开发环境如果你想长期做 node 开发">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA-Node.js-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E5%8A%A0%E9%80%9F-npm-CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA/545c5904gw1eeu7h63hxvj20qs0mp78p.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-25T06:18:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="nodejs">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA-Node.js-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E5%8A%A0%E9%80%9F-npm-CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA/545c5904gw1eeu7h63hxvj20qs0mp78p.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区/" title="快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区" itemprop="url">快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA-Node-js-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E5%8A%A0%E9%80%9F-npm-CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA"><span class="toc-number">1.</span> <span class="toc-text">快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA-Node-js-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E5%8A%A0%E9%80%9F-npm"><span class="toc-number">2.</span> <span class="toc-text">快速搭建 Node.js 开发环境以及加速 npm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA-Node-js-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">2.1.</span> <span class="toc-text">快速搭建 Node.js 开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#osx-linux-%E7%8E%AF%E5%A2%83"><span class="toc-number">2.2.</span> <span class="toc-text">osx, linux 环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-clone-nvm"><span class="toc-number">2.2.1.</span> <span class="toc-text">git clone nvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-nvm-%E5%AE%89%E8%A3%85%E4%BB%BB%E6%84%8F%E7%89%88%E6%9C%AC%E7%9A%84-node"><span class="toc-number">2.2.2.</span> <span class="toc-text">通过 nvm 安装任意版本的 node</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#windows-%E7%8E%AF%E5%A2%83"><span class="toc-number">2.3.</span> <span class="toc-text">windows 环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-clone-nvmw"><span class="toc-number">2.3.1.</span> <span class="toc-text">git clone nvmw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-nvmw-%E5%AE%89%E8%A3%85%E4%BB%BB%E6%84%8F%E7%89%88%E6%9C%AC%E7%9A%84-node"><span class="toc-number">2.3.2.</span> <span class="toc-text">通过 nvmw 安装任意版本的 node</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-cnpm-%E5%8A%A0%E9%80%9F-npm"><span class="toc-number">2.4.</span> <span class="toc-text">使用 cnpm 加速 npm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#github-%E5%A5%BD%E6%85%A2"><span class="toc-number">2.5.</span> <span class="toc-text">github 好慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BD%95%E6%9C%80%E8%BF%91%E8%AE%BF%E9%97%AE%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99%E8%BF%99%E4%B9%88%E6%85%A2"><span class="toc-number">2.6.</span> <span class="toc-text">为何最近访问国外网站这么慢?</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="快速搭建-Node-js-开发环境以及加速-npm-CNode技术社区"><a title="快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区" class="headerlink" href="#快速搭建-Node-js-开发环境以及加速-npm-CNode技术社区"></a>快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区</h1><p><code>nodejs</code></p>
+<h1 id="快速搭建-Node-js-开发环境以及加速-npm"><a title="快速搭建 Node.js 开发环境以及加速 npm" class="headerlink" href="#快速搭建-Node-js-开发环境以及加速-npm"></a>快速搭建 Node.js 开发环境以及加速 npm</h1><p>在公交车上刷微博，还是有很多同学在咨询:</p>
+<ul>
+<li>如何快速搭建 <a target="_blank" rel="noopener" href="https://nodejs.org/">node</a> 开发环境</li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.org/">npm</a> 超慢</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/">github</a> 无法打开的问题</li>
+</ul>
+<p>于是我觉得应该写一篇文章解答所有这些起步问题，让新同学也能顺顺利利入门。</p>
+<h2 id="快速搭建-Node-js-开发环境"><a title="快速搭建 Node.js 开发环境" class="headerlink" href="#快速搭建-Node-js-开发环境"></a>快速搭建 <a target="_blank" rel="noopener" href="https://nodejs.org/">Node.js</a> 开发环境</h2><p>如果你想长期做 <a target="_blank" rel="noopener" href="https://nodejs.org/">node</a> 开发, 或者想快速更新 <a target="_blank" rel="noopener" href="https://nodejs.org/">node</a> 版本, 或者想快速切换 <a target="_blank" rel="noopener" href="https://nodejs.org/">node</a> 版本, 那么在<strong>非 Windows(如 osx, linux)</strong> 环境下, 请使用 <a target="_blank" rel="noopener" href="https://github.com/creationix/nvm">nvm</a> 来安装你的 <a target="_blank" rel="noopener" href="https://nodejs.org/">node</a> 开发环境, 保持系统的干净.</p>
+<p>如果你使用 <strong>Windows</strong> 做开发, 那么你可以使用 <a target="_blank" rel="noopener" href="https://github.com/hakobera/nvmw">nvmw</a> 来替代 <a target="_blank" rel="noopener" href="https://github.com/creationix/nvm">nvm</a></p>
+<h2 id="osx-linux-环境"><a title="osx, linux 环境" class="headerlink" href="#osx-linux-环境"></a>osx, linux 环境</h2><p>如果你是 windows 环境开发, 请跳过这里, 直接查看下一章.</p>
+<h3 id="git-clone-nvm"><a title="git clone nvm" class="headerlink" href="#git-clone-nvm"></a>git clone <a target="_blank" rel="noopener" href="https://github.com/creationix/nvm">nvm</a></h3><p>直接从 github clone nvm 到本地, 这里假设大家都使用 ~/git 目录存放 git 项目:</p>
+<p>/git</p>
+<p>$ git clone https:/githubcreationix</p>
+<p>配置终端启动时自动执行 source ~/git/nvm/nvm.sh, 在 ~/.bashrc, ~/.bash_profile, ~/.profile, 或者 ~/.zshrc 文件添加以下命令:</p>
+<p>source /git/</p>
+<p>重新打开你的终端, 输入 nvm</p>
+<p>VersionManagerUsage</p>
+<p> nvm help message</p>
+<p> nvm version Print the latest released version of nvm</p>
+<p> nvm install Download install a  source</p>
+<p> nvm uninstall Uninstall a version</p>
+<p> nvm Modify PATH to </p>
+<p> nvm run [&lt;&gt;] arguments</p>
+<p> nvm current Display currently activated version</p>
+<p> nvm ls installed versions</p>
+<p> nvm ls  versions matching a given description</p>
+<p> nvm lsremote remote versions available install</p>
+<p> nvm deactivate effects of NVM on current shell</p>
+<p> nvm alias[</p>
+<p> nvm unalias Deletesalias named </p>
+<p> nvm copypackages Installglobal NPM packages contained  to current version</p>
+<p>Example</p>
+<p> nvm install v010.24Install a specific version number</p>
+<p> nvm the latest available x release</p>
+<p> nvm run myApp myAppusing node v010.24aliasdefaultdefault node version on a shell</p>
+<p> to removedelete uninstall nvm just remove /.nvm, ~/bower folders</p>
+<h3 id="通过-nvm-安装任意版本的-node"><a title="通过 nvm 安装任意版本的 node" class="headerlink" href="#通过-nvm-安装任意版本的-node"></a>通过 <a target="_blank" rel="noopener" href="https://github.com/creationix/nvm">nvm</a> 安装任意版本的 <a target="_blank" rel="noopener" href="https://nodejs.org/">node</a></h3><p>nvm 默认是从 <a target="_blank" rel="noopener" href="http://nodejs.org/dist/">http://nodejs.org/dist/</a> 下载的, 国外服务器, 必然很慢, 好在 nvm 以及支持从镜像服务器下载包, 于是我们可以方便地从七牛的 node dist 镜像下载:</p>
+<p>$ NVM_NODEJS_ORG_MIRROR https//npm.taobao.org/mirrors/node nvm install 4</p>
+<p>于是你就会看到一段非常快速进度条:</p>
+<p>######################################################################## 100.0%using node v4</p>
+<p>如果你不想每次都输入环境变量 NVM_NODEJS_ORG_MIRROR, 那么我建议你加入到 .bashrc 文件中:</p>
+<p>export NVM_NODEJS_ORG_MIRROR=”https//npm.taobao.org/mirrors/node”</p>
+<p>source&nbsp; .bashrc</p>
+<p>然后你可以继续非常方便地安装各个版本的 node 了, 你可以查看一下你当前已经安装的版本:</p>
+<p>$ nvm ls</p>
+<p> nvm</p>
+<p> v010.2611.11-&gt;</p>
+<p>指定某个版本：</p>
+<p>nvm use v版本号</p>
+<p>列出本地安装的版本：</p>
+<p>nvm list</p>
+<p>全局设置默认使用的版本号：</p>
+<p>nvm alias default 5.4.1</p>
+<p>nvm alias stable 5.4.1</p>
+<p>nvm alias default v6.9.0</p>
+<h2 id="windows-环境"><a title="windows 环境" class="headerlink" href="#windows-环境"></a>windows 环境</h2><h3 id="git-clone-nvmw"><a title="git clone nvmw" class="headerlink" href="#git-clone-nvmw"></a>git clone <a target="_blank" rel="noopener" href="https://github.com/hakobera/nvmw">nvmw</a></h3><p>直接从 github clone nvmw 到本地, 这里假设大家都使用 d:\git 目录存放 git 项目:</p>
+<p>$ cd git</p>
+<p>$ git clone https//github.com/hakobera/nvmw.git</p>
+<p>设置 d:\git\nvmw 目录到你的 PATH 环境变量中:</p>
+<p>“PATH=d:\git\nvmw;%PATH%”</p>
+<p>重新打开你的终端, 输入 nvmw</p>
+<p>$ nvmw</p>
+<p>Usage</p>
+<p> nvmw help message</p>
+<p> nvmw install versionDownload install a version</p>
+<p> nvmw uninstall versionUninstallversionversionModify PATH to version</p>
+<p> nvmw ls installed versions</p>
+<p>Example</p>
+<p> nvmw install v0Install a specific version number</p>
+<p> nvmw the specific version</p>
+<h3 id="通过-nvmw-安装任意版本的-node"><a title="通过 nvmw 安装任意版本的 node" class="headerlink" href="#通过-nvmw-安装任意版本的-node"></a>通过 <a target="_blank" rel="noopener" href="https://github.com/hakobera/nvmw">nvmw</a> 安装任意版本的 <a target="_blank" rel="noopener" href="https://nodejs.org/">node</a></h3><p>nvmw 默认是从 <a target="_blank" rel="noopener" href="http://nodejs.org/dist/">http://nodejs.org/dist/</a> 下载的, 国外服务器, 必然很慢, 好在 <a target="_blank" rel="noopener" href="https://github.com/hakobera/nvmw">nvmw</a> 以及支持从镜像服务器下载包, 于是我们可以方便地从七牛的 node dist 镜像下载:</p>
+<p>“NVMW_NODEJS_ORG_MIRROR=<a target="_blank" rel="noopener" href="https://npm.taobao.org/mirrors/node">https://npm.taobao.org/mirrors/node</a>“</p>
+<p>$ nvmw install </p>
+<p>于是你就会看到一段非常快速进度条:</p>
+<p>######################################################################## 100.0%using node v4</p>
+<p>如果你不想每次都输入环境变量 NVMW_NODEJS_ORG_MIRROR, 那么我建议你在全局环境变量中增加它.</p>
+<p>然后你可以继续非常方便地安装各个版本的 node 了, 你可以查看一下你当前已经安装的版本:</p>
+<p>$ nvmw ls</p>
+<p>v010.2611.12Current</p>
+<p>到此, 无论是 windows 环境, 还是 osx, linux 环境, 都能快速安装多个版本的 node 了.</p>
+<h2 id="使用-cnpm-加速-npm"><a title="使用 cnpm 加速 npm" class="headerlink" href="#使用-cnpm-加速-npm"></a>使用 <a target="_blank" rel="noopener" href="https://cnpmjs.org/">cnpm</a> 加速 <a target="_blank" rel="noopener" href="https://www.npmjs.org/">npm</a></h2><p>同理 nvm , npm 默认是从国外的源获取和下载包信息, 不慢才奇怪. 可以通过简单的 —registry 参数, 使用国内的镜像</p>
+<p><a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a> :</p>
+<p>registry https//registry.npm.taobao.org install koa</p>
+<p>于是屏幕又哗啦哗啦地一大片输出:</p>
+<p>registry https//registry.npm.taobao.org install koa</p>
+<p>npm http GET https//registry.npm.taobao.org/koa</p>
+<p>npm http https//registry.npm.taobao.org/koa</p>
+<p>npm http https//registry.npm.taobao.org/negotiator</p>
+<p>npm http https//registry.npm.taobao.org/keygrip node_modulescompose statuses finished escape debug fresh delegates acceptsnegotiator cookieskeygrip</p>
+<p>但是毕竟镜像跟官方的 npm 源还是会有一个同步时间差异, 目前 cnpm 的默认同步时间间隔是 15 分钟. 如果你是模块发布者, 或者你想马上同步一个模块, 那么推荐你安装 <a target="_blank" rel="noopener" href="https://cnpmjs.org/">cnpm</a> cli:</p>
+<p>registryhttps//registry.npm.taobao.org install cnpm -g</p>
+<p>通过 cnpm 命令行, 你可以快速同步任意模块:</p>
+<p>$ cnpm sync koa connect mocha</p>
+<p>呃, 我就是不想安装 cnpm cli 怎么办? 哈哈, 早就想到你会这么懒了, 于是我们还有一个 web 页面:</p>
+<p>例如我想马上同步 koa, 直接打开浏览器: <a target="_blank" rel="noopener" href="https://npm.taobao.org/sync/koa">https://npm.taobao.org/sync/koa</a></p>
+<p>或者你是命令行控, 通过 open 命令打开:</p>
+<p>$ open https//npm.taobao.org/sync/koa</p>
+<p>如果你安装的模块依赖了 C++ 模块, 需要编译, 肯定会通过 <a target="_blank" rel="noopener" href="https://github.com/TooTallNate/node-gyp">node-gyp</a> 来编译, <a target="_blank" rel="noopener" href="https://github.com/TooTallNate/node-gyp">node-gyp</a> 在第一次编译的时候, 需要依赖 <a target="_blank" rel="noopener" href="https://nodejs.org/">node</a> 源代码, 于是又会去 node dist 下载, 于是大家又会吐槽, 怎么 npm 安装这么慢…</p>
+<p>好吧, 于是又要提到 –disturl 参数, 通过七牛的镜像来下载:</p>
+<p>registryhttps//registry.npm.taobao.org –disturl=<a target="_blank" rel="noopener" href="https://npm.taobao.org/mirrors/node">https://npm.taobao.org/mirrors/node</a> install microtime</p>
+<p>再次要提到 cnpm cli, 它已经默认将 –registry 和 –disturl 都配置好了, 谁用谁知道 . 写到这里, 就更快疑惑那些不想安装 cnpm cli 又吐槽 npm 慢的同学是基于什么考虑不在本地安装一个 cnpm 呢?</p>
+<h2 id="github-好慢"><a title="github 好慢" class="headerlink" href="#github-好慢"></a>github 好慢</h2><p>好了, 看到这里大家应该对 node 和 npm 已经没有速度慢的问题了.</p>
+<p>github 慢, 或者说是它的资源 host 被堵而已, 大家可以通过简单的 hosts 映射解决:</p>
+<p>185.3116.184 githubglobalfastly</p>
+<h2 id="为何最近访问国外网站这么慢"><a title="为何最近访问国外网站这么慢?" class="headerlink" href="#为何最近访问国外网站这么慢"></a>为何最近访问国外网站这么慢?</h2><p>听说是 APCN2 又断了: <a target="_blank" rel="noopener" href="http://weibo.com/1415338244/ACTYkq8xK">http://weibo.com/1415338244/ACTYkq8xK</a> (APCN2 以修复很久)</p>
+<p><img loading="lazy" alt="545c5904gw1eeu7h63hxvj20qs0mp78p.jpg" src="/images/notes/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA-Node.js-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E5%8A%A0%E9%80%9F-npm-CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA/545c5904gw1eeu7h63hxvj20qs0mp78p.jpg"></p>
+<p>希望文本对你有用. :)</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF%E4%B8%8ENode-js/">前端与Node.js</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/nodejs/">nodejs</a><a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%20Node.js%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E5%8A%A0%E9%80%9F%20npm%20-%20CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA/" data-title="快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/当新团队公司和领导价值观与你不同时该怎么办？/" title="当新团队公司和领导价值观与你不同时该怎么办？">
+  <strong>上一篇：</strong><br/>
+  <span>
+  当新团队公司和领导价值观与你不同时该怎么办？</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/建立你自己的本地仓库_Maven仓库管理-Nexus_/"  title="建立你自己的本地仓库(Maven仓库管理-Nexus)">
+ <strong>下一篇：</strong><br/> 
+ <span>建立你自己的本地仓库(Maven仓库管理-Nexus)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区/" data-title="快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%20Node.js%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E5%8A%A0%E9%80%9F%20npm%20-%20CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA-Node-js-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E5%8A%A0%E9%80%9F-npm-CNode%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA"><span class="toc-number">1.</span> <span class="toc-text">快速搭建 Node.js 开发环境以及加速 npm - CNode技术社区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA-Node-js-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E5%8A%A0%E9%80%9F-npm"><span class="toc-number">2.</span> <span class="toc-text">快速搭建 Node.js 开发环境以及加速 npm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA-Node-js-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">2.1.</span> <span class="toc-text">快速搭建 Node.js 开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#osx-linux-%E7%8E%AF%E5%A2%83"><span class="toc-number">2.2.</span> <span class="toc-text">osx, linux 环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-clone-nvm"><span class="toc-number">2.2.1.</span> <span class="toc-text">git clone nvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-nvm-%E5%AE%89%E8%A3%85%E4%BB%BB%E6%84%8F%E7%89%88%E6%9C%AC%E7%9A%84-node"><span class="toc-number">2.2.2.</span> <span class="toc-text">通过 nvm 安装任意版本的 node</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#windows-%E7%8E%AF%E5%A2%83"><span class="toc-number">2.3.</span> <span class="toc-text">windows 环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-clone-nvmw"><span class="toc-number">2.3.1.</span> <span class="toc-text">git clone nvmw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-nvmw-%E5%AE%89%E8%A3%85%E4%BB%BB%E6%84%8F%E7%89%88%E6%9C%AC%E7%9A%84-node"><span class="toc-number">2.3.2.</span> <span class="toc-text">通过 nvmw 安装任意版本的 node</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-cnpm-%E5%8A%A0%E9%80%9F-npm"><span class="toc-number">2.4.</span> <span class="toc-text">使用 cnpm 加速 npm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#github-%E5%A5%BD%E6%85%A2"><span class="toc-number">2.5.</span> <span class="toc-text">github 好慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BD%95%E6%9C%80%E8%BF%91%E8%AE%BF%E9%97%AE%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99%E8%BF%99%E4%B9%88%E6%85%A2"><span class="toc-number">2.6.</span> <span class="toc-text">为何最近访问国外网站这么慢?</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

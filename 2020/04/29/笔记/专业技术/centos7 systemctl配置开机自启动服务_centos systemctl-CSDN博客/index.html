@@ -1,0 +1,1025 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客centos7 systemctl配置开机自启动服务centos7使用systemctl替代原来&#x2F;etc&#x2F;init.d，按官方的说法是提高系统服务的运行效率、服务配置更加简单易用，对于一些自定义的服务来配置开机自启动，是真的香！ 1. 概念理解 它是服务管理工具，融合之前service和chkcon">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/centos7%20systemctl%E9%85%8D%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1_centos%20systemctl-CSDN%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客centos7 systemctl配置开机自启动服务centos7使用systemctl替代原来&#x2F;etc&#x2F;init.d，按官方的说法是提高系统服务的运行效率、服务配置更加简单易用，对于一些自定义的服务来配置开机自启动，是真的香！ 1. 概念理解 它是服务管理工具，融合之前service和chkcon">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-05-21T09:58:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客/" title="centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客" itemprop="url">centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-systemctl%E9%85%8D%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1-centos-systemctl-CSDN%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.</span> <span class="toc-text">centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-systemctl%E9%85%8D%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.</span> <span class="toc-text">centos7 systemctl配置开机自启动服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3"><span class="toc-number">2.0.1.</span> <span class="toc-text">1. 概念理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">2.0.2.</span> <span class="toc-text">2. 参数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-Unit"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">2.1 [Unit]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-Service"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">2.2 [Service]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-Install"><span class="toc-number">2.0.2.3.</span> <span class="toc-text">2.3 [Install]</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.0.3.</span> <span class="toc-text">3. 常用命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.1.</span> <span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.2.</span> <span class="toc-text">停止服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.3.</span> <span class="toc-text">重启服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-number">2.4.</span> <span class="toc-text">服务自启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%85%B3%E9%97%AD%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8"><span class="toc-number">2.5.</span> <span class="toc-text">服务关闭自动启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81"><span class="toc-number">2.6.</span> <span class="toc-text">检查服务状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E6%89%80%E6%9C%89%E5%B7%B2%E5%90%AF%E5%8A%A8%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.7.</span> <span class="toc-text">显示所有已启动的服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">2.7.1.</span> <span class="toc-text">4. 使用案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#nginx"><span class="toc-number">2.7.1.1.</span> <span class="toc-text">nginx</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-will-fail-to-start-if-x2F-run-x2F-nginx-pid-already-exists-but-has-the-wrong"><span class="toc-number">3.</span> <span class="toc-text">Nginx will fail to start if &#x2F;run&#x2F;nginx.pid already exists but has the wrong</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SELinux-context-This-might-happen-when-running-nginx-t-from-the-cmdline"><span class="toc-number">4.</span> <span class="toc-text">SELinux context. This might happen when running nginx -t from the cmdline.</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#https-bugzilla-redhat-com-show-bug-cgi-id-1268621"><span class="toc-number">5.</span> <span class="toc-text">https:&#x2F;&#x2F;bugzilla.redhat.com&#x2F;show_bug.cgi?id&#x3D;1268621</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#java"><span class="toc-number">5.0.1.</span> <span class="toc-text">java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xxl-job"><span class="toc-number">5.0.2.</span> <span class="toc-text">xxl-job</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nacos-%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-number">5.0.3.</span> <span class="toc-text">nacos 自启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98-Executable-path-is-not-absolute"><span class="toc-number">5.0.4.</span> <span class="toc-text">问题  Executable path is not absolute</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#auth-wmh"><span class="toc-number">6.</span> <span class="toc-text">auth wmh</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#time-2019-x2F-1-x2F-3"><span class="toc-number">7.</span> <span class="toc-text">time 2019&#x2F;1&#x2F;3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mqbroker"><span class="toc-number">7.0.0.1.</span> <span class="toc-text">mqbroker</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#systemctl%E5%90%AF%E5%8A%A8-java-%E5%90%8E%EF%BC%8Cjps%E7%9C%8B%E4%B8%8D%E5%88%B0%E8%BF%9B%E7%A8%8B"><span class="toc-number">7.1.</span> <span class="toc-text">systemctl启动 java 后，jps看不到进程</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="centos7-systemctl配置开机自启动服务-centos-systemctl-CSDN博客"><a title="centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客" class="headerlink" href="#centos7-systemctl配置开机自启动服务-centos-systemctl-CSDN博客"></a>centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客</h1><h1 id="centos7-systemctl配置开机自启动服务"><a title="centos7 systemctl配置开机自启动服务" class="headerlink" href="#centos7-systemctl配置开机自启动服务"></a>centos7 systemctl配置开机自启动服务</h1><p>centos7使用systemctl替代原来/etc/init.d，按官方的说法是提高系统服务的运行效率、服务配置更加简单易用，对于一些自定义的服务来配置开机自启动，是真的香！</p>
+<h3 id="1-概念理解"><a title="1. 概念理解" class="headerlink" href="#1-概念理解"></a>1. 概念理解</h3><ul>
+<li>它是服务管理工具，融合之前service和chkconfig功能于一体</li>
+<li>有系统(system)和用户(user)之分，系统（/usr/lib/systemd/system/）、用户（/etc/lib/systemd/user/）</li>
+<li>以.service结尾，一般分为3部分：Unit、Service、Install</li>
+</ul>
+<h3 id="2-参数说明"><a title="2. 参数说明" class="headerlink" href="#2-参数说明"></a>2. 参数说明</h3><h4 id="2-1-Unit"><a title="2.1 [Unit]" class="headerlink" href="#2-1-Unit"></a><strong>2.1 [Unit]</strong></h4><blockquote>
+<p><em>主要对服务的说明</em></p>
+</blockquote>
+<ul>
+<li>Description：用于描述服务而已</li>
+<li>Documentation ： 服务文档</li>
+<li>Before、After:定义启动顺序。Before=xxx.service,代表本服务在xxx.service启动之前启动。After=xxx.service,代表本服务在xxx.service之后启动。</li>
+<li>Requires：这个单元启动了，它需要的单元也会被启动；它需要的单元被停止了，这个单元也停止了。</li>
+<li>Wants：推荐使用。这个单元启动了，它需要的单元也会被启动；它需要的单元被停止了，对本单元没有影响。</li>
+</ul>
+<h4 id="2-2-Service"><a title="2.2 [Service]" class="headerlink" href="#2-2-Service"></a><strong>2.2 [Service]</strong></h4><blockquote>
+<p><em>关键部分，服务运行的具体配置</em></p>
+</blockquote>
+<p>参数太多，下面只列出几个常用的关键参数，其它根据需要自行百度：</p>
+<p> 常用<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Type&amp;spm=1001.2101.3001.7020">Type</a>的几种类型：</p>
+<table>
+<thead>
+<tr>
+<th>Type=simple</th>
+<th>systemd认为该服务将立即启动。服务进程不会fork。如果该服务要启动其他服务，不要使用此类型启动，除非该服务是socket激活型。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Type=forking</td>
+<td>systemd认为当该服务进程fork，且父进程退出后服务启动成功。对于常规的守护进程（daemon），除非你确定此启动方式无法满足需求，使用此类型启动即可。使用此启动类型应同时指定 PIDFile=，以便systemd能够跟踪服务的主进程。</td>
+</tr>
+<tr>
+<td>Type=notify</td>
+<td>与 Type=simple 相同，但约定服务会在就绪后向 systemd 发送一个信号。这一通知的实现由 libsystemd-daemon.so 提供。</td>
+</tr>
+<tr>
+<td>Type=oneshot</td>
+<td>这一选项适用于只执行一项任务、随后立即退出的服务。可能需要同时设置 RemainAfterExit=yes 使得 systemd 在服务进程退出之后仍然认为服务处于激活状态。</td>
+</tr>
+<tr>
+<td>Type=idle</td>
+<td>systemd会等待所有任务(Jobs)处理完成后，才开始执行idle类型的单元。除此之外，其他行为和Type=simple 类似。</td>
+</tr>
+<tr>
+<td>Type=dbus</td>
+<td>若以此方式启动，当指定的 BusName 出现在DBus系统总线上时，systemd认为服务就绪。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>User：是设置服务运行的用户</li>
+<li>Group：是设置服务运行的用户组</li>
+<li>PIDFile：为存放PID的文件路径</li>
+<li>ExecStart：指定启动单元的命令或者脚本，ExecStartPre和ExecStartPost节指定在ExecStart之前或者之后用户自定义执行的脚本。Type=oneshot允许指定多个希望顺序执行的用户自定义命令。</li>
+<li>ExecReload：指定单元停止时执行的命令或者脚本。</li>
+<li>ExecStop：指定单元停止时执行的命令或者脚本。</li>
+<li>Restart：这个选项如果被允许，服务重启的时候进程会退出，会通过systemctl命令执行清除并重启的操作</li>
+<li>Environment：指定环境变量</li>
+<li>PrivateTmp：True表示给服务分配独立的临时空间</li>
+<li>RemainAfterExit：如果设置这个选择为真，服务会被认为是在激活状态，即使所以的进程已经退出，默认的值为假，这个选项只有在Type=oneshot时需要被配置。</li>
+</ul>
+<p><strong>注意</strong>：所有命令要求使用绝对路径，使用相对路径会报错。</p>
+<h4 id="2-3-Install"><a title="2.3 [Install]" class="headerlink" href="#2-3-Install"></a><strong>2.3 [Install]</strong></h4><blockquote>
+<p><em>服务安装的相关设置，用来定义启动以及是否开机启动</em></p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Alias&amp;spm=1001.2101.3001.7020">Alias</a>：为单元提供一个空间分离的附加名字。</li>
+<li>RequiredBy：单元被允许运行需要的一系列依赖单元，RequiredBy列表从Require获得依赖信息。</li>
+<li>WantedBy：单元被允许运行需要的弱依赖性单元，Wantby从Want列表获得依赖信息。</li>
+<li>Also：指出和单元一起安装或者被协助的单元。</li>
+<li>DefaultInstance：实例单元的限制，这个选项指定如果单元被允许运行默认的实例。</li>
+</ul>
+<h3 id="3-常用命令"><a title="3. 常用命令" class="headerlink" href="#3-常用命令"></a>3. 常用命令</h3><h2 id="启动服务"><a title="启动服务" class="headerlink" href="#启动服务"></a>启动服务</h2><p>systemctl start nginx.service</p>
+<h2 id="停止服务"><a title="停止服务" class="headerlink" href="#停止服务"></a>停止服务</h2><p>systemctl stop nginx.service</p>
+<h2 id="重启服务"><a title="重启服务" class="headerlink" href="#重启服务"></a>重启服务</h2><p>service nginx restart</p>
+<p>systemctl restart nginx.service</p>
+<h2 id="服务自启动"><a title="服务自启动" class="headerlink" href="#服务自启动"></a>服务自启动</h2><p>systemctl enable nginx.service</p>
+<h2 id="服务关闭自动启动"><a title="服务关闭自动启动" class="headerlink" href="#服务关闭自动启动"></a>服务关闭自动启动</h2><p>systemctl disable nginx.service</p>
+<h2 id="检查服务状态"><a title="检查服务状态" class="headerlink" href="#检查服务状态"></a>检查服务状态</h2><p>systemctl status nginx.service</p>
+<h2 id="显示所有已启动的服务"><a title="显示所有已启动的服务" class="headerlink" href="#显示所有已启动的服务"></a>显示所有已启动的服务</h2><p>systemctl list-units –type=service</p>
+<h3 id="4-使用案例"><a title="4. 使用案例" class="headerlink" href="#4-使用案例"></a>4. 使用案例</h3><h4 id="nginx"><a title="nginx" class="headerlink" href="#nginx"></a><strong>nginx</strong></h4><p>[Unit]</p>
+<p>Description=The nginx HTTP and reverse proxy server</p>
+<p>After=network.target remote-fs.target nss-lookup.target</p>
+<p>[Service]</p>
+<p>Type=forking</p>
+<p>PIDFile=/run/nginx.pid</p>
+<h1 id="Nginx-will-fail-to-start-if-x2F-run-x2F-nginx-pid-already-exists-but-has-the-wrong"><a title="Nginx will fail to start if /run/nginx.pid already exists but has the wrong" class="headerlink" href="#Nginx-will-fail-to-start-if-x2F-run-x2F-nginx-pid-already-exists-but-has-the-wrong"></a>Nginx will fail to start if /run/nginx.pid already exists but has the wrong</h1><h1 id="SELinux-context-This-might-happen-when-running-nginx-t-from-the-cmdline"><a title="SELinux context. This might happen when running nginx -t from the cmdline." class="headerlink" href="#SELinux-context-This-might-happen-when-running-nginx-t-from-the-cmdline"></a>SELinux context. This might happen when running <code>nginx -t</code> from the cmdline.</h1><h1 id="https-bugzilla-redhat-com-show-bug-cgi-id-1268621"><a title="https://bugzilla.redhat.com/show_bug.cgi?id=1268621" class="headerlink" href="#https-bugzilla-redhat-com-show-bug-cgi-id-1268621"></a><a target="_blank" rel="noopener" href="https://bugzilla.redhat.com/show_bug.cgi?id=1268621">https://bugzilla.redhat.com/show_bug.cgi?id=1268621</a></h1><p>ExecStartPre=/usr/bin/rm -f /run/nginx.pid</p>
+<p>ExecStartPre=/usr/sbin/nginx -t</p>
+<p>ExecStart=/usr/sbin/nginx</p>
+<p>ExecReload=/bin/kill -s HUP $MAINPID</p>
+<p>KillSignal=SIGQUIT</p>
+<p>TimeoutStopSec=5</p>
+<p>KillMode=mixed</p>
+<p>PrivateTmp=true</p>
+<p>[Install]</p>
+<p>WantedBy=multi-user.target</p>
+<ul>
+<li>添加可执行权限：</li>
+</ul>
+<p>chmod +x /usr/lib/systemd/system/nginx.service</p>
+<p>systemctl daemon-reload</p>
+<h3 id="java"><a title="java" class="headerlink" href="#java"></a>java</h3><h3 id="xxl-job"><a title="xxl-job" class="headerlink" href="#xxl-job"></a>xxl-job</h3><p>[Unit]</p>
+<p>Description=xxl-job</p>
+<p>Documentation=<a target="_blank" rel="noopener" href="http://xxl-job/">http://xxl-job</a></p>
+<p>[Service]</p>
+<p>User=root</p>
+<p>Group=root</p>
+<p>Type=simple</p>
+<p>Restart=no</p>
+<p>KillMode=process</p>
+<p>ExecStart=/home/ces/xxl-job/app.sh start</p>
+<p>ExecStop=/home/ces/xxl-job/app.sh stop</p>
+<p>ExecReload=/home/ces/xxl-job/app.sh restart</p>
+<p>RemainAfterExit=yes</p>
+<p>[Install]</p>
+<p>WantedBy=multi-user.target</p>
+<h3 id="nacos-自启动"><a title="nacos 自启动" class="headerlink" href="#nacos-自启动"></a>nacos 自启动</h3><p>[Unit]</p>
+<p>Description=nacos</p>
+<p>After=network.target</p>
+<p>[Service]</p>
+<p>Type=forking</p>
+<p>Environment=”JAVA_HOME=/usr/local/jdk1.8” #改成自己的jdk路径，因为服务脚本的环境和系统环境变量不能共享，所以还得设置才能生效。</p>
+<p>ExecStart=/home/nacos/nacos/bin/startup.sh -m standalone #standalone 是单机，默认是集群cluster</p>
+<p>ExecReload=/home/nacos/nacos/bin/shutdown.sh</p>
+<p>ExecStop=/home/nacos/nacos/bin/shutdown.sh</p>
+<p>PrivateTmp=true</p>
+<p>[Install]</p>
+<p>WantedBy=multi-user.target</p>
+<h3 id="问题-Executable-path-is-not-absolute"><a title="问题  Executable path is not absolute" class="headerlink" href="#问题-Executable-path-is-not-absolute"></a>问题  Executable path is not absolute</h3><blockquote>
+<p><em><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/48684468/executable-path-is-not-absolute-ignoring-which-node">https://stackoverflow.com/questions/48684468/executable-path-is-not-absolute-ignoring-which-node</a></em></p>
+</blockquote>
+<h1 id="auth-wmh"><a title="auth wmh" class="headerlink" href="#auth-wmh"></a>auth wmh</h1><h1 id="time-2019-x2F-1-x2F-3"><a title="time 2019/1/3" class="headerlink" href="#time-2019-x2F-1-x2F-3"></a>time 2019/1/3</h1><p>[Unit]</p>
+<p>Description=brill_lab</p>
+<p>After=multi-user.target</p>
+<p>[Service]</p>
+<p>Type=forking</p>
+<p>AmbientCapabilities=CAP_SYS_RAWIO</p>
+<p>ExecStart=/bin/bash -c ‘nohup java -jar /home/brill_lab/brill_lab_starter-1.0.0-SNAPSHOT.jar &amp; echo $! &gt; /home/brill_lab/brill_lab.pid’</p>
+<p>ExecStop=/bin/bash -c ‘kill ‘cat /home/brill_lab/brill_lab.pid’’</p>
+<p>[Install]</p>
+<p>WantedBy=multi-user.target</p>
+<p>注意：systemd 不接受非绝对路径执行命令，需要依赖bush-ism，如下</p>
+<p>/bin/bash -c ‘<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=nohup&amp;spm=1001.2101.3001.7020">nohup</a> java -jar /home/brill_lab/brill_lab_starter-1.0.0-SNAPSHOT.jar &amp; echo $! &gt; /home/brill_lab/brill_lab.pid’</p>
+<p>否则会出现 Executable path is not absolute 的问题 (systemctl status brillilab.service 中)</p>
+<h4 id="mqbroker"><a title="mqbroker" class="headerlink" href="#mqbroker"></a><strong>mqbroker</strong></h4><p>[Unit]</p>
+<p>Description=mqbroker</p>
+<p>After=network.target</p>
+<p>[Service]</p>
+<p>Type=forking</p>
+<p>Environment=”JAVA_HOME=/usr/local/jdk”</p>
+<p>ExecStart=/bin/bash -c ‘nohup /home/software/rocketmq-5.1.3/bin/mqbroker -c /home/software/rocketmq-5.1.3/conf/broker.conf &gt; /dev/null 2&gt;&amp;1 &amp;’</p>
+<p>#ExecReload=/home/nacos/nacos/bin/shutdown.sh</p>
+<p>ExecStop=/home/software/rocketmq-5.1.3/bin/mqshutdown broker</p>
+<p>#PrivateTmp=true</p>
+<p>[Install]</p>
+<p>WantedBy=multi-user.target</p>
+<h2 id="systemctl启动-java-后，jps看不到进程"><a title="systemctl启动 java 后，jps看不到进程" class="headerlink" href="#systemctl启动-java-后，jps看不到进程"></a><strong>systemctl启动 java 后，jps看不到进程</strong></h2><p>去除 PrivateTmp=true</p>
+<p>这是因为 java 启动后会把启动后jdk相关信息写在/tmp/hsperfdata_root目录下，jps就去/tmp目录下打开这个文件，并把信息展现给用户，但/tmp这个目录权限是777,任何人都可以查看，centos7认为这样不安全，容易泄露信息，于是官方启动脚本里就有</p>
+<p> PrivateTmp=true这么一句，这样一来 java 启动后，就不会把相关信息写入/tmp目录里，也就造成jps无法看到tomcat进程了。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux%E4%B8%8E%E8%BF%90%E7%BB%B4/">Linux与运维</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/centos7%20systemctl%E9%85%8D%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1_centos%20systemctl-CSDN%E5%8D%9A%E5%AE%A2/" data-title="centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/client_max_body_size 50m;_客户端上传文件最大限制，默认是1m/" title="client_max_body_size 50m;#客户端上传文件最大限制，默认是1m">
+  <strong>上一篇：</strong><br/>
+  <span>
+  client_max_body_size 50m;#客户端上传文件最大限制，默认是1m</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/curl 命令/"  title="curl 命令">
+ <strong>下一篇：</strong><br/> 
+ <span>curl 命令
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客/" data-title="centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/centos7%20systemctl%E9%85%8D%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1_centos%20systemctl-CSDN%E5%8D%9A%E5%AE%A2/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-systemctl%E9%85%8D%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1-centos-systemctl-CSDN%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.</span> <span class="toc-text">centos7 systemctl配置开机自启动服务_centos systemctl-CSDN博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-systemctl%E9%85%8D%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.</span> <span class="toc-text">centos7 systemctl配置开机自启动服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3"><span class="toc-number">2.0.1.</span> <span class="toc-text">1. 概念理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">2.0.2.</span> <span class="toc-text">2. 参数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-Unit"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">2.1 [Unit]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-Service"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">2.2 [Service]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-Install"><span class="toc-number">2.0.2.3.</span> <span class="toc-text">2.3 [Install]</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.0.3.</span> <span class="toc-text">3. 常用命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.1.</span> <span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.2.</span> <span class="toc-text">停止服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.3.</span> <span class="toc-text">重启服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-number">2.4.</span> <span class="toc-text">服务自启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%85%B3%E9%97%AD%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8"><span class="toc-number">2.5.</span> <span class="toc-text">服务关闭自动启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81"><span class="toc-number">2.6.</span> <span class="toc-text">检查服务状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E6%89%80%E6%9C%89%E5%B7%B2%E5%90%AF%E5%8A%A8%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.7.</span> <span class="toc-text">显示所有已启动的服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">2.7.1.</span> <span class="toc-text">4. 使用案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#nginx"><span class="toc-number">2.7.1.1.</span> <span class="toc-text">nginx</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-will-fail-to-start-if-x2F-run-x2F-nginx-pid-already-exists-but-has-the-wrong"><span class="toc-number">3.</span> <span class="toc-text">Nginx will fail to start if &#x2F;run&#x2F;nginx.pid already exists but has the wrong</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SELinux-context-This-might-happen-when-running-nginx-t-from-the-cmdline"><span class="toc-number">4.</span> <span class="toc-text">SELinux context. This might happen when running nginx -t from the cmdline.</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#https-bugzilla-redhat-com-show-bug-cgi-id-1268621"><span class="toc-number">5.</span> <span class="toc-text">https:&#x2F;&#x2F;bugzilla.redhat.com&#x2F;show_bug.cgi?id&#x3D;1268621</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#java"><span class="toc-number">5.0.1.</span> <span class="toc-text">java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xxl-job"><span class="toc-number">5.0.2.</span> <span class="toc-text">xxl-job</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nacos-%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-number">5.0.3.</span> <span class="toc-text">nacos 自启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98-Executable-path-is-not-absolute"><span class="toc-number">5.0.4.</span> <span class="toc-text">问题  Executable path is not absolute</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#auth-wmh"><span class="toc-number">6.</span> <span class="toc-text">auth wmh</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#time-2019-x2F-1-x2F-3"><span class="toc-number">7.</span> <span class="toc-text">time 2019&#x2F;1&#x2F;3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mqbroker"><span class="toc-number">7.0.0.1.</span> <span class="toc-text">mqbroker</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#systemctl%E5%90%AF%E5%8A%A8-java-%E5%90%8E%EF%BC%8Cjps%E7%9C%8B%E4%B8%8D%E5%88%B0%E8%BF%9B%E7%A8%8B"><span class="toc-number">7.1.</span> <span class="toc-text">systemctl启动 java 后，jps看不到进程</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,1118 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>CocoaPods详解之----进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="CocoaPods详解之—-进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NETcocoapods CocoaPods详解之—-进阶篇. &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 一、Podfile.lock文件上文讲过，在开始使用CocoaPods，执行完pod install之后，会生成一个Podfile.lock文件。这个文件看起来跟我们">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CocoaPods详解之----进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B----%E8%BF%9B%E9%98%B6%E7%AF%87%20-%20%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%20-%20%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93%20-%20CSDN.NET/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="CocoaPods详解之—-进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NETcocoapods CocoaPods详解之—-进阶篇. &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 一、Podfile.lock文件上文讲过，在开始使用CocoaPods，执行完pod install之后，会生成一个Podfile.lock文件。这个文件看起来跟我们">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B-%E8%BF%9B%E9%98%B6%E7%AF%87-%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93-CSDN.NET/SouthEast.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B-%E8%BF%9B%E9%98%B6%E7%AF%87-%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93-CSDN.NET/SouthEast-1.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B-%E8%BF%9B%E9%98%B6%E7%AF%87-%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93-CSDN.NET/CODE_ico.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B-%E8%BF%9B%E9%98%B6%E7%AF%87-%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93-CSDN.NET/SouthEast-2.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-03-18T09:43:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="cocoapods">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B-%E8%BF%9B%E9%98%B6%E7%AF%87-%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93-CSDN.NET/SouthEast.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/CocoaPods详解之----进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET/" title="CocoaPods详解之----进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET" itemprop="url">CocoaPods详解之----进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B%E2%80%94-%E8%BF%9B%E9%98%B6%E7%AF%87-%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93-CSDN-NET"><span class="toc-number">1.</span> <span class="toc-text">CocoaPods详解之—-进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B%E2%80%94-%E8%BF%9B%E9%98%B6%E7%AF%87"><span class="toc-number">2.</span> <span class="toc-text">CocoaPods详解之—-进阶篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Podfile-lock%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">一、Podfile.lock文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Podfile%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">二、Podfile文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81Podfile%E6%96%87%E4%BB%B6%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.2.1.</span> <span class="toc-text">1、Podfile文件存放位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81Podfile%E5%92%8Ctarget"><span class="toc-number">2.2.2.</span> <span class="toc-text">2、Podfile和target</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E4%BD%BF%E7%94%A8Podfile%E7%AE%A1%E7%90%86Pods%E4%BE%9D%E8%B5%96%E5%BA%93%E7%89%88%E6%9C%AC"><span class="toc-number">2.2.3.</span> <span class="toc-text">3、使用Podfile管理Pods依赖库版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81CocoaPods%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text">三、CocoaPods常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81pod-install"><span class="toc-number">2.3.1.</span> <span class="toc-text">1、pod install</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81pod-update"><span class="toc-number">2.3.2.</span> <span class="toc-text">2、pod update</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81pod-search"><span class="toc-number">2.3.3.</span> <span class="toc-text">3、pod search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81pod-setup"><span class="toc-number">2.3.4.</span> <span class="toc-text">4、pod setup</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">2.4.</span> <span class="toc-text">四、参考文档</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="CocoaPods详解之—-进阶篇-王中周的个人博客-博客频道-CSDN-NET"><a title="CocoaPods详解之—-进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET" class="headerlink" href="#CocoaPods详解之—-进阶篇-王中周的个人博客-博客频道-CSDN-NET"></a>CocoaPods详解之—-进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET</h1><p><code>cocoapods</code></p>
+<h1 id="CocoaPods详解之—-进阶篇"><a title="CocoaPods详解之—-进阶篇" class="headerlink" href="#CocoaPods详解之—-进阶篇"></a><a target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709">CocoaPods详解之—-进阶篇</a></h1><p>.</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+<p>&nbsp;</p>
+<h2 id="一、Podfile-lock文件"><a title="一、Podfile.lock文件" class="headerlink" href="#一、Podfile-lock文件"></a><a href="">一、Podfile.lock文件</a></h2><p><a href="">上文讲过，在开始使用CocoaPods，执行完pod install之后，会生成一个Podfile.lock文件。这个文件看起来跟我们关系不大，实际上绝对不应该忽略它。</a><br><a href="">该文件用于保存已经安装的Pods依赖库的版本，通过CocoaPods安装了SBJson、AFNetworking、Reachability三个POds依赖库以后对应的Podfile.lock文件内容为：</a><a href=""><strong>[objc]</strong></a> <a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">view plain</a> <a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">copy</a><br><a href="_resources/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B----%E8%BF%9B%E9%98%B6%E7%AF%87%20-%20%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%20-%20%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93%20-%20CSDN.NET/./file/ico_fork.svg">ico_fork.svg</a></p>
+<p><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794/fork"><img loading="lazy" alt="SouthEast.png" src="/images/notes/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B-%E8%BF%9B%E9%98%B6%E7%AF%87-%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93-CSDN.NET/SouthEast.png"></a></p>
+<ol>
+<li>PODS:&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;AFNetworking&nbsp;(2.1.0):&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;AFNetworking/NSURLConnection&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;AFNetworking/NSURLSession&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;AFNetworking/Reachability&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;AFNetworking/Security&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;AFNetworking/Serialization&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;AFNetworking/UIKit&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;AFNetworking/NSURLConnection&nbsp;(2.1.0):&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;AFNetworking/Reachability&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;AFNetworking/Security&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;AFNetworking/Serialization&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;AFNetworking/NSURLSession&nbsp;(2.1.0):&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;AFNetworking/NSURLConnection&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;AFNetworking/Reachability&nbsp;(2.1.0)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;AFNetworking/Security&nbsp;(2.1.0)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;AFNetworking/Serialization&nbsp;(2.1.0)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;AFNetworking/UIKit&nbsp;(2.1.0):&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;AFNetworking/NSURLConnection&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;Reachability&nbsp;(3.0.0)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;SBJson&nbsp;(4.0.0)&nbsp;&nbsp;</li>
+<li>DEPENDENCIES:&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;AFNetworking&nbsp;(~&gt;&nbsp;2.0)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;Reachability&nbsp;(~&gt;&nbsp;3.0.0)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;-&nbsp;SBJson&nbsp;(~&gt;&nbsp;4.0.0)&nbsp;&nbsp;</li>
+<li>SPEC&nbsp;CHECKSUMS:&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;AFNetworking:&nbsp;c7d7901a83f631414c7eda1737261f696101a5cd&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;Reachability:&nbsp;500bd76bf6cd8ff2c6fb715fc5f44ef6e4c024f2&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;SBJson:&nbsp;f3c686806e8e36ab89e020189ac582ba26ec4220&nbsp;&nbsp;</li>
+<li>COCOAPODS:&nbsp;0.29.0</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<pre><code>PODS:
+  - AFNetworking (2.1.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.1.0):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.1.0)
+  - AFNetworking/Security (2.1.0)
+  - AFNetworking/Serialization (2.1.0)
+  - AFNetworking/UIKit (2.1.0):
+    - AFNetworking/NSURLConnection
+  - Reachability (3.0.0)
+  - SBJson (4.0.0)
+
+DEPENDENCIES:
+  - AFNetworking (~&gt; 2.0)
+  - Reachability (~&gt; 3.0.0)
+  - SBJson (~&gt; 4.0.0)
+
+SPEC CHECKSUMS:
+  AFNetworking: c7d7901a83f631414c7eda1737261f696101a5cd
+  Reachability: 500bd76bf6cd8ff2c6fb715fc5f44ef6e4c024f2
+  SBJson: f3c686806e8e36ab89e020189ac582ba26ec4220
+
+COCOAPODS: 0.29.0
+</code></pre>
+<p>Podfile.lock文件最大得用处在于多人开发。对于没有在Podfile中指定Pods依赖库版本的写法，如下：**[objc]** <a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">view plain</a> <a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">copy</a><br><a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794"><img loading="lazy" alt="SouthEast-1.png" src="/images/notes/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B-%E8%BF%9B%E9%98%B6%E7%AF%87-%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93-CSDN.NET/SouthEast-1.png"></a></p>
+<p><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794/fork"><img loading="lazy" alt="CODE_ico.png" src="/images/notes/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B-%E8%BF%9B%E9%98%B6%E7%AF%87-%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93-CSDN.NET/CODE_ico.png"></a></p>
+<ol>
+<li>pod&nbsp;‘SBJson’</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<pre><code>pod 'SBJson'
+</code></pre>
+<p>该句话用于获取当前SBJson这个Pods依赖库的最新版本。</p>
+<p>当团队中的某个人执行完pod install命令后，生成的Podfile.lock文件就记录下了当时最新Pods依赖库的版本，这时团队中的其它人check下来这份包含Podfile.lock文件的工程以后，再去执行pod install命令时，获取下来的Pods依赖库的版本就和最开始用户获取到的版本一致。如果没有Podfile.lock文件，后续所有用户执行pod install命令都会获取最新版本的SBJson，这就有可能造成同一个团队使用的依赖库版本不一致，这对团队协作来说绝对是个灾难！<br>在这种情况下，如果团队想使用当前最新版本的SBJson依赖库，有两种方案：</p>
+<ul>
+<li>更改Podfile，使其指向最新版本的SBJson依赖库；</li>
+<li>执行pod update命令；</li>
+</ul>
+<p>鉴于Podfile.lock文件对团队协作如此重要，我们需要将它添加到版本管理中。</p>
+<h2 id="二、Podfile文件"><a title="二、Podfile文件" class="headerlink" href="#二、Podfile文件"></a><a href="">二、Podfile文件</a></h2><p><a href="">对于普通用户来说，使用CocoaPods我们打交道最多的就是Podfile文件。CocoaPods是用ruby实现的，因此Podfile文件的语法就是ruby的语法。接着从以下几个方面来介绍Podfile:</a></p>
+<h3 id="1、Podfile文件存放位置"><a title="1、Podfile文件存放位置" class="headerlink" href="#1、Podfile文件存放位置"></a><a href="">1、Podfile文件存放位置</a></h3><p><a href="">这是在上篇文章中，遗留的一个问题。通常情况下我们都推荐Podfile文件都放在工程根目录，如下图所示：<img loading="lazy" alt="SouthEast-2.png" src="/images/notes/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B-%E8%BF%9B%E9%98%B6%E7%AF%87-%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93-CSDN.NET/SouthEast-2.png"></a></p>
+<p><a href="">事实上Podfile文件可以放在任意一个目录下，需要做的是在Podfile中指定工程的路径，和原来相比，Podfile文件就在最开始的位置增加了一行，具体内容如下：</a><a href=""><strong>[objc]</strong></a> <a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">view plain</a> <a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">copy</a><br><a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794/fork">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>xcodeproj&nbsp;“/Users/wangzz/Desktop/CocoaPodsTest/CocoaPodsTest.xcodeproj”&nbsp;&nbsp;</li>
+<li>platform&nbsp;:ios&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘Reachability’,&nbsp;&nbsp;‘~&gt;&nbsp;3.0.0’&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘SBJson’,&nbsp;‘~&gt;&nbsp;4.0.0’&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>platform&nbsp;:ios,&nbsp;‘7.0’&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘AFNetworking’,&nbsp;‘~&gt;&nbsp;2.0’</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<pre><code>xcodeproj "/Users/wangzz/Desktop/CocoaPodsTest/CocoaPodsTest.xcodeproj"
+
+platform :ios  
+pod 'Reachability',  '~&gt; 3.0.0'  
+pod 'SBJson', '~&gt; 4.0.0'  
+  
+platform :ios, '7.0'  
+pod 'AFNetworking', '~&gt; 2.0' 
+</code></pre>
+<p>指定路径使用的是xcodeproj关键字。<br>此后，进入Podfile文件所在路径，执行pod install命令就会和之前一样下载这些Pods依赖库，而且生成的相关文件都放在了Podfile所在目录下面，如下图：%!(EXTRA markdown.ResourceType=, string=, string=)</p>
+<p>和之前一样，我们仍然需要使用这里生成的workspace文件打开工程。</p>
+<h3 id="2、Podfile和target"><a title="2、Podfile和target" class="headerlink" href="#2、Podfile和target"></a><a href="">2、Podfile和target</a></h3><p>[Podfile本质上是用来描述Xcode工程中的targets用的。如果我们不显式指定Podfile对应的target，CocoaPods会创建一个名称为default的隐式target，会和我们工程中的第一个target相对应。换句话说，如果在Podfile中没有指定target，那么只有工程里的第一个target能够使用Podfile中描述的Pods依赖库。<br>如果想在一个Podfile中同时描述project中的多个target，根据需求的不同，可以有不同的实现方式。为了说明问题，在原来的工程中再创建一个名称为Second的target，现在的project中包含的target有：%!(EXTRA markdown.ResourceType=, string=, string=)</p>
+<p>①多个target中使用相同的Pods依赖库]()<br><a href="">比如，名称为CocoaPodsTest的target和Second的target都需要使用Reachability、SBJson、AFNetworking三个Pods依赖库，可以使用link_with关键字来实现，将Podfile写成如下方式：</a><a href=""><strong>[objc]</strong></a> <a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">view plain</a> <a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">copy</a><br><a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794/fork">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>link_with&nbsp;‘CocoaPodsTest’,&nbsp;‘Second’&nbsp;&nbsp;</li>
+<li>platform&nbsp;:ios&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘Reachability’,&nbsp;&nbsp;‘~&gt;&nbsp;3.0.0’&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘SBJson’,&nbsp;‘~&gt;&nbsp;4.0.0’&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>platform&nbsp;:ios,&nbsp;‘7.0’&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘AFNetworking’,&nbsp;‘~&gt;&nbsp;2.0’</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<pre><code>link_with 'CocoaPodsTest', 'Second'
+platform :ios  
+pod 'Reachability',  '~&gt; 3.0.0'  
+pod 'SBJson', '~&gt; 4.0.0'  
+  
+platform :ios, '7.0'  
+pod 'AFNetworking', '~&gt; 2.0' 
+</code></pre>
+<p>这种写法就实现了CocoaPodsTest和Second两个target共用相同的Pods依赖库。<br>②不同的target使用完全不同的Pods依赖库<br>CocoaPodsTest这个target使用的是Reachability、SBJson、AFNetworking三个依赖库，但Second这个target只需要使用OpenUDID这一个依赖库，这时可以使用target关键字，Podfile的描述方式如下：**[objc]** <a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">view plain</a> <a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">copy</a><br><a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794/fork">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>target&nbsp;:’CocoaPodsTest’&nbsp;do&nbsp;&nbsp;</li>
+<li>platform&nbsp;:ios&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘Reachability’,&nbsp;&nbsp;‘~&gt;&nbsp;3.0.0’&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘SBJson’,&nbsp;‘~&gt;&nbsp;4.0.0’&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>platform&nbsp;:ios,&nbsp;‘7.0’&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘AFNetworking’,&nbsp;‘~&gt;&nbsp;2.0’&nbsp;&nbsp;</li>
+<li>end&nbsp;&nbsp;</li>
+<li>target&nbsp;:’Second’&nbsp;do&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘OpenUDID’,&nbsp;‘~&gt;&nbsp;1.0.0’&nbsp;&nbsp;</li>
+<li>end</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<pre><code>target :'CocoaPodsTest' do
+platform :ios  
+pod 'Reachability',  '~&gt; 3.0.0'  
+pod 'SBJson', '~&gt; 4.0.0'  
+  
+platform :ios, '7.0'  
+pod 'AFNetworking', '~&gt; 2.0'
+end
+
+target :'Second' do
+pod 'OpenUDID', '~&gt; 1.0.0'
+end
+</code></pre>
+<p>其中，do/end作为开始和结束标识符。</p>
+<h3 id="3、使用Podfile管理Pods依赖库版本"><a title="3、使用Podfile管理Pods依赖库版本" class="headerlink" href="#3、使用Podfile管理Pods依赖库版本"></a><a href="">3、使用Podfile管理Pods依赖库版本</a></h3><p><a href="">再引入依赖库时，需要显示或隐式注明引用的依赖库版本，具体写法和表示含义如下：</a><a href=""><strong>[objc]</strong></a> <a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">view plain</a> <a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">copy</a><br><a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794/fork">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>pod&nbsp;‘AFNetworking’&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//不显式指定依赖库版本，表示每次都获取最新版本&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘AFNetworking’,&nbsp;‘2.0’&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//只使用2.0版本&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘AFNetworking’,&nbsp;‘&gt;&nbsp;2.0’&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//使用高于2.0的版本&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘AFNetworking’,&nbsp;‘&gt;=&nbsp;2.0’&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//使用大于或等于2.0的版本&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘AFNetworking’,&nbsp;‘&lt;&nbsp;2.0’&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//使用小于2.0的版本&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘AFNetworking’,&nbsp;‘&lt;=&nbsp;2.0’&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//使用小于或等于2.0的版本&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘AFNetworking’,&nbsp;‘~&gt;&nbsp;0.1.2’&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//使用大于等于0.1.2但小于0.2的版本&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘AFNetworking’,&nbsp;‘~&gt;0.1’&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//使用大于等于0.1但小于1.0的版本&nbsp;&nbsp;</li>
+<li>pod&nbsp;‘AFNetworking’,&nbsp;‘~&gt;0’&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//高于0的版本，写这个限制和什么都不写是一个效果，都表示使用最新版本</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<pre><code>pod 'AFNetworking'      //不显式指定依赖库版本，表示每次都获取最新版本
+pod 'AFNetworking', '2.0'     //只使用2.0版本
+pod 'AFNetworking', '&gt; 2.0'     //使用高于2.0的版本
+pod 'AFNetworking', '&gt;= 2.0'     //使用大于或等于2.0的版本
+pod 'AFNetworking', '&lt; 2.0'     //使用小于2.0的版本
+pod 'AFNetworking', '&lt;= 2.0'     //使用小于或等于2.0的版本
+pod 'AFNetworking', '~&gt; 0.1.2'     //使用大于等于0.1.2但小于0.2的版本
+pod 'AFNetworking', '~&gt;0.1'     //使用大于等于0.1但小于1.0的版本
+pod 'AFNetworking', '~&gt;0'     //高于0的版本，写这个限制和什么都不写是一个效果，都表示使用最新版本
+</code></pre>
+<h2 id="三、CocoaPods常用命令"><a title="三、CocoaPods常用命令" class="headerlink" href="#三、CocoaPods常用命令"></a><a href="">三、CocoaPods常用命令</a></h2><h3 id="1、pod-install"><a title="1、pod install" class="headerlink" href="#1、pod-install"></a><a href="">1、pod install</a></h3><p><a href="">根据Podfile文件指定的内容，安装依赖库，如果有Podfile.lock文件而且对应的Podfile文件未被修改，则会根据Podfile.lock文件指定的版本安装。<br>每次更新了Podfile文件时，都需要重新执行该命令，以便重新安装Pods依赖库。</a></p>
+<h3 id="2、pod-update"><a title="2、pod update" class="headerlink" href="#2、pod-update"></a><a href="">2、pod update</a></h3><p><a href="">若果Podfile中指定的依赖库版本不是写死的，当对应的依赖库有了更新，无论有没有Podfile.lock文件都会去获取Podfile文件描述的允许获取到的最新依赖库版本。</a></p>
+<h3 id="3、pod-search"><a title="3、pod search" class="headerlink" href="#3、pod-search"></a><a href="">3、pod search</a></h3><p><a href="">命令格式为：</a><a href=""><strong>[objc]</strong></a> <a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">view plain</a> <a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">copy</a><br><a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794/fork">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>$&nbsp;pod&nbsp;search&nbsp;OpenUDID</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<pre><code>$ pod search OpenUDID
+</code></pre>
+<p>后面的OpenUDID为参数。<br>从命令的名称不难看出，该命令是用来按名称搜索可用的Pods依赖库，执行结果如下：**[objc]** <a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">view plain</a> <a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">copy</a><br><a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794/fork">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>-&gt;&nbsp;OpenUDID&nbsp;(1.0.0)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;Open&nbsp;source&nbsp;initiative&nbsp;for&nbsp;a&nbsp;universal&nbsp;and&nbsp;persistent&nbsp;UDID&nbsp;solution&nbsp;for&nbsp;iOS.&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;pod&nbsp;‘OpenUDID’,&nbsp;‘~&gt;&nbsp;1.0.0’&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;-&nbsp;Homepage:&nbsp;<a target="_blank" rel="noopener" href="http://openudid.org/">http://OpenUDID.org</a>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;-&nbsp;Source:&nbsp;&nbsp;&nbsp;<a target="_blank" rel="noopener" href="https://github.com/ylechelle/OpenUDID.git">https://github.com/ylechelle/OpenUDID.git</a>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;-&nbsp;Versions:&nbsp;1.0.0&nbsp;[master&nbsp;repo]</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<pre><code>-&gt; OpenUDID (1.0.0)
+   Open source initiative for a universal and persistent UDID solution for iOS.
+   pod 'OpenUDID', '~&gt; 1.0.0'
+   - Homepage: http://OpenUDID.org
+   - Source:   https://github.com/ylechelle/OpenUDID.git
+   - Versions: 1.0.0 [master repo]
+</code></pre>
+<p>这里我们搜到了一条可用数据，里面描述了OpenUDID库的简要信息。其实我们真正需要的是上述结果中的第三行：**[objc]** <a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">view plain</a> <a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">copy</a><br><a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794/fork">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>pod&nbsp;‘OpenUDID’,&nbsp;‘~&gt;&nbsp;1.0.0’</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<pre><code>pod 'OpenUDID', '~&gt; 1.0.0'
+</code></pre>
+<p>不难看出，这是我们需要添加到Podfile文件中的。<br>有了这条命令，就可以方便、迅速地找到需要的Pods依赖库。</p>
+<h3 id="4、pod-setup"><a title="4、pod setup" class="headerlink" href="#4、pod-setup"></a><a href="">4、pod setup</a></h3><p><a href="">命令格式为：</a><a href=""><strong>[ruby]</strong></a> <a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">view plain</a> <a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">copy</a><br><a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794/fork">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>$&nbsp;pod&nbsp;setup</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<pre><code>$ pod setup
+</code></pre>
+<p>执行完了以后会打印：**[ruby]** <a title="view plain" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">view plain</a> <a title="copy" target="_blank" rel="noopener" href="http://blog.csdn.net/wzzvictory/article/details/19178709#">copy</a><br><a title="在CODE上查看代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<p><a title="派生到我的代码片" target="_blank" rel="noopener" href="https://code.csdn.net/snippets/194794/fork">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>Setting&nbsp;up&nbsp;CocoaPods&nbsp;master&nbsp;repo&nbsp;&nbsp;</li>
+<li>Updating&nbsp;7cd4668..f3d3ced&nbsp;&nbsp;</li>
+<li>Fast-forward</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<pre><code>Setting up CocoaPods master repo
+Updating 7cd4668..f3d3ced
+
+Fast-forward
+</code></pre>
+<p>接下来还会打印很多更新信息。<br>这条命令用于跟新本地电脑上的保存的Pods依赖库tree。由于每天有很多人会创建或者更新Pods依赖库，这条命令执行的时候会相当慢，还请耐心等待。我们需要经常执行这条命令，否则有新的Pods依赖库的时候执行pod search命令是搜不出来的。</p>
+<h2 id="四、参考文档"><a title="四、参考文档" class="headerlink" href="#四、参考文档"></a><a href="">四、参考文档</a></h2><p><a target="_blank" rel="noopener" href="http://guides.cocoapods.org/using/index.html">http://guides.cocoapods.org/using/index.html</a></p>
+<p>.</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/cocoapods/">cocoapods</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B----%E8%BF%9B%E9%98%B6%E7%AF%87%20-%20%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%20-%20%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93%20-%20CSDN.NET/" data-title="CocoaPods详解之----进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/CentOS6.5使用yum命令方式安装/" title="CentOS6.5使用yum命令方式安装">
+  <strong>上一篇：</strong><br/>
+  <span>
+  CentOS6.5使用yum命令方式安装</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/App提交 App Store 审核，遇到过哪些坑？ - 应用（软件） - 知乎/"  title="App提交 App Store 审核，遇到过哪些坑？ - 应用（软件） - 知乎">
+ <strong>下一篇：</strong><br/> 
+ <span>App提交 App Store 审核，遇到过哪些坑？ - 应用（软件） - 知乎
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/CocoaPods详解之----进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET/" data-title="CocoaPods详解之----进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B----%E8%BF%9B%E9%98%B6%E7%AF%87%20-%20%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%20-%20%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93%20-%20CSDN.NET/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B%E2%80%94-%E8%BF%9B%E9%98%B6%E7%AF%87-%E7%8E%8B%E4%B8%AD%E5%91%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E5%8D%9A%E5%AE%A2%E9%A2%91%E9%81%93-CSDN-NET"><span class="toc-number">1.</span> <span class="toc-text">CocoaPods详解之—-进阶篇 - 王中周的个人博客 - 博客频道 - CSDN.NET</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CocoaPods%E8%AF%A6%E8%A7%A3%E4%B9%8B%E2%80%94-%E8%BF%9B%E9%98%B6%E7%AF%87"><span class="toc-number">2.</span> <span class="toc-text">CocoaPods详解之—-进阶篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Podfile-lock%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">一、Podfile.lock文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Podfile%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">二、Podfile文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81Podfile%E6%96%87%E4%BB%B6%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.2.1.</span> <span class="toc-text">1、Podfile文件存放位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81Podfile%E5%92%8Ctarget"><span class="toc-number">2.2.2.</span> <span class="toc-text">2、Podfile和target</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E4%BD%BF%E7%94%A8Podfile%E7%AE%A1%E7%90%86Pods%E4%BE%9D%E8%B5%96%E5%BA%93%E7%89%88%E6%9C%AC"><span class="toc-number">2.2.3.</span> <span class="toc-text">3、使用Podfile管理Pods依赖库版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81CocoaPods%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text">三、CocoaPods常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81pod-install"><span class="toc-number">2.3.1.</span> <span class="toc-text">1、pod install</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81pod-update"><span class="toc-number">2.3.2.</span> <span class="toc-text">2、pod update</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81pod-search"><span class="toc-number">2.3.3.</span> <span class="toc-text">3、pod search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81pod-setup"><span class="toc-number">2.3.4.</span> <span class="toc-text">4、pod setup</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">2.4.</span> <span class="toc-text">四、参考文档</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

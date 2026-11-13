@@ -1,0 +1,1298 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>使用 Velocity 实现客户端和服务器端模板 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="使用 Velocity 实现客户端和服务器端模板Velocity 使用 Velocity 实现客户端和服务器端模板灵活的模板引擎为 JSP 技术提供一种没有遗产负担的选择 简介：&amp;nbsp;Velocity 是一种通用的、开放源代码的模板解决方案，可以在报告生成 &#x2F; 数据转换应用程序中独立使用，也可以在 MVC 模型框架中作为视图组件。本文中，Sing Li 介绍了 Velocity，并说明如何将">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Velocity 实现客户端和服务器端模板">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E4%BD%BF%E7%94%A8%20Velocity%20%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E6%9D%BF/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="使用 Velocity 实现客户端和服务器端模板Velocity 使用 Velocity 实现客户端和服务器端模板灵活的模板引擎为 JSP 技术提供一种没有遗产负担的选择 简介：&amp;nbsp;Velocity 是一种通用的、开放源代码的模板解决方案，可以在报告生成 &#x2F; 数据转换应用程序中独立使用，也可以在 MVC 模型框架中作为视图组件。本文中，Sing Li 介绍了 Velocity，并说明如何将">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E4%BD%BF%E7%94%A8-Velocity-%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E6%9D%BF/28.gif">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2011-12-15T15:23:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Velocity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E4%BD%BF%E7%94%A8-Velocity-%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E6%9D%BF/28.gif">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/使用 Velocity 实现客户端和服务器端模板/" title="使用 Velocity 实现客户端和服务器端模板" itemprop="url">使用 Velocity 实现客户端和服务器端模板</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Velocity-%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">使用 Velocity 实现客户端和服务器端模板</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Velocity-%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E6%9D%BF-1"><span class="toc-number">2.</span> <span class="toc-text">使用 Velocity 实现客户端和服务器端模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.0.1.</span> <span class="toc-text">$msg.get(“index.heading”)</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="使用-Velocity-实现客户端和服务器端模板"><a title="使用 Velocity 实现客户端和服务器端模板" class="headerlink" href="#使用-Velocity-实现客户端和服务器端模板"></a>使用 Velocity 实现客户端和服务器端模板</h1><p><code>Velocity</code></p>
+<h1 id="使用-Velocity-实现客户端和服务器端模板-1"><a title="使用 Velocity 实现客户端和服务器端模板" class="headerlink" href="#使用-Velocity-实现客户端和服务器端模板-1"></a>使用 Velocity 实现客户端和服务器端模板</h1><p><em>灵活的模板引擎为 JSP 技术提供一种没有遗产负担的选择</em></p>
+<p><strong>简介：</strong>&nbsp;Velocity 是一种通用的、开放源代码的模板解决方案，可以在报告生成 / 数据转换应用程序中独立使用，也可以在 MVC 模型框架中作为视图组件。本文中，Sing Li 介绍了 Velocity，并说明如何将其模板处理功能集成到客户端独立应用程序、服务器端 Web 应用程序或者 Web 服务中。</p>
+<p>在 HTML 或者 XML 这样的标准表示或交换格式中，文本性数据的操作和转换是一种频繁而且通常非常单调的活动，每个开发人员都会遇到。模板引擎可以改善这个过程，它在模板中保留输出中的静态部分，而动态生成和安排变化的部分。Velocity 是一种高度实用的、开放源代码的模板引擎，可以方便地集成到其他客户端或服务器端应用程序中。</p>
+<p>对于服务器端应用程序，如果与兼容 Servlet 2.3+ 的 Web 层容器集成，Velocity 为 JSP 技术提供了一种可行的替代方案，可以强制实施表示逻辑与应用程序业务逻辑的清晰划分。事实上，Velocity 支持的模板语言非常简单，形成的模板也十分清晰，Web 站点设计人员和样式开发人员可以学习和维护这些模板。</p>
+<p>本文中将考察 Velocity 的简单模板语言、创建一些模板并将其用于独立的客户应用程序。然后我们将把这个模板引擎集成到 Struts MVC 框架中作为视图组件。</p>
+<p><a href=""><strong>基本模板引擎操作</strong></a></p>
+<p>基本模板引擎操作非常简单。首先看一看清单 1 中的模板：</p>
+<p><a href=""><strong>清单 1. 基本的 Velocity 模板</strong></a></p>
+<p>|```<br>     <title>A Template Based Page</title>      </p><p>This is a page generated by $generatedBy.</p>  <p>The customer’s name is $customerName.</p>     <p></p>
+<pre><code>
+|
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+这个模板是一个完整的 HTML 文件。您可以使用文本编辑器或者喜欢的图形化可视网页编辑器创建该文件。创建的简易性是基于模板的系统的主要好处和要求。
+
+当模板引擎运行时，清单 1 中彩色显示的部分将被实际的数据替换。获取数据并与模板结合的过程称为&nbsp;_合并_。看一看清单 2 中的脚本所表示的数据：
+
+[**清单 2. 为模板合并设置数据值**]()
+
+|```
+ #set ($generatedBy = "Velocity")  #set ($customerName = "John Doe") 
+</code></pre>
+<p>|<br>|—————————————————————————|</p>
+<p>现在，如果清单 1 中的模板与清单 2 中的数据合并，将得到清单 3 所示的结果：</p>
+<p><a href=""><strong>清单 3. 合并到模板中的数据</strong></a></p>
+<p>|```<br>     <title>A Template Based Page</title>      </p><p>This is a page generated by Velocity.</p>  <p>The customer’s name is John Doe.</p>     <p></p>
+<pre><code>
+|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+您可能发现，这种特性和字处理程序中的邮件合并功能类似。在字处理程序中，信函结构与来自邮件列表的名称和地址合并。和邮件合并一样，这种应用程序最适用于要合并的数据源非常大而且有变化的情况。
+
+从这个单纯的意义上讲，Velocity 是一个模板引擎。Velocity 的输出格式仅受文本模板中所能放置的内容的限制。包括现在最流行的格式（HTML、XML、SQL，等等）。
+
+[**使用 Velocity 模板语言创建模板**]()
+
+Velocity 模板是文本文件（HTML、XML 等等），其中包括：
+
+- 照原样合并的静态部分
+- 将被要合并的数据替代的占位符
+- 脚本语言中的指示符和指令
+
+Velocity 模板使用的脚本语言称为 Velocity 模板语言（VTL）。和其他脚本语言相比，VTL 语法相对而言不是很丰富。任何具有编程背景的人都可以非常快地学会 VTL。
+
+[**占位符与引用**]()
+
+VTL 中的引用是一个命名元素，如&nbsp;`$customerName`。引用可以在 Velocity 模板中作为占位符。在模板合并过程中，这些占位符将被替换成相应的文本值，从而形成最终的输出。比如，在&nbsp;[清单 1](http://www.ibm.com/developerworks/cn/java/j-velocity/#list1)中，我们可以看到使用了两个 VTL 引用（&nbsp;`$generatedBy`和`$customerName`）已生成最终输出结果。
+
+变量在 VTL 中是一种引用类型。您可以使用&nbsp;`#set()`指示符为变量赋值。清单 4 给出了一些例子：
+
+[**清单 4. 变量类型的 VTL 引用**]()
+
+|```
+ #set( $this = "Velocity")  #set( $numericBase = 999 )  #set( $booleanCondition = true )  This page is generated using $this.  There are ($numericBase + 1) pages in total. 
+</code></pre>
+<p>|<br>|———————————————————————————————————————————————————————————-|</p>
+<p>变量名必须从一个字母开始，因此 Velocity 很容易把变量名与模板中的货币符号分开（比如，&nbsp;<code>$100</code>不可能是一个变量名）。合并操作中所有的变量都被转化成字符串，可能造成一些有趣的现象。看一看清单 4 中用红色显示的文本。合并后的输出如清单 5 所示：</p>
+<p><a href=""><strong>清单 5. 合并后的模板中带有数字值的变量</strong></a></p>
+<p>|```<br> This page is generated using Velocity.  There are (999 + 1) pages in total. </p>
+<pre><code>
+|
+|-----------------------------------------------------------------------------------|
+
+因为&nbsp;`$numericBase`在合并操作中被转化成了字符串，因此不会执行算术操作。因为 VTL 专门用于模板操作而非通用的计算语言，所以只需要支持整数算术运算（尽管可以使用插件工具进行扩展）。下面的脚本说明了如何利用这种数学运算能力：
+
+|```
+ #set( $newSum = $numericBase + 1)  There are $newSum pages in total. 
+</code></pre>
+<p>|<br>|—————————————————————————-|</p>
+<p>该模板合并后相应的输出为：</p>
+<p>|```<br> There are 1000 pages in total. </p>
+<pre><code>
+|
+|--------------------------------------|
+
+到目前我们处理的还只有标量。要创建包含多个元素的&nbsp;`ArrayList`变量，可以使用如下的语法：
+
+|```
+ #set( $treeList = ["pine", "oak", "maple", "redwood"]) 
+</code></pre>
+<p>|<br>|————————————————————–|</p>
+<p>您可以使用&nbsp;<code>$treeList.get(1)</code>列表中的第二个元素。</p>
+<p>赋值以后，&nbsp;<code>$treeList</code>就是一个基于&nbsp;<code>ArrayList</code>的变量（就像是标准 JDK 集合类中那样）。您可以直接使用符号&nbsp;<code>$treeList.get(n)</code>访问它的每个元素，其中的&nbsp;<code>n</code>是以 0 为基的&nbsp;<code>ArrayList</code>索引。比如，像&nbsp;<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-velocity/#list6">清单 6</a>种红色显示的一行所表明的那样，&nbsp;<code>$treeList.get(1)</code>用于选择&nbsp;<code>ArrayList</code>中第二项，即 oak。这种调用&nbsp;<code>ArrayList</code>类方法的语法也可用于调用其他变量对象的方法（更多信息请参阅侧栏中的<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-velocity/#sidebar1">属性和方法参考</a>）。</p>
+<p><a href="">## 属性和方法参考</a></p>
+<p><a href="">除了在模板中设置变量之外，VTL 引用也可以是对象属性或方法。这些对象是模板可以使用的 Java 类（一般通过上下文，参阅�</a>�<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-velocity/#2">Velocity 上下文</a>）。&nbsp;</p>
+<p>对象属性通过和 Javabean 类似的符号访问。比如，可以通过 VTL 引用&nbsp;<code>$customer.LastName</code>访问&nbsp;<code>$customer</code>对象的<code>LastName</code>属性。在幕后，Velocity 使用对象的访问器方法获得属性值（即调用对象的&nbsp;<code>getLastName()</code>方法）。&nbsp;</p>
+<p>您可以用和属性访问类似的符号调用对象的方法，可以带参数列表也可以不带。比如，可以通过 VTL 引用<code>$customer.getPhone("mobile")</code>，调用&nbsp;<code>$customer</code>对象的<code>getPhone()</code>方法获得移动电话号码。</p>
+<p>关于占位符替换的一点说明：Velocity 把任何不能识别的引用作为普通文本打印，如清单 6 中下面突出显示的两行（蓝色和红色）所示：</p>
+<p><a href=""><strong>清单 6. 占位符置换</strong></a></p>
+<p>|```<br> The second item in the list is $treeList.get(1).  $notDeclared is an undeclared variable.  But $!notDeclared is invisible when not declared. </p>
+<pre><code>
+|
+|----------------------------------------------------------------------------------------------------------------------------------------------------|
+
+VTL 支持一种静态引用符号，以避免呈现不存在的或者&nbsp;`空的`引用。如果使用安静引用符号，比如&nbsp;`$!notDeclared`，那么 Velocity 将什么也不输出，而不是输出完整的引用名。注意变量名前面的“!”表示这是静态引用符号。当合并清单 6 中的模板时，两个引用都没有分配任何值，但是蓝色显示的引用将原样显示，而绿色的一个则看不到：
+
+|```
+ The second item in the list is oak.  $notDeclared is an undeclared variable.  But is invisible when not declared. 
+</code></pre>
+<p>|<br>|————————————————————————————————————————-|</p>
+<p><a href=""><strong>选择性呈现和循环</strong></a></p>
+<p>可以使用指示符&nbsp;<code>#if... #then... #else....</code>有条件地呈现模板中特定的部分。清单 7 给出了一个例子：</p>
+<p><a href=""><strong>清单 7. 使用 #if、#then 和 #else 有选择地呈现</strong></a></p>
+<p>|```<br> #if $customer.GoldMember  Thank you Mr. $customer.LastName, for flying with us.  Your loyal patronage is greatly appreciated.   This flight earns you an additional 5000 miles.  #else  Thank you for flying with us.  Please consider joining our frequent flyer program.  #endif </p>
+<pre><code>
+|
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+在清单 7 的模板中，使用&nbsp;`$customer`对象的 boolean 属性&nbsp;`GoldMember`确定在最终输出中出现哪些信息。对于金牌顾客，最终输出中将呈现蓝色显示的消息；对于其他顾客，则在最终输出中呈现绿色显示的消息。
+
+模板中经常要使用循环格式化表格或者列表形式的信息。显示的数据通常保存在一个&nbsp;`ArrayList`引用中。在 Velocity 中唯一用于处理重复循环的指示符是&nbsp;`#foreach`指示符。清单 8 中的模板通过&nbsp;`$treeList ArrayList`变量演示了&nbsp;`#foreach`指示符的用法。当然，也可以使用任何其他可用的集合类型的对象引用，或者返回一个集合的对象属性 / 方法引用。
+
+[**清单 8. 使用 #foreach 循环**]()
+
+|```
+ &lt;table&gt;  &lt;tr&gt;&lt;td&gt;Tree Name&lt;/td&gt;&lt;/tr&gt;  #foreach $name in $treeList  &lt;tr&gt;&lt;td&gt;      $name is a big tree!  &lt;/td&gt;&lt;/tr&gt;  #end  &lt;/table&gt; 
+</code></pre>
+<p>|<br>|—————————————————————————————————————————————–|</p>
+<p><code>$treeList</code>中包含树名的列表，清单 8 中的模板合并后的输出如清单 9 所示：</p>
+<p><a href=""><strong>清单 9. #foreach 循环中合并后的输出</strong></a></p>
+<p>|```<br> <table>  <tbody><tr><td>Tree Name</td></tr>  <tr><td>      pine is a big tree!  </td></tr>  <tr><td>      oak is a big tree!  </td></tr>  <tr><td>      maple is a big tree!  </td></tr>  <tr><td>      redwood is a big tree!  </td></tr>  </tbody></table> </p>
+<pre><code>
+|
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+如果从 HTML 浏览器中查看，清单 9 当然就是一个包含树名的表。
+
+注意在&nbsp;`#foreach`循环体内有一个内置的计数器，可以在&nbsp;`#foreach`指示符循环体内通过&nbsp;`$velocityCounter`引用访问它。默认情况下，这个计数器从 1 开始，每执行一次循环递增一次。
+
+[**Velocity 中的宏**]()
+
+Velocity 的一个主要特性是能够很容易地定义宏，称为&nbsp;_Velocimacros_。宏使您能够很容易地封装和重用模板脚本。默认情况下，宏保存在&nbsp;`VM_global_library.vm`文件中。比如，考虑清单 10 中名为&nbsp;`#showTree()`的 Velocimacro：
+
+[**清单 10. 定义 Velocimacro**]()
+
+|```
+ #macro (showTree)     #if ($treeList )         #foreach ($e in $treeList )             $e         #end     #end  #end 
+</code></pre>
+<p>|<br>|—————————————————————————————————————————–|</p>
+<p>您可以调用&nbsp;<code>#showTree()</code>Velocimacro 并使用它打印&nbsp;<code>$treeList</code>ArrayList ―― 如果这个列表已经定义的话。调用的语法很简单，即<code>#showTree()</code>。</p>
+<p>参数化宏也是可能的。比如，我们可以修改&nbsp;<code>#showTree()</code>宏使其用于任何列表，如清单 11 所示：</p>
+<p><a href=""><strong>清单 11. 带参数的 Velocimacro</strong></a></p>
+<p>|```<br> #macro (showList $val)     #if ($val )         #foreach ($e in $val )             $e         #end     #end  #end </p>
+<pre><code>
+|
+|------------------------------------------------------------------------------------------------------------------------|
+
+要使用清单 11 中的宏调用&nbsp;`$treeList`，我们可以使用&nbsp;`#showList($treeList)`。这两种情况的输出都一样，如清单 12 所示：
+
+[**清单 12. Velocimacro 的合并输出**]()
+
+|```
+     pine      oak      maple      redwood 
+</code></pre>
+<p>|<br>|————————————————-|</p>
+<p><a href=""><strong>其他有趣的 VTL 细节</strong></a></p>
+<p>单行注释或者行尾注释从&nbsp;<code>##</code>开始，多行注释则放在&nbsp;<code>#*</code>和&nbsp;<code>*#</code>之间。</p>
+<p>在处理字符串数据时，可以使用双引号或单引号分隔。但是使用双引号允许在分隔的字符串&nbsp;_内部_对 Velocity 引用、指示符甚至 Velocimacros 求值。</p>
+<p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-velocity/#ibm-pcon">回页首</a></p>
+<p><a href=""><strong>Velocity 上下文</strong></a></p>
+<p>您可以把 Velocity 中的上下文看作是导入 Java 对象，以便在 Velocity 模板内部访问的一种方法。这种导入必须在 Java 编码中明确地完成。和 JSP 代码或者 JavaScript 不同，不存在“自然的”或“原生方式”使 Velocity 访问任何 Java 对象。只有明确导入的 Java 对象才能在 Velocity 模板中使用。</p>
+<p>通过创建&nbsp;<code>org.apache.velocity.context.Context</code>类的实例可以获得 Velocity 上下文。然后可以使用上下文的&nbsp;<code>put(&nbsp;key,&nbsp;value)&nbsp;</code>方法，把将要导入供模板使用的对象附加到上下文中。key 是一个字符串名，将在模板中作为可用的引用出现。在产品环境中，图形或者 Web 设计人员可能负责创建和维护模板，而 Java 开发人员提供可以在模板中访问的对象集。在这种情况下，设计人员和开发人员应就对象集合及其可用的属性达成一致并互相协作。在 Velocity 上下文中附加的属性将作为主要的接口机制。</p>
+<p><a href=""><strong>在模板中访问上下文属性</strong></a></p>
+<p>看一看一个独立解析器中包含的示例代码（请参阅&nbsp;<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-velocity/#resources">参考资料</a>）。可以在&nbsp;<code>\code\src</code>目录下找到。比如，在<code>com.ibm.dvworks.velocity.VelocityParser</code>类中，我们已经创建并向 Velocity 上下文中添加了两个属性，如清单 13 所示：</p>
+<p><a href=""><strong>清单 13. 在 VelocityParser 类中创建一个 Velocity 实例</strong></a></p>
+<p>|```<br> public static void main(String[] args)    {         VelocityParser velInstance = new VelocityParser(args[0]);         velInstance.addToContext(  “treeFarm”,         new String [] { “redwood”, “maple”, “oak”, “pine” });         velInstance.addToContext( “title”, “A Tree Farm”);  velInstance.addToContext( “date”, new java.util.Date());         velInstance.addToContext(“fmtr”,         new org.apache.velocity.app.tools.VelocityFormatter(                   velInstance.getCurrentContext()));         velInstance.processTemplate();                 } </p>
+<pre><code>
+|
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+属性&nbsp;`treeFarm`是一个关于树名的&nbsp;`ArrayList`。&nbsp;`title`属性是一个标量字符串。一旦附加到上下文中并在合并过程中传递，这些属性在 Velocity 模板中立刻就变得没有用了。清单 14 中的模板使用了这两个属性。您可以在&nbsp;`\code\app\treectx.vm`中找到这个例子。
+
+[**清单 14. 使用 $treeFarm 上下文属性引用**]()
+
+|```
+ &lt;table&gt;  &lt;tr&gt;&lt;td&gt;$title&lt;/td&gt;&lt;/tr&gt;  #foreach $name in $treeFarm  &lt;tr&gt;&lt;td&gt;      $name is a big tree!  &lt;/td&gt;&lt;/tr&gt;  #end  &lt;/table&gt; 
+</code></pre>
+<p>|<br>|————————————————————————————————————————————–|</p>
+<p>合并后的输出如清单 15 所示：</p>
+<p><a href=""><strong>清单 15. 模板的合并输出</strong></a></p>
+<p>|```<br> <table>  <tbody><tr><td>A Tree Farm</td></tr>  <tr><td>      redwood is a big tree!  </td></tr>  <tr><td>      maple is a big tree!  </td></tr>  <tr><td>      oak is a big tree!  </td></tr>  <tr><td>      pine is a big tree!  </td></tr>  </tbody></table> </p>
+<pre><code>
+|
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+要注意，使用&nbsp;`$treeFarm`上下文属性引用的方法和前面分析的&nbsp;`$treeList`变量引用一致。
+
+[**初始化模板引擎**]()
+
+分析&nbsp;`VelocityParser`类中列出的&nbsp;`main()`方法（参见清单 13）。&nbsp;`VelocityParser`构造函数创建解析器并加载模板，然后增加模板引擎要使用的属性，最后调用&nbsp;`processTemplate()`合并数据和模板。我们将按照顺序依次分析这些方法。
+
+您可以在&nbsp;`org.apache.velocity.app.Velocity`类中使用静态方法初始化 Velocity 并加载一个模板文件。要使用的方法分别为`init()`和&nbsp;`getTemplate()`。对&nbsp;`init()`方法的调用出现在&nbsp;`VelocityParser`类的构造函数中，如清单 16 所示：
+
+[**清单 16. 在 VelocityParser 类的构造函数中初始化模板引擎**]()
+
+|```
+      public VelocityParser(String templateFile)  &#123;         try &#123;             Velocity.init("velocity.properties");             mainTemplate = Velocity.getTemplate(templateFile);          &#125;          catch( Exception ex ) &#123;                 System.out.println("Error processing template file: " + templateFile );           &#125;       &#125; 
+</code></pre>
+<p>|<br>|————————————————————————————————————————————————————————————————————————————————————————————————————————————————-|</p>
+<p>在清单 16 中，对&nbsp;<code>init()</code>的调用创建了一个 Velocity 引擎实例。如果应用程序需要创建和管理多个 Velocity 模板引擎实例，则应使用<code>org.apache.velocity.app.VelocityEngine</code>类。</p>
+<p><a href=""><strong>上下文链</strong></a></p>
+<p>只要调用&nbsp;<code>org.apache.velocity.VelocityContext</code>类的普通构造函数就可以创建直接可用的 Velocity 上下文。</p>
+<p>Velocity 上下文可以&nbsp;_进行链接_（包装在另一个上下文内部）。如果需要在模板中控制特定对象引用的可见性和可用性，这样做非常有用。</p>
+<p>Velocity 将在对象引用的所有链接上下文中搜索属性。如果遇到重复的名称，则使用最外层的属性，而内部的同名属性永远不会被访问。</p>
+<p>为了链接 Velocity 上下文，要链接的上下文应该作为参数传递给一个新上下文的构造函数。清单 17 中&nbsp;<code>VelocityParser</code>类的重载方法<code>addToContext()</code>说明了这一点：</p>
+<p><a href=""><strong>清单 17. 使用 addToContext() 方法增加上下文属性或者上下文链接</strong></a></p>
+<p>|```<br>      public void addToContext(String key, Object value) {           if (mainContext == null)               mainContext = new VelocityContext();            mainContext.put(key, value);      }       public void addToContext(VelocityContext chainCtx) {           mainContext = new VelocityContext(chainCtx);       } </p>
+<pre><code>
+|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+在&nbsp;`processTemplate()`方法中，调用模板的&nbsp;`merge()`方法结合上下文信息和模板生成输出流，如清单 18 所示：
+
+[**清单 18. 在 processTemplate() 方法中合并模板**]()
+
+|```
+     public void processTemplate() &#123;          try &#123;             BufferedWriter writer = writer = new BufferedWriter(                 new OutputStreamWriter(System.out));             if ( mainTemplate != null)                 mainTemplate.merge(mainContext, writer);             writer.flush();             writer.close();         &#125;         catch( Exception ex )    &#123;            ex.printStackTrace();         &#125;     &#125; 
+</code></pre>
+<p>|<br>|————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|</p>
+<p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-velocity/#ibm-pcon">回页首</a></p>
+<p><a href=""><strong>Velocity 作为独立的解析器</strong></a></p>
+<p>要编译上述示例独立解析器，请使用安装目录下&nbsp;<code>\code\app</code>中的&nbsp;<code>compile.bat</code>文件。要试验该解析器，请使用&nbsp;<code>process.bat</code>批处理文件，其中包括：</p>
+<p>|```<br> set VEL_HOME=\jdk1.4\vel14rc1  java -classpath ..\classes;%VEL_HOME%\velocity-dep-1.4-rc1.jar  com.ibm.dvworks.velocity.VelocityParser %1 %2 %3 </p>
+<pre><code>
+|
+|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+注意，必须同时在&nbsp;`compile.bat`和&nbsp;`process.bat`中把环境变量&nbsp;`VEL_HOME`设置成安装 Velocity 的目录。在 Velocity 发行包中包含两类不同的 JAR 文件：&nbsp;`velocity-dep---?.jar`（其中的&nbsp;_--?_是版本号信息）和&nbsp;`velocity---?.jar`。&nbsp;`velocity-dep---?.jar`文件包括所有的外部依赖（Jakarta common-collections、Avalon Logkit 和 ORO 正则表达式库），可以直接使用。如果您的 classpath 中已经有一些这样的库，您可能希望使用&nbsp;`velocity---?.jar`文件来代替。如果这些 JAR 组成都不能满足您的需要，可以很容易地按照需要的方式重新建立 Velocity。Velocity 发行包中包括一个 ant 脚本，可以为不同的应用场景建立 7 种不同的 JAR 配置。
+
+为了便于上手，Velocity 预设了一些默认配置属性，对于多数应用而言，这都是合理的和可以接受的。这就避免了开发人员从一开始就忙于复杂的配置选项，让他们能马上体验到这种模板引擎。
+
+[回页首](http://www.ibm.com/developerworks/cn/java/j-velocity/#ibm-pcon)
+
+[**服务器上的 Velocity 与 JSP 技术**]()
+
+在服务器端可以使用 Velocity 处理模板和生成的动态内容（HTML、XML 等）。这和 JSP 技术的目标非常接近。但是，JSP 模型可以毫无阻碍地访问底层的 Servlet API 和 Java 编程语言。事实上，为了避免访问这些固有的特性，您在编码中必须严格约束（只是使用 EL、标签库和类似的特性）。它基本上是一种在很大程度上开放的访问模型。
+
+拿 Velocity 与之比较。作为一种完全自包含的模板引擎和脚本解释器，Velocity 拥有完全封闭的模型。任何针对系统和 / 或 Java 编程语言的访问都必须明确地启用。默认情况，Velocity 模板中不能访问 Java 编程语言的任何方面。这种封闭的模型使 Velocity 能够提供分离的模板表示层，与任何应用程序业务逻辑或者数据管理代码清晰地划分开。
+
+现在让我们把这种模板引擎与 Tomcat 5 的最新版本集成在一起，看一看 Velocity 在服务器端的应用。
+
+[回页首](http://www.ibm.com/developerworks/cn/java/j-velocity/#ibm-pcon)
+
+[**与 Tomcat 5 一起部署 Velocity**]()
+
+Velocity 发行包带有一个&nbsp;`org.apache.velocity.servletVelocityServlet`库类，扩展它可以很快地创建一个模板处理 servlet。作为独立的客户机应用程序测试的任何模板都可以使用&nbsp;`VelocityServlet`部署在服务器上。把独立的 Velocity 模板转移到 Web 应用程序中相对比较简单。只需要以下几个步骤：
+
+[## Velocity 中的工具
+
+工具是在模板中可以通过 Velocity 上下文使用的实用 Java 对象。虽然可以手工把这些对象附加到上下文中，但`VelocityViewServlet`工具箱管理器可通过更加灵活和结构化的方式完成。在模板中一般是通过调用工具的方法来使用它们。&nbsp;`VelocityViewServlet`与&nbsp;`VelocityStruts`都提供了非常有价值的经过测试的工具，在作为一种视图技术部署 Velocity 时极其有用。]()
+
+1. [从&nbsp;`org.apache.velocity.servlet.VelocityServlet`类派生一个 Servlet 类。]()
+2. [重写并实现其中的一个&nbsp;`handleRequest()`方法。]()
+3. [在&nbsp;`handleRequest()`的实现中，添加希望在模板中作为上下文属性使用的数据或工具（请参阅侧栏�]()�[Velocity 中的工具](http://www.ibm.com/developerworks/cn/java/j-velocity/#sidebar2)）。
+4. 在&nbsp;`handleRequest()`的实现中，从文件或资源（如 JAR 文件）中取得模板并返回它。
+
+在示例代码包中，&nbsp;`com.ibm.dvworks.velocity.VelTestServlet`就是按照上述步骤创建的一个 servlet。您可以查看&nbsp;`webapps\vservlet\WEB-INF\src`目录下的代码。如果改变了这些代码，一定要使用 compile.bat 批处理文件重新编译它。
+
+部署描述符（web.xml 文件）定义了该 servlet 并把它映射到&nbsp;`/vServlet`URL 模式中，如清单 19 所示：
+
+[**清单 19. 自定义基于 Velocity 的 servlet 的 Tomcat 部署描述符**]()
+
+|```
+ &lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;  &lt;!DOCTYPE web-app      PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"    "http://java.sun.com/dtd/web-app_2_3.dtd"&gt;  &lt;web-app&gt;  &lt;servlet&gt;     &lt;servlet-name&gt;vServlet&lt;/servlet-name&gt;     &lt;servlet-class&gt;com.ibm.dvworks.velocity.VelTestServlet&lt;/servlet-class&gt;  &lt;/servlet&gt;  &lt;servlet-mapping&gt;     &lt;servlet-name&gt;vServlet&lt;/servlet-name&gt;     &lt;url-pattern&gt;/vServlet&lt;/url-pattern&gt;   &lt;/servlet-mapping&gt;  &lt;/web-app&gt; 
+</code></pre>
+<p>|<br>|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p>加载并处理的模板放在&nbsp;<code>webapps\vServlet</code>目录中。在这个例子中，模板文件称为&nbsp;<code>variables.vm</code>。测试之前一定要保证&nbsp;<code>velocity-dep---?.jar</code>文件已经放在&nbsp;<code>webapps\vServlet\WEB-INF\lib</code>目录下，然后启动 Tomcat 5 并访问<code>http://localhost:8080/vservlet/Servlet</code>URL。</p>
+<p><a href=""><strong>部署 VelocityViewServlet</strong></a></p>
+<p>要把模板功能扩展到 Web 应用程序中，应该使用 Velocity 工具集中的&nbsp;<code>VelocityViewServlet</code>。Velocity 工具是 Velocity 的一个子项目（请参阅&nbsp;<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-velocity/#resources">参考资料</a>找到这个 URL 并下载最新的版本）。该 Servlet 为 Velocity 用作一种视图层技术提供了更复杂的支持，既可以与 JSP 技术联合使用也可以代替后者。使用&nbsp;<code>VelocityViewServlet</code>可以减少许多冗余代码，因为它提供了：</p>
+<ul>
+<li>对请求对象和属性、会话对象和属性以及 servlet 上下文和属性的直接模板访问</li>
+<li>正式的、可外部配置的“工具箱”，可以增加在模板中使用的自定义工具（这里讲的工具只是具有公共方法的已编译的类）</li>
+<li>一个通用的、经过测试的、随时可用的工具库</li>
+</ul>
+<p>要把&nbsp;<code>VelocityViewServlet</code>集成到 Web 应用程序中，可以看一看示例 velview Web 应用程序（在&nbsp;<code>webapps\velview</code>目录中）。该应用程序包括本文中所讨论的那些模板。此外，它还显示了请求、会话以及 servlet 上下文对象的属性。集成的步骤如下：</p>
+<p>首先要保证&nbsp;<code>velocity-tools-view.jar</code>文件在应用程序的&nbsp;<code>lib</code>目录中。当然，这个 velocity JAR 文件也应该在那儿。</p>
+<p>在部署描述符 web.xml 文件中，包括&nbsp;<code>VelocityViewServlet</code>。初始化参数是一个工具箱描述 XML 文件。该 servlet 映射为处理所有扩展名为 .vm 的文件，如清单 20 所示：</p>
+<p><a href=""><strong>清单 20. VelocityViewServlet 的 Tomcat 部署描述符（web.xml）</strong></a></p>
+<p>|```<br>            velocityView         org.apache.velocity.tools.view.servlet.VelocityViewServlet                org.apache.velocity.toolbox       /WEB-INF/toolbox.xml                velocityView     *.vm      </p>
+<pre><code>
+|
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+该例子的工具箱描述符（toolbox.xml）文件中，包含了两个来自 Velocity 工具库的通用工具可以在模板&nbsp;`DateTool`和&nbsp;`MathTool`中访问。这两个工具使我们能够格式化日期和时间信息，并在模板中执行浮点运算，如清单 21 所示：
+
+[**清单 21. 包括 DateTool 和 MathTool 的工具箱描述符**]()
+
+|```
+ &lt;?xml version="1.0"?&gt;  &lt;toolbox&gt;   &lt;tool&gt;    &lt;key&gt;date&lt;/key&gt;    &lt;scope&gt;application&lt;/scope&gt;    &lt;class&gt;org.apache.velocity.tools.generic.DateTool&lt;/class&gt;  &lt;/tool&gt;  &lt;tool&gt;   &lt;key&gt;math&lt;/key&gt;   &lt;scope&gt;application&lt;/scope&gt;   &lt;class&gt;org.apache.velocity.tools.generic.MathTool&lt;/class&gt;  &lt;/tool&gt;  ... 
+</code></pre>
+<p>|<br>|———————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p>在&nbsp;<code>VelocityViewServlet</code>中有一组常用的标准工具，如表 1 所示：</p>
+<p><a href=""><strong>表 1. VelocityViewServlet 中的标准工具</strong></a></p>
+<table>
+<thead>
+<tr>
+<th><strong>工具名</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>LinkTool</code></td>
+<td>处理 URI。该工具经常会用到，如果在模板中创建可点击的链接就要用到该工具，可以生成依赖于上下文的 URI 部分。</td>
+</tr>
+<tr>
+<td><code>CookieTool</code></td>
+<td>使模板能够创建或访问浏览器缓冲的 cookie。</td>
+</tr>
+<tr>
+<td><code>ParameterParser</code></td>
+<td>简化后面收到的请求参数的解析。</td>
+</tr>
+</tbody></table>
+<p>还有两个高度专门化的、不那么常用的工具，如表 2 所示：</p>
+<p><a href=""><strong>表 2. 专门的 VelocityViewServlet 工具</strong></a></p>
+<table>
+<thead>
+<tr>
+<th><strong>工具名</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ViewRenderTool</code></td>
+<td>使模板能够解析包含 VTL 的字符串。</td>
+</tr>
+<tr>
+<td><code>AbstractSearchTool</code></td>
+<td>提供了一种骨架工具（必须使用自定义的 Java 代码来扩展），以便实现在线搜索和搜索结果分页。</td>
+</tr>
+</tbody></table>
+<p>您可以使用&nbsp;<code>http://localhost:8080/velview/variables.vm</code>URL 测试 velview 应用程序。您应该打开模板源代码看一看所用的 Velocity 引擎、&nbsp;<code>LinkTool</code>和&nbsp;<code>CookieTool</code>。</p>
+<p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-velocity/#ibm-pcon">回页首</a></p>
+<p><a href=""><strong>与 Struts 框架的互操作</strong></a></p>
+<p>Struts 是一种构造基于 MVC 模型的框架的流行 Web 应用程序。Struts 默认的视图组件技术是 JSP 技术。但是，可以很容易把 Velocity 集成进来作为视图组件。图 1 说明了 Velocity 的这种具体应用：</p>
+<p><a href=""><strong>图 1. Velocity 与 Struts MVC 框架集成�</strong></a>�</p>
+<p><img loading="lazy" alt="-28.gif" src="/images/notes/%E4%BD%BF%E7%94%A8-Velocity-%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E6%9D%BF/28.gif"></p>
+<p>&nbsp;</p>
+<p>重要的是要看到，在这种结合中 Velocity 并没有代替 JSP 技术。相反，JSP 技术和 Velocity 模板可以协同工作。集成 Velocity 需要配置&nbsp;<code>VelocityViewServlet</code>以便处理 .vm 模板，就像&nbsp;<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-velocity/#velviewserv">部署 VelocityViewServlet</a>&nbsp;部分所讲的那样。这意味着 .jsp 文件将继续由容器（即 Tomcat 5 中的 Jasper）处理，而任何 .vm 模板则传递给 Velocity。</p>
+<p>Velocity Tools 子项目中的&nbsp;<code>VelocityStruts</code>组件（请参阅&nbsp;<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-velocity/#resources">参考资料</a>）包含集成 Velocity 与 Struts 的所有功能。&nbsp;<code>VelocityStruts</code>提供了一组专用的 Velocity 工具，用于访问 Struts 专有的资源和 Velocity 模板中的信息。表 3 列出了最常用的工具：</p>
+<p><a href=""><strong>表 3. 用于 VelocityStruts 集成的工具</strong></a></p>
+<table>
+<thead>
+<tr>
+<th><strong>工具名</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>StrutsLinkTool</code></td>
+<td>针对 Struts 的 LinkTool 专用版本，提供了&nbsp;<code>setAction()</code>和&nbsp;<code>setForward()</code>访问预先配置的活动映射。</td>
+</tr>
+<tr>
+<td><code>FormTool</code></td>
+<td>访问 Struts 的表单 beans。</td>
+</tr>
+<tr>
+<td><code>ErrorsTool</code></td>
+<td>处理 Struts 错误消息，包括对国际化的支持。</td>
+</tr>
+<tr>
+<td><code>MessageTool</code></td>
+<td>提供对 Struts 国际化支持的访问，尤为特别的是依赖于语言的消息资源。</td>
+</tr>
+</tbody></table>
+<p>还有一组工具专用于 Struts 1.1 中的新特性，如表 4 所示：</p>
+<p><a href=""><strong>表 4. 专用的 Struts 1.1 访问工具</strong></a></p>
+<table>
+<thead>
+<tr>
+<th><strong>工具名</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SecureLinkTool</code></td>
+<td>用于 Struts 1.1 的安全链接（SSL）扩展。</td>
+</tr>
+<tr>
+<td><code>ActionMessagesTool</code></td>
+<td>提供对 Struts 1.1 新对象&nbsp;<code>ActionMessages</code>的访问。</td>
+</tr>
+<tr>
+<td><code>TilesTool</code></td>
+<td>提供对 Struts 1.1 Tiles 扩展支持的访问。</td>
+</tr>
+<tr>
+<td><code>ValidatorTool</code></td>
+<td>提供对 Struts 1.1 Validator 扩展的访问，生成代码验证表单输入字段。</td>
+</tr>
+</tbody></table>
+<p>在&nbsp;<code>webapps\struts-example</code>目录中可以找到一个例子，使用 Struts 而非 JSP 技术创建 Struts 页面。本例中我们使用 Struts 取代了实例 Web 应用程序所发布的第一个标题页，您可以试着改变其他的页面。下面列出了操作的步骤。</p>
+<ol>
+<li>把 Velocity 库复制到 Struts 示例应用程序下的&nbsp;<code>WEB-INF\lib</code>目录中。要使用 Tomcat 5（5.0.16 是撰写本文时的最新版本）和 Struts 1.1，需要把以下 JAR 文件复制到&nbsp;<code>webapps\struts-example\WEB-INF\lib</code>目录中：<ul>
+<li>velocity-tools-1.1-beta1.jar</li>
+<li>velocity-1.4-rc1.jar</li>
+</ul>
+</li>
+<li>然后在 Struts 配置文件（&nbsp;<code>WEB-INF\struts-config.xml</code>），把 Struts 动作映射设置为转向 index.vm 文件而不是 index.jsp 文件，如清单 22 所示：&nbsp;<br> <strong>清单 22. 把 Struts 动作转向 index.vm</strong>&nbsp;<br> |<code> &lt;action    path="/logoff"               type="org.apache.struts.webapp.example.LogoffAction"&gt;       &lt;forward name="success"              path="/index.vm"/&gt;     &lt;/action&gt;  </code><br> |<br> |————————————————————————————————————————————————————————————|</li>
+<li>在部署描述符&nbsp;<code>WEB-INF\web.xml</code>文件中配置&nbsp;<code>VelocityViewServlet</code>&nbsp;处理&nbsp;<code>.vm</code>文件。同样把欢迎文件设为 index.vm 而非 index.jsp，如清单 23 所示：&nbsp;<br> <strong>清单 23. 改变 struts 示例 Web 应用程序的部署描述符</strong>&nbsp;<br> |```          action     org.apache.struts.action.ActionServlet            config       /WEB-INF/struts-config.xml,       /WEB-INF/struts-config-registration.xml          1          velocity     org.apache.velocity.tools.view.servlet.VelocityViewServlet                 org.apache.velocity.toolbox       /WEB-INF/toolbox.xml                org.apache.velocity.properties       /WEB-INF/velocity.properties                  action     *.do           velocity     *.vm              index.vm    
+ ```<br> |<br> |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|</li>
+<li>最后，把 toolbox.xml 和 velocity.properties 文件从本文的源代码下载中（请参阅&nbsp;<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-velocity/#resources">参考资料</a>）移动到&nbsp;<code>WEB-INF</code>目录下。</li>
+</ol>
+<p>新的 index.vm 文件如清单 24 所示，可以把它与原来的 index.jsp 文件比较。</p>
+<p><a href=""><strong>清单 24. 通过使用 index.vm Velocity 模板与 Struts 互操作</strong></a></p>
+<p>|```<br>     <title>$msg.get(“index.title”)</title>      #if ( !$application.database)   <font color="red">     ERROR:  User database not loaded – check servlet container logs     for error messages.   </font>   </p><hr>  #end  <h3>$msg.get(“index.heading”)</h3>  <ul>  <li>  &lt;a href=”$link.setURI(“editRegistration.do”).addQueryData(“action”,”Create”)”&gt;  $msg.get(“index.registration”)    </li>  <li>  &lt;a href=”$link.setURI(“logon.jsp”)”&gt;  $msg.get(“index.logon”)    </li>  </ul>  <p>&amp;nbsp;</p>  &lt;a href=”$link.setURI(“tour.do”)”&gt;  <font size="-1">$msg.get(“index.tour”)</font>    <p>&amp;nbsp;</p>  &lt;img src=”$link.setURI(“powered-by-logo.gif”)” alt=”Powered by Velocity”/&gt;     <p></p>
+<pre><code>
+|
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+在 index.vm 中，整个模板都使用&nbsp;`$msg`内的消息工具访问 Struts 的地域有关的国际化资源。通过对包含国际化字符串的资源包的本地化更改，这种方法避免了模板中的多数硬编码字符串。
+
+您可以使用 VTL 的条件指示符&nbsp;`#if`直接检查在 servlet 上下文中是否存在数据库属性。&nbsp;`$application`引用可用于访问 servlet 上下文中的任何属性（&nbsp;`$request`、&nbsp;`$response`和&nbsp;`$session`也可用于访问其他 Servlet API 对象的属性）。
+
+`LinkTool`的&nbsp;`setURI()`方法用于生成服务器端到 Struts 动作和“Powered by Velocity”标志图片的 URI 链接。注意，这里使用`LinkTool`的&nbsp;`addQueryData()`&nbsp;方法向结果 URI 种增加附加的动作信息。
+
+要测试该 Velocity 页面，您可以启动 Tomcat 5 并访问&nbsp;`http://localhost:8080/struts-example/`URL。注意它的结果与原来的 JSP 版本完全一致。
+
+[回页首](http://www.ibm.com/developerworks/cn/java/j-velocity/#ibm-pcon)
+
+[**结束语**]()
+
+Velocity 模板处理程序可以直接集成到 Java 语言应用程序中，立即提供报告生成或者模板处理的功能。
+
+将模板引擎扩展到 Web 应用程序，可以使用&nbsp;`VelocityServlet`处理动态生成 HTML 输出的 Velocity 模板。Velocity 工具项目对使用`VelocityViewServlet`组件化 Web 层应用程序开发提供了更多的支持。&nbsp;`VelocityViewServlet`以模板为基础为基于 Web 的 UI 构造提供了方便的视图层。
+
+在使用 MVC 模型框架设计复杂的 Web 应用程序时，Velocity 作为一种视图 / 模板化技术——以&nbsp;`VelocityViewServlet`的形式——可以很方便地插入到框架中。对于流行的 Jakarta Struts MVC 框架，Velocity 可以与基于 JSP 的视图技术协作，也可以和选择的任何模型技术进行交互。
+</code></pre>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java%E4%B8%8E%E5%90%8E%E7%AB%AF/">Java与后端</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Velocity/">Velocity</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E4%BD%BF%E7%94%A8%20Velocity%20%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E6%9D%BF/" data-title="使用 Velocity 实现客户端和服务器端模板 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/使用模板语言_Velocity_定义、发送邮件/" title="使用模板语言(Velocity)定义、发送邮件">
+  <strong>上一篇：</strong><br/>
+  <span>
+  使用模板语言(Velocity)定义、发送邮件</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/修改linux文件权限命令：chmod/"  title="修改linux文件权限命令：chmod">
+ <strong>下一篇：</strong><br/> 
+ <span>修改linux文件权限命令：chmod
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/使用 Velocity 实现客户端和服务器端模板/" data-title="使用 Velocity 实现客户端和服务器端模板" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E4%BD%BF%E7%94%A8%20Velocity%20%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E6%9D%BF/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Velocity-%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">使用 Velocity 实现客户端和服务器端模板</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Velocity-%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E6%9D%BF-1"><span class="toc-number">2.</span> <span class="toc-text">使用 Velocity 实现客户端和服务器端模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.0.1.</span> <span class="toc-text">$msg.get(“index.heading”)</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

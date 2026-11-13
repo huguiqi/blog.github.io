@@ -1,0 +1,1110 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>UIScrollView的使用大全 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="UIScrollView的使用大全Ios基础语法 coaco &amp;nbsp;### 第二、UIScrollView的使用大全 UIScrollView 原理详解ScrollView &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; UIScrollView &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; UIScrollView为了显示多于一个屏幕的内容或者超过你能放在内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIScrollView的使用大全">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="UIScrollView的使用大全Ios基础语法 coaco &amp;nbsp;### 第二、UIScrollView的使用大全 UIScrollView 原理详解ScrollView &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; UIScrollView &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; UIScrollView为了显示多于一个屏幕的内容或者超过你能放在内存">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8/140.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8/157.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8/158.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2012-12-27T12:14:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios基础语法">
+<meta property="article:tag" content="coaco">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8/140.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/UIScrollView的使用大全/" title="UIScrollView的使用大全" itemprop="url">UIScrollView的使用大全</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8"><span class="toc-number">1.</span> <span class="toc-text">UIScrollView的使用大全</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UIScrollView-%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.1.</span> <span class="toc-text">UIScrollView 原理详解</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="UIScrollView的使用大全"><a title="UIScrollView的使用大全" class="headerlink" href="#UIScrollView的使用大全"></a>UIScrollView的使用大全</h1><p><code>Ios基础语法</code> <code>coaco</code></p>
+<p>&nbsp;### <a target="_blank" rel="noopener" href="http://blog.csdn.net/ch_soft/article/details/6947695">第二、UIScrollView的使用大全</a></p>
+<h2 id="UIScrollView-原理详解"><a title="UIScrollView 原理详解" class="headerlink" href="#UIScrollView-原理详解"></a>UIScrollView 原理详解</h2><p>ScrollView</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UIScrollView</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; UIScrollView为了显示多于一个屏幕的内容或者超过你能放在内存中的内容。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Scroll View为你处理缩小放大手势，UIScrollView实现了这些手势，并且替你处理对于它们的探测和回应。其中需要注意的子类是UITableView以及UITextView（用来显示大量的文字）。还有一个UIWebView，尽管那不是UIScrollView的直接子类，它适用UIScrollView去显示网页内容</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; contentsize是内容的宽和高，contentsize.width是内容的宽度，contentsize.heght是高度，contentsize是UIScrollView的一个属性，它是一个CGSize，是由核心图形所定义的架构，那定义了你可以滚轴内容的宽度和高度，你也可以添加可以上下滚动的额外区域。第一种方法是你可以通过添加内容的大小来完成。另外一个比较动态的选择是UIScrollView的另一个属性contentInset，contentInset增加你在contentsize中指定的内容能够滚动的上下左右区域数量contentInset.top以及contentInset.buttom分别表示上面和下面的距离。</p>
+<p><img loading="lazy" alt="-140.jpg" src="/images/notes/UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8/140.jpg"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在滚轴视图中，有一个叫做ContentOffset的属性跟踪UIScrollView的具体位置，你能够自己获取和设置它，ContentOffset是你当前可视内容在滚轴视图边界的左上角那个点。如图：</p>
+<p><img loading="lazy" alt="-157.png" src="/images/notes/UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8/157.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以看出，ContentOffset内容中的那个点不是从contentInset的左上角开始的，而是内容的左上角，此时的ContentOffset是正值，但有时也是负值，如下图所示：</p>
+<p><img loading="lazy" alt="-158.png" src="/images/notes/UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8/158.png"></p>
+<p>使用一个ScrollView</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建一个UIScrollView</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CGRectframe = CGRectMake( 0, 0, 200, 200);</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scrollView= [[UIScrollView alloc] initWithFrame: frame];</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;添加子视图（框架可以超过scroll view的边界）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; frame= CGRectMake( 0, 0, 500, 500);</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myImageView= [[UIImageView alloc] initWithFrame: frame];</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [scrollViewaddSubview:myImageView];</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;设置内容尺寸</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scrollView.contentSize= CGSize(500,500);</p>
+<p>扩展Scroll View&nbsp;的行为</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应用程序通常需要知道有关的滚图的事件</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scrolloffset改变的时候</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拖动开始和结束</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;减速的开始和结束</p>
+<p>通过子类化扩展Scroll View&nbsp;的行为</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建一个子类</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重写一些功能并改变行为</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于这种方式的争议</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应用程序的逻辑和行为变成了视图本身的一部分，就像，你可能有一些定制的滚轴逻辑，，在那你只在意一个视图控制，但你想在不同地方重复使用你的滚轴视图，如果你必须为每个都子类化，你最后会有很多不同的滚轴视图子类以及在视图中的特定应用逻辑。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编写很多子类是很沉闷的事情，你最后会有很多无法重复使用的单独视图，而MVC的视图部分的一个重点是视图是可以在不同的控制器和不同的模式之中重复使用的，如果我们把所有逻辑都放在视图中，它减少了可复用性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你的代码变得很牢固地配对在一起，它实际上变成了超类的一部分，你无法从UIScrollView中析取它，之后用其它东西代替，如果它在你控制器中且为控制器的一部分，在之后更容易改变它工作的方式和重新安排你应用程序的一些部分。</p>
+<p>通过委派来扩展Scroll View&nbsp;的行为（常用的）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;委派是一个单独的对象，协议，定义了委派会实现的一系列功能的Objective-C协议，它创建了一系列很清晰的撤销点，在那里你能定制行为和外观。它在这些对象之间保持了松散的配对，视图本身与视图控制器或任何其它的控制器对象，委派不是滚轴视图的直接子类，它比起牢固配对的子类更加的松散。</p>
+<p>首先引用别人分析一篇不错的文章，同时也感谢这位朋友的分享：<a href="http://www.[cocoachina.com/iphonedev/sdk/2010/1224/2503.html](http://cocoachina.com/iphonedev/sdk/2010/1224/2503.html)">http://www.[cocoachina.com/iphonedev/sdk/2010/1224/2503.html](http://cocoachina.com/iphonedev/sdk/2010/1224/2503.html)</a>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp; 在滚动过程当中，其实是在修改原点坐标。当手指触摸后, scroll view会暂时拦截触摸事件,使用一个计时器。假如在计时器到点后没有发生手指移动事件，那么 scroll view 发送 tracking events 到被点击的 subview。假如在计时器到点前发生了移动事件，那么 scroll view 取消 tracking 自己发生滚动。</p>
+<p>&nbsp;&nbsp;&nbsp; 子类可以重载</p>
+<p>touchesShouldBegin:withEvent:inContentView: 决定自己是否接收 touch 事件</p>
+<p>pagingEnabled：当值是 YES 会自动滚动到 subview 的边界，默认是NO</p>
+<p>touchesShouldCancelInContentView: 开始发送 tracking messages 消息给 subview 的时候调用这个方法，决定是否发送 tracking messages 消息到subview。假如返回 NO，发送。YES 则不发送。</p>
+<p>假如 canCancelContentTouches属性是NO，则不调用这个方法来影响如何处理滚动手势。</p>
+<p>&nbsp;&nbsp;&nbsp; scroll view 还处理缩放和平移手势，要实现缩放和平移，必须实现委托 viewForZoomingInScrollView:、scrollViewDidEndZooming:withView:atScale:</p>
+<p>两个方法。另外 maximumZoomScale和minimumZoomScale 两个属性要不一样。</p>
+<p>几个属性介绍</p>
+<p>tracking</p>
+<p>当 touch 后还没有拖动的时候值是YES，否则NO</p>
+<p>zoomBouncing</p>
+<p>当内容放大到最大或者最小的时候值是 YES，否则 NO</p>
+<p>zooming</p>
+<p>当正在缩放的时候值是 YES，否则 NO</p>
+<p>decelerating</p>
+<p>当滚动后，手指放开但是还在继续滚动中。这个时候是 YES，其它时候是 NO</p>
+<p>decelerationRate</p>
+<p>设置手指放开后的减速率</p>
+<p>maximumZoomScale</p>
+<p>一个浮点数，表示能放最大的倍数</p>
+<p>minimumZoomScale&nbsp;</p>
+<p>一个浮点数，表示能缩最小的倍数</p>
+<p>pagingEnabled</p>
+<p>当值是 YES 会自动滚动到 subview 的边界。默认是NO</p>
+<p>scrollEnabled</p>
+<p>决定是否可以滚动</p>
+<p>delaysContentTouches</p>
+<p>是个布尔值，当值是 YES 的时候，用户触碰开始，scroll view要延迟一会，看看是否用户有意图滚动。假如滚动了，那么捕捉 touch-down 事件，否则就不捕捉。假如值是NO，当用户触碰， scroll view 会立即触发 touchesShouldBegin:withEvent:inContentView:，默认是 YES</p>
+<p>canCancelContentTouches</p>
+<p>当值是 YES 的时候，用户触碰后，然后在一定时间内没有移动，scrollView 发送 tracking events，然后用户移动手指足够长度触发滚动事件，这个时候，scrollView 发送了 touchesCancelled:withEvent: 到 subview，然后 scroView 开始滚动。假如值是 NO，scrollView 发送 tracking events 后，就算用户移动手指，scrollView 也不会滚动。</p>
+<p>contentSize</p>
+<p>里面内容的大小，也就是可以滚动的大小，默认是0，没有滚动效果。</p>
+<p>showsHorizontalScrollIndicator</p>
+<p>滚动时是否显示水平滚动条</p>
+<p>showsVerticalScrollIndicator</p>
+<p>滚动时是否显示垂直滚动条</p>
+<p>bounces</p>
+<p>默认是 yes，就是滚动超过边界会反弹有反弹回来的效果。假如是 NO，那么滚动到达边界会立刻停止。</p>
+<p>bouncesZoom</p>
+<p>和 bounces 类似,区别在于：这个效果反映在缩放上面，假如缩放超过最大缩放，那么会反弹效果；假如是 NO，则到达最大或者最小的时候立即停止。</p>
+<p>directionalLockEnabled</p>
+<p>默认是 NO，可以在垂直和水平方向同时运动。当值是 YES 时，假如一开始是垂直或者是水平运动，那么接下来会锁定另外一个方向的滚动。 假如一开始是对角方向滚动，则不会禁止某个方向</p>
+<p>indicatorStyle</p>
+<p>滚动条的样式，基本只是设置颜色。总共3个颜色：默认、黑、白</p>
+<p>scrollIndicatorInsets</p>
+<p>设置滚动条的位置</p>
+<p>最后加上，我刚定的一个例子，可以缩放，及对使用的代理方法加了注释</p>
+<p>//&nbsp; ScrollViewViewController.m</p>
+<p>//&nbsp; ScrollView</p>
+<p>//</p>
+<p>//&nbsp; Created by ch_soft on 11-11-8.</p>
+<p>//&nbsp; Copyright 2011年&nbsp;<strong>MyCompanyName</strong>. All rights reserved.</p>
+<p>//</p>
+<p>#import”ScrollViewViewController.h”</p>
+<p>#import”CustomA.h”</p>
+<p>#import”CustomB.h”</p>
+<p>@implementation&nbsp;ScrollViewViewController</p>
+<ul>
+<li>(void)didReceiveMemoryWarning</li>
+</ul>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp;// Releases the view if it doesn’t have a superview.</p>
+<p>&nbsp;&nbsp;&nbsp; [superdidReceiveMemoryWarning];</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;// Release any cached data, images, etc that aren’t in use.</p>
+<p>}</p>
+<p>#pragma mark - View lifecycle</p>
+<p>// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.</p>
+<ul>
+<li>(void)viewDidLoad</li>
+</ul>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp;scrollview&nbsp;=[[UIScrollViewalloc]initWithFrame:CGRectMake(50,0,200,400)];</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;scrollview.contentSize=CGSizeMake(400,400);</p>
+<p>&nbsp;&nbsp;&nbsp;scrollview.backgroundColor=[UIColororangeColor];</p>
+<p>&nbsp;&nbsp;&nbsp;scrollview.pagingEnabled=YES;//是否自己动适应</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;viewA=[[CustomAalloc]initWithFrame:CGRectMake(50,0,100,400)];</p>
+<p>&nbsp;&nbsp;&nbsp;viewA.backgroundColor=[UIColorblueColor];</p>
+<p>&nbsp;&nbsp;&nbsp; [scrollviewaddSubview:viewA];</p>
+<p>&nbsp;&nbsp;&nbsp; [viewArelease];</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;CustomB&nbsp;* viewB=[[CustomB&nbsp;alloc]&nbsp;initWithFrame:CGRectMake(250,0,100,400)];</p>
+<p>&nbsp;&nbsp;&nbsp; viewB.backgroundColor=[UIColoryellowColor];</p>
+<p>&nbsp;&nbsp;&nbsp; [scrollviewaddSubview:viewB];</p>
+<p>&nbsp;&nbsp;&nbsp; [viewB&nbsp;release];</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; [self.viewaddSubview:scrollview];</p>
+<p>&nbsp;&nbsp;&nbsp;scrollview.maximumZoomScale=2.0;</p>
+<p>&nbsp;&nbsp;&nbsp;scrollview.minimumZoomScale=0.5;</p>
+<p>//&nbsp;&nbsp;&nbsp; scrollview.decelerationRate=1;</p>
+<p>&nbsp;&nbsp;&nbsp;scrollview.delegate=self;</p>
+<p>&nbsp;&nbsp;&nbsp;//canCancelContentTouches:YES-移动手指足够长度触发滚动事件,NO-scrollView发送&nbsp;tracking events&nbsp;后，就算用户移动手指，scrollView也不会滚动。</p>
+<p>&nbsp;&nbsp;&nbsp;scrollview.canCancelContentTouches=NO;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;//当值是&nbsp;YES的时候，用户触碰开始.要延迟一会，看看是否用户有意图滚动。假如滚动了，那么捕捉&nbsp;touch-down事件，否则就不捕捉。假如值是NO，当用户触碰，&nbsp;scroll view会立即触发</p>
+<p>&nbsp;&nbsp;&nbsp;scrollview.delaysContentTouches=YES;</p>
+<p>&nbsp;&nbsp;&nbsp; [scrollviewrelease];</p>
+<p>&nbsp;&nbsp;&nbsp; [superviewDidLoad];</p>
+<p>}</p>
+<p>#pragma mark UIScrollViewDelegate</p>
+<p>//只要滚动了就会触发</p>
+<ul>
+<li>(void)scrollViewDidScroll:(UIScrollView&nbsp;*)scrollView;</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>{</p>
+<p>//&nbsp;&nbsp;&nbsp; NSLog(@” scrollViewDidScroll”);</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;NSLog(@”ContentOffset&nbsp; x is&nbsp; %f,yis %f”,scrollView.contentOffset.x,scrollView.contentOffset.y);</p>
+<p>}</p>
+<p>//开始拖拽视图</p>
+<ul>
+<li>(void)scrollViewWillBeginDragging:(UIScrollView&nbsp;*)scrollView;</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp;NSLog(@”scrollViewWillBeginDragging”);</p>
+<p>}</p>
+<p>//完成拖拽</p>
+<ul>
+<li>(void)scrollViewDidEndDragging:(UIScrollView&nbsp;*)scrollView willDecelerate:(BOOL)decelerate;</li>
+</ul>
+<p>&nbsp;</p>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp;NSLog(@”scrollViewDidEndDragging”);</p>
+<p>}</p>
+<p>//将开始降速时</p>
+<ul>
+<li>(void)scrollViewWillBeginDecelerating:(UIScrollView&nbsp;*)scrollView;</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp;NSLog(@”scrollViewWillBeginDecelerating”);</p>
+<p>}</p>
+<p>//减速停止了时执行，手触摸时执行执行</p>
+<ul>
+<li>(void)scrollViewDidEndDecelerating:(UIScrollView&nbsp;*)scrollView;</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp;NSLog(@”scrollViewDidEndDecelerating”);</p>
+<p>}</p>
+<p>//滚动动画停止时执行,代码改变时出发,也就是setContentOffset改变时</p>
+<ul>
+<li>(void)scrollViewDidEndScrollingAnimation:(UIScrollView&nbsp;*)scrollView;</li>
+</ul>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp;NSLog(@”scrollViewDidEndScrollingAnimation”);</p>
+<p>}</p>
+<p>//设置放大缩小的视图，要是uiscrollview的subview</p>
+<ul>
+<li>(UIView&nbsp;*)viewForZoomingInScrollView:(UIScrollView&nbsp;*)scrollView;</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp;NSLog(@”viewForZoomingInScrollView”);</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;viewA;</p>
+<p>}</p>
+<p>//完成放大缩小时调用</p>
+<ul>
+<li>(void)scrollViewDidEndZooming:(UIScrollView&nbsp;*)scrollView withView:(UIView&nbsp;*)view atScale:(float)scale;</li>
+</ul>
+<p>&nbsp;</p>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;viewA.frame=CGRectMake(50,0,100,400);</p>
+<p>&nbsp;&nbsp;&nbsp;NSLog(@”scale between minimum and maximum. called after any ‘bounce’ animations”);</p>
+<p>}// scale between minimum and maximum. called after any ‘bounce’ animations</p>
+<p>//如果你不是完全滚动到滚轴视图的顶部，你可以轻点状态栏，那个可视的滚轴视图会一直滚动到顶部，那是默认行为，你可以通过该方法返回NO来关闭它</p>
+<ul>
+<li>(BOOL)scrollViewShouldScrollToTop:(UIScrollView&nbsp;*)scrollView;</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp; NSLog(@”scrollViewShouldScrollToTop”);</p>
+<p>&nbsp;&nbsp;&nbsp;returnYES;</p>
+<p>}</p>
+<ul>
+<li>(void)scrollViewDidScrollToTop:(UIScrollView *)scrollView;</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp; NSLog(@”scrollViewDidScrollToTop”);</p>
+<p>}</p>
+<ul>
+<li>(void)viewDidUnload</li>
+</ul>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp; [super&nbsp;viewDidUnload];</p>
+<p>&nbsp;&nbsp;&nbsp;// Release any retained subviews of the main view.</p>
+<p>&nbsp;&nbsp;&nbsp;// e.g. self.myOutlet = nil;</p>
+<p>}</p>
+<ul>
+<li>(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation</li>
+</ul>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp;// Return YES for supported orientations</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;(interfaceOrientation == UIInterfaceOrientationPortrait);</p>
+<p>}</p>
+<p>@end</p>
+<p>完毕，如发现在有新的内容再更新</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios基础语法/">Ios基础语法</a><a href="/tags/coaco/">coaco</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8/" data-title="UIScrollView的使用大全 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/TCP_IP中的长链接与短链接/" title="TCP/IP中的长链接与短链接">
+  <strong>上一篇：</strong><br/>
+  <span>
+  TCP/IP中的长链接与短链接</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/UISearchBar与UISearchDisplayController结合使用时注意的事项/"  title="UISearchBar与UISearchDisplayController结合使用时注意的事项">
+ <strong>下一篇：</strong><br/> 
+ <span>UISearchBar与UISearchDisplayController结合使用时注意的事项
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/UIScrollView的使用大全/" data-title="UIScrollView的使用大全" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UIScrollView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%85%A8"><span class="toc-number">1.</span> <span class="toc-text">UIScrollView的使用大全</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UIScrollView-%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.1.</span> <span class="toc-text">UIScrollView 原理详解</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,1005 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java在 IntelliJ IDEA 中远程调试 Java 程序说明本文的远程调试对象以运行在 Linux 上的 Java 程序为例。 IntelliJ IDEA 远程调试的原理  远程调试指的是使用本地客户端来调试运行在远程服务器上的程序。IntelliJ IDEA 远程调试的原理是，当服务器端以调试模式运行 Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%9C%A8%20IntelliJ%20IDEA%20%E4%B8%AD%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%20Java%20%E7%A8%8B%E5%BA%8F_idea%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95java/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java在 IntelliJ IDEA 中远程调试 Java 程序说明本文的远程调试对象以运行在 Linux 上的 Java 程序为例。 IntelliJ IDEA 远程调试的原理  远程调试指的是使用本地客户端来调试运行在远程服务器上的程序。IntelliJ IDEA 远程调试的原理是，当服务器端以调试模式运行 Java">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-09T09:27:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java/" title="在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java" itemprop="url">在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8-IntelliJ-IDEA-%E4%B8%AD%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95-Java-%E7%A8%8B%E5%BA%8F-idea%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95java"><span class="toc-number">1.</span> <span class="toc-text">在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8-IntelliJ-IDEA-%E4%B8%AD%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95-Java-%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">在 IntelliJ IDEA 中远程调试 Java 程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-number">3.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IntelliJ-IDEA-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">IntelliJ IDEA 远程调试的原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-IntelliJ-IDEA-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%8E%9F%E5%A7%8B-Java-%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-number">5.</span> <span class="toc-text">使用 IntelliJ IDEA 远程调试原始 Java 程序的步骤</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="在-IntelliJ-IDEA-中远程调试-Java-程序-idea远程调试java"><a title="在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java" class="headerlink" href="#在-IntelliJ-IDEA-中远程调试-Java-程序-idea远程调试java"></a>在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java</h1><h1 id="在-IntelliJ-IDEA-中远程调试-Java-程序"><a title="在 IntelliJ IDEA 中远程调试 Java 程序" class="headerlink" href="#在-IntelliJ-IDEA-中远程调试-Java-程序"></a>在 IntelliJ IDEA 中远程调试 Java 程序</h1><h1 id="说明"><a title="说明" class="headerlink" href="#说明"></a>说明</h1><p>本文的远程调试对象以运行在 Linux 上的 Java 程序为例。</p>
+<h1 id="IntelliJ-IDEA-远程调试的原理"><a title="IntelliJ IDEA 远程调试的原理" class="headerlink" href="#IntelliJ-IDEA-远程调试的原理"></a>IntelliJ IDEA 远程调试的原理</h1><p>  远程调试指的是使用本地客户端来调试运行在远程服务器上的程序。IntelliJ IDEA 远程调试的原理是，当服务器端以调试模式运行 Java 程序时，如果客户端使用文本相同的字节码和事先约定好的端口号，就可以远程调试该 Java 程序。因此，IntelliJ IDEA 远程调试的必要条件是：</p>
+<p>Java 程序必须<strong>在服务端已经启动</strong>且在调试时<strong>正在运行</strong>。IntelliJ IDEA 只有触发调试的能力，<strong>没有远程部署启动 Java 程序的能力</strong>。</p>
+<p>Java 程序在服务端以<strong>调试模式</strong>启动。以调试模式启动需要在运行该 Java 程序时，使用一些调试模式的 JVM 参数。</p>
+<p>客户端使用 IntelliJ IDEA 进行调试时，使用与服务端事先约定好的相同端口号，且该端口号在服务端没有被占用。</p>
+<p>客户端使用 IntelliJ IDEA 进行调试时，使用的<strong>代码在文本上与服务端一致</strong>。在文本上一致指的是，客户端使用的代码与服务端使用的代码的文字完全相同，如果不一致，使用的断点将不起作用。文本上一致不包括注释，但包括换行。文本上一致不需要是同一个代码源文件，只需要文本相同即可。</p>
+<hr>
+<p>  使用 IntelliJ IDEA 进行远程调试的注意事项：</p>
+<p>IntelliJ IDEA 只有触发调试的能力，没有远程部署启动 Java 程序的能力。只能自己先确保 Java 程序可以在服务端基本运行之后才能在客户端使用远程调试，无法通过 IntelliJ IDEA 来直接利用服务端的环境运行 Java 代码。</p>
+<p>在远程调试时，程序是在服务端运行的，与客户端没有任何关系，产生的数据对客户端不会有任何影响。</p>
+<p>代码在文本上与服务端一致 仅指代码相同。文本上一致不包括注释，但包括换行。文本上一致不需要是同一个代码源文件，只需要文本相同即可。也不需要约定 JAR 包名，但需要使用同一标识的应用。</p>
+<p>在 IntelliJ IDEA 的代码中打断点不需要在调试之前打断点，只需要在程序运行到此断点之前打即可。一般部署在服务端的应用都是一个无限循环的应用，同一处代码会不断地运行。因此一般可以在调试时的任何时候打断点。</p>
+<p>一旦在客户端的 IntelliJ IDEA 中触发了断点，在服务端运行的 Java 程序会立刻被暂停运行，且受客户端的 IntelliJ IDEA 所控制。</p>
+<hr>
+<p>  IntelliJ IDEA 远程调试有两种模式，一种是 attach，另一种是 listen。attach 指的是服务端的 Java 程序已经运行，使用 IntelliJ IDEA 立即进行调试。listen 指是服务端的 Java 程序可能还没有运行，现在正在监听在服务端的该端口，直到服务端的 Java 程序启动了再触发调试。本文使用的是 attach 模式。</p>
+<h1 id="使用-IntelliJ-IDEA-远程调试原始-Java-程序的步骤"><a title="使用 IntelliJ IDEA 远程调试原始 Java 程序的步骤" class="headerlink" href="#使用-IntelliJ-IDEA-远程调试原始-Java-程序的步骤"></a>使用 IntelliJ IDEA 远程调试原始 Java 程序的步骤</h1><blockquote>
+<p><em>笔者的运行环境：</em></p>
+<p><em>客户端：</em></p>
+<blockquote>
+<p><em>IntelliJ IDEA 2020.1.2 (Ultimate Edition)</em></p>
+<p><em>Windows 10 教育版</em></p>
+<p><em>Xshell 7.0.0014</em></p>
+<p><em>Xftp 7</em></p>
+</blockquote>
+<p><em>服务器：</em></p>
+<blockquote>
+<p><em>CentOS Stream 8</em></p>
+<p><em>Java 11.0.12</em></p>
+</blockquote>
+</blockquote>
+<p>为了方便远程输入命令、将文件加入到 Linux 操作系统中，最好还要在一台 Windows 操作系统上面使用一种终端控制软件，如 Xshell、Xftp 等。关于这方面的内容，可见笔者的另一篇如下博客。同时，该博客还给出了查看 Linux 中的 IP 的方法：</p>
+<p>如何在 Windows 主机上访问本地局域网中的 Linux 主机：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangpaiblog/article/details/120052152?spm=1001.2014.3001.5502">https://blog.csdn.net/wangpaiblog/article/details/120052152?spm=1001.2014.3001.5502</a> </p>
+<p>现在，假设读者已经会了如何将文件从 Windows 中传入 Linux 中，以及查看 Linux 中的 IP。</p>
+<p>为了方便说明，笔者编写了一个傻瓜的 Java 程序。此 Java 程序是在本地的客户端中的 IntelliJ IDEA 中完成编写的。示例代码如下：</p>
+<blockquote>
+<p><em>以下代码的简单解释：</em></p>
+<p><em>以下为无限循环延时代码。间隔时间为 1 秒，每秒会打印循环的圈数。</em></p>
+<p><em>使用无限循环的原因是，为了确保进行远程调试时，远程程序依然处于运行的状态。</em></p>
+<p><em>无需为无限循环而担心，因为这里是阻塞型程序，在 CMD 中运行时，使用</em> <em>ctrl + C</em> <em>即可立刻终止该程序。</em></p>
+</blockquote>
+<p>public class Main {</p>
+<p> public static void main(String[] args) throws InterruptedException {</p>
+<p> System.out.println(“——–start——–”);</p>
+<p> if (args != null &amp;&amp; args.length != 0) {</p>
+<p> for (int order = 1; order &lt;= args.length; ++order) {</p>
+<p> System.out.println(order + “：” + args[order - 1]);</p>
+<p> }</p>
+<p> } else {</p>
+<p> System.out.println(“Hello world.”);</p>
+<p> }</p>
+<p> for (int order = 0; true; ++order) { // 无限循环延时代码</p>
+<p> System.out.println(order);</p>
+<p> Thread.currentThread().sleep(1000); // 休眠 1 秒</p>
+<p> }</p>
+<p> }</p>
+<p>}</p>
+<p>在 IntelliJ IDEA 中进行远程调试的相关配置。如下图所示进行操作。</p>
+<p>%!(EXTRA markdown.ResourceType=, string=, string=)</p>
+<p>%!(EXTRA markdown.ResourceType=, string=, string=)</p>
+<p>如下图所示进行操作。注意复制图中的 JVM 代码，这将在之后在服务端用于以调试模式启动本程序。</p>
+<p>笔者示例中约定的端口号为 5005，JVM 代码为：</p>
+<p>  -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005  </p>
+<p>%!(EXTRA markdown.ResourceType=, string=, string=)</p>
+<p>在本地客户端制作 JAR 包。</p>
+<p>如果读者没使用 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Maven&amp;spm=1001.2101.3001.7020">Maven</a> 等构建工具，打包的方法可见笔者的另一篇博客：</p>
+<p>不使用 Maven 等构建工具，而使用原始方法在 IntelliJ IDEA 中制作 JAR 包：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangpaiblog/article/details/120359856?spm=1001.2014.3001.5501">https://blog.csdn.net/wangpaiblog/article/details/120359856?spm=1001.2014.3001.5501</a> </p>
+<p>如果读者使用了 Maven，则 Maven 下打包的方法可见笔者的另一篇博客：</p>
+<p>将 Maven 中的多模块项目只打成一个 JAR 包：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangpaiblog/article/details/119628194">https://blog.csdn.net/wangpaiblog/article/details/119628194</a> </p>
+<p>得到 JAR 包之后，可以使用 Xftp 将其上传到服务器端的 Linux 中。</p>
+<p>对于很多 Linux 系统，此时还不能直接进行远程调试，因为 Linux 上有防火墙，默认会阻止所有的远程访问。对于笔者的 CentOS Stream 8 x86_64，默认的防火墙为 firewalld，而不是 iptables。（很多人会选择安装 iptables，但偷懒的笔者没有选择这样做。）</p>
+<p>一个偷懒的方法就是，永久地关闭防火墙。关闭的方法如下：</p>
+<p>  systemctl stop firewalld  </p>
+<p>  systemctl mask firewalld  </p>
+<p>  firewall-cmd –reload  </p>
+<p>另一个方法是，在防火墙中永久开放上述约定的端口号 5005。开放的方法如下：</p>
+<p>  firewall-cmd –zone=public –add-port=5005/tcp –permanent  </p>
+<p>  firewall-cmd –reload  </p>
+<p>单独开放完端口 5005 之后，可以输入以下命令查看是否生效：</p>
+<p>  firewall-cmd –zone=public –query-port=5005/tcp  </p>
+<p>[root@localhost temp]# firewall-cmd –zone=public –query-port=5005/tcp</p>
+<p>yes</p>
+<p>实际上，也可以输入以下命令查看所有开放的端口：</p>
+<p>  firewall-cmd –zone=public –list-ports  </p>
+<p>[root@localhost temp]# firewall-cmd –zone=public –list-ports</p>
+<p>5005/tcp</p>
+<p>进入上述 JAR 包的目录。假设上面上传的 JAR 包名为 demo.jar。整合前面复制的 JVM 代码，输入以下命令来运行此 demo 程序。</p>
+<p>  java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar demo.jar  </p>
+<p>可以看到，前面的无限循环程序开始运行了。</p>
+<p>%!(EXTRA markdown.ResourceType=, string=, string=)</p>
+<p>现在就可以在本地客户端的 IntelliJ IDEA 进行远程调试了。</p>
+<p>%!(EXTRA markdown.ResourceType=, string=, string=)</p>
+<p>如果远程调试成功。在服务器端运行的上述 Java 程序会立刻被暂停运行。而在 IntelliJ IDEA 的调试控制台 Console 中会有如下显示：</p>
+<p>%!(EXTRA markdown.ResourceType=, string=, string=)</p>
+<p>最后，记得去服务器端使用 ctrl + C 终止上述 demo 程序。</p>
+<p>尽管很多读者认真阅读了笔者的教程，但现实中仍然可能出现很多调试失败的例子。当读者远程调试失败的时候，还请再回去看笔者本文前面写的 IntelliJ IDEA 远程调试的原理，不过这里也再提几点：</p>
+<p>如果远程服务端的 Java 程序没有启动，这是一定会调试失败的。因为如果远程服务端的 Java 程序没有启动，则远程服务端的端口号会不存在。（这与有没有在防火墙对外开放端口号权限无关。如果远程服务端的 Java 程序没有启动，就会连端口号都没有，开放端口号权限也没用。）</p>
+<p>如果想知道远程服务端的端口号有没有生成，可以在<strong>远程服务端</strong>输入以下命令：（如果运行的程序阻塞了当前的 Shell 窗口，可以在 Xshell 中另开一个 Shell 窗口。）</p>
+<p>  netstat -na | grep 5005  </p>
+<p>[root@localhost ~]# netstat -na | grep 5005</p>
+<p>tcp 0 0 0.0.0.0:5005 0.0.0.0:* LISTEN </p>
+<p>如果想知道本地客户端能不能连接远程的端口号，可以在<strong>本地客户端</strong>输入以下命令：</p>
+<p>  ssh -v -p 5005 192.168.0.100  </p>
+<p>以笔者在 Windows 的 CMD 中，访问 Linux 的端口号 5005 为例。</p>
+<p>如果访问成功，输出信息为：</p>
+<p>C:UsersXXXXX&gt;ssh -v -p 5005 192.168.0.100</p>
+<p>OpenSSH_for_Windows_7.7p1, LibreSSL 2.6.5</p>
+<p>debug1: Connecting to 192.168.0.100 [192.168.0.100] port 5005.</p>
+<p>debug1: Connection established.</p>
+<p>debug1: identity file C:UsersXXXXX/.ssh/id_rsa type 0</p>
+<p>debug1: key_load_public: No such file or directory</p>
+<p>debug1: identity file C:UsersXXXXX/.ssh/id_rsa-cert type -1</p>
+<p>debug1: key_load_public: No such file or directory</p>
+<p>debug1: identity file C:UsersXXXXX/.ssh/id_dsa type -1</p>
+<p>debug1: key_load_public: No such file or directory</p>
+<p>debug1: identity file C:UsersXXXXX/.ssh/id_dsa-cert type -1</p>
+<p>debug1: key_load_public: No such file or directory</p>
+<p>debug1: identity file C:UsersXXXXX/.ssh/id_ecdsa type -1</p>
+<p>debug1: key_load_public: No such file or directory</p>
+<p>debug1: identity file C:UsersXXXXX/.ssh/id_ecdsa-cert type -1</p>
+<p>debug1: key_load_public: No such file or directory</p>
+<p>debug1: identity file C:UsersXXXXX/.ssh/id_ed25519 type -1</p>
+<p>debug1: key_load_public: No such file or directory</p>
+<p>debug1: identity file C:UsersXXXXX/.ssh/id_ed25519-cert type -1</p>
+<p>debug1: key_load_public: No such file or directory</p>
+<p>debug1: identity file C:UsersXXXXX/.ssh/id_xmss type -1</p>
+<p>debug1: key_load_public: No such file or directory</p>
+<p>debug1: identity file C:UsersXXXXX/.ssh/id_xmss-cert type -1</p>
+<p>debug1: Local version string SSH-2.0-OpenSSH_for_Windows_7.7</p>
+<p>ssh_exchange_identification: read: Connection reset</p>
+<p>如果访问不成功，输出信息为：</p>
+<p>C:UsersXXXXX&gt;ssh -v -p 5005 192.168.0.100</p>
+<p>OpenSSH_for_Windows_7.7p1, LibreSSL 2.6.5</p>
+<p>debug1: Connecting to 192.168.0.100 [192.168.0.100] port 5005.</p>
+<p>debug1: connect to address 192.168.0.100 port 5005: Connection refused</p>
+<p>ssh: connect to host 192.168.0.100 port 5005: Connection refused</p>
+<p>如果本地 IntelliJ IDEA 中没有使用前述的 在文本上一致 的代码，而其它正确，则远程调试会成功，但断点会打不了（断点不生效）。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java%E4%B8%8E%E5%90%8E%E7%AB%AF/">Java与后端</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%9C%A8%20IntelliJ%20IDEA%20%E4%B8%AD%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%20Java%20%E7%A8%8B%E5%BA%8F_idea%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95java/" data-title="在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/在IDC机房，1m宽带下载速度是多少？--景安网络/" title="在IDC机房，1m宽带下载速度是多少？--景安网络">
+  <strong>上一篇：</strong><br/>
+  <span>
+  在IDC机房，1m宽带下载速度是多少？--景安网络</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/头脑风暴/"  title="头脑风暴">
+ <strong>下一篇：</strong><br/> 
+ <span>头脑风暴
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java/" data-title="在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/%E5%9C%A8%20IntelliJ%20IDEA%20%E4%B8%AD%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%20Java%20%E7%A8%8B%E5%BA%8F_idea%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95java/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8-IntelliJ-IDEA-%E4%B8%AD%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95-Java-%E7%A8%8B%E5%BA%8F-idea%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95java"><span class="toc-number">1.</span> <span class="toc-text">在 IntelliJ IDEA 中远程调试 Java 程序_idea远程调试java</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8-IntelliJ-IDEA-%E4%B8%AD%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95-Java-%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">在 IntelliJ IDEA 中远程调试 Java 程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-number">3.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IntelliJ-IDEA-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">IntelliJ IDEA 远程调试的原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-IntelliJ-IDEA-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%8E%9F%E5%A7%8B-Java-%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-number">5.</span> <span class="toc-text">使用 IntelliJ IDEA 远程调试原始 Java 程序的步骤</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

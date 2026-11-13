@@ -1,0 +1,949 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>presentViewController: crash on iOS 6 (AutoLayout) | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="presentViewController: crash on iOS 6 (AutoLayout)Ios开发问题汇总 presentViewController: crash on iOS 6 (AutoLayout)  |up vote53down votefavorite13 |This is a weird crash I am getting. The crash happens whe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="presentViewController: crash on iOS 6 (AutoLayout)">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/presentViewController_%20crash%20on%20iOS%206%20_AutoLayout_/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="presentViewController: crash on iOS 6 (AutoLayout)Ios开发问题汇总 presentViewController: crash on iOS 6 (AutoLayout)  |up vote53down votefavorite13 |This is a weird crash I am getting. The crash happens whe">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/243.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/26.gif">
+<meta property="og:image" content="http://clockcoder.top/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/244.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/245.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/246.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/186.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/187.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/247.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2012-10-30T15:34:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios开发问题汇总">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/243.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/presentViewController_ crash on iOS 6 _AutoLayout_/" title="presentViewController: crash on iOS 6 (AutoLayout)" itemprop="url">presentViewController: crash on iOS 6 (AutoLayout)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#presentViewController-crash-on-iOS-6-AutoLayout"><span class="toc-number">1.</span> <span class="toc-text">presentViewController: crash on iOS 6 (AutoLayout)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#presentViewController-crash-on-iOS-6-AutoLayout-1"><span class="toc-number">2.</span> <span class="toc-text">presentViewController: crash on iOS 6 (AutoLayout)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Answers"><span class="toc-number">2.1.</span> <span class="toc-text">4 Answers</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="presentViewController-crash-on-iOS-6-AutoLayout"><a title="presentViewController: crash on iOS 6 (AutoLayout)" class="headerlink" href="#presentViewController-crash-on-iOS-6-AutoLayout"></a>presentViewController: crash on iOS 6 (AutoLayout)</h1><p><code>Ios开发问题汇总</code></p>
+<h1 id="presentViewController-crash-on-iOS-6-AutoLayout-1"><a title="presentViewController: crash on iOS 6 (AutoLayout)" class="headerlink" href="#presentViewController-crash-on-iOS-6-AutoLayout-1"></a><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout">presentViewController: crash on iOS 6 (AutoLayout)</a></h1><p><a target="_blank" rel="noopener" href="http://engine.adzerk.net/redirect/0/5918/7472/8277/58cc54aac0ab4bfabd7c447d8f30422b/43/1178/10183/634872068550553170/?keywords=objective-c,ios,xcode,crash,stack-trace"><img loading="lazy" alt="-243.png" src="/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/243.png"></a></p>
+<p><img loading="lazy" alt="-26.gif" src="/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/26.gif"></p>
+<p>|<a title="This question shows research effort; it is useful and clear (click again to undo)" href="">up vote</a><strong>53</strong><a title="This question does not show any research effort; it is unclear or not useful (click again to undo)" href="">down vote</a><a title="This is a favorite question (click again to undo)" target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#">favorite</a><strong>13</strong></p>
+<p>|This is a weird crash I am getting. The crash happens when I press a button that goes to a certain ViewController. The line which it crashes on is:</p>
+<pre><code>    DestinationInformationViewController *info = [[DestinationInformationViewController alloc] init];
+[info setModalTransitionStyle: UIModalTransitionStyleCrossDissolve];
+[self presentViewController:info animated:YES completion: nil]; // CRASHES HERE
+[info release];
+</code></pre>
+<p>The crash trace is:</p>
+<p><code>*** Terminating app due to uncaught exception 'NSInvalidUnarchiveOperationException', reason: 'Could not instantiate class named NSLayoutConstraint' *** First throw call stack: (0x3758288f 0x35287259 0x37582789 0x375827ab 0x3153d54d 0x3153d6bb 0x3153d423 0x314ce001 0x3143c3c7 0x31319c59 0x3128fc17 0x3129a267 0x3129a1d5 0x3133959b 0x31338367 0x84091 0x374dc3fd 0x31271e07 0x31271dc3 0x31271da1 0x31271b11 0x31272449 0x3127092b 0x31270319 0x31256695 0x31255f3b 0x33c9822b 0x37556523 0x375564c5 0x37555313 0x374d84a5 0x374d836d 0x33c97439 0x31284cd5 0x82bb3 0x71200) terminate called throwing an exception(gdb) Could not instantiate class named NSLayoutConstraint</code></p>
+<p>NOTE: This crashes on my iPhone 4 iOS 5.1 but not on my iPhone 4S iOS 6 Beta 2</p>
+<p><a title="show questions tagged 'objective-c'" target="_blank" rel="noopener" href="http://stackoverflow.com/questions/tagged/objective-c">objective-c</a>&nbsp;<a title="show questions tagged 'ios'" target="_blank" rel="noopener" href="http://stackoverflow.com/questions/tagged/ios">ios</a>&nbsp;<a title="show questions tagged 'xcode'" target="_blank" rel="noopener" href="http://stackoverflow.com/questions/tagged/xcode">xcode</a>&nbsp;<a title="show questions tagged 'crash'" target="_blank" rel="noopener" href="http://stackoverflow.com/questions/tagged/crash">crash</a>&nbsp;<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/tagged/stack-trace">stack-trace</a><br>|<a title="short permalink to this question" target="_blank" rel="noopener" href="http://stackoverflow.com/q/11198981">share</a>|<a target="_blank" rel="noopener" href="http://stackoverflow.com/posts/11198981/edit">improve this question</a><br>|edited&nbsp;<a title="show all edits to this post" target="_blank" rel="noopener" href="http://stackoverflow.com/posts/11198981/revisions"><strong>Oct 18 at 14:32</strong></a></p>
+<p>|asked&nbsp;<strong>Jun 25 at 23:47</strong><br><a target="_blank" rel="noopener" href="http://stackoverflow.com/users/1260708/teendev"><img loading="lazy" alt="-244.png" src="/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/244.png"></a></p>
+<p><a target="_blank" rel="noopener" href="http://stackoverflow.com/users/1260708/teendev">TeenDev</a></p>
+<p><strong>2,172</strong>11662626</p>
+<p>100% accept rate<br>|<br>|—————————————————————————————————————————————————–|————————————————————————————————————-|————————————————————————————————————————————————————————————————|</p>
+<p>|<br>|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————-|</p>
+<p>|                                                                                                                                                                                                                                                                                                                                                                                         |||<strong>2</strong>|&nbsp;|<br>|—–|-|</p>
+<p>|I had the same issue after upgrade to Xcode 4.5 running and app on iphone 5.1 Look at this link:<a target="_blank" rel="noopener" href="http://artstudioh.com/calculator/images/error_xcode.png">artstudioh.com/calculator/images/error_xcode.png</a>&nbsp;–&nbsp;<a title="16 reputation" target="_blank" rel="noopener" href="http://stackoverflow.com/users/1640994/sinuhe-huidobro">Sinuhe Huidobro</a>&nbsp;<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment16882280_11198981">Sep 21 at 19:55Sep 21 at 19:55</a><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment16882280_11198981">Sep 21 at 19:55Sep 21 at 19:55</a><br>|<br>|——————|——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|<br>|                  |Yes I think we have established that :)&nbsp;–&nbsp;<a title="2172 reputation" target="_blank" rel="noopener" href="http://stackoverflow.com/users/1260708/teendev">TeenDev</a>&nbsp;<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment16885218_11198981">Sep 22 at 0:29Sep 22 at 0:29</a><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment16885218_11198981">Sep 22 at 0:29Sep 22 at 0:29</a><br>                                                                                                                                                                                      |</p>
+<p>feedback<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |</p>
+<h2 id="4-Answers"><a title="4 Answers" class="headerlink" href="#4-Answers"></a><a href="">4 Answers</a></h2><p><a title="Answers with the latest activity first" target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout?answertab=active#tab-top">active</a><a title="Answers in the order they were provided" target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout?answertab=oldest#tab-top">oldest</a><a title="Answers with the highest score first" target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout?answertab=votes#tab-top">votes</a></p>
+<p>[|<a title="This answer is useful (click again to undo)" href="">up vote</a><strong>140</strong><a title="This answer is not useful (click again to undo)" href="">down vote</a><strong>accepted</strong><br>|I believe this is an issue with Xcode’s new interface builder. Did you happen to build your .xib using Xcode 4.5’s interface builder? I’ve run into this same problem just now, and I think that’s the problem. My app runs on iOS 6, but not anything older.</p>
+<p>And you need to&nbsp;<strong>make sure you turn off “use auto layout” for your nibs</strong>.</p>
+<p>That can be done by</p>
+<p>In the main view of your xib, under File Inspector tab, in Interface builder Document section on the right toolbar. There is a checkmark “Use AutoLayout”</p>
+<p>|<a title="short permalink to this answer" target="_blank" rel="noopener" href="http://stackoverflow.com/a/11199052">share</a>|<a target="_blank" rel="noopener" href="http://stackoverflow.com/posts/11199052/edit">improve this answer</a><br>|edited&nbsp;<a title="show all edits to this post" target="_blank" rel="noopener" href="http://stackoverflow.com/posts/11199052/revisions"><strong>Sep 28 at 12:01</strong></a><br><a target="_blank" rel="noopener" href="http://stackoverflow.com/users/363363/angry-bird"><img loading="lazy" alt="-245.png" src="/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/245.png"></a></p>
+<p><a target="_blank" rel="noopener" href="http://stackoverflow.com/users/363363/angry-bird">Angry Bird</a></p>
+<p><strong>4,701</strong>1114144141</p>
+<p>|answered&nbsp;<strong>Jun 25 at 23:58</strong><br><a target="_blank" rel="noopener" href="http://stackoverflow.com/users/797767/mark"><img loading="lazy" alt="-246.png" src="/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/246.png"></a></p>
+<p><a target="_blank" rel="noopener" href="http://stackoverflow.com/users/797767/mark">Mark</a></p>
+<p><strong>1,453</strong>114499</p>
+<p>|<br>|————————————————————————————————————————————————-|—————————————————————————————————————————————————————————————————————————————————————————–|———————————————————————————————————————————————————————-|</p>
+<pre><code>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+</code></pre>
+<p>|——————————————————————————————————————————————-|——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|</p>
+<p>|                                                                                                                                           |||<strong>35</strong>|&nbsp;|<br>|——|-|</p>
+<p>|Yeah, you need to make sure you turn off “use auto layout” for your nibs.&nbsp;–&nbsp;<a title="10572 reputation" target="_blank" rel="noopener" href="http://stackoverflow.com/users/14256/wevah">Wevah</a>&nbsp;<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment14700778_11199052">Jun 25 at 23:59Jun 25 at 23:59</a><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment14700778_11199052">Jun 25 at 23:59Jun 25 at 23:59</a><br>                  |<br>|——————–|———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|</p>
+<p>||<strong>16</strong>|&nbsp;|<br>|——|-|</p>
+<p>|In the main view of your xib, Interface builder Document section on the right toolbar.&nbsp;–&nbsp;<a title="1453 reputation" target="_blank" rel="noopener" href="http://stackoverflow.com/users/797767/mark">Mark</a>&nbsp;<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment14700828_11199052">Jun 26 at 0:04Jun 26 at 0:04</a><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment14700828_11199052">Jun 26 at 0:04Jun 26 at 0:04</a><br>           |</p>
+<p>||<strong>1</strong>|&nbsp;|<br>|—–|-|</p>
+<p>  |Thanks it works!!!&nbsp;–&nbsp;<a title="2172 reputation" target="_blank" rel="noopener" href="http://stackoverflow.com/users/1260708/teendev">TeenDev</a>&nbsp;<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment14700943_11199052">Jun 26 at 0:15Jun 26 at 0:15</a><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment14700943_11199052">Jun 26 at 0:15Jun 26 at 0:15</a><br>                                                                        |</p>
+<p>||<strong>4</strong>|&nbsp;|<br>|—–|-|</p>
+<p>  |Almost threw the mac with Xcode on it out the window, but this sure saved my sanity. Kudos!&nbsp;–&nbsp;<a title="175 reputation" target="_blank" rel="noopener" href="http://stackoverflow.com/users/668836/tom-pace">Tom Pace</a><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment16829904_11199052">Sep 20 at 1:46Sep 20 at 1:46</a><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment16829904_11199052">Sep 20 at 1:46Sep 20 at 1:46</a><br>|</p>
+<p>||<strong>2</strong>|&nbsp;|<br>|—–|-|</p>
+<p>  |Bit of a worry what is happening to quality control at Apple these days.&nbsp;–&nbsp;<a title="128 reputation" target="_blank" rel="noopener" href="http://stackoverflow.com/users/993592/seangeneva">SeanGeneva</a>&nbsp;<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment17305780_11199052">Oct 9 at 11:11Oct 9 at 11:11</a><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment17305780_11199052">Oct 9 at 11:11Oct 9 at 11:11</a><br>              |</p>
+<p><a title="expand to show all comments on this post" href="">show&nbsp;<strong>12</strong>&nbsp;more comments</a>feedback<br>|]()</p>
+<p>[|<a title="This answer is useful (click again to undo)" href="">up vote</a><strong>25</strong><a title="This answer is not useful (click again to undo)" href="">down vote</a><br>|<img loading="lazy" alt="-186.jpg" src="/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/186.jpg"></p>
+<p>I had the same problem when I downloaded new XCode update and IOS6 SDK.</p>
+<p>Select the Interface builder file (whether xib or storyboard file) where your error occurs. In assistent editor on rightmost in XCode, select the first tab from the left, and there must be checkbox for option “Use Autolayout” like on the screenshot above. Uncheck the checkbox.</p>
+<p>That solved the problem in my case.</p>
+<p>Best regards.</p>
+<p>|<a title="short permalink to this answer" target="_blank" rel="noopener" href="http://stackoverflow.com/a/12639968">share</a>|<a target="_blank" rel="noopener" href="http://stackoverflow.com/posts/12639968/edit">improve this answer</a><br>|answered&nbsp;<strong>Sep 28 at 12:23</strong><br><a target="_blank" rel="noopener" href="http://stackoverflow.com/users/1303230/dejan-balaban"><img loading="lazy" alt="-187.jpg" src="/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/187.jpg"></a></p>
+<p><a target="_blank" rel="noopener" href="http://stackoverflow.com/users/1303230/dejan-balaban">Dejan Balaban</a></p>
+<p><strong>261</strong>2233</p>
+<p>|<br>|————————————————————————————————————————————————-|———————————————————————————————————————————————————————————————–|</p>
+<pre><code>                                                                                                                                                                                                          |
+</code></pre>
+<p>|——————————————————————————————————————————|———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|<br>|                                                                                                                              |||How to resolve the same if we are not using xib?&nbsp;–&nbsp;<a title="75 reputation" target="_blank" rel="noopener" href="http://stackoverflow.com/users/951969/nagaraja-sathe">Nagaraja Sathe</a>&nbsp;<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment17301897_12639968">Oct 9 at 8:53Oct 9 at 8:53</a><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment17301897_12639968">Oct 9 at 8:53Oct 9 at 8:53</a><br>|<br>||———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————-|<br>||Thank you. Works great.&nbsp;–&nbsp;<a title="66 reputation" target="_blank" rel="noopener" href="http://stackoverflow.com/users/1083839/elad-hadad">Elad Hadad</a>&nbsp;<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment17759065_12639968">Oct 25 at 16:40Oct 25 at 16:40</a><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11198981/presentviewcontroller-crash-on-ios-6-autolayout#comment17759065_12639968">Oct 25 at 16:40Oct 25 at 16:40</a><br>                        |</p>
+<p>feedback<br>|]()</p>
+<p>[|<a title="This answer is useful (click again to undo)" href="">up vote</a><strong>1</strong><a title="This answer is not useful (click again to undo)" href="">down vote</a><br>|Another possible reason for a crash with presentViewController is having something in the nib connected to a variable that is no longer there - the variable either having it’s name changed or it was deleted.</p>
+<p>|<a title="short permalink to this answer" target="_blank" rel="noopener" href="http://stackoverflow.com/a/11941085">share</a>|<a target="_blank" rel="noopener" href="http://stackoverflow.com/posts/11941085/edit">improve this answer</a><br>|answered&nbsp;<strong>Aug 13 at 19:36</strong><br><a target="_blank" rel="noopener" href="http://stackoverflow.com/users/572072/chris-walken"><img loading="lazy" alt="-247.png" src="/images/notes/presentViewController_-crash-on-iOS-6-_AutoLayout_/247.png"></a></p>
+<p><a target="_blank" rel="noopener" href="http://stackoverflow.com/users/572072/chris-walken">Chris Walken</a></p>
+<p><strong>49</strong>22</p>
+<p>|<br>|————————————————————————————————————————————————-|—————————————————————————————————————————————————————————————|</p>
+<p>|<br>|—————————————————————————————————————————–|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————–|<br>|                                                                                                                             |feedback<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |]()</p>
+<p>[|<a title="This answer is useful (click again to undo)" href="">up vote</a><strong>1</strong><a title="This answer is not useful (click again to undo)" href="">down vote</a><br>|Nagaraja asks “How to resolve the same if we are not using xib? I ran into exactly this problem. I created a controller with a xib, and then I decided to remove the xib file. The crash did not go away. The problem was that I needed to implement</p>
+<pre><code>- (void) loadView
+</code></pre>
+<p>in my controller class. Once I implemented this method the problem got solved.</p>
+<p>|<a title="short permalink to this answer" target="_blank" rel="noopener" href="http://stackoverflow.com/a/12994414">share</a>|<a target="_blank" rel="noopener" href="http://stackoverflow.com/posts/12994414/edit">improve this answer</a><br>|<br>|————————————————————————————————————————————————-|</p>
+<p>|<br>|—————————————————————————————————————————–|—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|]()</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios开发问题汇总/">Ios开发问题汇总</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/presentViewController_%20crash%20on%20iOS%206%20_AutoLayout_/" data-title="presentViewController: crash on iOS 6 (AutoLayout) | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/openssl操作公私钥和加解密的一些常用命令 - JustDoBetter - 博客园/" title="openssl操作公私钥和加解密的一些常用命令 - JustDoBetter - 博客园">
+  <strong>上一篇：</strong><br/>
+  <span>
+  openssl操作公私钥和加解密的一些常用命令 - JustDoBetter - 博客园</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/oracle操作字符串：拼接、替换、截取、查找 - 尐sんΙ頭 - 博客园/"  title="oracle操作字符串：拼接、替换、截取、查找 - 尐sんΙ頭 - 博客园">
+ <strong>下一篇：</strong><br/> 
+ <span>oracle操作字符串：拼接、替换、截取、查找 - 尐sんΙ頭 - 博客园
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/presentViewController_ crash on iOS 6 _AutoLayout_/" data-title="presentViewController: crash on iOS 6 (AutoLayout)" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/presentViewController_%20crash%20on%20iOS%206%20_AutoLayout_/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#presentViewController-crash-on-iOS-6-AutoLayout"><span class="toc-number">1.</span> <span class="toc-text">presentViewController: crash on iOS 6 (AutoLayout)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#presentViewController-crash-on-iOS-6-AutoLayout-1"><span class="toc-number">2.</span> <span class="toc-text">presentViewController: crash on iOS 6 (AutoLayout)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Answers"><span class="toc-number">2.1.</span> <span class="toc-text">4 Answers</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

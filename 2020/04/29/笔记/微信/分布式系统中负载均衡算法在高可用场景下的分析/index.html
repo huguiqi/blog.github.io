@@ -1,0 +1,929 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>分布式系统中负载均衡算法在高可用场景下的分析 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="分布式系统中负载均衡算法在高可用场景下的分析微信 架构师 分布式系统中负载均衡算法在高可用场景下的分析  2016-03-25 墨竹  架构师（JiaGouX） 我们都是架构师！ 在分布式系统中，负载均衡是非常重要的环节，通过负载均衡将请求派发到网络中的一个或多个节点上进行处理。通常来说，负载均衡分为硬件负载均衡及软件负载均衡。硬件负载均衡，顾名思义，在服务器节点之间安装专门的硬件进行负载均衡的工">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式系统中负载均衡算法在高可用场景下的分析">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%BE%AE%E4%BF%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="分布式系统中负载均衡算法在高可用场景下的分析微信 架构师 分布式系统中负载均衡算法在高可用场景下的分析  2016-03-25 墨竹  架构师（JiaGouX） 我们都是架构师！ 在分布式系统中，负载均衡是非常重要的环节，通过负载均衡将请求派发到网络中的一个或多个节点上进行处理。通常来说，负载均衡分为硬件负载均衡及软件负载均衡。硬件负载均衡，顾名思义，在服务器节点之间安装专门的硬件进行负载均衡的工">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-13.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-5.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-14.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-15.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-6.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-16.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-17.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-18.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/640-3.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-7.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-19.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-20.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-03-26T01:02:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="微信">
+<meta property="article:tag" content="架构师">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-13.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/微信/分布式系统中负载均衡算法在高可用场景下的分析/" title="分布式系统中负载均衡算法在高可用场景下的分析" itemprop="url">分布式系统中负载均衡算法在高可用场景下的分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">分布式系统中负载均衡算法在高可用场景下的分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90-1"><span class="toc-number">1.1.</span> <span class="toc-text">分布式系统中负载均衡算法在高可用场景下的分析</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="分布式系统中负载均衡算法在高可用场景下的分析"><a title="分布式系统中负载均衡算法在高可用场景下的分析" class="headerlink" href="#分布式系统中负载均衡算法在高可用场景下的分析"></a>分布式系统中负载均衡算法在高可用场景下的分析</h1><p><code>微信</code> <code>架构师</code></p>
+<h2 id="分布式系统中负载均衡算法在高可用场景下的分析-1"><a title="分布式系统中负载均衡算法在高可用场景下的分析" class="headerlink" href="#分布式系统中负载均衡算法在高可用场景下的分析-1"></a>分布式系统中负载均衡算法在高可用场景下的分析</h2><p>  <em>2016-03-25</em> <em>墨竹</em><br>  架构师（JiaGouX）</p>
+<p>我们都是架构师！</p>
+<p>在分布式系统中，负载均衡是非常重要的环节，通过负载均衡将请求派发到网络中的一个或多个节点上进行处理。通常来说，负载均衡分为硬件负载均衡及软件负载均衡。硬件负载均衡，顾名思义，在服务器节点之间安装专门的硬件进行负载均衡的工作，F5便为其中的佼佼者。软件负载均衡则是通过在服务器上安装的特定的负载均衡软件或是自带负载均衡模块完成对请求的分配派发。</p>
+<p>&nbsp; &nbsp; &nbsp;一般而言，有以下几种常见的负载均衡策略：</p>
+<p>&nbsp; &nbsp; &nbsp;一.轮询。作为非常经典的负载均衡策略，早期该策略应用地非常广泛。其原理很简单，给每个请求标记一个序号，然后将请求依次派发到服务器节点中，适用于集群中各个节点提供服务能力等同且无状态的场景。其缺点也非常明显，该策略将节点视为等同，与实际中复杂的环境不符。加权轮询为轮询的一个改进策略，每个节点会有权重属性，但是因为权重的设置难以做到随实际情况变化，仍有一定的不足。</p>
+<p>&nbsp; &nbsp; &nbsp;二.随机。与轮询相似，只是不需要对每个请求进行编号，每次随机取一个。同样地，该策略也将后端的每个节点是为等同的。另外同样也有改进的加权随机的算法，不再赘述。</p>
+<p>&nbsp; &nbsp; &nbsp;三.最小响应时间。通过记录每次请求所需的时间，得出平均的响应时间，然后根据响应时间选择最小的响应时间。该策略能较好地反应服务器的状态，但是由于是平均响应时间的关系，时间上有些滞后，无法满足快速响应的要求。因此在此基础之上，会有一些改进版本的策略，如只计算最近若干次的平均时间的策略等。</p>
+<p>&nbsp; &nbsp; &nbsp;四. 最小并发数。客户端的每一次请求服务在服务器停留的时间可能会有较大的差异,随着工作时间加长,如果采用简单的轮循或随机均衡算法,每一台服务器上的连接进程可能会产生较大的不同,并没有达到真正的负载均衡｡最小并发数的策略则是记录了当前时刻，每个备选节点正在处理的事务数，然后选择并发数最小的节点。该策略能够快速地反应服务器的当前状况，较为合理地将负责分配均匀，适用于对当前系统负载较为敏感的场景。</p>
+<p>&nbsp; &nbsp; &nbsp;五.哈希。在后端节点有状态的情况下，需要使用哈希的方法进行负载均衡，此种情况下情况比较复杂，本文对此不做探讨。</p>
+<p>&nbsp; &nbsp; &nbsp;另外还有其他的负载均衡策略不再一一列举，有兴趣的同学可以自己去查阅相关资料。</p>
+<p>&nbsp; &nbsp; &nbsp;分布式系统面临着远比单机系统更加复杂的环境，包括不同的网络环境、运行平台、机器配置等等。在如此复杂的环境中，发生错误是不可避免的，然后如何能够做到容错性，将发生错误的代价降低到最低是在分布式系统中必须要考虑的问题。选择不同的负载均衡策略将会有非常大的不同。</p>
+<p>&nbsp; &nbsp; &nbsp;考虑下列的情况。完成请求需要如下四个集群，A,B,C,D，其中，假定完成调用需要调用集群B3次，B集群共有5台服务器。</p>
+<p><img loading="lazy" alt="0-13.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-13.jpg"></p>
+<p>&nbsp; &nbsp; &nbsp;当集群B中的某台服务器出现故障而导致无法提供服务，若集群中其他容错手段尚未生效，那么理想情况下，4/5的请求不受影响。</p>
+<p>&nbsp; &nbsp; &nbsp;若采用轮询或随机的负载均衡策略时，单次请求派发到正常节点的概率为4/5,那么该请求成功的几率为1*(4/5)<em>(4/5)</em>(4/5) = 64/125&nbsp; 约为 二之一，低于4/5的理想状态。</p>
+<p>&nbsp; &nbsp; &nbsp;在因此，在此种情况下，若仅仅采用此种策略，会使故障的影响范围扩散，不符合预期。</p>
+<p>&nbsp; &nbsp; &nbsp;若采用最小并发数的复杂均衡策略，假定正常一个请求需耗时10ms，超时时间设置为1s，那么，按照最小并发数的策略，异常节点的提供服务的能力为1，正常节点提供服务能力为100，则派发到异常节点的概率为1/(100<em>4+1)=1/401,该请求成功的几率为1</em>(400/401)^3≈99.25%，高于4/5。</p>
+<p>&nbsp; &nbsp; &nbsp;更加一般地，设集群中发生故障的故障机器的比例p，那么调用成功的预期概率</p>
+<p><img loading="lazy" alt="0-5.png" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-5.png"></p>
+<p>&nbsp; &nbsp; &nbsp;整个请求需要调用k次，若采用轮询或随机的负载均衡策略，那么单次派发到正常节点的概率为<img loading="lazy" alt="0-14.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-14.jpg"></p>
+<p>&nbsp; &nbsp; &nbsp;请求的成功率便会下降到<img loading="lazy" alt="0-15.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-15.jpg"></p>
+<p>&nbsp; &nbsp; &nbsp;当k为3的时候，得到成功率f(p)与p的关系：</p>
+<p><img loading="lazy" alt="0-6.png" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-6.png"></p>
+<p>&nbsp; &nbsp; &nbsp;从上图可知，在p在增大的时候，请求的成功率f(p)便会有明显的下降，故而在对可靠性要求比较高的分布式系统中，不能简单地采用此种策略。若采用最小并发数的策略，集群服务器的总数为m，假定异常情况下服务能力下降到正常的1/q，那么单位时间内，集群能提供服务的总数为<img loading="lazy" alt="0-16.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-16.jpg"></p>
+<p>&nbsp; &nbsp; &nbsp;那么单次派发到正常节点的概率为: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img loading="lazy" alt="0-17.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-17.jpg"></p>
+<p>&nbsp; &nbsp; &nbsp;请求的成功率则是上述值的k次方，即<img loading="lazy" alt="0-18.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-18.jpg"></p>
+<p>&nbsp; &nbsp; &nbsp;当q=10，k=3时，可以得到请求成功率f(p)的图像:</p>
+<p><img loading="lazy" alt="640-3.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/640-3.jpg"></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;从上图可知，当p在较小的区间内变化时(如(0,0.4])，随着p的增大,成功率f(p)并未有明显的下降，在每个节点可以承受服务压力的情况下，可以良好地处理多个节点故障的异常状况。</p>
+<p>&nbsp; &nbsp; &nbsp;换个角度思考，再挖掘一下上述等式，若p为恒定，即集群中若已有一定数量的机器发生了故障。</p>
+<p>&nbsp; &nbsp; &nbsp;当p=0.1,k=3时，可以得到成功率f(q)的图像:</p>
+<p><img loading="lazy" alt="0-7.png" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-7.png"></p>
+<p>&nbsp; &nbsp; &nbsp;从上图可知，服务的超时时间无须设置地过大，一般来说，设置为10倍的正常提供服务器时间即可。</p>
+<p>&nbsp; &nbsp; &nbsp;另外，若是在异常情况非常快地被客户端感知到并反馈的时候(如客户端检查到后端某个节点配置错误等)，即q&lt;1的时候，假定q=0.1,k=3的时候，可以得到如下关系：</p>
+<p><img loading="lazy" alt="0-19.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-19.jpg"></p>
+<p>&nbsp; &nbsp; &nbsp;在此种情况下，会导致失败大大提升，即使只有较小比例的集群出现异常，也会使得请求大量失败，故而还需要其他手段检测到此类型的异常。</p>
+<p>&nbsp; &nbsp; &nbsp;针对这种情况，再考虑到网络波动及其他异常的状态，添加了移除异常节点的保护机制，当后端的某一个节点连续失败超过一定次数时，则就会移除该节点。但是该种策略亦存在因为用户输入错误或其他偶然因素导致返回失败而使得正常节点被移除的情况。考虑一下这种情况，假定这种返回异常的概率为1%，移除节点的失败次数的阀值为9，q=0.1，可用节点数为5，根据上述最小并发数的计算公式，可以得到派发到这一节点的概率为2/7，那么连续派发到该节点的概率为(2/7)^9≈0.001%，可以忽略掉这种异常情况。</p>
+<p>&nbsp; &nbsp; &nbsp;在实际应用中，客户端的并发数可能存在一直维持在一个较低的水平上，由于客户端的并发数并不能代表服务端的并发情况，会造成在客户端并发数较小的情况下，服务端实际负载不均衡的状况。</p>
+<p>&nbsp; &nbsp; &nbsp;故而，最小并发数的负载均衡策略不适用于在客户端做负载均衡，且客户端负载较小的情况。这种情况下，目前采用随机的方法解决负载不均衡的问题。</p>
+<p>当然，在实际的分布式系统中，因为一个节点异常而导致其他节点的压力增大，可能会使其他节点的性能下降，他们之间的关系难以用上述的等式简单地描述。</p>
+<p>来源：&nbsp;有赞技术团队</p>
+<p>原文：<a target="_blank" rel="noopener" href="http://tech.youzan.com/load-balancing-algorithm/">http://tech.youzan.com/load-balancing-algorithm/</a></p>
+<p>如有侵权或不周之处，敬请劳烦联系若飞（微信：1321113940）马上删除，谢谢！</p>
+<p><strong>·END·</strong> </p>
+<p><strong>架构师</strong></p>
+<p>我们都是架构师！</p>
+<p><img loading="lazy" alt="0-20.jpg" src="/images/notes/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/0-20.jpg"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/DevOps%E4%B8%8E%E6%9E%B6%E6%9E%84/">DevOps与架构</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/微信/">微信</a><a href="/tags/架构师/">架构师</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%BE%AE%E4%BF%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/" data-title="分布式系统中负载均衡算法在高可用场景下的分析 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/微信/关于iOS多线程，你看我就够了/" title="关于iOS多线程，你看我就够了">
+  <strong>上一篇：</strong><br/>
+  <span>
+  关于iOS多线程，你看我就够了</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/兴趣笔记/科学告诉你，男人喜欢什么样的女人 _kindle _dogear/"  title="科学告诉你，男人喜欢什么样的女人 #kindle #dogear">
+ <strong>下一篇：</strong><br/> 
+ <span>科学告诉你，男人喜欢什么样的女人 #kindle #dogear
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/微信/分布式系统中负载均衡算法在高可用场景下的分析/" data-title="分布式系统中负载均衡算法在高可用场景下的分析" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E5%BE%AE%E4%BF%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">分布式系统中负载均衡算法在高可用场景下的分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E5%9C%A8%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90-1"><span class="toc-number">1.1.</span> <span class="toc-text">分布式系统中负载均衡算法在高可用场景下的分析</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

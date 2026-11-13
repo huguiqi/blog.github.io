@@ -1,0 +1,1075 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>iOS下载文件的几种简单有效的方式 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="iOS下载文件的几种简单有效的方式1，这种方式适合小文件的下载，比如1M以下的数据下载，简单易用NSData *data &#x3D; [NSData dataWithContentsOfURL:fileURL]; 2，使用ASIHTTPRequest来请求下载，这种方式会处理一些多线程的情况，适合大文件的下载&amp;nbsp; &amp;nbsp;&amp;nbsp;ASIHTTPRequest *request &#x3D; [ASI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS下载文件的几种简单有效的方式">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="iOS下载文件的几种简单有效的方式1，这种方式适合小文件的下载，比如1M以下的数据下载，简单易用NSData *data &#x3D; [NSData dataWithContentsOfURL:fileURL]; 2，使用ASIHTTPRequest来请求下载，这种方式会处理一些多线程的情况，适合大文件的下载&amp;nbsp; &amp;nbsp;&amp;nbsp;ASIHTTPRequest *request &#x3D; [ASI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E6%96%B9%E5%BC%8F/187.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2013-03-07T05:34:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/iOS%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E6%96%B9%E5%BC%8F/187.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/iOS下载文件的几种简单有效的方式/" title="iOS下载文件的几种简单有效的方式" itemprop="url">iOS下载文件的几种简单有效的方式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">iOS下载文件的几种简单有效的方式</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="iOS下载文件的几种简单有效的方式"><a title="iOS下载文件的几种简单有效的方式" class="headerlink" href="#iOS下载文件的几种简单有效的方式"></a>iOS下载文件的几种简单有效的方式</h1><p>1，这种方式适合小文件的下载，比如1M以下的数据下载，简单易用<br>NSData *data = [NSData dataWithContentsOfURL:fileURL];</p>
+<p>2，使用ASIHTTPRequest来请求下载，这种方式会处理一些多线程的情况，适合大文件的下载<br>&nbsp; &nbsp;&nbsp;ASIHTTPRequest *request = [ASIHTTPRequestrequestWithURL:_passUrl];</p>
+<p>&nbsp; &nbsp; &nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; 实现ASIHTTPRequestDelegate, ASIProgressDelegate，然后适量进行方法实现，</p>
+<p>-(void)requestFinished:(ASIHTTPRequest *)request</p>
+<p>{</p>
+<p>&nbsp;&nbsp; _passData = [request responseData];</p>
+<p>&nbsp;&nbsp;&nbsp; if(_passData != nil &amp;&amp; [_passData length]] &gt;0){</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [selfshowPassbookView];</p>
+<p>&nbsp;&nbsp;&nbsp; }</p>
+<p>}</p>
+<p>-(void)requestFailed:(ASIHTTPRequest *)request</p>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp; NSError *error = [request error];</p>
+<p>&nbsp;&nbsp;&nbsp; NSLog(@”getPassbook error:%@”,error);</p>
+<p>}</p>
+<p>3，<a target="_blank" rel="noopener" href="http://justcoding.iteye.com/blog/1474177">NSURLConnection 下载数据 – IOS（实例）</a></p>
+<ul>
+<li>iPhone网络开发中如何使用NSURLConnection是本文要介绍的内容，这篇文章是翻译的苹果官方文档，想要看英文原版的可以到苹果网站查看，来看详细内容。</li>
+</ul>
+<p>&nbsp;</p>
+<p>NSURLConnection 提供了很多灵活的方法下载URL内容也提供了一个简单的接口去创建和放弃连接，同时使用很多的delegate方法去支持连接过程的反馈和控制</p>
+<p>&nbsp;</p>
+<p>如何创建一个连接呢？</p>
+<p>&nbsp;</p>
+<p>为了下载url的内容，程序需要提供一个delegate对象，并且至少实现下面的方法</p>
+<p>C代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22"><img loading="lazy" alt="-187.png" src="/images/notes/iOS%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E6%96%B9%E5%BC%8F/187.png"></a></p>
+<ol>
+<li>-&nbsp;(<strong>void</strong>)connection:(NSURLConnection*)connection&nbsp;didReceiveResponse:(NSHTTPURLResponse*)response&nbsp;&nbsp;</li>
+<li>-&nbsp;(<strong>void</strong>)connection:(NSURLConnection*)connection&nbsp;didReceiveData:(NSData*)data&nbsp;&nbsp;</li>
+<li>-&nbsp;(<strong>void</strong>)connection:(NSURLConnection*)connection&nbsp;didFailWithError:(NSError*)error&nbsp;&nbsp;</li>
+<li>-&nbsp;(<strong>void</strong>)connectionDidFinishLoading:(NSURLConnection&nbsp;*)connection</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>NSURLConnect还提供了一个方便的类方法(class method) : sendSynchronousRequest:returningResponse:error: 可用来 同步地加载一个URL请求</p>
+<p>C代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>+&nbsp;(NSData&nbsp;*)sendSynchronousRequest:&nbsp;&nbsp;&nbsp;&nbsp;(NSURLRequest&nbsp;*)request&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returningResponse:&nbsp;&nbsp;&nbsp;(NSURLResponse&nbsp;**)response&nbsp;&nbsp;&nbsp;&nbsp;error:&nbsp;&nbsp;(NSError&nbsp;**)error</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;1. request 要装载的URL请求. 这个request 对象 作为初始化进程的一部分,被深度复制(deep-copied). 在这个方法返回之后, 再修改request, 将不会影响用在装载的过程中的request</p>
+<ol start="2">
+<li><p>reponse 输出参数, 由服务器返回的URL响应</p>
+</li>
+<li><p>error&nbsp;&nbsp; 输出参数, 如果在处理请求的过程中发生错误,就会使用.&nbsp;&nbsp;无错误,就为NULL</p>
+</li>
+</ol>
+<p>&nbsp;</p>
+<p><strong>举例一</strong></p>
+<p>&nbsp;</p>
+<p>1、先创建一个NSURL</p>
+<p>2、在通过NSURL创建NSURLRequest，可以指定缓存规则和超时时间</p>
+<p>3、创建NSURLConnection实例，指定NSURLRequest和一个delegate对象</p>
+<p>&nbsp;</p>
+<p>如果创建失败，则会返回nil,如果创建成功则创建一个NSMutalbeData的实例用来存储数据</p>
+<p>&nbsp;</p>
+<p>代码：</p>
+<p>C代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>NSURLRequest&nbsp;*theRequest＝［NSURLRequest&nbsp;requestWithURL：&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;［NSURL&nbsp;URLWithString：@“<a href="http://www.[sina.com.cn/”］](http://sina.com.cn/%E2%80%9D%EF%BC%BD)">http://www.[sina.com.cn/”］](http://sina.com.cn/%E2%80%9D%EF%BC%BD)</a>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cachePolicy：NSURLRequestUseProtocolCachePolicy&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timeoutInterval：60.0];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>NSURLConnection&nbsp;*theConncetion=[[NSURLConnection&nbsp;alloc]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initWithRequest:theRequest&nbsp;delegate:self];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li><strong>if</strong>(theConnection)&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>//创建NSMutableData&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;receivedData＝[[NSMutableData&nbsp;data］&nbsp;retain］；&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>}<strong>else</strong>&nbsp;//&nbsp;创建失败</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>C代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>NSURLRequestUseProtocolCachePolicy&nbsp;//NSURLRequest默认的cache&nbsp;policy,&nbsp;是最能保持一致性的协议。&nbsp;&nbsp;</li>
+<li>NSURLRequestReloadIgnoringCacheData&nbsp;&nbsp;//忽略缓存直接从原始地址下载&nbsp;&nbsp;</li>
+<li>NSURLRequestReturnCacheDataElseLoad&nbsp;&nbsp;//只有在cache中不存在data时才从原始地址下载&nbsp;&nbsp;</li>
+<li>NSURLRequestReturnCacheDataDontLoad&nbsp;&nbsp;//允许app确定是否要返回cache数据，如果使用这种协议当本地不存在response的时候，创建NSURLConnection&nbsp;or&nbsp;NSURLDownload实例时将会马上返回nil；这类似于离线模式，没有建立网络连接;</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;NSURLConnection还有几个初始化函数，有个初始化函数可以做到创建连接但是并不马上开始下载，而是通过start：开始</p>
+<p>&nbsp;</p>
+<p>当收到initWithRequest: delegate： 消息时，下载会立即开始，在代理（delegate）收到connectionDidFinishLoading：或者 connection：didFailWithError：消息之前可以通过给连接发送一个cancel：消息来中断下载。</p>
+<p>&nbsp;</p>
+<p>当服务器提供了足够客户程序创建NSURLResponse对象的信息时，代理对象会收到一个connection：didReceiveResponse：消息，在消息内可以检查NSURLResponse对象和确定数据的预期长途，mime类型，文件名以及其他服务器提供的元信息</p>
+<p>&nbsp;</p>
+<p>要注意，一个简单的连接也可能会收到多个connection：didReceiveResponse：消息当服务器连接重置或者一些罕见的原因（比如多组mime文档），代理都会收到该消息这时候应该重置进度指示，丢弃之前接收的数据</p>
+<p>C代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>－(<strong>void</strong>)connection：(NSURLConnection&nbsp;*)&nbsp;connectiondidReceiveResponse：&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(NSURLResponse*)response&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;［receiveData&nbsp;setLength：0］；&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;当下载开始的时候，每当有数据接收，代理会定期收到connection：didReceiveData：消息代理应当在实现中储存新接收的数据，下面的例子既是如此</p>
+<p>C代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>－(<strong>void</strong>)&nbsp;connection：(NSURLConnection&nbsp;*)&nbsp;connection&nbsp;didReceiveData：&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(NSData&nbsp;*)&nbsp;data&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;［receiveData&nbsp;appendData：data］；&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;在上面的方法实现中，可以加入一个进度指示器，提示用户下载进度</p>
+<p>&nbsp;</p>
+<p>当下载的过程中有错误发生的时候，代理会收到一个connection：didFailWithError消息，消息参数里面的NSError对象提供了具体的错误细节，它也能提供在用户信息字典里面失败的url请求（使用NSErrorFailingURLStringKey）</p>
+<p>&nbsp;</p>
+<p>当代理接收到连接的connection：didFailWithError消息后，对于该连接不会在收到任何消息</p>
+<p>&nbsp;</p>
+<p><strong>举例</strong></p>
+<p>C代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>－(<strong>void</strong>)connection：(NSURLConnection&nbsp;*)connection&nbsp;didFailWithError：(NSError&nbsp;*)error&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;&nbsp;</li>
+<li>［connection&nbsp;release］；&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;［receivedData&nbsp;release］；&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;NSLog(@”Connection&nbsp;failed!&nbsp;Error&nbsp;-&nbsp;%@&nbsp;%@”,&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[error&nbsp;localizedDescription],&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[error&nbsp;userInfo]&nbsp;objectForKey:NSErrorFailingURLStringErrorKey])；&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;最后，如果连接请求成功的下载，代理会接收connectionDidFinishLoading：消息代理不会收到其他的消息了，在消息的实现中，应该释放掉连接</p>
+<p>&nbsp;</p>
+<p><strong>举例：</strong></p>
+<p>C代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>-(<strong>void</strong>)connectionDidFinishLoading：(NSURLConnection&nbsp;*)connection&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;//do&nbsp;something&nbsp;with&nbsp;the&nbsp;data&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;NSLog(@”succeeded&nbsp;&nbsp;%d&nbsp;byte&nbsp;received”,[receivedData&nbsp;length]);&nbsp;&nbsp;&nbsp;</li>
+<li>[connection&nbsp;release];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>[receivedData&nbsp;release];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;<strong>一个实现异步get请求的例子：</strong></p>
+<p>C代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>NSString&nbsp;*url&nbsp;=&nbsp;[NSString&nbsp;stringWithFormat:@”<a target="_blank" rel="noopener" href="http://localhost/chat/messages.php?past=%25ld&amp;t=%25ld">http://localhost/chat/messages.php?past=%ld&amp;t=%ld</a>“,&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lastId,&nbsp;time(0)&nbsp;];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;NSMutableURLRequest&nbsp;*request&nbsp;=&nbsp;[[[NSMutableURLRequest&nbsp;alloc]&nbsp;init]&nbsp;autorelease];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[request&nbsp;setURL:[NSURL&nbsp;URLWithString:url]];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[request&nbsp;setHTTPMethod:@”GET”];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;NSURLConnection&nbsp;*conn=[[NSURLConnection&nbsp;alloc]&nbsp;initWithRequest:request&nbsp;delegate:self];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>if</strong>&nbsp;(conn)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;receivedData&nbsp;=&nbsp;[[NSMutableData&nbsp;data]&nbsp;retain];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>else</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;</li>
+<li>-&nbsp;(<strong>void</strong>)timerCallback&nbsp;{&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;//[timer&nbsp;release];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[self&nbsp;getNewMessages];&nbsp;&nbsp;</li>
+<li>}&nbsp;&nbsp;</li>
+<li>-&nbsp;(<strong>void</strong>)connection:(NSURLConnection&nbsp;*)connection&nbsp;didReceiveResponse:(NSURLResponse&nbsp;*)response&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[receivedData&nbsp;setLength:0];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>}&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>-&nbsp;(<strong>void</strong>)connection:(NSURLConnection&nbsp;*)connection&nbsp;didReceiveData:(NSData&nbsp;*)data&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[receivedData&nbsp;appendData:data];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>}&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>-&nbsp;(<strong>void</strong>)connectionDidFinishLoading:(NSURLConnection&nbsp;*)connection&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>{&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>if</strong>&nbsp;(chatParser)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[chatParser&nbsp;release];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<strong>if</strong>&nbsp;(&nbsp;messages&nbsp;==&nbsp;nil&nbsp;)&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messages&nbsp;=&nbsp;[[NSMutableArray&nbsp;alloc]&nbsp;init];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;chatParser&nbsp;=&nbsp;[[NSXMLParser&nbsp;alloc]&nbsp;initWithData:receivedData];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[chatParser&nbsp;setDelegate:self];//set&nbsp;the&nbsp;delegate&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[chatParser&nbsp;parse];//start&nbsp;parse&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[receivedData&nbsp;release];&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[messageList&nbsp;reloadData];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;NSInvocation&nbsp;*invocation&nbsp;=&nbsp;[NSInvocation&nbsp;invocationWithMethodSignature:&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[self&nbsp;methodSignatureForSelector:&nbsp;@selector(timerCallback)]];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[invocation&nbsp;setTarget:self];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[invocation&nbsp;setSelector:@selector(timerCallback)];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;//timer&nbsp;=&nbsp;[NSTimer&nbsp;scheduledTimerWithTimeInterval:5.0&nbsp;invocation:invocation&nbsp;repeats:NO];&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;[NSTimer&nbsp;scheduledTimerWithTimeInterval:5.0&nbsp;invocation:invocation&nbsp;repeats:NO];//if&nbsp;set&nbsp;yes,then&nbsp;very&nbsp;5&nbsp;seconds&nbsp;updata&nbsp;the&nbsp;table&nbsp;&nbsp;</li>
+<li>}</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;<strong>一个实现同步Get请求的例子：</strong></p>
+<p>C代码&nbsp;&nbsp;<a href="%22%E6%94%B6%E8%97%8F%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%22">%!(EXTRA markdown.ResourceType=, string=, string=)</a></p>
+<ol>
+<li>//&nbsp;初始化请求&nbsp;&nbsp;</li>
+<li>NSMutableURLRequest&nbsp;*request&nbsp;=&nbsp;[[NSMutableURLRequest&nbsp;alloc]&nbsp;init];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li>//&nbsp;设置URL&nbsp;&nbsp;</li>
+<li>[request&nbsp;setURL:[NSURL&nbsp;URLWithString:urlStr]];&nbsp;&nbsp;</li>
+<li>//&nbsp;设置HTTP方法&nbsp;&nbsp;</li>
+<li>[request&nbsp;setHTTPMethod:@”GET”];&nbsp;&nbsp;</li>
+<li>//&nbsp;发&nbsp;送同步请求,&nbsp;这里得returnData就是返回得数据了&nbsp;&nbsp;</li>
+<li>NSData&nbsp;*returnData&nbsp;=&nbsp;[NSURLConnection&nbsp;sendSynchronousRequest:request&nbsp;&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returningResponse:nil&nbsp;error:nil];&nbsp;&nbsp;&nbsp;</li>
+<li>//&nbsp;释放对象&nbsp;&nbsp;</li>
+<li>[request&nbsp;release];</li>
+</ol>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E6%96%B9%E5%BC%8F/" data-title="iOS下载文件的几种简单有效的方式 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/iOS 开发之剪贴板 - 陈斌彬的技术博客/" title="iOS 开发之剪贴板 - 陈斌彬的技术博客">
+  <strong>上一篇：</strong><br/>
+  <span>
+  iOS 开发之剪贴板 - 陈斌彬的技术博客</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/iOS 9 变化笔记/"  title="iOS 9 变化笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>iOS 9 变化笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/iOS下载文件的几种简单有效的方式/" data-title="iOS下载文件的几种简单有效的方式" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E6%96%B9%E5%BC%8F/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">iOS下载文件的几种简单有效的方式</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

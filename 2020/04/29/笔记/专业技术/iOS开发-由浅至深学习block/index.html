@@ -1,0 +1,1076 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>iOS开发-由浅至深学习block | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="iOS开发-由浅至深学习blockblock ios iOS开发-由浅至深学习block   sindri的小巢   2016.04.01 17:02* 阅读 6837喜欢 77 关于block在iOS4.0之后，block横空出世，它本身封装了一段代码并将这段代码当做变量，通过block()的方式进行回调。这不免让我们想到在C函数中，我们可以定义一个指向函数的指针并且调用： bool execu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发-由浅至深学习block">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="iOS开发-由浅至深学习blockblock ios iOS开发-由浅至深学习block   sindri的小巢   2016.04.01 17:02* 阅读 6837喜欢 77 关于block在iOS4.0之后，block横空出世，它本身封装了一段代码并将这段代码当做变量，通过block()的方式进行回调。这不免让我们想到在C函数中，我们可以定义一个指向函数的指针并且调用： bool execu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block/1240.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block/1240-1.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2017-05-23T11:40:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="block">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block/1240.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/iOS开发-由浅至深学习block/" title="iOS开发-由浅至深学习block" itemprop="url">iOS开发-由浅至深学习block</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block"><span class="toc-number">1.</span> <span class="toc-text">iOS开发-由浅至深学习block</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block-1"><span class="toc-number">2.</span> <span class="toc-text">iOS开发-由浅至深学习block</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Eblock"><span class="toc-number">2.1.</span> <span class="toc-text">关于block</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#block%E7%89%B9%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">block特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8block"><span class="toc-number">2.3.</span> <span class="toc-text">使用block</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BFswift%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text">仿swift高阶函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.5.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="iOS开发-由浅至深学习block"><a title="iOS开发-由浅至深学习block" class="headerlink" href="#iOS开发-由浅至深学习block"></a>iOS开发-由浅至深学习block</h1><p><code>block</code> <code>ios</code></p>
+<h1 id="iOS开发-由浅至深学习block-1"><a title="iOS开发-由浅至深学习block" class="headerlink" href="#iOS开发-由浅至深学习block-1"></a>iOS开发-由浅至深学习block</h1><p>   <a target="_blank" rel="noopener" href="http://www.jianshu.com/u/0cf7d455eb9e">sindri的小巢</a>   2016.04.01 17:02* 阅读 6837喜欢 77</p>
+<h2 id="关于block"><a title="关于block" class="headerlink" href="#关于block"></a>关于block</h2><p>在iOS4.0之后，block横空出世，它本身封装了一段代码并将这段代码当做变量，通过<code>block()</code>的方式进行回调。这不免让我们想到在C函数中，我们可以定义一个指向函数的指针并且调用：</p>
+<pre><code>bool executeSomeTask(void) &#123;
+    //do something and return if success or not
+&#125;
+bool (*taskPoint)(void);
+taskPoint = something;
+</code></pre>
+<p>上面的函数指针可以直接通过<code>(*taskPoint)()</code>的方式调用<code>executeSomeTask</code>这个函数，这样对比<code>block</code>跟似乎C语言的函数指针是一样的，但是两者仍然存在以下区别：</p>
+<ul>
+<li>block的代码是内联的，效率高于函数调用</li>
+<li>block对于外部变量默认是只读属性</li>
+<li>block被Objective-C看成是对象处理</li>
+</ul>
+<p>对于block的底层实现在网上已经有很多资料了，其源码更是可以在<code>opensource.apple.com</code>上下载，因此，本文更着重于对于block的应用</p>
+<h2 id="block特性"><a title="block特性" class="headerlink" href="#block特性"></a>block特性</h2><ul>
+<li>认识block<br>  先从一个简单的需求来说：传入两个数，并且计算这两个数的和，为此创建了这样一个block：<pre><code>int (^sumOfNumbers)(int a, int b) = ^(int a, int b) &#123;
+    return a + b;
+&#125;;
+</code></pre>
+  这段代码等号左侧声明一个名为<code>sumOfNumbers</code>的代码块，名称前用<code>^</code>符号表示后面的字符串是block的名称。最左侧的<code>int</code>表示这个block的返回值，括号中间表示这个block的参数列表，这里接收两个<code>int</code>类型的参数。 而在等号右侧表示这个block的定义，其中返回值是可以省略的，编译器会根据上下文自动补充返回值类型。使用<code>^</code>符号衔接着一个参数列表，使用括号包起来，告诉编译器这是一个block，然后使用大括号将block的代码封装起来。<br>  <img loading="lazy" alt="1240.jpg" src="/images/notes/iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block/1240.jpg"><br>  block代码结构</li>
+<li>捕获外界变量<br>  block还可以访问外界的局部变量，在我的<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/6e326068edeb">从UIView动画说起</a>中有这么一段代码，其中block内部使用到了外部的局部变量：<pre><code>CGPoint center = cell.center;
+CGPoint startCenter = center;
+startCenter.y += LXD_SCREEN_HEIGHT;
+cell.center = startCenter;
+[UIView animateWithDuration: 0.5 delay: 0.35 * indexPath.item usingSpringWithDamping: 0.6 initialSpringVelocity: 0 options: UIViewAnimationOptionCurveLinear animations: ^&#123;
+    cell.center = center;
+&#125; completion: ^(BOOL finished) &#123;
+    NSLog("animation %@ finished", finished? @"is": @"isn't");
+&#125;];
+</code></pre>
+  这里面就用到了<code>void(^animations)(void)</code>跟<code>void(^completion)(BOOL finished)</code>两个block，系统会在动画开始以及动画结束的时候分别调用者两个block。在实现动画的block内部，代码访问了上文中的<code>center</code>属性——在动画开始的时候这个动画函数的生命周期早已结束，而block会捕获代码外的局部变量，当然这只局限于只读操作。如果我们在block中修改外部变量，编译器将会报错：<br>  <img loading="lazy" alt="1240-1.jpg" src="/images/notes/iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block/1240-1.jpg"><br>  block中修改外界局部变量<br>  对于希望在block中修改的外界局部对象，我们可以给这些变量加上<code>__block</code>关键字修饰，这样就能在block中修改这些变量。在捕获变量特性中，还有一个有趣的小机制，我们把上面的代码改成这样：<pre><code>CGPoint center = CGPointZero;
+CGPoint (^pointAddHandler)(CGPoint addPoint) = ^(CGPoint addPoint) &#123;
+    return CGPointMake(center.x + addPoint.x, center.y + addPoint.y);
+&#125;
+center = CGPointMake(100, 100);
+NSLog(@"%@", pointAddHandler(CGPointMake(10, 10)));    //输出&#123;10,10&#125;
+</code></pre>
+  block在捕获变量的时候只会保存变量被捕获时的状态（对象变量除外），之后即便变量再次改变，block中的值也不会发生改变。所以上面的代码在计算新的坐标值时<code>center</code>的值依旧等于<code>CGPointZero</code></li>
+<li>循环引用<br>  开头说过，block在iOS开发中被视作是对象，因此其生命周期会一直等到持有者的生命周期结束了才会结束。另一方面，由于block捕获变量的机制，使得持有block的对象也可能被block持有，从而形成循环引用，导致两者都不能被释放:<pre><code>@implementation LXDObject
+&#123;
+   void (^_cycleReferenceBlock)(void);
+&#125;
+- (void)viewDidLoad
+&#123;
+    [super viewDidLoad];
+    _cycleReferenceBlock = ^&#123; 
+        NSLog(@"%@", self);   //引发循环引用
+    &#125;;
+&#125;
+@end
+</code></pre>
+  遇到这种代码编译器只会告诉你存在警告，很多时候我们都是忽略警告的，这最后会导致内存泄露，两者都无法释放。跟普通变量存在<code>__block</code>关键字一样的，系统提供给我们<code>__weak</code>的关键字用来修饰对象变量，声明这是一个弱引用的对象，从而解决了循环引用的问题：<pre><code>__weak typeof(*&amp;self) weakSelf = self;
+_cycleReferenceBlock = ^&#123; 
+    NSLog(@"%@", weakSelf);   //弱指针引用，不会造成循环引用
+&#125;;
+</code></pre>
+  对于block这种有趣的特性，在唐巧的<a target="_blank" rel="noopener" href="http://blog.devtang.com/2013/07/28/a-look-inside-blocks/">谈Objective-C block的实现</a>有详细介绍block的底层实现代码，我在这里就不多说了</li>
+</ul>
+<h2 id="使用block"><a title="使用block" class="headerlink" href="#使用block"></a>使用block</h2><p>在block出现之前，开发者实现回调基本都是通过代理的方式进行的。比如负责网络请求的原生类<code>NSURLConnection</code>类，通过多个协议方法实现请求中的事件处理。而在最新的环境下，使用的<code>NSURLSession</code>已经采用block的方式处理任务请求了。各种第三方网络请求框架也都在使用block进行回调处理。这种转变很大一部分原因在于block使用简单，逻辑清晰，灵活等原因。接下来我会完成一次网络请求，然后通过block进行回调处理。这些回调包括请求完成、下载进度</p>
+<p>按照<code>returnValue(^blockName)(parameters)</code>的方式进行block的声明未免麻烦了些，我们可以通过关键字<code>typedef</code>来为block起类型名称，然后直接通过类型名进行block的创建：</p>
+<pre><code>@interface LXDDownloadManager: NSObject&lt; NSURLSessionDownloadDelegate &gt;
+
+//block重命名
+typedef void(^LXDDownloadHandler)(NSData * receiveData, NSError * error);
+typedef void(^LXDDownloadProgressHandler)(CGFloat progress);
+
+- (void)downloadWithURL: (NSString *)URL parameters: (NSDictionary *)parameters handler: (LXDDownloadHandler)handler progress: (LXDDownloadProgressHandler)progress;
+
+@end
+
+@implementation LXDDownloadManager
+&#123;
+    LXDDownloadProgressHandler _progress;
+&#125;
+
+- (void)downloadWithURL: (NSString *)URL parameters: (NSDictionary *)parameters handler: (LXDDownloadHandler)handler progress: (LXDDownloadProgressHandler)progress
+&#123;
+    //创建请求对象
+    NSURLRequest * request = [self postRequestWithURL: URL params: parameters]; 
+    NSURLSession * session = [NSURLSession sharedSession];
+
+    //执行请求任务
+    NSURLSessionDataTask * task = [session dataTaskWithRequest: request completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) &#123;
+        if (handler) &#123;
+            dispatch_async(dispatch_get_main_queue(), ^&#123;
+                handler(data, error);
+            &#125;); 
+        &#125;
+    &#125;];
+    [task resume];
+&#125;
+
+//进度协议方法
+- (void)URLSession:(NSURLSession *)session
+     downloadTask:(NSURLSessionDownloadTask *)downloadTask 
+    didWriteData:(int64_t)bytesWritten // 每次写入的data字节数  
+   totalBytesWritten:(int64_t)totalBytesWritten // 当前一共写入的data字节数  
+  totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite // 期望收到的所有data字节数  
+&#123;   
+    double downloadProgress = totalBytesWritten / (double)totalBytesExpectedToWrite;  
+    if (_progress) &#123; _progress(downloadProgress); &#125;
+&#125;  
+
+@end
+</code></pre>
+<p>上面通过封装<code>NSURLSession</code>的请求，传入一个处理请求结果的block对象，就会自动将请求任务放到工作线程中执行实现，我们在网络请求逻辑的代码中调用如下：</p>
+<pre><code>#define QQMUSICURL @"https://www.baidu.com/link?url=UTiLwaXdh_-UZG31tkXPU62Jtsg2mSbZgSPSR3ME3YwOBSe97Hw6U6DNceQ2Ln1vXnb2krx0ezIuziBIuL4fWNi3dZ02t2NdN6946XwN0-a&amp;wd=&amp;eqid=ce6864b50004af120000000656fe235f"
+[[LXDDownloadManager alloc] downloadWithURL: QQMUSICURL parameters: nil handler ^(NSData * receiveData, NSError * error) &#123;
+    if (error) &#123; NSLog(@"下载失败：%@", error) &#125;
+    else &#123;
+        //处理下载数据
+    &#125;
+&#125; progress: ^(CGFloat progress) &#123;
+    NSLog(@"下载进度%lu%%", progress*100);
+&#125;];
+</code></pre>
+<h2 id="仿swift高阶函数"><a title="仿swift高阶函数" class="headerlink" href="#仿swift高阶函数"></a>仿swift高阶函数</h2><p>用过swift的开发者都知道swift的函数调用很好的体现了链式编程的思想，即将多个操作通过<code>.</code>连接起来，使得可读性更强，比如<code>ocString.stringByAppendingFormat("abc").stringByAppendingFormat("edf")</code>就是连续调用了追加字符串的方法。这种编程方式的条件之一是每次函数调用必须有返回值。虽然在使用Objective-C开发的过程中，方法的调用是通过<code>[target action]</code>的方式完成的，但是block本身的调用方式也是通过<code>blockName(parameters)</code>的方式执行的，与这种链式函数有异曲同工之妙。</p>
+<p>在swift中提供了包括<code>map</code>、<code>filter</code>、<code>reduce</code>等十分简洁优秀的高阶函数供我们对数组数据进行操作，同样情况下，遍历一个数组并求和在使用oc（不使用kvc）和swift的环境下的代码是这样的：</p>
+<pre><code>#pragma mark - OC code
+NSArray numbers = @[@10, @15, @99, @66, @25];
+NSInteger totalNumber = 0;
+for (NSNumber number in numbers) &#123;
+    totalNumber += number.integerValue;
+&#125;
+
+#pragma mark - swift code
+let numbers = [10, 15, 99, 66, 25];
+let totalNumber = numbers.reduce(0, &#123; $0+$1 &#125;)
+</code></pre>
+<p>无论是代码量还是简洁性，此时的oc都比不上swift。那么接下来就要通过神奇的block来为oc添加这些高阶函数的实现。为此我们需要新建一个<code>NSArray</code>的分类扩展，命名为<code>NSArray+LXDExtension</code></p>
+<pre><code>#import &lt;UIkit/UIKit.h&gt;
+
+/// 数组元素转换
+typedef id(^LXDItemMap)(id item);
+typedef NSArray *(^LXDArrayMap)(LXDItemMap itemMap);
+
+/// 数组元素筛选
+typedef BOOL(^LXDItemFilter)(id item);
+typedef NSArray *(^LXDArrayFilter)(LXDItemFilter itemFilter);
+
+/**
+ *  扩展数组高级方法仿swift调用
+ */
+@interface NSArray (LXDExtension)
+
+@property (nonatomic, copy, readonly) LXDArrayMap map;
+@property (nonatomic, copy, readonly) LXDArrayFilter filter;
+
+@end
+</code></pre>
+<p>前面说了为了实现链式编程，函数调用的前提是具有返回对象。因此我使用了<code>typedef</code>声明了几个不同类型的block。虽然本质上<code>LXDArrayMap</code>和<code>LXDArrayFilter</code>两个block是一样的，但是为了区分它们的功能，还是建议这么做。其实现文件如下：</p>
+<pre><code>typedef void(^LXDEnumerateHandler)(id item);
+
+@implementation NSArray (LXDTopMethod)
+
+- (LXDArrayMap)map
+&#123;
+    LXDArrayMap map = ^id(LXDItemMap itemMap) &#123;
+        NSMutableArray * items = @[].mutableCopy;
+        for (id item in self) &#123;
+            [items addObject: itemMap(item)];
+        &#125;
+        return items;
+    &#125;;
+    return map;
+&#125;    
+
+- (LXDArrayFilter)filter
+&#123;
+    LXDArrayFilter filter = ^BOOL(LXDItemFilter itemFilter) &#123;
+        NSMutableArray * items = @[].mutableCopy;
+        for (id item in self) &#123;
+            if (itemFilter(item)) &#123; [items addObject: item]; &#125;
+        &#125;
+        return items;
+    &#125;;
+    return filter;
+&#125;
+
+- (void)setFilter:(LXDArrayFilter)filter &#123;&#125;
+- (void)setMap:(LXDArrayMap)map &#123;&#125;
+
+@end
+</code></pre>
+<p>我们通过重写setter方法保证block不会被外部修改实现，并且在getter中遍历数组的元素并调用传入的执行代码来实现<code>map</code>和<code>filter</code>等功能。对于这两个功能的实现也很简单，下面举出两个调用高阶函数的例子：</p>
+<pre><code>#pragma mark - 筛选数组中大于20的数值并转换成字符串
+NSArray&lt;NSNumber *&gt; * numbers = @[@10, @15, @99, @66, @25, @28.1, @7.5, @11.2, @66.2];
+NSArray * result = numbers.filter(^BOOL(NSNumber * item) &#123;
+    return item.doubleValue &gt; 20
+&#125;).map(^id(NSNumber * item) &#123;
+    return [NSString stringWithFormat: @"string %g", item.doubleValue];
+&#125;);
+
+#pragma mark - 将数组中的字典转换成对应的数据模型
+NSArray&lt;NSDictionary *&gt; * jsons = @[@&#123; ... &#125;, @&#123; ... &#125;, @&#123; ... &#125;];
+NSArray&lt;LXDModel *&gt; * models = jsons.map(^id(id item) &#123;
+    return [[LXDModel alloc] initWithJSON: item];
+&#125;)
+</code></pre>
+<p>由于语法上的限制，虽然这样的调用跟swift原生的调用对比起来还是复杂了，但通过block让oc实现了函数链式调用的代码看起来也清爽了很多</p>
+<h2 id="总结"><a title="总结" class="headerlink" href="#总结"></a>总结</h2><p>block捕获变量、代码传递、代码内联等特性赋予了它多于代理机制的功能和灵活性，尽管它也存在循环引用、不易调试追溯等缺陷，但无可置疑它的优点深受码农们的喜爱。如何更加灵活的使用block需要我们对它不断的使用、探究了解才能完成</p>
+<p>文集：<a target="_blank" rel="noopener" href="http://www.jianshu.com/notebooks/2348850/latest">iOS开发</a></p>
+<p>转载请注明原文地址以及作者</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/ios/">ios</a><a href="/tags/block/">block</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block/" data-title="iOS开发-由浅至深学习block | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/iOS开发/" title="iOS开发">
+  <strong>上一篇：</strong><br/>
+  <span>
+  iOS开发</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/iOS开发——加载、滑动翻阅大量图片解决方案详解/"  title="iOS开发——加载、滑动翻阅大量图片解决方案详解">
+ <strong>下一篇：</strong><br/> 
+ <span>iOS开发——加载、滑动翻阅大量图片解决方案详解
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/iOS开发-由浅至深学习block/" data-title="iOS开发-由浅至深学习block" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block"><span class="toc-number">1.</span> <span class="toc-text">iOS开发-由浅至深学习block</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS%E5%BC%80%E5%8F%91-%E7%94%B1%E6%B5%85%E8%87%B3%E6%B7%B1%E5%AD%A6%E4%B9%A0block-1"><span class="toc-number">2.</span> <span class="toc-text">iOS开发-由浅至深学习block</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Eblock"><span class="toc-number">2.1.</span> <span class="toc-text">关于block</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#block%E7%89%B9%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">block特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8block"><span class="toc-number">2.3.</span> <span class="toc-text">使用block</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BFswift%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text">仿swift高阶函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.5.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,949 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFaultmacOS command line 8个不可不知的Mac OS X专用命令行工具 OS X的终端下通用很多Unix的工具和脚本。如果从Linux迁移到OS X会发现很多熟悉的命令和脚本工具，其实并没有任何区别。 但是OS X也提供了很多其他系统所没有的特别的命令行工具。我们推荐8个这类的工具，希望有助于提高在Ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/8%E4%B8%AA%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84Mac%20OS%20X%E4%B8%93%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%20-%20%E6%96%B0%E9%97%BB%20-%20SegmentFault/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFaultmacOS command line 8个不可不知的Mac OS X专用命令行工具 OS X的终端下通用很多Unix的工具和脚本。如果从Linux迁移到OS X会发现很多熟悉的命令和脚本工具，其实并没有任何区别。 但是OS X也提供了很多其他系统所没有的特别的命令行工具。我们推荐8个这类的工具，希望有助于提高在Ma">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/8%E4%B8%AA%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84Mac-OS-X%E4%B8%93%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7-%E6%96%B0%E9%97%BB-SegmentFault/bVciJb.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-06-22T06:51:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="macOS">
+<meta property="article:tag" content="command line">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/8%E4%B8%AA%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84Mac-OS-X%E4%B8%93%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7-%E6%96%B0%E9%97%BB-SegmentFault/bVciJb.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault/" title="8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault" itemprop="url">8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#8%E4%B8%AA%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84Mac-OS-X%E4%B8%93%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7-%E6%96%B0%E9%97%BB-SegmentFault"><span class="toc-number">1.</span> <span class="toc-text">8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8%E4%B8%AA%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84Mac-OS-X%E4%B8%93%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-number">2.</span> <span class="toc-text">8个不可不知的Mac OS X专用命令行工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-open"><span class="toc-number">2.1.</span> <span class="toc-text">1. open</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-pbcopy-%E5%92%8C-pbpaste"><span class="toc-number">2.2.</span> <span class="toc-text">2. pbcopy 和 pbpaste</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-mdfind"><span class="toc-number">2.3.</span> <span class="toc-text">3. mdfind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-screencapture"><span class="toc-number">2.4.</span> <span class="toc-text">4. screencapture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-launchctl"><span class="toc-number">2.5.</span> <span class="toc-text">5. launchctl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-say"><span class="toc-number">2.6.</span> <span class="toc-text">6. say</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-diskutil"><span class="toc-number">2.7.</span> <span class="toc-text">7. diskutil</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-brew"><span class="toc-number">2.8.</span> <span class="toc-text">8. brew</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="8个不可不知的Mac-OS-X专用命令行工具-新闻-SegmentFault"><a title="8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault" class="headerlink" href="#8个不可不知的Mac-OS-X专用命令行工具-新闻-SegmentFault"></a>8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault</h1><p><code>macOS</code> <code>command line</code></p>
+<h1 id="8个不可不知的Mac-OS-X专用命令行工具"><a title="8个不可不知的Mac OS X专用命令行工具" class="headerlink" href="#8个不可不知的Mac-OS-X专用命令行工具"></a>8个不可不知的Mac OS X专用命令行工具</h1><p> OS X的终端下通用很多Unix的工具和脚本。如果从Linux迁移到OS X会发现很多熟悉的命令和脚本工具，其实并没有任何区别。</p>
+<p>但是OS X也提供了很多其他系统所没有的特别的命令行工具。我们推荐8个这类的工具，希望有助于提高在Mac的命令行环境下的效率。</p>
+<h2 id="1-open"><a title="1. open" class="headerlink" href="#1-open"></a>1. open</h2><p><code>open</code>命令用于打开文件、目录或执行程序。就等同于在命令行模式下，重复图形界面“双击”的动作。例如这个命令与在Finder中双击Safari是一样的：</p>
+<pre><code>$ open /Applications/Safari.app/
+</code></pre>
+<p>如果<code>open</code>一个文件，则会使用关联的程序打开之。例如<code>open screenshot.png</code>会在Preview中查看图片。</p>
+<p>可以使用<code>-a</code>选项要求自行选择打开的程序，或使用<code>-e</code>强制在TextEdit中编辑此文件。</p>
+<p><code>open</code>一个目录会在Finder窗口中打开此目录。一个很有用的技巧是<code>open .</code>打开当前目录。</p>
+<p>Finder和终端的交互是双向的——把文件从Finder中拖入终端，就等同于把文件的完整路径粘贴到命令行中。</p>
+<h2 id="2-pbcopy-和-pbpaste"><a title="2. pbcopy 和 pbpaste" class="headerlink" href="#2-pbcopy-和-pbpaste"></a>2. pbcopy 和 pbpaste</h2><p>这两个工具可以打通命令行和剪贴板。当然用鼠标操作复制粘贴也可以——但这两个工具的真正威力，发挥在将其用作Unix工具的时候。意思就是说：可以将这两个工具用作管道、IO重定向以及和其他命令的整合。例如：</p>
+<pre><code>ls ~ | pbcopy
+</code></pre>
+<p>可以将主目录的文件列表复制到剪贴板。</p>
+<p>也可以把任意文件的内容读入剪贴板：</p>
+<pre><code>pbcopy &lt; blogpost.txt
+</code></pre>
+<p>做点更疯狂的尝试：获取最新Google纪念徽标（doodle）的URL并复制到剪贴板：</p>
+<pre><code>$ curl :www.google.com/doodles#oodles/archive | grep -A5 'latest-doodle on' | grep 'img src' | sed s/.*'&lt;img src="\/\/' | sed s/'" alt=".*'// | pbcopy
+</code></pre>
+<p>使用管道语法配合<code>pbcopy</code>工具可以简单的抓取命令的输出，而不必向上滚动翻阅终端窗口。可以用于和他人分享命令行的标准和错误输出。<code>pbcopy</code>和<code>pbpaste</code>也可以用于自动化或加速执行一些事情。例如把一些邮件的主题存为任务列表，就可以先从Mail.app中复制主题，再运行：</p>
+<pre><code>pbpaste &gt;&gt; tasklist.txt
+</code></pre>
+<h2 id="3-mdfind"><a title="3. mdfind" class="headerlink" href="#3-mdfind"></a>3. mdfind</h2><p>许多Linux用户都发现Linux下查找文件的方法在OS X上不好用。当然经典的Unix <code>find</code>命令总是可以，但既然OS X有杀手级搜索工具Spotlight，为什么不在命令行上也使用一下呢？</p>
+<p>这就是<code>mdfind</code>命令了。Spotlight能做的查找，<code>mdfind</code>也能做。包括搜索文件的内容和元数据（metadata）。</p>
+<p><code>mdfind</code>还提供更多的搜索选项。例如<code>-onlyin</code>选项可以约束搜索范围为一个目录：</p>
+<pre><code>$ mdfind -onlyin ~/Documents essay
+</code></pre>
+<p><code>mdfind</code>的索引数据库在后台自动更新，不过你也可以使用<code>mdutil</code>工具诊断数据库的问题，诊断<code>mdfind</code>的问题也等同于诊断Spotlight。如果Spotlight的工作不正确，<code>mdutil -E</code>命令可以强制重建索引数据库。也可以用<code>mdutil -i</code>彻底关闭文件索引。</p>
+<h2 id="4-screencapture"><a title="4. screencapture" class="headerlink" href="#4-screencapture"></a>4. screencapture</h2><p><code>screencapture</code>命令可以截图。和<code>Grab.app</code>与<code>cmd + shift + 3</code>或<code>cmd + shift + 4</code>热键相似，但更加的灵活。</p>
+<p>抓取包含鼠标光标的全屏幕，并以<code>image.png</code>插入到新邮件的附件中：</p>
+<pre><code>screencapture - - image.png 
+</code></pre>
+<p>用鼠标选择抓取窗口（及阴影）并复制到剪贴板：</p>
+<pre><code>screencapture -c -
+</code></pre>
+<p>延时10秒后抓屏，并在Preview中打开之：</p>
+<pre><code>screencapture -  - image.png
+</code></pre>
+<p>用鼠标截取一个矩形区域，抓取后存为pdf文件：</p>
+<pre><code>$ screencapture  -t pdf image.pdf
+</code></pre>
+<p>更多用法请参阅<code>screencapture --help</code>。</p>
+<h2 id="5-launchctl"><a title="5. launchctl" class="headerlink" href="#5-launchctl"></a>5. launchctl</h2><p><code>launchctl</code>管理OS X的启动脚本，控制启动计算机时需要开启的服务。也可以设置定时执行特定任务的脚本，就像Linux cron一样。</p>
+<p>例如，开机时自动启动Apache服务器：</p>
+<pre><code>$ sudo launchctl  -w /System/Library/LaunchDaemons/org.apache.httpd.plist
+</code></pre>
+<p>运行<code>launchctl list</code>显示当前的启动脚本。<code>sudo launchctl unload [path/to/script]</code>停止正在运行的启动脚本，再加上<code>-w</code>选项即可去除开机启动。用这个方法可以一次去除Adobe或Microsoft Office所附带的所有“自动更新”后台程序。</p>
+<p>Launchd脚本存储在以下位置：</p>
+<pre><code>~/Library/LaunchAgents    
+/Library/LaunchAgents          
+/Library/LaunchDaemons
+/System/Library/LaunchAgents
+/System/Library/LaunchDaemons
+</code></pre>
+<p>启动脚本的格式可以参考<a target="_blank" rel="noopener" href="http://paul.annesley.cc/2012/09/mac-os-x-launchd-is-cool/">这篇blog</a>，或苹果开发者中心的<a target="_blank" rel="noopener" href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html">文�</a>�。你也可以使用<a target="_blank" rel="noopener" href="http://www.peterborgapps.com/lingon/">Lingon</a>应用来完全取代命令行。</p>
+<h2 id="6-say"><a title="6. say" class="headerlink" href="#6-say"></a>6. say</h2><p><code>say</code>是一个文本转语音（TTS）的有趣的工具，引擎和OS X使用的一样也是VoiceOver。如果不加其他选项，则会简单的语音朗读你给定的字符串：</p>
+<pre><code>say "Never trust a computer you can't lift."
+</code></pre>
+<p>用<code>-f</code>选项朗读特定文本文件，<code>-o</code>选项将朗读结果存为音频文件而不是播放：</p>
+<pre><code>$ say  mynovel.txt -o myaudiobook.aiff
+</code></pre>
+<p><code>say</code>命令可以用于在脚本中播放警告或提示。例如你可以设置Automator或Hazel脚本处理文件，并在任务完成时用<code>say</code>命令语音提示。</p>
+<p>最好玩（不过也负罪感十足）的用法是：通过SSH连接到朋友或同事的计算机，然后用<code>say</code>命令给他们一个大大大惊喜……</p>
+<p>可以在系统设置（System Preferences）的字典和语音（Dictation &amp; Speech）选项中调整系统的语音选项甚至是语音的语言。</p>
+<h2 id="7-diskutil"><a title="7. diskutil" class="headerlink" href="#7-diskutil"></a>7. diskutil</h2><p><code>diskutil</code>是OS X磁盘工具应用的命令行版。既可以完成图形界面应用的所有任务，也可以做一些全盘填0、全盘填随机数等额外的任务。先使用<code>diskutil list</code>查看所有磁盘的列表和所在路径，然后对特定的磁盘执行命令。</p>
+<p>警告：不正确使用<code>diskutil</code>可能意外的破坏磁盘数据。请小心。</p>
+<h2 id="8-brew"><a title="8. brew" class="headerlink" href="#8-brew"></a>8. brew</h2><p>Homebrew程序提供的<code>brew</code>，严格来讲不是一个OS X的原生命令，但任何一个OS X的专业用户都不会错过它。“OS X缺少的包管理器”这个评价是恰如其分的。如果你曾经在Linux上使用过<code>apt-get</code>（或其他包管理器——译者注），你就会发现Homebrew基本上是一样的。</p>
+<p>使用<code>brew</code>可以简单的获取数千种开源工具和函数库。例如<code>brew install imagemagick</code>就可以安装ImageMagick（几乎可以处理任何图像问题，转换任何格式的图像工具），<code>brew install node</code>可以安装Node.js（当前大热的服务器端JavaScript编程工具）。</p>
+<p>也可以通过Homebrew做有趣的事情：<code>brew install archey</code>会安装Archey（在启动命令行时显示苹果LOGO和计算机硬件参数的小工具）。</p>
+<p><img loading="lazy" alt="bVciJb.png" src="/images/notes/8%E4%B8%AA%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84Mac-OS-X%E4%B8%93%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7-%E6%96%B0%E9%97%BB-SegmentFault/bVciJb.png"></p>
+<p>Homebrew能安装的工具数量庞大，并且一直保持更新。Homebrew最棒的一点是：所有的文件都被约束在<code>/usr/local/</code>一个位置之下。也就是说可以通过Homebrew安装新版软件的同时，保持系统内置的依赖库或其他软件不变。同时如果想彻底删除Homebrew，也变得非常简单。</p>
+<p>（注：删除Homebrew最好还是不要直接删除<code>/usr/local/</code>。应当用这个<a target="_blank" rel="noopener" href="https://gist.github.com/mxcl/1173223">卸载脚本</a>。）</p>
+<p>最后，这里还有一篇OS X所有命令的<a target="_blank" rel="noopener" href="http://ss64.com/osx/">完整列表</a>。</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="http://segmentfault.com/a/1190000000509514">8个不可不知的Mac OS X专用命令行工具</a></p>
+<p>原文：<a target="_blank" rel="noopener" href="http://www.mitchchn.me/2014/os-x-terminal/">Eight Terminal Utilities Every OS X Command Line User Should Know</a></p>
+<p>编译：<a target="_blank" rel="noopener" href="http://segmentfault.com/">SegmentFault</a></p>
+<p>责任：沙渺</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%B7%A5%E5%85%B7%E6%8A%80%E5%B7%A7/">系统与工具技巧</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/macOS/">macOS</a><a href="/tags/command-line/">command line</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/8%E4%B8%AA%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84Mac%20OS%20X%E4%B8%93%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%20-%20%E6%96%B0%E9%97%BB%20-%20SegmentFault/" data-title="8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/2）/" title="2）">
+  <strong>上一篇：</strong><br/>
+  <span>
+  2）</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/@synthesize和@dynamic区别/"  title="@synthesize和@dynamic区别">
+ <strong>下一篇：</strong><br/> 
+ <span>@synthesize和@dynamic区别
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault/" data-title="8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/8%E4%B8%AA%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84Mac%20OS%20X%E4%B8%93%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%20-%20%E6%96%B0%E9%97%BB%20-%20SegmentFault/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#8%E4%B8%AA%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84Mac-OS-X%E4%B8%93%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7-%E6%96%B0%E9%97%BB-SegmentFault"><span class="toc-number">1.</span> <span class="toc-text">8个不可不知的Mac OS X专用命令行工具 - 新闻 - SegmentFault</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8%E4%B8%AA%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84Mac-OS-X%E4%B8%93%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-number">2.</span> <span class="toc-text">8个不可不知的Mac OS X专用命令行工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-open"><span class="toc-number">2.1.</span> <span class="toc-text">1. open</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-pbcopy-%E5%92%8C-pbpaste"><span class="toc-number">2.2.</span> <span class="toc-text">2. pbcopy 和 pbpaste</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-mdfind"><span class="toc-number">2.3.</span> <span class="toc-text">3. mdfind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-screencapture"><span class="toc-number">2.4.</span> <span class="toc-text">4. screencapture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-launchctl"><span class="toc-number">2.5.</span> <span class="toc-text">5. launchctl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-say"><span class="toc-number">2.6.</span> <span class="toc-text">6. say</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-diskutil"><span class="toc-number">2.7.</span> <span class="toc-text">7. diskutil</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-brew"><span class="toc-number">2.8.</span> <span class="toc-text">8. brew</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

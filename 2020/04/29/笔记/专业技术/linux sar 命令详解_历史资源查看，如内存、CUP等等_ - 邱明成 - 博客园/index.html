@@ -1,0 +1,1020 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园linux sar 命令详解(历史资源查看，如内存、CUP等等) sar（System Activity Reporter系统活动情况报告）是目前&amp;nbsp;Linux&amp;nbsp;上最为全面的系统性能分析工具之一，可以从多方面对系统的活动进行报告，包括：文件的读写情况、系统调用的使用情况、磁盘I&#x2F;O、CPU效率">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/linux%20sar%20%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3_%E5%8E%86%E5%8F%B2%E8%B5%84%E6%BA%90%E6%9F%A5%E7%9C%8B%EF%BC%8C%E5%A6%82%E5%86%85%E5%AD%98%E3%80%81CUP%E7%AD%89%E7%AD%89_%20-%20%E9%82%B1%E6%98%8E%E6%88%90%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园linux sar 命令详解(历史资源查看，如内存、CUP等等) sar（System Activity Reporter系统活动情况报告）是目前&amp;nbsp;Linux&amp;nbsp;上最为全面的系统性能分析工具之一，可以从多方面对系统的活动进行报告，包括：文件的读写情况、系统调用的使用情况、磁盘I&#x2F;O、CPU效率">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-01T04:00:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/linux sar 命令详解_历史资源查看，如内存、CUP等等_ - 邱明成 - 博客园/" title="linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园" itemprop="url">linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-sar-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3-%E5%8E%86%E5%8F%B2%E8%B5%84%E6%BA%90%E6%9F%A5%E7%9C%8B%EF%BC%8C%E5%A6%82%E5%86%85%E5%AD%98%E3%80%81CUP%E7%AD%89%E7%AD%89-%E9%82%B1%E6%98%8E%E6%88%90-%E5%8D%9A%E5%AE%A2%E5%9B%AD"><span class="toc-number">1.</span> <span class="toc-text">linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-sar-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3-%E5%8E%86%E5%8F%B2%E8%B5%84%E6%BA%90%E6%9F%A5%E7%9C%8B%EF%BC%8C%E5%A6%82%E5%86%85%E5%AD%98%E3%80%81CUP%E7%AD%89%E7%AD%89"><span class="toc-number">2.</span> <span class="toc-text">linux sar 命令详解(历史资源查看，如内存、CUP等等)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sar-d-10-3-%E2%80%93p"><span class="toc-number">3.</span> <span class="toc-text">sar -d 10 3 –p</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="linux-sar-命令详解-历史资源查看，如内存、CUP等等-邱明成-博客园"><a title="linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园" class="headerlink" href="#linux-sar-命令详解-历史资源查看，如内存、CUP等等-邱明成-博客园"></a>linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园</h1><h1 id="linux-sar-命令详解-历史资源查看，如内存、CUP等等"><a title="linux sar 命令详解(历史资源查看，如内存、CUP等等)" class="headerlink" href="#linux-sar-命令详解-历史资源查看，如内存、CUP等等"></a>linux sar 命令详解(历史资源查看，如内存、CUP等等)</h1><p> sar（System Activity Reporter系统活动情况报告）是目前&nbsp;Linux&nbsp;上最为全面的系统性能分析工具之一，可以从多方面对系统的活动进行报告，包括：文件的读写情况、系统调用的使用情况、磁盘I/O、CPU效率、内存使用状况、进程活动及IPC有关的活动等。本文主要以CentOS&nbsp;6.3 x64系统为例，介绍sar命令。</p>
+<p><strong>sar命令常用格式</strong></p>
+<p>sar [options] [-A] [-o file] t [n]</p>
+<p>其中：</p>
+<p>t为采样间隔，n为采样次数，默认值是1；</p>
+<p>-o file表示将命令结果以二进制格式存放在文件中，file 是文件名。</p>
+<p>options 为命令行选项，sar命令常用选项如下：</p>
+<p>-A：所有报告的总和</p>
+<p>-u：输出CPU使用情况的统计信息</p>
+<p>-v：输出inode、文件和其他内核表的统计信息</p>
+<p>-d：输出每一个块设备的活动信息</p>
+<p>-r：输出内存和交换空间的统计信息</p>
+<p>-b：显示I/O和传送速率的统计信息</p>
+<p>-a：文件读写情况</p>
+<p>-c：输出进程统计信息，每秒创建的进程数</p>
+<p>-R：输出内存页面的统计信息</p>
+<p>-y：终端设备活动情况</p>
+<p>-w：输出系统交换活动信息</p>
+<p><strong>1. CPU资源监控</strong></p>
+<p>例如，每10秒采样一次，连续采样3次，观察CPU 的使用情况，并将采样结果以二进制形式存入当前目录下的文件test中，需键入如下命令：</p>
+<p>sar -u -o test 10 3</p>
+<p>屏幕显示如下：</p>
+<p>17:06:16 CPU %user %nice %system %iowait %steal %idle</p>
+<p>17:06:26 all 0.00 0.00 0.20 0.00 0.00 99.80</p>
+<p>17:06:36 all 0.00 0.00 0.20 0.00 0.00 99.80</p>
+<p>17:06:46 all 0.00 0.00 0.10 0.00 0.00 99.90</p>
+<p>Average: all 0.00 0.00 0.17 0.00 0.00 99.83</p>
+<p>输出项说明：</p>
+<p>CPU：all 表示统计信息为所有 CPU 的平均值。</p>
+<p>%user：显示在用户级别(application)运行使用 CPU 总时间的百分比。</p>
+<p>%nice：显示在用户级别，用于nice操作，所占用 CPU 总时间的百分比。</p>
+<p>%system：在核心级别(kernel)运行所使用 CPU 总时间的百分比。</p>
+<p>%iowait：显示用于等待I/O操作占用 CPU 总时间的百分比。</p>
+<p>%steal：管理程序(hypervisor)为另一个虚拟进程提供服务而等待虚拟 CPU 的百分比。</p>
+<p>%idle：显示 CPU 空闲时间占用 CPU 总时间的百分比。</p>
+<ol>
+<li><p>若 %iowait 的值过高，表示硬盘存在I/O瓶颈</p>
+</li>
+<li><p>若 %idle 的值高但系统响应慢时，有可能是 CPU 等待分配内存，此时应加大内存容量</p>
+</li>
+<li><p>若 %idle 的值持续低于1，则系统的 CPU 处理能力相对较低，表明系统中最需要解决的资源是 CPU 。</p>
+</li>
+</ol>
+<p>如果要查看二进制文件test中的内容，需键入如下sar命令：</p>
+<p>sar -u -f test</p>
+<p><strong>2. inode、文件和其他内核表监控</strong></p>
+<p>例如，每10秒采样一次，连续采样3次，观察核心表的状态，需键入如下命令：</p>
+<p>sar -v 10 3</p>
+<p>屏幕显示如下：</p>
+<p>17:10:49 dentunusd file-nr inode-nr pty-nr</p>
+<p>17:10:59 6301 5664 12037 4</p>
+<p>17:11:09 6301 5664 12037 4</p>
+<p>17:11:19 6301 5664 12037 4</p>
+<p>Average: 6301 5664 12037 4</p>
+<p>输出项说明：</p>
+<p>dentunusd：目录高速缓存中未被使用的条目数量</p>
+<p>file-nr：文件句柄（file handle）的使用数量</p>
+<p>inode-nr：索引节点句柄（inode handle）的使用数量</p>
+<p>pty-nr：使用的pty数量</p>
+<p><strong>3. 内存和交换空间监控</strong></p>
+<p>例如，每10秒采样一次，连续采样3次，监控内存分页：</p>
+<p>sar -r 10 3</p>
+<p>屏幕显示如下：</p>
+<p>输出项说明：</p>
+<p>kbmemfree：这个值和free命令中的free值基本一致,所以它不包括buffer和cache的空间.</p>
+<p>kbmemused：这个值和free命令中的used值基本一致,所以它包括buffer和cache的空间.</p>
+<p>%memused：这个值是kbmemused和内存总量(不包括swap)的一个百分比.</p>
+<p>kbbuffers和kbcached：这两个值就是free命令中的buffer和cache.</p>
+<p>kbcommit：保证当前系统所需要的内存,即为了确保不溢出而需要的内存(RAM+swap).</p>
+<p>%commit：这个值是kbcommit与内存总量(包括swap)的一个百分比.</p>
+<p><strong>4. 内存分页监控</strong></p>
+<p>例如，每10秒采样一次，连续采样3次，监控内存分页：</p>
+<p>sar -B 10 3</p>
+<p>屏幕显示如下：</p>
+<p>输出项说明：</p>
+<p>pgpgin/s：表示每秒从磁盘或SWAP置换到内存的字节数(KB)</p>
+<p>pgpgout/s：表示每秒从内存置换到磁盘或SWAP的字节数(KB)</p>
+<p>fault/s：每秒钟系统产生的缺页数,即主缺页与次缺页之和(major + minor)</p>
+<p>majflt/s：每秒钟产生的主缺页数.</p>
+<p>pgfree/s：每秒被放入空闲队列中的页个数</p>
+<p>pgscank/s：每秒被kswapd扫描的页个数</p>
+<p>pgscand/s：每秒直接被扫描的页个数</p>
+<p>pgsteal/s：每秒钟从cache中被清除来满足内存需要的页个数</p>
+<p>%vmeff：每秒清除的页(pgsteal)占总扫描页(pgscank+pgscand)的百分比</p>
+<p><strong>5. I/O和传送速率监控</strong></p>
+<p>例如，每10秒采样一次，连续采样3次，报告缓冲区的使用情况，需键入如下命令：</p>
+<p>sar -b 10 3</p>
+<p>屏幕显示如下：</p>
+<p>18:51:05 tps rtps wtps bread/s bwrtn/s</p>
+<p>18:51:15 0.00 0.00 0.00 0.00 0.00</p>
+<p>18:51:25 1.92 0.00 1.92 0.00 22.65</p>
+<p>18:51:35 0.00 0.00 0.00 0.00 0.00</p>
+<p>Average: 0.64 0.00 0.64 0.00 7.59</p>
+<p>输出项说明：</p>
+<p>tps：每秒钟物理设备的 I/O 传输总量</p>
+<p>rtps：每秒钟从物理设备读入的数据总量</p>
+<p>wtps：每秒钟向物理设备写入的数据总量</p>
+<p>bread/s：每秒钟从物理设备读入的数据量，单位为 块/s</p>
+<p>bwrtn/s：每秒钟向物理设备写入的数据量，单位为 块/s</p>
+<p><strong>6. 进程队列长度和平均负载状态监控</strong></p>
+<p>例如，每10秒采样一次，连续采样3次，监控进程队列长度和平均负载状态：</p>
+<p>sar -q 10 3</p>
+<p>屏幕显示如下：</p>
+<p>19:25:50 runq-sz plist-sz ldavg-1 ldavg-5 ldavg-15</p>
+<p>19:26:00 0 259 0.00 0.00 0.00</p>
+<p>19:26:10 0 259 0.00 0.00 0.00</p>
+<p>19:26:20 0 259 0.00 0.00 0.00</p>
+<p>Average: 0 259 0.00 0.00 0.00</p>
+<p>输出项说明：</p>
+<p>runq-sz：运行队列的长度（等待运行的进程数）</p>
+<p>plist-sz：进程列表中进程（processes）和线程（threads）的数量</p>
+<p>ldavg-1：最后1分钟的系统平均负载（System load average）</p>
+<p>ldavg-5：过去5分钟的系统平均负载</p>
+<p>ldavg-15：过去15分钟的系统平均负载</p>
+<p><strong>7. 系统交换活动信息监控</strong></p>
+<p>例如，每10秒采样一次，连续采样3次，监控系统交换活动信息：</p>
+<p>sar -&nbsp;&nbsp;&nbsp;&nbsp;W 10 3</p>
+<p>屏幕显示如下：</p>
+<p>19:39:50 pswpin/s pswpout/s</p>
+<p>19:40:00 0.00 0.00</p>
+<p>19:40:10 0.00 0.00</p>
+<p>19:40:20 0.00 0.00</p>
+<p>Average: 0.00 0.00</p>
+<p>输出项说明：</p>
+<p>pswpin/s：每秒系统换入的交换页面（swap page）数量</p>
+<p>pswpout/s：每秒系统换出的交换页面（swap page）数量</p>
+<p><strong>8. 设备使用情况监控</strong></p>
+<p>例如，每10秒采样一次，连续采样3次，报告设备使用情况，需键入如下命令：</p>
+<h1 id="sar-d-10-3-–p"><a title="sar -d 10 3 –p" class="headerlink" href="#sar-d-10-3-–p"></a>sar -d 10 3 –p</h1><p>屏幕显示如下：</p>
+<p>17:45:54&nbsp;&nbsp;&nbsp;&nbsp;DEV&nbsp;&nbsp;&nbsp;&nbsp;tps&nbsp;&nbsp;&nbsp;&nbsp;rd_sec/s&nbsp;&nbsp;&nbsp;&nbsp;wr_sec/s&nbsp;&nbsp;&nbsp;&nbsp;avgrq-sz&nbsp;&nbsp;&nbsp;&nbsp;avgqu-sz&nbsp;&nbsp;&nbsp;&nbsp;await&nbsp;&nbsp;&nbsp;&nbsp;svctm&nbsp;&nbsp;&nbsp;&nbsp;%util</p>
+<p>17:46:04&nbsp;&nbsp;&nbsp;&nbsp;scd0&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00</p>
+<p>17:46:04&nbsp;&nbsp;&nbsp;&nbsp;sda&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00</p>
+<p>17:46:04&nbsp;&nbsp;&nbsp;&nbsp;vg_livedvd-lv_root&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00</p>
+<p>17:46:04&nbsp;&nbsp;&nbsp;&nbsp;vg_livedvd-lv_swap&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00&nbsp;&nbsp;&nbsp;&nbsp;0.00</p>
+<p>其中：</p>
+<p>参数-p可以打印出sda,hdc等磁盘设备名称,如果不用参数-p,设备节点则有可能是dev8-0,dev22-0</p>
+<p>tps:每秒从物理磁盘I/O的次数.多个逻辑请求会被合并为一个I/O磁盘请求,一次传输的大小是不确定的.</p>
+<p>rd_sec/s:每秒读扇区的次数.</p>
+<p>wr_sec/s:每秒写扇区的次数.</p>
+<p>avgrq-sz:平均每次设备I/O操作的数据大小(扇区).</p>
+<p>avgqu-sz:磁盘请求队列的平均长度.</p>
+<p>await:从请求磁盘操作到系统完成处理,每次请求的平均消耗时间,包括请求队列等待时间,单位是毫秒(1秒=1000毫秒).</p>
+<p>svctm:系统处理每次请求的平均时间,不包括在请求队列中消耗的时间.</p>
+<p>%util:I/O请求占CPU的百分比,比率越大,说明越饱和.</p>
+<ol>
+<li><p>avgqu-sz 的值较低时，设备的利用率较高。</p>
+</li>
+<li><p>当%util的值接近 1% 时，表示设备带宽已经占满。</p>
+</li>
+</ol>
+<p><strong>要判断系统瓶颈问题，有时需几个 sar 命令选项结合起来</strong></p>
+<p>怀疑CPU存在瓶颈，可用 sar -u 和 sar -q 等来查看</p>
+<p>怀疑内存存在瓶颈，可用 sar -B、sar -r 和 sar -W 等来查看</p>
+<p>怀疑I/O存在瓶颈，可用 sar -b、sar -u 和 sar -d 等来查看</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux%E4%B8%8E%E8%BF%90%E7%BB%B4/">Linux与运维</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/linux%20sar%20%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3_%E5%8E%86%E5%8F%B2%E8%B5%84%E6%BA%90%E6%9F%A5%E7%9C%8B%EF%BC%8C%E5%A6%82%E5%86%85%E5%AD%98%E3%80%81CUP%E7%AD%89%E7%AD%89_%20-%20%E9%82%B1%E6%98%8E%E6%88%90%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/" data-title="linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/keySet__和entrySet__比较/" title="keySet()和entrySet()比较">
+  <strong>上一篇：</strong><br/>
+  <span>
+  keySet()和entrySet()比较</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/linux ssh 上传与下载命令/"  title="linux ssh 上传与下载命令">
+ <strong>下一篇：</strong><br/> 
+ <span>linux ssh 上传与下载命令
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/linux sar 命令详解_历史资源查看，如内存、CUP等等_ - 邱明成 - 博客园/" data-title="linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/linux%20sar%20%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3_%E5%8E%86%E5%8F%B2%E8%B5%84%E6%BA%90%E6%9F%A5%E7%9C%8B%EF%BC%8C%E5%A6%82%E5%86%85%E5%AD%98%E3%80%81CUP%E7%AD%89%E7%AD%89_%20-%20%E9%82%B1%E6%98%8E%E6%88%90%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-sar-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3-%E5%8E%86%E5%8F%B2%E8%B5%84%E6%BA%90%E6%9F%A5%E7%9C%8B%EF%BC%8C%E5%A6%82%E5%86%85%E5%AD%98%E3%80%81CUP%E7%AD%89%E7%AD%89-%E9%82%B1%E6%98%8E%E6%88%90-%E5%8D%9A%E5%AE%A2%E5%9B%AD"><span class="toc-number">1.</span> <span class="toc-text">linux sar 命令详解(历史资源查看，如内存、CUP等等) - 邱明成 - 博客园</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-sar-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3-%E5%8E%86%E5%8F%B2%E8%B5%84%E6%BA%90%E6%9F%A5%E7%9C%8B%EF%BC%8C%E5%A6%82%E5%86%85%E5%AD%98%E3%80%81CUP%E7%AD%89%E7%AD%89"><span class="toc-number">2.</span> <span class="toc-text">linux sar 命令详解(历史资源查看，如内存、CUP等等)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sar-d-10-3-%E2%80%93p"><span class="toc-number">3.</span> <span class="toc-text">sar -d 10 3 –p</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

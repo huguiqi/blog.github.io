@@ -1,0 +1,1136 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>iOS 开发之剪贴板 - 陈斌彬的技术博客 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="iOS 开发之剪贴板 - 陈斌彬的技术博客ios copy&amp;past iOS 开发之剪贴板 在iOS中，可以使用剪贴板实现应用程序之中以及应用程序之间实现数据的共享。比如你可以从iPhone QQ复制一个url，然后粘贴到safari浏览器中查看这个链接的内容。 一、在iOS中下面三个控件，自身就有复制-粘贴的功能： UITextView UITextField UIWebView  二、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 开发之剪贴板 - 陈斌彬的技术博客">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%20%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF%20-%20%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="iOS 开发之剪贴板 - 陈斌彬的技术博客ios copy&amp;past iOS 开发之剪贴板 在iOS中，可以使用剪贴板实现应用程序之中以及应用程序之间实现数据的共享。比如你可以从iPhone QQ复制一个url，然后粘贴到safari浏览器中查看这个链接的内容。 一、在iOS中下面三个控件，自身就有复制-粘贴的功能： UITextView UITextField UIWebView  二、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/78f9859egw1evmpimilqtj20a20jfwfv.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/78f9859egw1evmpg99cd5j209x0jdt9t.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/78f9859egw1evmpilqgkrj209m0jg75f.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/78f9859egw1evmpg9mwdwj209w0j90tp.jpg">
+<meta property="og:image" content="http://clockcoder.top/images/notes/iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/78f9859egw1evmpim5t3jj20a40jjt9x.jpg">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-03-25T10:49:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="copy&amp;past">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/78f9859egw1evmpimilqtj20a20jfwfv.jpg">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/iOS 开发之剪贴板 - 陈斌彬的技术博客/" title="iOS 开发之剪贴板 - 陈斌彬的技术博客" itemprop="url">iOS 开发之剪贴板 - 陈斌彬的技术博客</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.</span> <span class="toc-text">iOS 开发之剪贴板 - 陈斌彬的技术博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF"><span class="toc-number">2.</span> <span class="toc-text">iOS 开发之剪贴板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9C%A8iOS%E4%B8%AD%E4%B8%8B%E9%9D%A2%E4%B8%89%E4%B8%AA%E6%8E%A7%E4%BB%B6%EF%BC%8C%E8%87%AA%E8%BA%AB%E5%B0%B1%E6%9C%89%E5%A4%8D%E5%88%B6-%E7%B2%98%E8%B4%B4%E7%9A%84%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="toc-number">2.0.1.</span> <span class="toc-text">一、在iOS中下面三个控件，自身就有复制-粘贴的功能：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81UIKit-framework%E6%8F%90%E4%BE%9B%E4%BA%86%E5%87%A0%E4%B8%AA%E7%B1%BB%E5%92%8C%E5%8D%8F%E8%AE%AE%E6%96%B9%E4%BE%BF%E6%88%91%E4%BB%AC%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%89%AA%E8%B4%B4%E6%9D%BF%E7%9A%84%E5%8A%9F%E8%83%BD%E3%80%82"><span class="toc-number">2.0.2.</span> <span class="toc-text">二、UIKit framework提供了几个类和协议方便我们在自己的应用程序中实现剪贴板的功能。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%8B%E9%9D%A2%E8%BF%99%E4%BA%9B%E9%A1%B9%E8%83%BD%E8%A2%AB%E6%94%BE%E7%BD%AE%E5%88%B0%E5%89%AA%E8%B4%B4%E6%9D%BF%E4%B8%AD"><span class="toc-number">2.0.3.</span> <span class="toc-text">三、下面这些项能被放置到剪贴板中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%89%AA%E8%B4%B4%E6%9D%BF%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%88%86%E4%B8%BA%E4%B8%A4%E7%A7%8D%EF%BC%9A"><span class="toc-number">2.0.4.</span> <span class="toc-text">四、剪贴板的类型分为两种：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%A4%8D%E5%88%B6%E5%89%AA%E8%B4%B4%E6%96%87%E6%9C%AC%E3%80%82"><span class="toc-number">2.0.4.1.</span> <span class="toc-text">1.复制剪贴文本。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9B%BE%E7%89%87%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4"><span class="toc-number">2.0.5.</span> <span class="toc-text">2.图片复制粘贴</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9C%A8%E7%95%8C%E9%9D%A2%E4%B8%8A%E6%94%BE%E7%BD%AE%E4%B8%A4%E4%B8%AAuiimageview%EF%BC%8C%E4%B8%80%E4%B8%AA%E6%98%AF%E5%9B%BE%E7%89%87%E7%9A%84%E6%95%B0%E6%8D%AE%E6%BA%90%EF%BC%8C%E4%B8%80%E4%B8%AA%E6%98%AF%E5%B0%86%E5%9B%BE%E7%89%87%E7%B2%98%E8%B4%B4%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9%E3%80%82CopyPasteImageViewController-%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-number">2.0.5.1.</span> <span class="toc-text">1.在界面上放置两个uiimageview，一个是图片的数据源，一个是将图片粘贴到的地方。CopyPasteImageViewController 代码如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%BD%93%E8%A7%A6%E6%91%B8%E5%9B%BE%E7%89%87%E7%9A%84%E6%97%B6%E5%80%99%E6%88%91%E4%BB%AC%E6%98%BE%E7%A4%BA%E5%BF%AB%E6%8D%B7%E8%8F%9C%E5%8D%95%EF%BC%9A"><span class="toc-number">2.0.5.2.</span> <span class="toc-text">2.当触摸图片的时候我们显示快捷菜单：</span></a></li></ol></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="iOS-开发之剪贴板-陈斌彬的技术博客"><a title="iOS 开发之剪贴板 - 陈斌彬的技术博客" class="headerlink" href="#iOS-开发之剪贴板-陈斌彬的技术博客"></a>iOS 开发之剪贴板 - 陈斌彬的技术博客</h1><p><code>ios</code> <code>copy&amp;past</code></p>
+<h1 id="iOS-开发之剪贴板"><a title="iOS 开发之剪贴板" class="headerlink" href="#iOS-开发之剪贴板"></a>iOS 开发之剪贴板</h1><p> 在iOS中，可以使用剪贴板实现应用程序之中以及应用程序之间实现数据的共享。比如你可以从iPhone QQ复制一个url，然后粘贴到safari浏览器中查看这个链接的内容。</p>
+<h3 id="一、在iOS中下面三个控件，自身就有复制-粘贴的功能："><a title="一、在iOS中下面三个控件，自身就有复制-粘贴的功能：" class="headerlink" href="#一、在iOS中下面三个控件，自身就有复制-粘贴的功能："></a>一、在iOS中下面三个控件，自身就有复制-粘贴的功能：</h3><ol>
+<li>UITextView</li>
+<li>UITextField</li>
+<li>UIWebView</li>
+</ol>
+<h3 id="二、UIKit-framework提供了几个类和协议方便我们在自己的应用程序中实现剪贴板的功能。"><a title="二、UIKit framework提供了几个类和协议方便我们在自己的应用程序中实现剪贴板的功能。" class="headerlink" href="#二、UIKit-framework提供了几个类和协议方便我们在自己的应用程序中实现剪贴板的功能。"></a>二、UIKit framework提供了几个类和协议方便我们在自己的应用程序中实现剪贴板的功能。</h3><ol>
+<li>UIPasteboard：我们可以向其中写入数据，也可以读取数据</li>
+<li>UIMenuController：显示一个快捷菜单，用来复制、剪贴、粘贴选择的项。</li>
+<li>UIResponder中的 canPerformAction:withSender:用于控制哪些命令显示在快捷菜单中。</li>
+<li>当快捷菜单上的命令点击的时候，UIResponderStandardEditActions将会被调用。</li>
+</ol>
+<h3 id="三、下面这些项能被放置到剪贴板中"><a title="三、下面这些项能被放置到剪贴板中" class="headerlink" href="#三、下面这些项能被放置到剪贴板中"></a>三、下面这些项能被放置到剪贴板中</h3><ol>
+<li>UIPasteboardTypeListString — 字符串数组, 包含kUTTypeUTF8PlainText</li>
+<li>UIPasteboardTypeListURL — URL数组，包含kUTTypeURL</li>
+<li>UIPasteboardTypeListImage — 图形数组, 包含kUTTypePNG 和kUTTypeJPEG</li>
+<li>UIPasteboardTypeListColor — 颜色数组</li>
+</ol>
+<h3 id="四、剪贴板的类型分为两种："><a title="四、剪贴板的类型分为两种：" class="headerlink" href="#四、剪贴板的类型分为两种："></a>四、剪贴板的类型分为两种：</h3><p>系统级：使用UIPasteboardNameGeneral和UIPasteboardNameFind创建，系统级的剪贴板，当应用程序关闭，或者卸载时，数据都不会丢失。</p>
+<p>应用程序级：通过设置，可以让数据在应用程序关闭之后仍然保存在剪贴板中，但是应用程序卸载之后数据就会失去。我们可用通过pasteboardWithName:create：来创建。</p>
+<p>了解这些之后，下面通过一系列的例子来说明如何在应用程序中使用剪贴板。</p>
+<h4 id="1-复制剪贴文本。"><a title="1.复制剪贴文本。" class="headerlink" href="#1-复制剪贴文本。"></a>1.复制剪贴文本。</h4><p>下面通过一个例子，可以在tableview上显示一个快捷菜单，上面只有复制按钮，复制tableview上的数据之后，然后粘贴到title上。</p>
+<p>定义一个单元格类CopyTableViewCell，在这个类的上显示快捷菜单，实现复制功能。</p>
+<pre><code>@interface CopyTableViewCell : UITableViewCell &#123;
+    id delegate;
+&#125;
+@property (nonatomic, retain) id delegate;
+@end
+</code></pre>
+<p>实现CopyTableViewCell ：</p>
+<pre><code>#import "CopyTableViewCell.h"
+
+@implementation CopyTableViewCell
+
+@synthesize delegate;
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier &#123;
+    if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) &#123;
+    &#125;
+    return self;
+&#125;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated &#123;
+    [super setSelected:selected animated:animated];
+&#125;
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated &#123;
+    [[self delegate] performSelector:@selector(showMenu:) 
+                          withObject:self afterDelay:0.9f];
+
+    [super setHighlighted:highlighted animated:animated];
+
+&#125;
+- (BOOL)canBecomeFirstResponder 
+&#123;
+    return YES;
+&#125;
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender&#123;
+    if (action == @selector(cut:))&#123;
+        return NO;
+    &#125; 
+    else if(action == @selector(copy:))&#123;
+        return YES;
+    &#125; 
+    else if(action == @selector(paste:))&#123;
+        return NO;
+    &#125; 
+    else if(action == @selector(select:))&#123;
+        return NO;
+    &#125; 
+    else if(action == @selector(selectAll:))&#123;
+        return NO;
+    &#125;
+    else 
+    &#123;
+        return [super canPerformAction:action withSender:sender];
+    &#125;
+&#125;
+- (void)copy:(id)sender &#123;
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    [pasteboard setString:[[self textLabel]text]];
+&#125;
+- (void)dealloc &#123;
+    [super dealloc];
+&#125;
+@end
+</code></pre>
+<p>定义CopyPasteTextController，实现粘贴功能。</p>
+<pre><code>@interface CopyPasteTextController : UIViewController&lt;UITableViewDelegate&gt; &#123;
+    //用来标识是否显示快捷菜单
+    BOOL menuVisible;
+    UITableView *tableView;
+&#125;
+
+@property (nonatomic, getter=isMenuVisible) BOOL menuVisible;
+
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
+@end 
+</code></pre>
+<p>实现CopyPasteTextController ：</p>
+<pre><code>#import "CopyPasteTextController.h"
+#import "CopyTableViewCell.h"
+
+@implementation CopyPasteTextController
+@synthesize menuVisible,tableView;
+- (void)viewDidLoad &#123;
+    [super viewDidLoad];
+    [self setTitle:@"文字复制粘贴"];
+    //点击这个按钮将剪贴板的内容粘贴到title上
+    UIBarButtonItem *addButton = [[[UIBarButtonItem alloc] 
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                      target:self
+                                      action:@selector(readFromPasteboard:)] 
+                                     autorelease];
+    [[self navigationItem] setRightBarButtonItem:addButton];
+&#125;
+
+// Customize the number of sections in the table view.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+&#123;
+    return 1;
+&#125;
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+&#123;
+    return 9;
+&#125;
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+&#123;
+    static NSString *CellIdentifier =@"Cell";
+    CopyTableViewCell *cell = (CopyTableViewCell *)[tableView 
+                                                           dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) 
+    &#123;
+        cell = [[[CopyTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        [cell setDelegate:self];
+    &#125;
+
+    // Configure the cell.
+    NSString *text = [NSString stringWithFormat:@"Row %d", [indexPath row]];
+    [[cell textLabel] setText:text];
+    return cell;
+&#125;
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+&#123;
+    if([self isMenuVisible])
+    &#123;
+        return;
+    &#125;
+    [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:YES 
+                                                           animated:YES];
+&#125;
+//显示菜单
+- (void)showMenu:(id)cell &#123;
+    if ([cell isHighlighted]) &#123;
+        [cell becomeFirstResponder];
+
+        UIMenuController * menu = [UIMenuController sharedMenuController];
+        [menu setTargetRect: [cell frame] inView: [self view]];
+        [menu setMenuVisible: YES animated: YES];
+    &#125;
+&#125;
+- (void)readFromPasteboard:(id)sender &#123;
+    [self setTitle:[NSString stringWithFormat:@"Pasteboard = %@", 
+                      [[UIPasteboard generalPasteboard] string]]];
+&#125;
+
+- (void)didReceiveMemoryWarning
+&#123;
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+
+    // Relinquish ownership any cached data, images, etc that aren't in use.
+&#125;
+
+- (void)viewDidUnload
+&#123;
+    [super viewDidUnload];
+    [self.tableView release];
+
+    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
+    // For example: self.myOutlet = nil;
+&#125;
+</code></pre>
+<p>复制一行数据：</p>
+<p><img loading="lazy" alt="78f9859egw1evmpimilqtj20a20jfwfv.jpg" src="/images/notes/iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/78f9859egw1evmpimilqtj20a20jfwfv.jpg"></p>
+<p>点击右上角的按钮粘贴，将数据显示在title上：</p>
+<p><img loading="lazy" alt="78f9859egw1evmpg99cd5j209x0jdt9t.jpg" src="/images/notes/iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/78f9859egw1evmpg99cd5j209x0jdt9t.jpg"></p>
+<h3 id="2-图片复制粘贴"><a title="2.图片复制粘贴" class="headerlink" href="#2-图片复制粘贴"></a>2.图片复制粘贴</h3><p>下面通过一个例子，将图片复制和剪贴到另外一个UIImageView中间。</p>
+<h4 id="1-在界面上放置两个uiimageview，一个是图片的数据源，一个是将图片粘贴到的地方。CopyPasteImageViewController-代码如下："><a title="1.在界面上放置两个uiimageview，一个是图片的数据源，一个是将图片粘贴到的地方。CopyPasteImageViewController 代码如下：" class="headerlink" href="#1-在界面上放置两个uiimageview，一个是图片的数据源，一个是将图片粘贴到的地方。CopyPasteImageViewController-代码如下："></a>1.在界面上放置两个uiimageview，一个是图片的数据源，一个是将图片粘贴到的地方。CopyPasteImageViewController 代码如下：</h4><pre><code>@interface CopyPasteImageViewController : UIViewController &#123;
+    UIImageView *imageView;
+    UIImageView *pasteView;
+    UIImageView *selectedView;
+&#125;
+@property (nonatomic, retain) IBOutlet UIImageView *imageView;
+@property (nonatomic, retain) IBOutlet UIImageView *pasteView;
+@property (nonatomic, retain) UIImageView *selectedView;
+- (void)placeImageOnPasteboard:(id)view;
+@end
+</code></pre>
+<h4 id="2-当触摸图片的时候我们显示快捷菜单："><a title="2.当触摸图片的时候我们显示快捷菜单：" class="headerlink" href="#2-当触摸图片的时候我们显示快捷菜单："></a>2.当触摸图片的时候我们显示快捷菜单：</h4><pre><code>- (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event &#123;
+    NSSet *copyTouches = [event touchesForView:imageView];
+    NSSet *pasteTouches = [event touchesForView:pasteView];
+
+    [self becomeFirstResponder];
+    if ([copyTouches count] &gt; 0) &#123;
+        [self performSelector:@selector(showMenu:) 
+                   withObject:imageView afterDelay:0.9f];
+    &#125;
+    else  if([pasteTouches count] &gt; 0) &#123;
+        [self performSelector:@selector(showMenu:) 
+                   withObject:pasteView afterDelay:0.9f];
+    &#125;
+    [super touchesBegan:touches withEvent:event];
+&#125;
+
+- (void)showMenu:(id)view &#123;
+    [self setSelectedView:view];
+
+    UIMenuController * menu = [UIMenuController sharedMenuController];
+    [menu setTargetRect: CGRectMake(5, 10, 1, 1) inView: view];
+    [menu setMenuVisible: YES animated: YES];
+&#125;
+</code></pre>
+<p>这里的快捷菜单，显示三个菜单项：剪贴、粘贴、复制：</p>
+<pre><code>- (BOOL)canPerformAction:(SEL)action withSender:(id)sender&#123;
+    if (action == @selector(cut:)) &#123;
+        return ([self selectedView] == imageView) ? YES : NO;
+    &#125; else if (action == @selector(copy:)) &#123;
+        return ([self selectedView] == imageView) ? YES : NO;
+    &#125; else if (action == @selector(paste:)) &#123;
+        return ([self selectedView] == pasteView) ? YES : NO;
+    &#125; else if (action == @selector(select:)) &#123;
+        return NO;
+    &#125; else if (action == @selector(selectAll:)) &#123;
+        return NO;
+    &#125; else &#123;
+        return [super canPerformAction:action withSender:sender];
+    &#125;
+&#125;
+- (void)cut:(id)sender &#123;
+    [self copy:sender];
+    [imageView setHidden:YES];
+&#125;
+- (void)copy:(id)sender &#123;
+    [self placeImageOnPasteboard:[self imageView]];
+&#125;
+- (void)paste:(id)sender &#123;
+    UIPasteboard *appPasteBoard = 
+    [UIPasteboard pasteboardWithName:@"CopyPasteImage" create:YES];
+    NSData *data =[appPasteBoard dataForPasteboardType:@"com.marizack.CopyPasteImage.imageView"];
+    pasteView.image = [UIImage imageWithData:data];
+&#125;
+</code></pre>
+<p>1、点击图片，显示菜单按钮。</p>
+<p><img loading="lazy" alt="78f9859egw1evmpilqgkrj209m0jg75f.jpg" src="/images/notes/iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/78f9859egw1evmpilqgkrj209m0jg75f.jpg"></p>
+<p>2、点击复制，将数据复制到剪贴板上：</p>
+<p><img loading="lazy" alt="78f9859egw1evmpg9mwdwj209w0j90tp.jpg" src="/images/notes/iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/78f9859egw1evmpg9mwdwj209w0j90tp.jpg"></p>
+<p>3、点击粘贴，将数据粘贴到uiimageview上。</p>
+<p><img loading="lazy" alt="78f9859egw1evmpim5t3jj20a40jjt9x.jpg" src="/images/notes/iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/78f9859egw1evmpim5t3jj20a40jjt9x.jpg"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/ios/">ios</a><a href="/tags/copy-past/">copy&past</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%20%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF%20-%20%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" data-title="iOS 开发之剪贴板 - 陈斌彬的技术博客 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/iOS 浅谈：深.浅拷贝与copy.strong/" title="iOS 浅谈：深.浅拷贝与copy.strong">
+  <strong>上一篇：</strong><br/>
+  <span>
+  iOS 浅谈：深.浅拷贝与copy.strong</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/iOS下载文件的几种简单有效的方式/"  title="iOS下载文件的几种简单有效的方式">
+ <strong>下一篇：</strong><br/> 
+ <span>iOS下载文件的几种简单有效的方式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/iOS 开发之剪贴板 - 陈斌彬的技术博客/" data-title="iOS 开发之剪贴板 - 陈斌彬的技术博客" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/iOS%20%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF%20-%20%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF-%E9%99%88%E6%96%8C%E5%BD%AC%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.</span> <span class="toc-text">iOS 开发之剪贴板 - 陈斌彬的技术博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS-%E5%BC%80%E5%8F%91%E4%B9%8B%E5%89%AA%E8%B4%B4%E6%9D%BF"><span class="toc-number">2.</span> <span class="toc-text">iOS 开发之剪贴板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9C%A8iOS%E4%B8%AD%E4%B8%8B%E9%9D%A2%E4%B8%89%E4%B8%AA%E6%8E%A7%E4%BB%B6%EF%BC%8C%E8%87%AA%E8%BA%AB%E5%B0%B1%E6%9C%89%E5%A4%8D%E5%88%B6-%E7%B2%98%E8%B4%B4%E7%9A%84%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="toc-number">2.0.1.</span> <span class="toc-text">一、在iOS中下面三个控件，自身就有复制-粘贴的功能：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81UIKit-framework%E6%8F%90%E4%BE%9B%E4%BA%86%E5%87%A0%E4%B8%AA%E7%B1%BB%E5%92%8C%E5%8D%8F%E8%AE%AE%E6%96%B9%E4%BE%BF%E6%88%91%E4%BB%AC%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%89%AA%E8%B4%B4%E6%9D%BF%E7%9A%84%E5%8A%9F%E8%83%BD%E3%80%82"><span class="toc-number">2.0.2.</span> <span class="toc-text">二、UIKit framework提供了几个类和协议方便我们在自己的应用程序中实现剪贴板的功能。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%8B%E9%9D%A2%E8%BF%99%E4%BA%9B%E9%A1%B9%E8%83%BD%E8%A2%AB%E6%94%BE%E7%BD%AE%E5%88%B0%E5%89%AA%E8%B4%B4%E6%9D%BF%E4%B8%AD"><span class="toc-number">2.0.3.</span> <span class="toc-text">三、下面这些项能被放置到剪贴板中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%89%AA%E8%B4%B4%E6%9D%BF%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%88%86%E4%B8%BA%E4%B8%A4%E7%A7%8D%EF%BC%9A"><span class="toc-number">2.0.4.</span> <span class="toc-text">四、剪贴板的类型分为两种：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%A4%8D%E5%88%B6%E5%89%AA%E8%B4%B4%E6%96%87%E6%9C%AC%E3%80%82"><span class="toc-number">2.0.4.1.</span> <span class="toc-text">1.复制剪贴文本。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9B%BE%E7%89%87%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4"><span class="toc-number">2.0.5.</span> <span class="toc-text">2.图片复制粘贴</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9C%A8%E7%95%8C%E9%9D%A2%E4%B8%8A%E6%94%BE%E7%BD%AE%E4%B8%A4%E4%B8%AAuiimageview%EF%BC%8C%E4%B8%80%E4%B8%AA%E6%98%AF%E5%9B%BE%E7%89%87%E7%9A%84%E6%95%B0%E6%8D%AE%E6%BA%90%EF%BC%8C%E4%B8%80%E4%B8%AA%E6%98%AF%E5%B0%86%E5%9B%BE%E7%89%87%E7%B2%98%E8%B4%B4%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9%E3%80%82CopyPasteImageViewController-%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-number">2.0.5.1.</span> <span class="toc-text">1.在界面上放置两个uiimageview，一个是图片的数据源，一个是将图片粘贴到的地方。CopyPasteImageViewController 代码如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%BD%93%E8%A7%A6%E6%91%B8%E5%9B%BE%E7%89%87%E7%9A%84%E6%97%B6%E5%80%99%E6%88%91%E4%BB%AC%E6%98%BE%E7%A4%BA%E5%BF%AB%E6%8D%B7%E8%8F%9C%E5%8D%95%EF%BC%9A"><span class="toc-number">2.0.5.2.</span> <span class="toc-text">2.当触摸图片的时候我们显示快捷菜单：</span></a></li></ol></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

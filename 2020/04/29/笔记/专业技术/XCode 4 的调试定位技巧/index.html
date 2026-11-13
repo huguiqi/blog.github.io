@@ -1,0 +1,886 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="keywords" content="胡小黑,架构师,资深软件工程师,object-c,swift,java,node,小黑,技术,大牛,阿里巴巴,腾讯,旅游">
+  
+  
+    <title>XCode 4 的调试定位技巧 | 小黑的技术博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="sam">
+    
+    <meta name="baidu-site-verification" content="zBj0BDqjSV" />
+    
+    <meta name="description" content="XCode 4 的调试定位技巧Ios技术文章收录 XCode 4 的调试定位技巧2012-11-2014:02阅读数：1475 单独窗口打印放大字号缩小字号##  论坛里经常有朋友会问Crash的问题。Crash最多的无非就两种，一种就是signal SIGABRT,大概的意思就是发送Message出现问题，信号迷失了。这种的Crash其实是很好定位，Crash了后直接看Console里出 经常有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XCode 4 的调试定位技巧">
+<meta property="og:url" content="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/XCode%204%20%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="小黑的技术博客">
+<meta property="og:description" content="XCode 4 的调试定位技巧Ios技术文章收录 XCode 4 的调试定位技巧2012-11-2014:02阅读数：1475 单独窗口打印放大字号缩小字号##  论坛里经常有朋友会问Crash的问题。Crash最多的无非就两种，一种就是signal SIGABRT,大概的意思就是发送Message出现问题，信号迷失了。这种的Crash其实是很好定位，Crash了后直接看Console里出 经常有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://clockcoder.top/images/notes/XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/162.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/163.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/164.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/165.png">
+<meta property="og:image" content="http://clockcoder.top/images/notes/XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/166.png">
+<meta property="article:published_time" content="2020-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2012-11-27T16:15:00.000Z">
+<meta property="article:author" content="sam">
+<meta property="article:tag" content="yinxiang">
+<meta property="article:tag" content="Ios技术文章收录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://clockcoder.top/images/notes/XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/162.png">
+<meta name="twitter:creator" content="@XiaoheiSpring">
+<link rel="publisher" href="109318125124422212783">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小黑的技术博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7265659350794760"
+     crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小黑的技术博客" title="小黑的技术博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小黑的技术博客">小黑的技术博客</a></h1>
+				<h2 class="blog-motto">不积跬步无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li><a target="_blank" rel="noopener" href="http://blog.clockcoder.top">副站</a></li>
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="on" class="st-default-search-input"  name="q" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/29/笔记/专业技术/XCode 4 的调试定位技巧/" title="XCode 4 的调试定位技巧" itemprop="url">XCode 4 的调试定位技巧</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109318125124422212783?rel=author" title="sam" target="_blank" itemprop="author">sam</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2020-04-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7"><span class="toc-number">1.</span> <span class="toc-text">XCode 4 的调试定位技巧</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7-1"><span class="toc-number">2.</span> <span class="toc-text">XCode 4 的调试定位技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E7%8B%AC%E7%AA%97%E5%8F%A3%E6%89%93%E5%8D%B0%E6%94%BE%E5%A4%A7%E5%AD%97%E5%8F%B7%E7%BC%A9%E5%B0%8F%E5%AD%97%E5%8F%B7"><span class="toc-number">2.1.</span> <span class="toc-text">单独窗口打印放大字号缩小字号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.2.</span> <span class="toc-text"></span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="XCode-4-的调试定位技巧"><a title="XCode 4 的调试定位技巧" class="headerlink" href="#XCode-4-的调试定位技巧"></a>XCode 4 的调试定位技巧</h1><p><code>Ios技术文章收录</code></p>
+<h1 id="XCode-4-的调试定位技巧-1"><a title="XCode 4 的调试定位技巧" class="headerlink" href="#XCode-4-的调试定位技巧-1"></a>XCode 4 的调试定位技巧</h1><p>2012-11-2014:02<br><a href="">阅读数：1475</a></p>
+<h2 id="单独窗口打印放大字号缩小字号"><a title="单独窗口打印放大字号缩小字号" class="headerlink" href="#单独窗口打印放大字号缩小字号"></a><a href=""><strong>单独窗口</strong></a><a href=""><strong>打印</strong></a><a href=""><strong>放大字号</strong></a><a href=""><strong>缩小字号</strong></a></h2><h2 id=""><a title="" class="headerlink" href="#"></a></h2><p><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">##</a> </p>
+<p><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">论坛里经常有朋友会问Crash的问题。Crash最多的无非就两种，一种就是signal SIGABRT,大概的意思就是发送Message出现问题，信号迷失了。这种的Crash其实是很好定位，Crash了后直接看Console里出</a></p>
+<p><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">经常有朋友会问Crash的问题。Crash最多的无非就两种，一种就是signal SIGABRT,大概的意思就是发送Message出现问题，信号迷失了。这种的Crash其实是很好定位，Crash了后直接看Console里出的最后日志，比如这段：</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22"><strong>2012-03-28 19:26:33.055 TableViewMenuDemo[3916:f803] *** Terminating app due to uncaught exception ‘NSInvalidArgumentException’, reason: ‘-[__NSArrayI replaceObjectAtIndex:withObject:]: unrecognized selector sent to instance 0x6a3f3d0′</strong></a></p>
+<p><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">***** First throw call stack:**</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">找到reason字段，那就是原因,说NSArray 调用<strong>replaceObjectAtIndex:withObject：</strong></a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">这个方法是NSMutableArry的，NSArray并没有该方法。信号迷失掉了，所以Crash了。<strong>0x6a3f3d0</strong>&nbsp;是出问题的内存地址,查下内存地址或搜下调用方法就比较好定位了。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22"><img loading="lazy" alt="-162.png" src="/images/notes/XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/162.png"></a></p>
+<p>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">Xcode4上还有个更好用的定位方法，就是设置一个Exception Breakpoint就好了。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">看图在工程的左边栏中选择Breakpoint Navigator,点击下面的+号添加一个Exception Breakpoint，然后再运行试试，Crash后，是不是直接定位到了那行代码了？再根据Console里的日志进行定位修改就好了。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">下面说说另一种Crash, EXC_BAD_ACCESS,这个比较头疼，因为Crash的时候，可能是比较早之前的某个变量释放了，现在访问时出问题。Console里也没显示什么日志。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">这里光加入Exception Breakpoint是不够的了，XCode4还个可爱的地方，打开Scheme选项选择EditScheme。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22"><img loading="lazy" alt="-163.png" src="/images/notes/XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/163.png"></a></p>
+<p>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22"><img loading="lazy" alt="-164.png" src="/images/notes/XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/164.png"></a></p>
+<p>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">然后按图勾上Enable Zombie Objects和Malloc Stack那两项，记住一般只有在定位EXC_BAD_ACCESS时候才勾选，别有事没事都勾上。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">这样重新跑一下，如果是到Exception Breakpoint处停止了，可以在Console中输入：c（continue)按回车继续跑，直到Crash。看下Console是不是有跟SIGABRT类似的错误信息日志了，后面定位什么的你懂的。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">如果还没有日志，在Console中输入po$eax$eax标志出错的地方，适用模拟器，真机用$r0（话说EXC_BAD_ACCESS这种错误模拟器定位就行）,还可以输入比如：po[$eaxname]po[$eaxreason]等指令查看错误其他信息（注意方括号后没分号的）。然后，就没有然后了。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">还要补充点，程序开发过程就要多关注左边栏中Issue Navigator里的警告信息，Xcode4不仅会警告，还多数给出解决建议，能避免后面不必要的Crash。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22"><img loading="lazy" alt="-165.png" src="/images/notes/XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/165.png"></a></p>
+<p>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">如果程序Crash，第一时间关注下debug Navigator里的执行信息，将滑块拉向右边可以看到更多调用信息，根据这个能大致设想是调用什么方法或进行什么操作时Crash的。</a><br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22"><img loading="lazy" alt="-166.png" src="/images/notes/XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/166.png"></a></p>
+<p>&nbsp;
+&nbsp;</p>
+<p>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br><a href="%22%E5%88%86%E4%BA%AB%E5%88%B0%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A%22">来源：DEVDIV博客-History</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS%E4%B8%8E%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">iOS与移动开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/yinxiang/">yinxiang</a><a href="/tags/Ios技术文章收录/">Ios技术文章收录</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/XCode%204%20%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/" data-title="XCode 4 的调试定位技巧 | 小黑的技术博客" data-tsina="1601653200" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/04/29/笔记/专业技术/Validator.js/" title="Validator.js">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Validator.js</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/04/29/笔记/专业技术/Windows 命令行下修改文件访问控制权限/"  title="Windows 命令行下修改文件访问控制权限">
+ <strong>下一篇：</strong><br/> 
+ <span>Windows 命令行下修改文件访问控制权限
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2020/04/29/笔记/专业技术/XCode 4 的调试定位技巧/" data-title="XCode 4 的调试定位技巧" data-url="http://clockcoder.top/2020/04/29/%E7%AC%94%E8%AE%B0/%E4%B8%93%E4%B8%9A%E6%8A%80%E6%9C%AF/XCode%204%20%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7"><span class="toc-number">1.</span> <span class="toc-text">XCode 4 的调试定位技巧</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XCode-4-%E7%9A%84%E8%B0%83%E8%AF%95%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7-1"><span class="toc-number">2.</span> <span class="toc-text">XCode 4 的调试定位技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E7%8B%AC%E7%AA%97%E5%8F%A3%E6%89%93%E5%8D%B0%E6%94%BE%E5%A4%A7%E5%AD%97%E5%8F%B7%E7%BC%A9%E5%B0%8F%E5%AD%97%E5%8F%B7"><span class="toc-number">2.1.</span> <span class="toc-text">单独窗口打印放大字号缩小字号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.2.</span> <span class="toc-text"></span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="huguiqi" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/AFNetWork3-1/" title="AFNetWork3.1">AFNetWork3.1<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/" title="AI">AI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Alcatraz/" title="Alcatraz">Alcatraz<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevOps与架构/" title="DevOps与架构">DevOps与架构<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java与后端/" title="Java与后端">Java与后端<sup>61</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux与运维/" title="Linux与运维">Linux与运维<sup>82</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/" title="activiti">activiti<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/AI/chatGPT/" title="chatGPT">chatGPT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/devops/" title="devops">devops<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git-upstream/" title="git upstream">git upstream<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/github-博客/" title="github 博客">github 博客<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo插件/" title="hexo插件">hexo插件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS与移动开发/" title="iOS与移动开发">iOS与移动开发<sup>155</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios-Developer/" title="ios Developer">ios Developer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/" title="k8s">k8s<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/" title="kafka">kafka<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/k8s/minikube/" title="minikube">minikube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/kafka/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/route/" title="route">route<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rpc/" title="rpc">rpc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/sonarqube/" title="sonarqube">sonarqube<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springCloud/" title="springCloud">springCloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springboot/" title="springboot">springboot<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/activiti/springboot/" title="springboot">springboot<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/springcloud/" title="springcloud">springcloud<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/windows11/" title="windows11">windows11<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>94</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端与Node-js/" title="前端与Node.js">前端与Node.js<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/印象笔记/" title="印象笔记">印象笔记<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/国产化/" title="国产化">国产化<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/感悟/" title="感悟">感悟<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>43</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/版本控制/" title="版本控制">版本控制<sup>55</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/电子产品/" title="电子产品">电子产品<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-工具/" title="系统&amp;工具">系统&amp;工具<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统-运维/" title="系统&amp;运维">系统&amp;运维<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/系统与工具技巧/" title="系统与工具技巧">系统与工具技巧<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络/" title="网络">网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络与Web服务/" title="网络与Web服务">网络与Web服务<sup>28</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络配置/" title="网络配置">网络配置<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/职场与生活/" title="职场与生活">职场与生活<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计与产品/" title="设计与产品">设计与产品<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>59</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/路由器/" title="路由器">路由器<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试整理/" title="面试整理">面试整理<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/yinxiang/" title="yinxiang">yinxiang<sup>714</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios技术文章收录/" title="Ios技术文章收录">Ios技术文章收录<sup>53</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Duokan-Reading-Notes/" title="Duokan Reading Notes">Duokan Reading Notes<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>28</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ios基础语法/" title="Ios基础语法">Ios基础语法<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux-命令/" title="linux 命令">linux 命令<sup>25</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/macOS/" title="macOS">macOS<sup>24</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/obj-c/" title="obj-c">obj-c<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN-SubVersion/" title="SVN(SubVersion)">SVN(SubVersion)<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/涂书笔记/" title="涂书笔记">涂书笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/读书/" title="读书">读书<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode-some-trouble/" title="Xcode some trouble">Xcode some trouble<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/k8s/" title="k8s">k8s<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/someTrouble/" title="someTrouble">someTrouble<sup>10</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://clockcoder.com" target="_blank" title="承接手机app、微信、web开发">找人做软件</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+<div class="doubanshow">
+<p class="asidetitle">豆瓣秀</p>
+<div>
+<script type="text/javascript" src="http://www.douban.com/service/badge/64698454/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+</div>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1601653200&verifier=bd864c6a&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Sam.This is my Blog. <br/>
+			Anything that can go wrong will go wrong</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1601653200" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huguiqi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/XiaoheiSpring" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/sam.hu.7334" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/小黑-胡-ab83b992" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		<a href="https://www.douban.com/people/64698454" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		<a href="http://www.zhihu.com/people/hu-xiao-hei-53" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		<a href="https://plus.google.com/109318125124422212783?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:guiqi.hu@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="http://blog.huguiqi.com." target="_blank" title="sam">sam</a> © 2026 
+		
+		<a href="/about" target="_blank" title="sam">sam</a>
+		
+		
+		</p>
+</div>
+
+ <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','qtnHgvQyg5N9h4en-9wA','2.0.0');
+</script>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"小黑_spring"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'huguiqicom';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f5971877c7b77f98074be3ddabf34fbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
